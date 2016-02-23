@@ -1,0 +1,478 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DbSPTDModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Agendamento">
+    <Key>
+      <PropertyRef Name="agendamentoId" />
+    </Key>
+    <Property Name="agendamentoId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="dt_Agendamento" Type="datetime" />
+    <Property Name="dt_Marcacao" Type="datetime" />
+    <Property Name="fk_Pessoa" Type="bigint" />
+    <Property Name="fk_Usuario" Type="bigint" />
+    <Property Name="fk_Clinica" Type="bigint" />
+  </EntityType>
+  <EntityType Name="Cid">
+    <Key>
+      <PropertyRef Name="cidId" />
+    </Key>
+    <Property Name="cidId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="codigoCid" Type="varchar" MaxLength="5" />
+    <Property Name="descricao" Type="varchar" MaxLength="150" />
+  </EntityType>
+  <EntityType Name="Cidades">
+    <Key>
+      <PropertyRef Name="IdCidade" />
+    </Key>
+    <Property Name="IdCidade" Type="int" Nullable="false" />
+    <Property Name="Cidade" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="IdEstado" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Clinica">
+    <Key>
+      <PropertyRef Name="clinicaId" />
+    </Key>
+    <Property Name="clinicaId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nome_Clinica" Type="varchar" MaxLength="150" />
+    <Property Name="tel_Clinica" Type="varchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="DistribProcesso">
+    <Key>
+      <PropertyRef Name="distrib_ProcessoId" />
+    </Key>
+    <Property Name="distrib_ProcessoId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="origem" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="destino" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="dt_Envio" Type="datetime" Nullable="false" />
+    <Property Name="dt_Recebimento" Type="datetime" Nullable="false" />
+    <Property Name="observacoes" Type="varchar(max)" />
+    <Property Name="fk_Setor" Type="bigint" />
+    <Property Name="fk_PessoaId" Type="bigint" Nullable="false" />
+    <Property Name="fk_UsuarioId" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Endereco">
+    <Key>
+      <PropertyRef Name="enderecoId" />
+    </Key>
+    <Property Name="enderecoId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="fk_CidadeId" Type="int" Nullable="false" />
+    <Property Name="rua" Type="varchar" MaxLength="150" Nullable="false" />
+    <Property Name="numero" Type="varchar" MaxLength="5" Nullable="false" />
+    <Property Name="cep" Type="varchar" MaxLength="8" />
+    <Property Name="bairro" Type="nchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="Estado">
+    <Key>
+      <PropertyRef Name="IdEstado" />
+    </Key>
+    <Property Name="IdEstado" Type="int" Nullable="false" />
+    <Property Name="Estado" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="Sigla" Type="char" MaxLength="2" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ItemRequisicao">
+    <Key>
+      <PropertyRef Name="itemId" />
+    </Key>
+    <Property Name="itemId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="fk_Pessoa" Type="bigint" Nullable="false" />
+    <Property Name="fk_Requisicao" Type="bigint" />
+    <Property Name="fk_Trecho" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Medico">
+    <Key>
+      <PropertyRef Name="medicoId" />
+    </Key>
+    <Property Name="medicoId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="fk_PessoaId" Type="bigint" Nullable="false" />
+    <Property Name="crm_Medico" Type="varchar" MaxLength="20" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Pericia">
+    <Key>
+      <PropertyRef Name="periciaId" />
+    </Key>
+    <Property Name="periciaId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="descricao" Type="varchar(max)" Nullable="false" />
+    <Property Name="fk_CidId" Type="bigint" />
+    <Property Name="dt_Pericia" Type="datetime" Nullable="false" />
+    <Property Name="fk_MedicoId" Type="bigint" Nullable="false" />
+    <Property Name="fk_PessoaId" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Pessoa">
+    <Key>
+      <PropertyRef Name="pessoaId" />
+    </Key>
+    <Property Name="pessoaId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="fk_TipoPessoa" Type="bigint" />
+    <Property Name="fk_EnderecoId" Type="bigint" />
+    <Property Name="dt_Cadastro" Type="datetime" />
+    <Property Name="cpf" Type="varchar" MaxLength="25" Nullable="false" />
+    <Property Name="cns" Type="varchar" MaxLength="25" />
+    <Property Name="rg" Type="varchar" MaxLength="25" />
+    <Property Name="nome" Type="varchar" MaxLength="150" Nullable="false" />
+    <Property Name="dt_Nascimento" Type="datetime" Nullable="false" />
+    <Property Name="email" Type="varchar" MaxLength="50" />
+    <Property Name="nome_Mae" Type="varchar" MaxLength="150" Nullable="false" />
+    <Property Name="nome_Pai" Type="varchar" MaxLength="150" Nullable="false" />
+    <Property Name="tel" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="cel" Type="varchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="Requisicao">
+    <Key>
+      <PropertyRef Name="requisicaoId" />
+    </Key>
+    <Property Name="requisicaoId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="fk_UsuarioId" Type="bigint" />
+    <Property Name="observacoes" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="Setor">
+    <Key>
+      <PropertyRef Name="setorId" />
+    </Key>
+    <Property Name="setorId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="descricao" Type="varchar" MaxLength="25" />
+  </EntityType>
+  <EntityType Name="TipoPessoa">
+    <Key>
+      <PropertyRef Name="tipo_PessoaId" />
+    </Key>
+    <Property Name="tipo_PessoaId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="descricao" Type="varchar" MaxLength="20" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Trecho">
+    <Key>
+      <PropertyRef Name="trechoId" />
+    </Key>
+    <Property Name="trechoId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="descricao" Type="varbinary" MaxLength="12" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="usuarioId" />
+    </Key>
+    <Property Name="usuarioId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="login" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="senha" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="fk_PessoaId" Type="bigint" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Agendamento_Clinica">
+    <End Role="Clinica" Type="Self.Clinica" Multiplicity="0..1" />
+    <End Role="Agendamento" Type="Self.Agendamento" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clinica">
+        <PropertyRef Name="clinicaId" />
+      </Principal>
+      <Dependent Role="Agendamento">
+        <PropertyRef Name="fk_Clinica" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Agendamento_Pessoa">
+    <End Role="Pessoa" Type="Self.Pessoa" Multiplicity="0..1" />
+    <End Role="Agendamento" Type="Self.Agendamento" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Pessoa">
+        <PropertyRef Name="pessoaId" />
+      </Principal>
+      <Dependent Role="Agendamento">
+        <PropertyRef Name="fk_Pessoa" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Agendamento_User">
+    <End Role="User" Type="Self.User" Multiplicity="0..1" />
+    <End Role="Agendamento" Type="Self.Agendamento" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="usuarioId" />
+      </Principal>
+      <Dependent Role="Agendamento">
+        <PropertyRef Name="fk_Usuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Cidades_Estado">
+    <End Role="Estado" Type="Self.Estado" Multiplicity="1" />
+    <End Role="Cidades" Type="Self.Cidades" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Estado">
+        <PropertyRef Name="IdEstado" />
+      </Principal>
+      <Dependent Role="Cidades">
+        <PropertyRef Name="IdEstado" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DistribProcesso_Pessoa">
+    <End Role="Pessoa" Type="Self.Pessoa" Multiplicity="1" />
+    <End Role="DistribProcesso" Type="Self.DistribProcesso" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Pessoa">
+        <PropertyRef Name="pessoaId" />
+      </Principal>
+      <Dependent Role="DistribProcesso">
+        <PropertyRef Name="fk_PessoaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DistribProcesso_Setor">
+    <End Role="Setor" Type="Self.Setor" Multiplicity="0..1" />
+    <End Role="DistribProcesso" Type="Self.DistribProcesso" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Setor">
+        <PropertyRef Name="setorId" />
+      </Principal>
+      <Dependent Role="DistribProcesso">
+        <PropertyRef Name="fk_Setor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DistribProcesso_User">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="DistribProcesso" Type="Self.DistribProcesso" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="usuarioId" />
+      </Principal>
+      <Dependent Role="DistribProcesso">
+        <PropertyRef Name="fk_UsuarioId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Endereco_Cidades">
+    <End Role="Cidades" Type="Self.Cidades" Multiplicity="1" />
+    <End Role="Endereco" Type="Self.Endereco" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cidades">
+        <PropertyRef Name="IdCidade" />
+      </Principal>
+      <Dependent Role="Endereco">
+        <PropertyRef Name="fk_CidadeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ItemRequisicao_Pessoa">
+    <End Role="Pessoa" Type="Self.Pessoa" Multiplicity="1" />
+    <End Role="ItemRequisicao" Type="Self.ItemRequisicao" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Pessoa">
+        <PropertyRef Name="pessoaId" />
+      </Principal>
+      <Dependent Role="ItemRequisicao">
+        <PropertyRef Name="fk_Pessoa" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ItemRequisicao_Requisicao">
+    <End Role="Requisicao" Type="Self.Requisicao" Multiplicity="0..1" />
+    <End Role="ItemRequisicao" Type="Self.ItemRequisicao" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Requisicao">
+        <PropertyRef Name="requisicaoId" />
+      </Principal>
+      <Dependent Role="ItemRequisicao">
+        <PropertyRef Name="fk_Requisicao" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ItemRequisicao_Trecho1">
+    <End Role="Trecho" Type="Self.Trecho" Multiplicity="1" />
+    <End Role="ItemRequisicao" Type="Self.ItemRequisicao" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Trecho">
+        <PropertyRef Name="trechoId" />
+      </Principal>
+      <Dependent Role="ItemRequisicao">
+        <PropertyRef Name="fk_Pessoa" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Medico_Pessoa">
+    <End Role="Pessoa" Type="Self.Pessoa" Multiplicity="1" />
+    <End Role="Medico" Type="Self.Medico" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Pessoa">
+        <PropertyRef Name="pessoaId" />
+      </Principal>
+      <Dependent Role="Medico">
+        <PropertyRef Name="fk_PessoaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Pericia_Cid">
+    <End Role="Cid" Type="Self.Cid" Multiplicity="0..1" />
+    <End Role="Pericia" Type="Self.Pericia" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cid">
+        <PropertyRef Name="cidId" />
+      </Principal>
+      <Dependent Role="Pericia">
+        <PropertyRef Name="fk_CidId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Pericia_Medico">
+    <End Role="Medico" Type="Self.Medico" Multiplicity="1" />
+    <End Role="Pericia" Type="Self.Pericia" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Medico">
+        <PropertyRef Name="medicoId" />
+      </Principal>
+      <Dependent Role="Pericia">
+        <PropertyRef Name="fk_MedicoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Pericia_Pessoa">
+    <End Role="Pessoa" Type="Self.Pessoa" Multiplicity="1" />
+    <End Role="Pericia" Type="Self.Pericia" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Pessoa">
+        <PropertyRef Name="pessoaId" />
+      </Principal>
+      <Dependent Role="Pericia">
+        <PropertyRef Name="fk_PessoaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Pessoa_Endereco">
+    <End Role="Endereco" Type="Self.Endereco" Multiplicity="0..1" />
+    <End Role="Pessoa" Type="Self.Pessoa" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Endereco">
+        <PropertyRef Name="enderecoId" />
+      </Principal>
+      <Dependent Role="Pessoa">
+        <PropertyRef Name="fk_EnderecoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Pessoa_TipoPessoa">
+    <End Role="TipoPessoa" Type="Self.TipoPessoa" Multiplicity="0..1" />
+    <End Role="Pessoa" Type="Self.Pessoa" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TipoPessoa">
+        <PropertyRef Name="tipo_PessoaId" />
+      </Principal>
+      <Dependent Role="Pessoa">
+        <PropertyRef Name="fk_TipoPessoa" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Requisicao_User">
+    <End Role="User" Type="Self.User" Multiplicity="0..1" />
+    <End Role="Requisicao" Type="Self.Requisicao" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="usuarioId" />
+      </Principal>
+      <Dependent Role="Requisicao">
+        <PropertyRef Name="fk_UsuarioId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_User_Pessoa">
+    <End Role="Pessoa" Type="Self.Pessoa" Multiplicity="1" />
+    <End Role="User" Type="Self.User" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Pessoa">
+        <PropertyRef Name="pessoaId" />
+      </Principal>
+      <Dependent Role="User">
+        <PropertyRef Name="fk_PessoaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DbSPTDModelStoreContainer">
+    <EntitySet Name="Agendamento" EntityType="Self.Agendamento" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Cid" EntityType="Self.Cid" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Cidades" EntityType="Self.Cidades" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Clinica" EntityType="Self.Clinica" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DistribProcesso" EntityType="Self.DistribProcesso" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Endereco" EntityType="Self.Endereco" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Estado" EntityType="Self.Estado" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ItemRequisicao" EntityType="Self.ItemRequisicao" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Medico" EntityType="Self.Medico" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Pericia" EntityType="Self.Pericia" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Pessoa" EntityType="Self.Pessoa" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Requisicao" EntityType="Self.Requisicao" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Setor" EntityType="Self.Setor" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TipoPessoa" EntityType="Self.TipoPessoa" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Trecho" EntityType="Self.Trecho" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Agendamento_Clinica" Association="Self.FK_Agendamento_Clinica">
+      <End Role="Clinica" EntitySet="Clinica" />
+      <End Role="Agendamento" EntitySet="Agendamento" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Agendamento_Pessoa" Association="Self.FK_Agendamento_Pessoa">
+      <End Role="Pessoa" EntitySet="Pessoa" />
+      <End Role="Agendamento" EntitySet="Agendamento" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Agendamento_User" Association="Self.FK_Agendamento_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="Agendamento" EntitySet="Agendamento" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Cidades_Estado" Association="Self.FK_Cidades_Estado">
+      <End Role="Estado" EntitySet="Estado" />
+      <End Role="Cidades" EntitySet="Cidades" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DistribProcesso_Pessoa" Association="Self.FK_DistribProcesso_Pessoa">
+      <End Role="Pessoa" EntitySet="Pessoa" />
+      <End Role="DistribProcesso" EntitySet="DistribProcesso" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DistribProcesso_Setor" Association="Self.FK_DistribProcesso_Setor">
+      <End Role="Setor" EntitySet="Setor" />
+      <End Role="DistribProcesso" EntitySet="DistribProcesso" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DistribProcesso_User" Association="Self.FK_DistribProcesso_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="DistribProcesso" EntitySet="DistribProcesso" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Endereco_Cidades" Association="Self.FK_Endereco_Cidades">
+      <End Role="Cidades" EntitySet="Cidades" />
+      <End Role="Endereco" EntitySet="Endereco" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ItemRequisicao_Pessoa" Association="Self.FK_ItemRequisicao_Pessoa">
+      <End Role="Pessoa" EntitySet="Pessoa" />
+      <End Role="ItemRequisicao" EntitySet="ItemRequisicao" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ItemRequisicao_Requisicao" Association="Self.FK_ItemRequisicao_Requisicao">
+      <End Role="Requisicao" EntitySet="Requisicao" />
+      <End Role="ItemRequisicao" EntitySet="ItemRequisicao" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ItemRequisicao_Trecho1" Association="Self.FK_ItemRequisicao_Trecho1">
+      <End Role="Trecho" EntitySet="Trecho" />
+      <End Role="ItemRequisicao" EntitySet="ItemRequisicao" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Medico_Pessoa" Association="Self.FK_Medico_Pessoa">
+      <End Role="Pessoa" EntitySet="Pessoa" />
+      <End Role="Medico" EntitySet="Medico" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Pericia_Cid" Association="Self.FK_Pericia_Cid">
+      <End Role="Cid" EntitySet="Cid" />
+      <End Role="Pericia" EntitySet="Pericia" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Pericia_Medico" Association="Self.FK_Pericia_Medico">
+      <End Role="Medico" EntitySet="Medico" />
+      <End Role="Pericia" EntitySet="Pericia" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Pericia_Pessoa" Association="Self.FK_Pericia_Pessoa">
+      <End Role="Pessoa" EntitySet="Pessoa" />
+      <End Role="Pericia" EntitySet="Pericia" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Pessoa_Endereco" Association="Self.FK_Pessoa_Endereco">
+      <End Role="Endereco" EntitySet="Endereco" />
+      <End Role="Pessoa" EntitySet="Pessoa" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Pessoa_TipoPessoa" Association="Self.FK_Pessoa_TipoPessoa">
+      <End Role="TipoPessoa" EntitySet="TipoPessoa" />
+      <End Role="Pessoa" EntitySet="Pessoa" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Requisicao_User" Association="Self.FK_Requisicao_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="Requisicao" EntitySet="Requisicao" />
+    </AssociationSet>
+    <AssociationSet Name="FK_User_Pessoa" Association="Self.FK_User_Pessoa">
+      <End Role="Pessoa" EntitySet="Pessoa" />
+      <End Role="User" EntitySet="User" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

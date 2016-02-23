@@ -1,0 +1,185 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DBSPTDModelStoreContainer" CdmEntityContainer="DbSPTDEntities">
+    <EntitySetMapping Name="Agendamento">
+      <EntityTypeMapping TypeName="DBSPTDModel.Agendamento">
+        <MappingFragment StoreEntitySet="Agendamento">
+          <ScalarProperty Name="agendamentoId" ColumnName="agendamentoId" />
+          <ScalarProperty Name="dt_Agendamento" ColumnName="dt_Agendamento" />
+          <ScalarProperty Name="dt_Marcacao" ColumnName="dt_Marcacao" />
+          <ScalarProperty Name="fk_Pessoa" ColumnName="fk_Pessoa" />
+          <ScalarProperty Name="fk_Usuario" ColumnName="fk_Usuario" />
+          <ScalarProperty Name="fk_Clinica" ColumnName="fk_Clinica" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Cid">
+      <EntityTypeMapping TypeName="DBSPTDModel.Cid">
+        <MappingFragment StoreEntitySet="Cid">
+          <ScalarProperty Name="cidId" ColumnName="cidId" />
+          <ScalarProperty Name="codigoCid" ColumnName="codigoCid" />
+          <ScalarProperty Name="descricao" ColumnName="descricao" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Cidades">
+      <EntityTypeMapping TypeName="DBSPTDModel.Cidades">
+        <MappingFragment StoreEntitySet="Cidades">
+          <ScalarProperty Name="IdCidade" ColumnName="IdCidade" />
+          <ScalarProperty Name="Cidade" ColumnName="Cidade" />
+          <ScalarProperty Name="IdEstado" ColumnName="IdEstado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Clinica">
+      <EntityTypeMapping TypeName="DBSPTDModel.Clinica">
+        <MappingFragment StoreEntitySet="Clinica">
+          <ScalarProperty Name="clinicaId" ColumnName="clinicaId" />
+          <ScalarProperty Name="nome_Clinica" ColumnName="nome_Clinica" />
+          <ScalarProperty Name="fk_Cidade" ColumnName="fk_Cidade" />
+          <ScalarProperty Name="tel_Clinica" ColumnName="tel_Clinica" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DistribProcesso">
+      <EntityTypeMapping TypeName="DBSPTDModel.DistribProcesso">
+        <MappingFragment StoreEntitySet="DistribProcesso">
+          <ScalarProperty Name="usuarioRecebeu" ColumnName="usuarioRecebeu" />
+          <ScalarProperty Name="fk_Pericia" ColumnName="fk_Pericia" />
+          <ScalarProperty Name="usuarioEnviou" ColumnName="usuarioEnviou" />
+          <ScalarProperty Name="distrib_ProcessoId" ColumnName="distrib_ProcessoId" />
+          <ScalarProperty Name="origem" ColumnName="origem" />
+          <ScalarProperty Name="destino" ColumnName="destino" />
+          <ScalarProperty Name="observacoes" ColumnName="observacoes" />
+          <ScalarProperty Name="fk_PessoaId" ColumnName="fk_PessoaId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Endereco">
+      <EntityTypeMapping TypeName="DBSPTDModel.Endereco">
+        <MappingFragment StoreEntitySet="Endereco">
+          <ScalarProperty Name="enderecoId" ColumnName="enderecoId" />
+          <ScalarProperty Name="fk_CidadeId" ColumnName="fk_CidadeId" />
+          <ScalarProperty Name="rua" ColumnName="rua" />
+          <ScalarProperty Name="numero" ColumnName="numero" />
+          <ScalarProperty Name="cep" ColumnName="cep" />
+          <ScalarProperty Name="bairro" ColumnName="bairro" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Especialidade">
+      <EntityTypeMapping TypeName="DBSPTDModel.Especialidade">
+        <MappingFragment StoreEntitySet="Especialidade">
+          <ScalarProperty Name="EspecialidadeId" ColumnName="EspecialidadeId" />
+          <ScalarProperty Name="descricao" ColumnName="descricao" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Estado">
+      <EntityTypeMapping TypeName="DBSPTDModel.Estado">
+        <MappingFragment StoreEntitySet="Estado">
+          <ScalarProperty Name="IdEstado" ColumnName="IdEstado" />
+          <ScalarProperty Name="Estado1" ColumnName="Estado" />
+          <ScalarProperty Name="Sigla" ColumnName="Sigla" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ItemRequisicao">
+      <EntityTypeMapping TypeName="DBSPTDModel.ItemRequisicao">
+        <MappingFragment StoreEntitySet="ItemRequisicao">
+          <ScalarProperty Name="itemId" ColumnName="itemId" />
+          <ScalarProperty Name="fk_Pessoa" ColumnName="fk_Pessoa" />
+          <ScalarProperty Name="fk_Requisicao" ColumnName="fk_Requisicao" />
+          <ScalarProperty Name="fk_Trecho" ColumnName="fk_Trecho" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Medico">
+      <EntityTypeMapping TypeName="DBSPTDModel.Medico">
+        <MappingFragment StoreEntitySet="Medico">
+          <ScalarProperty Name="medicoId" ColumnName="medicoId" />
+          <ScalarProperty Name="fk_Especialidade" ColumnName="fk_Especialidade" />
+          <ScalarProperty Name="fk_PessoaId" ColumnName="fk_PessoaId" />
+          <ScalarProperty Name="crm_Medico" ColumnName="crm_Medico" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Pericia">
+      <EntityTypeMapping TypeName="DBSPTDModel.Pericia">
+        <MappingFragment StoreEntitySet="Pericia">
+          <ScalarProperty Name="situacao" ColumnName="situacao" />
+          <ScalarProperty Name="periciaId" ColumnName="periciaId" />
+          <ScalarProperty Name="descricao" ColumnName="descricao" />
+          <ScalarProperty Name="fk_CidId" ColumnName="fk_CidId" />
+          <ScalarProperty Name="dt_Pericia" ColumnName="dt_Pericia" />
+          <ScalarProperty Name="fk_MedicoId" ColumnName="fk_MedicoId" />
+          <ScalarProperty Name="fk_PessoaId" ColumnName="fk_PessoaId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Requisicao">
+      <EntityTypeMapping TypeName="DBSPTDModel.Requisicao">
+        <MappingFragment StoreEntitySet="Requisicao">
+          <ScalarProperty Name="requisicaoId" ColumnName="requisicaoId" />
+          <ScalarProperty Name="fk_UsuarioId" ColumnName="fk_UsuarioId" />
+          <ScalarProperty Name="observacoes" ColumnName="observacoes" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Setor">
+      <EntityTypeMapping TypeName="DBSPTDModel.Setor">
+        <MappingFragment StoreEntitySet="Setor">
+          <ScalarProperty Name="setorId" ColumnName="setorId" />
+          <ScalarProperty Name="descricao" ColumnName="descricao" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Trecho">
+      <EntityTypeMapping TypeName="DBSPTDModel.Trecho">
+        <MappingFragment StoreEntitySet="Trecho">
+          <ScalarProperty Name="trechoId" ColumnName="trechoId" />
+          <ScalarProperty Name="descricao" ColumnName="descricao" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="User">
+      <EntityTypeMapping TypeName="DBSPTDModel.User">
+        <MappingFragment StoreEntitySet="User">
+          <ScalarProperty Name="usuarioId" ColumnName="usuarioId" />
+          <ScalarProperty Name="login" ColumnName="login" />
+          <ScalarProperty Name="senha" ColumnName="senha" />
+          <ScalarProperty Name="fk_PessoaId" ColumnName="fk_PessoaId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Agen_Clinica">
+      <EntityTypeMapping TypeName="DBSPTDModel.Agen_Clinica">
+        <MappingFragment StoreEntitySet="Agen_Clinica">
+          <ScalarProperty Name="fk_Agendamento" ColumnName="fk_Agendamento" />
+          <ScalarProperty Name="fk_Clinica" ColumnName="fk_Clinica" />
+          <ScalarProperty Name="Agen_CliniciaId" ColumnName="Agen_CliniciaId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Pessoa">
+      <EntityTypeMapping TypeName="DBSPTDModel.Pessoa">
+        <MappingFragment StoreEntitySet="Pessoa">
+          <ScalarProperty Name="cel" ColumnName="cel" />
+          <ScalarProperty Name="tel" ColumnName="tel" />
+          <ScalarProperty Name="nome_Pai" ColumnName="nome_Pai" />
+          <ScalarProperty Name="nome_Mae" ColumnName="nome_Mae" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="dt_Nascimento" ColumnName="dt_Nascimento" />
+          <ScalarProperty Name="nome" ColumnName="nome" />
+          <ScalarProperty Name="rg" ColumnName="rg" />
+          <ScalarProperty Name="cns" ColumnName="cns" />
+          <ScalarProperty Name="cpf" ColumnName="cpf" />
+          <ScalarProperty Name="dt_Cadastro" ColumnName="dt_Cadastro" />
+          <ScalarProperty Name="fk_Endereco" ColumnName="fk_Endereco" />
+          <ScalarProperty Name="pessoaPai" ColumnName="pessoaPai" />
+          <ScalarProperty Name="pessoaId" ColumnName="pessoaId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
