@@ -173,3 +173,10 @@ D:\PROJETOTCC\PROJETOTCC\Sptd.Web\Sptd.Web\obj\Debug\Sptd.Web.Migrations.AlterTa
 D:\PROJETOTCC\PROJETOTCC\Sptd.Web\Sptd.Web\obj\Debug\Sptd.Web.csproj.GenerateResource.Cache
 D:\PROJETOTCC\PROJETOTCC\Sptd.Web\Sptd.Web\obj\Debug\Sptd.Web.dll
 D:\PROJETOTCC\PROJETOTCC\Sptd.Web\Sptd.Web\obj\Debug\Sptd.Web.pdb
+D:\PROJETOTCC\PROJETOTCC\Sptd.Web\Sptd.Web\obj\Debug\Sptd.Web.Migrations.RemocaoRelacionamentoEnd_Pessoa.resources
+D:\PROJETOTCC\PROJETOTCC\Sptd.Web\Sptd.Web\obj\Debug\Sptd.Web.Migrations.AddRelacionamentoPessoaEnd.resources
+D:\PROJETOTCC\PROJETOTCC\Sptd.Web\Sptd.Web\obj\Debug\Sptd.Web.Migrations.AddCampoTrechoTbItemReq.resources
+D:\PROJETOTCC\PROJETOTCC\Sptd.Web\Sptd.Web\obj\Debug\Sptd.Web.Migrations.AddCampoTrechoTbItemReq2.resources
+D:\PROJETOTCC\PROJETOTCC\Sptd.Web\Sptd.Web\obj\Debug\Sptd.Web.Migrations.RenameCampEndPessoamOISES.resources
+D:\PROJETOTCC\PROJETOTCC\Sptd.Web\Sptd.Web\obj\Debug\Sptd.Web.Migrations.correcaotbEnd.resources
+D:\PROJETOTCC\PROJETOTCC\Sptd.Web\Sptd.Web\obj\Debug\Sptd.Web.Migrations.teste.resources

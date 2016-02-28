@@ -18,13 +18,14 @@ namespace Sptd.Web.Models
             Pericia = new HashSet<Pericia>();
             Pessoa1 = new HashSet<Pessoa>();
             User = new HashSet<User>();
+            Endereco = new HashSet<Endereco>();
         }
-
+      
         public long pessoaId { get; set; }
 
         public long? pessoaPai { get; set; }
 
-        public long? fk_Endereco { get; set; }
+        //public long? fk_Endereco { get; set; }
         [Display(Name="Data Cadastro")]
         public DateTime? dt_Cadastro { get; set; }
 
@@ -85,7 +86,8 @@ namespace Sptd.Web.Models
 
         public virtual ICollection<DistribProcesso> DistribProcesso { get; set; }
 
-        public virtual Endereco Endereco { get; set; }
+        //public virtual Endereco Endereco { get; set; }
+        public virtual ICollection<Endereco> Endereco { get; set; }
 
         public virtual ICollection<ItemRequisicao> ItemRequisicao { get; set; }
 

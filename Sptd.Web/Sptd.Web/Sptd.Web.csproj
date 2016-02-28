@@ -163,10 +163,11 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\EndController.cs" />
+    <Compile Include="Controllers\EnderecoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PessoaController.cs" />
-    <Compile Include="Controllers\PessoaEnderecoController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -186,28 +187,38 @@
     <Compile Include="Migrations\201602231519340_AlterTamCampoNometbPessoa1.Designer.cs">
       <DependentUpon>201602231519340_AlterTamCampoNometbPessoa1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201602240302431_RemocaoRelacionamentoEnd_Pessoa.cs" />
+    <Compile Include="Migrations\201602240302431_RemocaoRelacionamentoEnd_Pessoa.Designer.cs">
+      <DependentUpon>201602240302431_RemocaoRelacionamentoEnd_Pessoa.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602240314009_AddRelacionamentoPessoaEnd.cs" />
+    <Compile Include="Migrations\201602240314009_AddRelacionamentoPessoaEnd.Designer.cs">
+      <DependentUpon>201602240314009_AddRelacionamentoPessoaEnd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602262159329_AddCampoTrechoTbItemReq.cs" />
+    <Compile Include="Migrations\201602262159329_AddCampoTrechoTbItemReq.Designer.cs">
+      <DependentUpon>201602262159329_AddCampoTrechoTbItemReq.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602262202406_AddCampoTrechoTbItemReq2.cs" />
+    <Compile Include="Migrations\201602262202406_AddCampoTrechoTbItemReq2.Designer.cs">
+      <DependentUpon>201602262202406_AddCampoTrechoTbItemReq2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602272046225_RenameCampEndPessoamOISES.cs" />
+    <Compile Include="Migrations\201602272046225_RenameCampEndPessoamOISES.Designer.cs">
+      <DependentUpon>201602272046225_RenameCampEndPessoamOISES.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602272102337_correcaotbEnd.cs" />
+    <Compile Include="Migrations\201602272102337_correcaotbEnd.Designer.cs">
+      <DependentUpon>201602272102337_correcaotbEnd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602272131406_teste.cs" />
+    <Compile Include="Migrations\201602272131406_teste.Designer.cs">
+      <DependentUpon>201602272131406_teste.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Agendamento.cs" />
     <Compile Include="Models\Agen_Clinica.cs" />
-    <Compile Include="Models\Annotations\AgendamentoAnnotation.cs" />
-    <Compile Include="Models\Annotations\Agen_ClinicaAnnotation.cs" />
-    <Compile Include="Models\Annotations\ClinicaAnnotation.cs" />
-    <Compile Include="Models\Annotations\EnderecoAnnotation.cs" />
-    <Compile Include="Models\Annotations\EspecialidadeAnnotations.cs" />
-    <Compile Include="Models\Annotations\ItemRequisicaoAnnotation.cs" />
-    <Compile Include="Models\Annotations\MedicoAnnotation.cs" />
-    <Compile Include="Models\Annotations\PericiaAnnotation.cs" />
-    <Compile Include="Models\Annotations\PessoaAnnotation.cs" />
-    <Compile Include="Models\Annotations\RequisicaoAnnotation.cs" />
-    <Compile Include="Models\Annotations\SetorAnnotation.cs" />
-    <Compile Include="Models\Annotations\TipoPessoaAnnotation.cs" />
-    <Compile Include="Models\Annotations\TrechoAnnotation.cs" />
-    <Compile Include="Models\Annotations\EstadoAnnotation.cs" />
-    <Compile Include="Models\Annotations\UserAnnotation.cs" />
-    <Compile Include="Models\Annotations\CidadesAnnotation.cs" />
-    <Compile Include="Models\Annotations\CidAnnotation.cs" />
-    <Compile Include="Models\Annotations\DistribProcessoAnnotation.cs" />
     <Compile Include="Models\Cid.cs" />
     <Compile Include="Models\Cidades.cs" />
     <Compile Include="Models\Clinica.cs" />
@@ -241,6 +252,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\chosen-sprite%402x.png" />
     <Content Include="Content\chosen-sprite.png" />
+    <Content Include="Content\chosen.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -268,6 +280,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\Pessoa.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
@@ -313,10 +326,16 @@
     <Content Include="Views\Pessoa\Details.cshtml" />
     <Content Include="Views\Pessoa\Edit.cshtml" />
     <Content Include="Views\Pessoa\Index.cshtml" />
+    <Content Include="Views\Endereco\Create.cshtml" />
+    <Content Include="Views\Endereco\Delete.cshtml" />
+    <Content Include="Views\Endereco\Details.cshtml" />
+    <Content Include="Views\Endereco\Edit.cshtml" />
+    <Content Include="Views\Endereco\Index.cshtml" />
+    <Content Include="Views\Endereco\_formCreateEnd.cshtml" />
+    <Content Include="Views\Pessoa\_Endereco.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\PessoaEndereco\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -337,6 +356,27 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201602231519340_AlterTamCampoNometbPessoa1.resx">
       <DependentUpon>201602231519340_AlterTamCampoNometbPessoa1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602240302431_RemocaoRelacionamentoEnd_Pessoa.resx">
+      <DependentUpon>201602240302431_RemocaoRelacionamentoEnd_Pessoa.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602240314009_AddRelacionamentoPessoaEnd.resx">
+      <DependentUpon>201602240314009_AddRelacionamentoPessoaEnd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602262159329_AddCampoTrechoTbItemReq.resx">
+      <DependentUpon>201602262159329_AddCampoTrechoTbItemReq.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602262202406_AddCampoTrechoTbItemReq2.resx">
+      <DependentUpon>201602262202406_AddCampoTrechoTbItemReq2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602272046225_RenameCampEndPessoamOISES.resx">
+      <DependentUpon>201602272046225_RenameCampEndPessoamOISES.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602272102337_correcaotbEnd.resx">
+      <DependentUpon>201602272102337_correcaotbEnd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602272131406_teste.resx">
+      <DependentUpon>201602272131406_teste.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

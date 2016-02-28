@@ -11,29 +11,32 @@ namespace Sptd.Web.Models
     {
         public Endereco()
         {
-            Pessoa = new HashSet<Pessoa>();
+            
         }
-
+       
         public long enderecoId { get; set; }
-
+        [Display(Name = "Cidade")]
         public int fk_CidadeId { get; set; }
+        public long? fk_PessoaId { get; set; }
 
+        [Display(Name = "Rua")]
         [Required]
         [StringLength(150)]
         public string rua { get; set; }
-
+        [Display(Name = "Numero")]
         [Required]
         [StringLength(5)]
         public string numero { get; set; }
-
+        [Display(Name = "CEP")]
         [StringLength(8)]
         public string cep { get; set; }
-
+        [Display(Name="Bairro")]
         [StringLength(10)]
         public string bairro { get; set; }
 
         public virtual Cidades Cidades { get; set; }
+        public virtual Pessoa Pessoa { get; set; }
 
-        public virtual ICollection<Pessoa> Pessoa { get; set; }
+        
     }
 }

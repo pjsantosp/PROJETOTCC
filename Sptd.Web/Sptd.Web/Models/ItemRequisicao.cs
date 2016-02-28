@@ -17,11 +17,13 @@ namespace Sptd.Web.Models
         public long? fk_Requisicao { get; set; }
 
         public long fk_Trecho { get; set; }
+        public long fk_Trecho1 { get; set; }
 
         public virtual Pessoa Pessoa { get; set; }
 
         public virtual Requisicao Requisicao { get; set; }
 
         public virtual Trecho Trecho { get; set; }
+        public virtual Trecho Trecho1 { get; set; }
     }
 }

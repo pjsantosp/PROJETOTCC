@@ -104,10 +104,10 @@ namespace Sptd.Web.Models
                 .Property(e => e.bairro)
                 .IsFixedLength();
 
-            modelBuilder.Entity<Endereco>()
-                .HasMany(e => e.Pessoa)
-                .WithOptional(e => e.Endereco)
-                .HasForeignKey(e => e.fk_Endereco);
+            //modelBuilder.Entity<Endereco>()
+            //    .HasMany(e => e.Pessoa)
+            //    .WithOptional(e => e.Endereco)
+            //    .HasForeignKey(e => e.fk_Endereco);
 
             modelBuilder.Entity<Especialidade>()
                 .Property(e => e.descricao)

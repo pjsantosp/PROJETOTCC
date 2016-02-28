@@ -1,0 +1,66 @@
+﻿@model Sptd.Web.Models.Endereco
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Endereco</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Cidades.Cidade)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cidades.Cidade)
+        </dd>
+
+        @*<dt>
+            @Html.DisplayNameFor(model => model.pessoaId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fk_Pessoa)
+        </dd>*@
+
+        <dt>
+            @Html.DisplayNameFor(model => model.rua)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.rua)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.numero)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.numero)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cep)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cep)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.bairro)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.bairro)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.enderecoId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

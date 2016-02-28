@@ -12,6 +12,8 @@ namespace Sptd.Web.Models
         public Trecho()
         {
             ItemRequisicao = new HashSet<ItemRequisicao>();
+            ItemRequisicao1 = new HashSet<ItemRequisicao>();
+            
         }
 
         public long trechoId { get; set; }
@@ -20,5 +22,7 @@ namespace Sptd.Web.Models
         public byte[] descricao { get; set; }
 
         public virtual ICollection<ItemRequisicao> ItemRequisicao { get; set; }
+        public virtual ICollection<ItemRequisicao> ItemRequisicao1 { get; set; }
+        
     }
 }

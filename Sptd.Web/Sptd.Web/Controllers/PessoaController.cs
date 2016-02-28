@@ -15,16 +15,16 @@ namespace Sptd.Web.Controllers
     public class PessoaController : Controller
     {
         private DbSPTD db = new DbSPTD();
-        PessoaRepository repository = new PessoaRepository();
+        PessoaRepository repositoryPessoa = new PessoaRepository();
 
-        // GET: Pessoa
+        
         public ActionResult Index()
         {
 
-            return View(repository.ObterPessoa());
+            return View(repositoryPessoa.ObterPessoa());
         }
 
-        // GET: Pessoa/Details/5
+       
         public ActionResult Details(long? id)
         {
             if (id == null)
@@ -42,31 +42,27 @@ namespace Sptd.Web.Controllers
         // GET: Pessoa/Create
         public ActionResult Create()
         {
-            ViewBag.fk_Endereco = new SelectList(db.Endereco, "enderecoId", "rua");
             ViewBag.pessoaPai = new SelectList(db.Pessoa, "pessoaId", "cpf");
             return View();
         }
-
-        // POST: Pessoa/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "pessoaId,pessoaPai,fk_Endereco,dt_Cadastro,cpf,cns,rg, orgaoemissor, dt_emissao,nome,dt_Nascimento,email,nome_Mae,nome_Pai,tel,cel")] Pessoa pessoa)
+        public ActionResult Create(Pessoa pessoa)
         {
             if (ModelState.IsValid)
             {
                 pessoa.dt_Cadastro = DateTime.Now;
-                repository.CriarPessoa(pessoa);
-                return RedirectToAction("Index");
+                repositoryPessoa.CriarPessoa(pessoa);
+                //ViewBag.PessoaId = pessoa.pessoaId;
+               // long pessoaId = pessoa.pessoaId;
+               return RedirectToAction("Create", "Endereco", new {pessoaId = pessoa.pessoaId});
             }
 
-            ViewBag.fk_Endereco = new SelectList(db.Endereco, "enderecoId", "rua", pessoa.fk_Endereco);
+            //ViewBag.fk_Endereco = new SelectList(db.Endereco, "enderecoId", "rua", pessoa.fk_Endereco);
             ViewBag.pessoaPai = new SelectList(db.Pessoa, "pessoaId", "cpf", pessoa.pessoaPai);
-            return View(pessoa);
+            return View();
         }
-
-        // GET: Pessoa/Edit/5
+               
         public ActionResult Edit(long? id)
         {
             if (id == null)
@@ -74,29 +70,27 @@ namespace Sptd.Web.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            Pessoa pessoa = repository.ObterPessoa(id);
+            Pessoa pessoa = repositoryPessoa.ObterPessoa(id);
             if (pessoa == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.fk_Endereco = new SelectList(db.Endereco, "enderecoId", "rua", pessoa.fk_Endereco);
+            //ViewBag.fk_Endereco = new SelectList(db.Endereco, "enderecoId", "rua", pessoa.fk_Endereco);
             ViewBag.pessoaPai = new SelectList(db.Pessoa, "pessoaId", "cpf", pessoa.pessoaPai);
             return View(pessoa);
         }
 
-        // POST: Pessoa/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "pessoaId,pessoaPai,fk_Endereco,dt_Cadastro,cpf,cns,rg,nome,dt_Nascimento,email,nome_Mae,nome_Pai,tel,cel")] Pessoa pessoa)
+        public ActionResult Edit( Pessoa pessoa)
         {
+            //[Bind(Include = "pessoaId,pessoaPai,fk_Endereco,dt_Cadastro,cpf,cns,rg,nome,dt_Nascimento,email,nome_Mae,nome_Pai,tel,cel")]
             if (ModelState.IsValid)
             {
-                repository.Atualizar(pessoa);
+                repositoryPessoa.Atualizar(pessoa);
                 return RedirectToAction("Index");
             }
-            ViewBag.fk_Endereco = new SelectList(db.Endereco, "enderecoId", "rua", pessoa.fk_Endereco);
+            //ViewBag.fk_Endereco = new SelectList(db.Endereco, "enderecoId", "rua", pessoa.fk_Endereco);
             ViewBag.pessoaPai = new SelectList(db.Pessoa, "pessoaId", "cpf", pessoa.pessoaPai);
             return View(pessoa);
         }
@@ -108,7 +102,7 @@ namespace Sptd.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Pessoa pessoa = repository.ObterPessoa(id);
+            Pessoa pessoa = repositoryPessoa.ObterPessoa(id);
             if (pessoa == null)
             {
                 return HttpNotFound();
@@ -122,7 +116,7 @@ namespace Sptd.Web.Controllers
         public ActionResult DeleteConfirmed(long id)
         {
 
-            repository.Excluir(id);
+            repositoryPessoa.Excluir(id);
             return RedirectToAction("Index");
         }
 
