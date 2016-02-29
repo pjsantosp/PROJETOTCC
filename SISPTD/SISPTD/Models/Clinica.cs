@@ -9,19 +9,16 @@ namespace SISPTD.Models
     [Table("Clinica")]
     public  class Clinica
     {
-       
-
+       [Key]
         public long clinicaId { get; set; }
 
         [StringLength(150)]
         public string nome_Clinica { get; set; }
 
-        public int? fk_Cidade { get; set; }
+        public int? IdCidade { get; set; }
 
         [StringLength(10)]
         public string tel_Clinica { get; set; }
-
-      
 
         public virtual Cidades Cidades { get; set; }
     }

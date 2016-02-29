@@ -5,7 +5,7 @@ namespace SISPTD.Models
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
-
+    [Table("Cidades")]
     public  class Cidades
     {
         

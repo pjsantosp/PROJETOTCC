@@ -7,10 +7,10 @@ namespace SISPTD.Models
     using System.Data.Entity.Spatial;
 
     [Table("User")]
-    public partial class User
+    public  class User
     {
 
-        [Key]
+      [Key]
         public long usuarioId { get; set; }
 
         [Required]

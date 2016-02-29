@@ -6,11 +6,11 @@ namespace SISPTD.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-   
+   [Table("Endereco")]
     public  class Endereco
     {
         
-       
+       [Key]
         public long enderecoId { get; set; }
         [Display(Name = "Cidade")]
         public int IdCidade { get; set; }

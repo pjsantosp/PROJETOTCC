@@ -6,8 +6,8 @@ namespace SISPTD.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-   
-    public partial class Agendamento
+   [Table("Agendamento")]
+    public class Agendamento
     {
         [Key]
         public long agendamentoId { get; set; }

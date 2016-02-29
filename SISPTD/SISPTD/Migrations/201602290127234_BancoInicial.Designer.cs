@@ -7,13 +7,13 @@ namespace SISPTD.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.1-30610")]
-    public sealed partial class dbInicial : IMigrationMetadata
+    public sealed partial class BancoInicial : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(dbInicial));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(BancoInicial));
         
         string IMigrationMetadata.Id
         {
-            get { return "201602272240569_dbInicial"; }
+            get { return "201602290127234_BancoInicial"; }
         }
         
         string IMigrationMetadata.Source

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace Sptd.Web.Models
+namespace SISPTD.Models
 {
     public class ExternalLoginConfirmationViewModel
     {

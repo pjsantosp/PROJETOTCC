@@ -6,8 +6,8 @@ namespace SISPTD.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    
-    public  class Medico
+    [Table("Medico")]
+    public class Medico
     {
         [Key]
         public long medicoId { get; set; }

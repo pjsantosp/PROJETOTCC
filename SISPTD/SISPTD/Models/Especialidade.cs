@@ -7,11 +7,10 @@ namespace SISPTD.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    
+    [Table("Especialidade")]
     public class Especialidade
     {
-        
-
+        [Key]
         public long EspecialidadeId { get; set; }
 
         [StringLength(50)]

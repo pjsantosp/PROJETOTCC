@@ -6,10 +6,10 @@ namespace SISPTD.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-   
+   [Table("Requisicao")]
     public  class Requisicao
     {
-
+        [Key]
         public long requisicaoId { get; set; }
 
         public long? usuarioId { get; set; }

@@ -7,7 +7,7 @@ namespace SISPTD.Models
     using System.Data.Entity.Spatial;
 
     [Table("Setor")]
-    public partial class Setor
+    public  class Setor
     {
         [Key]
         public long setorId { get; set; }

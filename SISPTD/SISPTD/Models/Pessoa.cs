@@ -6,7 +6,7 @@ namespace SISPTD.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    
+    [Table("Pessoa")]
     public  class Pessoa
     {
       [Key]

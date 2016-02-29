@@ -38,14 +38,10 @@ namespace SISPTD.Models
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
-            modelBuilder.Entity<Medico>().HasRequired(x => x.Pessoa).WithMany().HasForeignKey(x => x.pessoaId).WillCascadeOnDelete(false);
+
             //modelBuilder.Entity<Medico>().HasRequired(x => x.Pessoa).WithMany().HasForeignKey(x => x.pessoaId).WillCascadeOnDelete(false);
 
 
-            //modelBuilder.Entity<Agendamento>()
-            //    .HasMany(e => e.Agen_Clinica)
-            //    .WithOptional(e => e.Agendamento)
-            //    .HasForeignKey(e => e.fk_Agendamento);
 
             //modelBuilder.Entity<Cid>()
             //    .Property(e => e.codigoCid)
@@ -55,25 +51,25 @@ namespace SISPTD.Models
             //    .Property(e => e.descricao)
             //    .IsUnicode(false);
 
-            //modelBuilder.Entity<Cid>()
-            //    .HasMany(e => e.Pericia)
-            //    .WithOptional(e => e.Cid)
-            //    .HasForeignKey(e => e.fk_CidId);
+            modelBuilder.Entity<Cid>()
+                .HasMany(e => e.Pericia)
+                .WithOptional(e => e.Cid)
+                .HasForeignKey(e => e.cidId);
 
             //modelBuilder.Entity<Cidades>()
             //    .Property(e => e.Cidade)
             //    .IsUnicode(false);
 
-            //modelBuilder.Entity<Cidades>()
-            //    .HasMany(e => e.Clinica)
-            //    .WithOptional(e => e.Cidades)
-            //    .HasForeignKey(e => e.fk_Cidade);
+            modelBuilder.Entity<Cidades>()
+                .HasMany(e => e.Clinica)
+                .WithOptional(e => e.Cidades)
+                .HasForeignKey(e => e.IdCidade);
 
-            //modelBuilder.Entity<Cidades>()
-            //    .HasMany(e => e.Endereco)
-            //    .WithRequired(e => e.Cidades)
-            //    .HasForeignKey(e => e.fk_CidadeId)
-            //    .WillCascadeOnDelete(false);
+            modelBuilder.Entity<Cidades>()
+                .HasMany(e => e.Endereco)
+                .WithRequired(e => e.Cidades)
+                .HasForeignKey(e => e.IdCidade)
+                .WillCascadeOnDelete(false);
 
             //modelBuilder.Entity<Clinica>()
             //    .Property(e => e.nome_Clinica)
@@ -83,10 +79,6 @@ namespace SISPTD.Models
             //    .Property(e => e.tel_Clinica)
             //    .IsUnicode(false);
 
-            //modelBuilder.Entity<Clinica>()
-            //    .HasMany(e => e.Agen_Clinica)
-            //    .WithOptional(e => e.Clinica)
-            //    .HasForeignKey(e => e.fk_Clinica);
 
             //modelBuilder.Entity<DistribProcesso>()
             //    .Property(e => e.observacoes)
@@ -108,19 +100,16 @@ namespace SISPTD.Models
             //    .Property(e => e.bairro)
             //    .IsFixedLength();
 
-            ////modelBuilder.Entity<Endereco>()
-            ////    .HasMany(e => e.Pessoa)
-            ////    .WithOptional(e => e.Endereco)
-            ////    .HasForeignKey(e => e.fk_Endereco);
+           
 
             //modelBuilder.Entity<Especialidade>()
             //    .Property(e => e.descricao)
             //    .IsUnicode(false);
 
-            //modelBuilder.Entity<Especialidade>()
-            //    .HasMany(e => e.Medico)
-            //    .WithOptional(e => e.Especialidade)
-            //    .HasForeignKey(e => e.fk_Especialidade);
+            modelBuilder.Entity<Especialidade>()
+                .HasMany(e => e.Medico)
+                .WithOptional(e => e.Especialidade)
+                .HasForeignKey(e => e.especialidadeId);
 
             //modelBuilder.Entity<Estado>()
             //    .Property(e => e.Estado1)
@@ -131,29 +120,29 @@ namespace SISPTD.Models
             //    .IsFixedLength()
             //    .IsUnicode(false);
 
-            //modelBuilder.Entity<Estado>()
-            //    .HasMany(e => e.Cidades)
-            //    .WithRequired(e => e.Estado)
-            //    .WillCascadeOnDelete(false);
+            modelBuilder.Entity<Estado>()
+                .HasMany(e => e.Cidades)
+                .WithRequired(e => e.Estado)
+                .WillCascadeOnDelete(false);
 
             //modelBuilder.Entity<Medico>()
             //    .Property(e => e.crm_Medico)
             //    .IsUnicode(false);
 
-            //modelBuilder.Entity<Medico>()
-            //    .HasMany(e => e.Pericia)
-            //    .WithRequired(e => e.Medico)
-            //    .HasForeignKey(e => e.medicoId)
-            //    .WillCascadeOnDelete(false);
+            modelBuilder.Entity<Medico>()
+                .HasMany(e => e.Pericia)
+                .WithRequired(e => e.Medico)
+                .HasForeignKey(e => e.medicoId)
+                .WillCascadeOnDelete(false);
 
             //modelBuilder.Entity<Pericia>()
             //    .Property(e => e.descricao)
             //    .IsUnicode(false);
 
-            //modelBuilder.Entity<Pericia>()
-            //    .HasMany(e => e.DistribProcesso)
-            //    .WithOptional(e => e.Pericia)
-            //    .HasForeignKey(e => e.fk_Pericia);
+            modelBuilder.Entity<Pericia>()
+                .HasMany(e => e.DistribProcesso)
+                .WithOptional(e => e.Pericia)
+                .HasForeignKey(e => e.periciaId);
 
             //modelBuilder.Entity<Pessoa>()
             //    .Property(e => e.cpf)
@@ -199,71 +188,77 @@ namespace SISPTD.Models
             //    .Property(e => e.cel)
             //    .IsUnicode(false);
 
-            //modelBuilder.Entity<Pessoa>()
-            //    .HasMany(e => e.Agendamento)
-            //    .WithOptional(e => e.Pessoa)
-            //    .HasForeignKey(e => e.fk_Pessoa);
+            modelBuilder.Entity<Pessoa>()
+                .HasMany(e => e.Agendamento)
+                .WithOptional(e => e.Pessoa)
+                .HasForeignKey(e => e.pessoaId);
 
-            //modelBuilder.Entity<Pessoa>()
-            //    .HasMany(e => e.DistribProcesso)
-            //    .WithRequired(e => e.Pessoa)
-            //    .HasForeignKey(e => e.fk_PessoaId)
-            //    .WillCascadeOnDelete(false);
+            modelBuilder.Entity<Pessoa>()
+                .HasMany(e => e.DistribProcesso)
+                .WithRequired(e => e.Pessoa)
+                .HasForeignKey(e => e.pessoaId)
+                .WillCascadeOnDelete(false);
 
-            //modelBuilder.Entity<Pessoa>()
-            //    .HasMany(e => e.ItemRequisicao)
-            //    .WithRequired(e => e.Pessoa)
-            //    .HasForeignKey(e => e.fk_Pessoa)
-            //    .WillCascadeOnDelete(false);
+            modelBuilder.Entity<Pessoa>()
+                .HasMany(e => e.Endereco)
+                .WithRequired(e => e.Pessoa)
+                .HasForeignKey(e => e.pessoaId);
+                
 
-            //modelBuilder.Entity<Pessoa>()
-            //    .HasMany(e => e.Medico)
-            //    .WithRequired(e => e.Pessoa)
-            //    .HasForeignKey(e => e.fk_PessoaId)
-            //    .WillCascadeOnDelete(false);
+            modelBuilder.Entity<Pessoa>()
+                .HasMany(e => e.ItemRequisicao)
+                .WithRequired(e => e.Pessoa)
+                .HasForeignKey(e => e.pessoaId)
+                .WillCascadeOnDelete(false);
 
-            //modelBuilder.Entity<Pessoa>()
-            //    .HasMany(e => e.Pericia)
-            //    .WithRequired(e => e.Pessoa)
-            //    .HasForeignKey(e => e.fk_PessoaId)
-            //    .WillCascadeOnDelete(false);
+            modelBuilder.Entity<Pessoa>()
+                .HasMany(e => e.Medico)
+                .WithRequired
+                (e => e.Pessoa)
+                .HasForeignKey(e => e.pessoaId)
+                .WillCascadeOnDelete(false);
 
-            //modelBuilder.Entity<Pessoa>()
-            //    .HasMany(e => e.Pessoa1)
-            //    .WithOptional(e => e.Pessoa2)
-            //    .HasForeignKey(e => e.pessoaPai);
+            modelBuilder.Entity<Pessoa>()
+                .HasMany(e => e.Pericia)
+                .WithRequired(e => e.Pessoa)
+                .HasForeignKey(e => e.pessoaId)
+                .WillCascadeOnDelete(false);
 
-            //modelBuilder.Entity<Pessoa>()
-            //    .HasMany(e => e.User)
-            //    .WithRequired(e => e.Pessoa)
-            //    .HasForeignKey(e => e.fk_PessoaId)
-            //    .WillCascadeOnDelete(false);
+            modelBuilder.Entity<Pessoa>()
+                .HasMany(e => e.Pessoa1)
+                .WithOptional(e => e.Pessoa2)
+                .HasForeignKey(e => e.pessoaPai);
 
-            //modelBuilder.Entity<Requisicao>()
-            //    .HasMany(e => e.ItemRequisicao)
-            //    .WithOptional(e => e.Requisicao)
-            //    .HasForeignKey(e => e.fk_Requisicao);
+            modelBuilder.Entity<Pessoa>()
+                .HasMany(e => e.User)
+                .WithRequired(e => e.Pessoa)
+                .HasForeignKey(e => e.pessoaId)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Pericia>()
+                .HasMany(e => e.DistribProcesso)
+                .WithRequired(e => e.Pericia)
+                .HasForeignKey(e => e.periciaId);
+
+            modelBuilder.Entity<Requisicao>()
+                .HasMany(e => e.ItemRequisicao)
+                .WithOptional(e => e.Requisicao)
+                .HasForeignKey(e => e.requisicaoId);
 
             //modelBuilder.Entity<Setor>()
             //    .Property(e => e.descricao)
             //    .IsUnicode(false);
 
-            //modelBuilder.Entity<Setor>()
-            //    .HasMany(e => e.DistribProcesso)
-            //    .WithOptional(e => e.Setor)
-            //    .HasForeignKey(e => e.origem);
+            modelBuilder.Entity<Setor>()
+                .HasMany(e => e.DistribProcesso)
+                .WithRequired(e => e.SetorOrigem)
+                .HasForeignKey(e => e.SetorOrigemId);
 
-            //modelBuilder.Entity<Setor>()
-            //    .HasMany(e => e.DistribProcesso1)
-            //    .WithRequired(e => e.Setor1)
-            //    .HasForeignKey(e => e.destino)
-            //    .WillCascadeOnDelete(false);
-
-            //modelBuilder.Entity<Trecho>()
-            //    .HasMany(e => e.ItemRequisicao)
-            //    .WithRequired(e => e.Trecho)
-            //    .HasForeignKey(e => e.fk_Pessoa)
-            //    .WillCascadeOnDelete(false);
+            modelBuilder.Entity<Setor>()
+                .HasMany(e => e.DistribProcesso1)
+                .WithRequired(e => e.SetorDestino)
+                .HasForeignKey(e => e.SetorDestinoId)
+                .WillCascadeOnDelete(false);
 
             //modelBuilder.Entity<User>()
             //    .Property(e => e.login)
@@ -273,26 +268,26 @@ namespace SISPTD.Models
             //    .Property(e => e.senha)
             //    .IsUnicode(false);
 
-            //modelBuilder.Entity<User>()
-            //    .HasMany(e => e.Agendamento)
-            //    .WithOptional(e => e.User)
-            //    .HasForeignKey(e => e.fk_Usuario);
+            modelBuilder.Entity<User>()
+                .HasMany(e => e.Agendamento)
+                .WithOptional(e => e.User)
+                .HasForeignKey(e => e.usuarioId);
 
-            //modelBuilder.Entity<User>()
-            //    .HasMany(e => e.DistribProcesso)
-            //    .WithRequired(e => e.User)
-            //    .HasForeignKey(e => e.usuarioEnviou)
-            //    .WillCascadeOnDelete(false);
+            modelBuilder.Entity<User>()
+                .HasMany(e => e.DistribProcesso)
+                .WithRequired(e => e.UserEnviou)
+                .HasForeignKey(e => e.usuarioEnviouId)
+                .WillCascadeOnDelete(false);
 
-            //modelBuilder.Entity<User>()
-            //    .HasMany(e => e.DistribProcesso1)
-            //    .WithOptional(e => e.User1)
-            //    .HasForeignKey(e => e.usuarioRecebeu);
+            modelBuilder.Entity<User>()
+                .HasMany(e => e.DistribProcesso1)
+                .WithOptional(e => e.UserRecebeu)
+                .HasForeignKey(e => e.usuarioRecebeuId);
 
-            //modelBuilder.Entity<User>()
-            //    .HasMany(e => e.Requisicao)
-            //    .WithOptional(e => e.User)
-            //    .HasForeignKey(e => e.fk_UsuarioId);
+            modelBuilder.Entity<User>()
+                .HasMany(e => e.Requisicao)
+                .WithOptional(e => e.User)
+                .HasForeignKey(e => e.usuarioId);
         }
     }
 }
