@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using SISPTD.Models;
+using SISPTD.BO;
 
 namespace SISPTD.Controllers
 {
@@ -17,38 +18,39 @@ namespace SISPTD.Controllers
         // GET: Pessoa
         public ActionResult Index()
         {
-            var pessoa = db.Pessoa.Include(p => p.Pessoa2);
-            return View(pessoa.ToList());
+            PessoaBO pBO = new PessoaBO();
+
+            //var pessoa = db.Pessoa.Include(p => p.Pessoa2);
+            return View(pBO.ObterPessoa());
         }
 
         // GET: Pessoa/Details/5
         public ActionResult Details(long? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Pessoa pessoa = db.Pessoa.Find(id);
-            if (pessoa == null)
-            {
-                return HttpNotFound();
-            }
-            return View(pessoa);
+            PessoaBO pBO = new PessoaBO();
+            //if (id == null)
+            //{
+            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            //}
+             
+            //Pessoa pessoa = db.Pessoa.Find(id);
+            //if (pessoa == null)
+            //{
+            //    return HttpNotFound();
+            //}
+            return View(pBO.ObterPessoa(id));
         }
 
         // GET: Pessoa/Create
         public ActionResult Create()
         {
-            ViewBag.pessoaPai = new SelectList(db.Pessoa, "pessoaId", "cpf");
+            
             return View();
         }
 
-        // POST: Pessoa/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "pessoaId,pessoaPai,dt_Cadastro,cpf,cns,rg,orgaoemissor,dt_Emissao,nome,dt_Nascimento,email,nome_Mae,nome_Pai,tel,cel")] Pessoa pessoa)
+        public ActionResult Create( Pessoa pessoa)
         {
             if (ModelState.IsValid)
             {
@@ -59,6 +61,26 @@ namespace SISPTD.Controllers
 
             ViewBag.pessoaPai = new SelectList(db.Pessoa, "pessoaId", "cpf", pessoa.pessoaPai);
             return View(pessoa);
+        }
+        public ActionResult CreateAcompanhate(long? acompanhate)
+        {
+            ViewBag.Paciente = db.Pessoa.Where(p => p.pessoaId == acompanhate).FirstOrDefault().nome;
+            Pessoa objAcompanhate = new Pessoa();
+            objAcompanhate.pessoaPai = acompanhate;
+            return View(objAcompanhate);
+        }
+
+        [HttpPost, ValidateAntiForgeryToken]
+        public ActionResult CreateAcompanhate(Pessoa pesssoa)
+        {
+            
+            if (ModelState.IsValid)
+            {
+                db.Pessoa.Add(pesssoa);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View();
         }
 
         // GET: Pessoa/Edit/5
@@ -77,12 +99,9 @@ namespace SISPTD.Controllers
             return View(pessoa);
         }
 
-        // POST: Pessoa/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "pessoaId,pessoaPai,dt_Cadastro,cpf,cns,rg,orgaoemissor,dt_Emissao,nome,dt_Nascimento,email,nome_Mae,nome_Pai,tel,cel")] Pessoa pessoa)
+        public ActionResult Edit( Pessoa pessoa)
         {
             if (ModelState.IsValid)
             {

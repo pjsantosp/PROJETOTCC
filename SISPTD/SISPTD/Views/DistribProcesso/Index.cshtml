@@ -1,0 +1,69 @@
+﻿@model IEnumerable<SISPTD.Models.DistribProcesso>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Pericia.descricao)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Pessoa.cpf)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SetorDestino.descricao)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SetorOrigem.descricao)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserEnviou.login)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserRecebeu.login)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.observacoes)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Pericia.descricao)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Pessoa.cpf)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SetorDestino.descricao)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SetorOrigem.descricao)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserEnviou.login)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserRecebeu.login)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.observacoes)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.distrib_ProcessoId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.distrib_ProcessoId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.distrib_ProcessoId })
+        </td>
+    </tr>
+}
+
+</table>

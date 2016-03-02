@@ -58,12 +58,20 @@ namespace SISPTD.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create( Endereco endereco)
         {
-
+            
             if (ModelState.IsValid)
             {
                 db.Endereco.Add(endereco);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+
+                //var anoNascimento = endereco.Pessoa.dt_Nascimento.Year;
+                //DateTime dataAtual = DateTime.Now;
+                //int anoAtual = dataAtual.Year;
+                //int idade = anoAtual - anoNascimento;
+
+               
+
+                return RedirectToAction("CreateAcompanhate", "Pessoa", new { acompanhate = endereco.pessoaId });
             }
 
             ViewBag.IdCidade = new SelectList(db.Cidades, "IdCidade", "Cidade", endereco.IdCidade);
@@ -123,6 +131,7 @@ namespace SISPTD.Controllers
             var listaCidade = db.Cidades.Where(c => c.IdEstado == idUF).FirstOrDefault().Cidade;
             ViewBag.Cidade = new SelectList(listaCidade, "IdCidade", "Cidade", idUF);
         }
+        
 
         // POST: Endereco/Delete/5
         [HttpPost, ActionName("Delete")]

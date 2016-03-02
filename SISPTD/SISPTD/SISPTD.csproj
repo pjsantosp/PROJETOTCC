@@ -158,11 +158,15 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="BO\PessoaBO.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\DistribProcessoController.cs" />
     <Compile Include="Controllers\EnderecoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PessoaController.cs" />
+    <Compile Include="Controllers\SetorController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -196,6 +200,7 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\sisptd.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -267,6 +272,23 @@
     <Content Include="Views\Endereco\Edit.cshtml" />
     <Content Include="Views\Endereco\Index.cshtml" />
     <Content Include="Views\Shared\_Menu.cshtml" />
+    <Content Include="Views\Pessoa\CreateAcompanhate.cshtml" />
+    <Content Include="Views\Pessoa\CreateAcompanhate1.cshtml" />
+    <Content Include="Views\User\Create.cshtml" />
+    <Content Include="Views\User\Delete.cshtml" />
+    <Content Include="Views\User\Details.cshtml" />
+    <Content Include="Views\User\Edit.cshtml" />
+    <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\Setor\Create.cshtml" />
+    <Content Include="Views\Setor\Delete.cshtml" />
+    <Content Include="Views\Setor\Details.cshtml" />
+    <Content Include="Views\Setor\Edit.cshtml" />
+    <Content Include="Views\Setor\Index.cshtml" />
+    <Content Include="Views\DistribProcesso\Create.cshtml" />
+    <Content Include="Views\DistribProcesso\Delete.cshtml" />
+    <Content Include="Views\DistribProcesso\Details.cshtml" />
+    <Content Include="Views\DistribProcesso\Edit.cshtml" />
+    <Content Include="Views\DistribProcesso\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
