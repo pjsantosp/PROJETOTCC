@@ -1,8 +1,10 @@
 ﻿<div class="container">
     <ul class="nav nav-tabs">
-        <li class="active br0"><a href="#tab1" tada-toggle="tab">Paciente</a></li>
-        <li><a href="#">Distribuir Processo</a></li>
-        <li><a href="#">Agendamento</a></li>
+        <li class="@(SISPTD.Ultis.NavTabs.GetTab(ViewContext,"Pessoa")) active"><a href="@Url.Action("Index", "Pessoa")">Paciente</a></li>
+        <li class="@(SISPTD.Ultis.NavTabs.GetTab(ViewContext,"DistribProcesso"))"><a href="@Url.Action("Index", "DistribProcesso")">Distribuição de Processo</a></li>
+        <li class="@(SISPTD.Ultis.NavTabs.GetTab(ViewContext,"Setor"))"><a href="@Url.Action("Index", "Setor")">Cadastro de Setor</a></li>
         <li><a href="#">Requisição</a></li>
+        <li class="@(SISPTD.Ultis.NavTabs.GetTab(ViewContext,"User"))"><a href="@Url.Action("Index", "User")">Cadastro de Usuário</a></li>
     </ul>
 </div>
+

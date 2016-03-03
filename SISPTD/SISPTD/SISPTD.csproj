@@ -158,6 +158,9 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="BO\CidadeBO.cs" />
+    <Compile Include="BO\EnderecoBO.cs" />
+    <Compile Include="BO\EstadoBO.cs" />
     <Compile Include="BO\PessoaBO.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\DistribProcessoController.cs" />
@@ -196,10 +199,15 @@
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="Ultis\NavTabs.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap-chosen.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\chosen-sprite%402x.png" />
+    <Content Include="Content\chosen-sprite.png" />
+    <Content Include="Content\chosen.css" />
     <Content Include="Content\sisptd.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -207,6 +215,8 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Content\bootstrap-chosen.scss" />
+    <Content Include="Content\bootstrap-chosen.less" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\chosen.jquery.js" />
     <Content Include="Scripts\chosen.jquery.min.js" />
@@ -289,6 +299,7 @@
     <Content Include="Views\DistribProcesso\Details.cshtml" />
     <Content Include="Views\DistribProcesso\Edit.cshtml" />
     <Content Include="Views\DistribProcesso\Index.cshtml" />
+    <Content Include="Views\Shared\_ErrosSystem.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

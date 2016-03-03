@@ -1,0 +1,32 @@
+﻿
+@if (TempData["Sucesso"] != null)
+{
+    <div class="alert alert-warning alert-danger" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <strong>@TempData["Sucesso"]</strong>
+    </div>
+
+}
+
+
+
+
+
+
+@*@if (TempData["Sucesso"] != null)
+{
+    <div class="alert alert-success alert-dismissible r0 text-center col-sm-6" role="alert" style="position:absolute; margin-top: -20px;margin-left:50%">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h5>@TempData["Sucesso"]</h5>
+    </div>
+
+}
+else
+    if (TempData["Erro"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible r0 text-center col-sm-6" role="alert" style="position:absolute; margin-top: -20px;margin-left:50%">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h5>@TempData["Erro"]</h5>
+        </div>
+
+    }*@

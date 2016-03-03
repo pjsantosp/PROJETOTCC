@@ -7,32 +7,27 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using SISPTD.Models;
+using SISPTD.BO;
 
 namespace SISPTD.Controllers
 {
     public class EnderecoController : Controller
     {
+        private CidadeBO cBO = new CidadeBO();
+        private EnderecoBO eBO = new EnderecoBO();
         private dbSISPTD db = new dbSISPTD();
+        private PessoaBO pBO = new PessoaBO();
 
-        // GET: Endereco
         public ActionResult Index()
         {
-            var endereco = db.Endereco.Include(e => e.Cidades).Include(e => e.Pessoa);
-            return View(endereco.ToList());
+
+            return View(eBO.ObterEndereco());
         }
 
         // GET: Endereco/Details/5
         public ActionResult Details(long? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Endereco endereco = db.Endereco.Find(id);
-            if (endereco == null)
-            {
-                return HttpNotFound();
-            }
+            var endereco = eBO.ObterEndereco(id);
             return View(endereco);
         }
 
@@ -42,36 +37,33 @@ namespace SISPTD.Controllers
             Endereco endPessoa = new Endereco();
             endPessoa.pessoaId = pessoaId;
             var listaUf = db.Estado.Include(c => c.Cidades).ToList();
-            long ufPadrao = db.Estado.Where(e => e.Sigla == "RO").First().IdEstado;
+            var pessoa = pBO.ObterPessoa(pessoaId);
+           
 
-            IList<Estado> estado = db.Estado.ToList();
-
-            ViewBag.Uf = new SelectList(estado, "IdEstado", "Sigla");
-
-            ViewBag.Cidade = new SelectList(db.Cidades.Where(c=> c.IdEstado==ufPadrao), "IdCidade", "Cidade", ufPadrao);
-            ViewBag.pessoaId = db.Pessoa.Where(p => p.pessoaId == pessoaId).First().nome;
+            ViewBag.Cidade = new SelectList(cBO.ObterCidades(), "IdCidade", "Cidade");
+            ViewBag.pessoaId = pessoa.nome;
             return View(endPessoa);
         }
 
-     
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create( Endereco endereco)
+        public ActionResult Create(Endereco endereco)
         {
-            
+            var pessoa = pBO.ObterPessoa(endereco.pessoaId);
+
             if (ModelState.IsValid)
             {
                 db.Endereco.Add(endereco);
                 db.SaveChanges();
-
-                //var anoNascimento = endereco.Pessoa.dt_Nascimento.Year;
-                //DateTime dataAtual = DateTime.Now;
-                //int anoAtual = dataAtual.Year;
-                //int idade = anoAtual - anoNascimento;
-
+                if (pBO.CalculoIdade(pessoa))
+                {
+                    TempData["Sucesso"] = "Cadastre um acompanhante";
+                    return RedirectToAction("CreateAcompanhate", "Pessoa", new { acompanhate = endereco.pessoaId });
+                }
                
+              
 
-                return RedirectToAction("CreateAcompanhate", "Pessoa", new { acompanhate = endereco.pessoaId });
             }
 
             ViewBag.IdCidade = new SelectList(db.Cidades, "IdCidade", "Cidade", endereco.IdCidade);
@@ -96,7 +88,7 @@ namespace SISPTD.Controllers
             return View(endereco);
         }
 
-      
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "enderecoId,IdCidade,pessoaId,rua,numero,cep,bairro")] Endereco endereco)
@@ -131,7 +123,7 @@ namespace SISPTD.Controllers
             var listaCidade = db.Cidades.Where(c => c.IdEstado == idUF).FirstOrDefault().Cidade;
             ViewBag.Cidade = new SelectList(listaCidade, "IdCidade", "Cidade", idUF);
         }
-        
+
 
         // POST: Endereco/Delete/5
         [HttpPost, ActionName("Delete")]

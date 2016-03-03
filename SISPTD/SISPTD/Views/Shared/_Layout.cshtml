@@ -20,13 +20,34 @@
                 </button>
                 @Html.ActionLink("Tratamento Fora Domicilio", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
-            <div class="navbar-collapse collapse">
-              
-            </div>
+
+
+            <ul class="nav navbar-nav navbar-right">
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <span><strong>Paulo</strong></span>
+                         <i class=" glyphicon glyphicon-user"></i>
+                        <b class="caret"></b>
+                        
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Trocar Senha</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#"><i class="glyphicon glyphicon-user"></i> Meu cadastro</a></li>
+                        <li class="divider"></li>
+                        <li><a title="Clique para sair do sistema" href="#"><i class="glyphicon glyphicon-off"></i> Sair</a></li>
+                    </ul>
+                </li>
+            </ul>
         </div>
+
     </div>
+
     <br />
     @Html.Partial("_Menu")
+
+
     <div class="container">
         <br />
         @RenderBody()
@@ -35,11 +56,11 @@
             <p>&copy; Projeto de Conclusão de Curso @DateTime.Now.Year</p>
         </footer>
     </div>
-    
+
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/Pessoa")
-   
+
     @RenderSection("scripts", required: false)
 </body>
 </html>

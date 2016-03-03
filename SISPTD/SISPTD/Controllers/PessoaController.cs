@@ -13,35 +13,22 @@ namespace SISPTD.Controllers
 {
     public class PessoaController : Controller
     {
+        private PessoaBO pBO = new PessoaBO();
         private dbSISPTD db = new dbSISPTD();
 
-        // GET: Pessoa
+       
         public ActionResult Index()
         {
-            PessoaBO pBO = new PessoaBO();
-
-            //var pessoa = db.Pessoa.Include(p => p.Pessoa2);
             return View(pBO.ObterPessoa());
         }
 
-        // GET: Pessoa/Details/5
+      
         public ActionResult Details(long? id)
         {
-            PessoaBO pBO = new PessoaBO();
-            //if (id == null)
-            //{
-            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            //}
-             
-            //Pessoa pessoa = db.Pessoa.Find(id);
-            //if (pessoa == null)
-            //{
-            //    return HttpNotFound();
-            //}
+         
             return View(pBO.ObterPessoa(id));
         }
 
-        // GET: Pessoa/Create
         public ActionResult Create()
         {
             
@@ -54,12 +41,11 @@ namespace SISPTD.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Pessoa.Add(pessoa);
-                db.SaveChanges();
-                return RedirectToAction("Create", "Endereco", new {pessoaId = pessoa.pessoaId });
+                pBO.CriarPessoa(pessoa);
+                return RedirectToAction("Create", "Endereco", new { pessoaId = pessoa.pessoaId, tab = "tabEndereco" });
             }
 
-            ViewBag.pessoaPai = new SelectList(db.Pessoa, "pessoaId", "cpf", pessoa.pessoaPai);
+            ViewBag.pessoaPai = new SelectList(pBO.ObterPessoa(), "pessoaId", "cpf", pessoa.pessoaPai);
             return View(pessoa);
         }
         public ActionResult CreateAcompanhate(long? acompanhate)
@@ -71,13 +57,12 @@ namespace SISPTD.Controllers
         }
 
         [HttpPost, ValidateAntiForgeryToken]
-        public ActionResult CreateAcompanhate(Pessoa pesssoa)
+        public ActionResult CreateAcompanhate(Pessoa pessoa)
         {
             
             if (ModelState.IsValid)
             {
-                db.Pessoa.Add(pesssoa);
-                db.SaveChanges();
+                pBO.CriarPessoa(pessoa);
                 return RedirectToAction("Index");
             }
             return View();
@@ -86,16 +71,8 @@ namespace SISPTD.Controllers
         // GET: Pessoa/Edit/5
         public ActionResult Edit(long? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Pessoa pessoa = db.Pessoa.Find(id);
-            if (pessoa == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.pessoaPai = new SelectList(db.Pessoa, "pessoaId", "cpf", pessoa.pessoaPai);
+            Pessoa pessoa = pBO.ObterPessoa(id);
+            ViewBag.pessoaPai = new SelectList(pBO.ObterPessoa(), "pessoaId", "cpf", pessoa.pessoaPai);
             return View(pessoa);
         }
 
@@ -105,8 +82,7 @@ namespace SISPTD.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(pessoa).State = EntityState.Modified;
-                db.SaveChanges();
+                pBO.AtualizarPessoa(pessoa);
                 return RedirectToAction("Index");
             }
             ViewBag.pessoaPai = new SelectList(db.Pessoa, "pessoaId", "cpf", pessoa.pessoaPai);
@@ -116,15 +92,7 @@ namespace SISPTD.Controllers
         // GET: Pessoa/Delete/5
         public ActionResult Delete(long? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Pessoa pessoa = db.Pessoa.Find(id);
-            if (pessoa == null)
-            {
-                return HttpNotFound();
-            }
+          Pessoa pessoa =   pBO.ObterPessoa(id);
             return View(pessoa);
         }
 
@@ -133,9 +101,8 @@ namespace SISPTD.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(long id)
         {
-            Pessoa pessoa = db.Pessoa.Find(id);
-            db.Pessoa.Remove(pessoa);
-            db.SaveChanges();
+            pBO.Excluir(id);
+            
             return RedirectToAction("Index");
         }
 
