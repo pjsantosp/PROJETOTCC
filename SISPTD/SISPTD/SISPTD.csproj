@@ -162,12 +162,16 @@
     <Compile Include="BO\EnderecoBO.cs" />
     <Compile Include="BO\EstadoBO.cs" />
     <Compile Include="BO\PessoaBO.cs" />
+    <Compile Include="BO\UserBO.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\DistribProcessoController.cs" />
     <Compile Include="Controllers\EnderecoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\PericiaController.cs" />
     <Compile Include="Controllers\PessoaController.cs" />
+    <Compile Include="Controllers\roles.cs" />
     <Compile Include="Controllers\SetorController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
@@ -176,6 +180,26 @@
     <Compile Include="Migrations\201602290127234_BancoInicial.cs" />
     <Compile Include="Migrations\201602290127234_BancoInicial.Designer.cs">
       <DependentUpon>201602290127234_BancoInicial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603052016027_TipoUsuario.cs" />
+    <Compile Include="Migrations\201603052016027_TipoUsuario.Designer.cs">
+      <DependentUpon>201603052016027_TipoUsuario.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603060400506_RemoveObrigatoriedadeCampPericia.cs" />
+    <Compile Include="Migrations\201603060400506_RemoveObrigatoriedadeCampPericia.Designer.cs">
+      <DependentUpon>201603060400506_RemoveObrigatoriedadeCampPericia.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603060409160_RemovRelPericiaDistrib.cs" />
+    <Compile Include="Migrations\201603060409160_RemovRelPericiaDistrib.Designer.cs">
+      <DependentUpon>201603060409160_RemovRelPericiaDistrib.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603060412273_RemovRelPericiaDistribProcesso.cs" />
+    <Compile Include="Migrations\201603060412273_RemovRelPericiaDistribProcesso.Designer.cs">
+      <DependentUpon>201603060412273_RemovRelPericiaDistribProcesso.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603060448309_TrocaNoTipoCamp.cs" />
+    <Compile Include="Migrations\201603060448309_TrocaNoTipoCamp.Designer.cs">
+      <DependentUpon>201603060448309_TrocaNoTipoCamp.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -195,6 +219,7 @@
     <Compile Include="Models\Pericia.cs" />
     <Compile Include="Models\Pessoa.cs" />
     <Compile Include="Models\Requisicao.cs" />
+    <Compile Include="Models\UserTipo.cs" />
     <Compile Include="Models\Setor.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -236,7 +261,9 @@
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\Utils.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -300,6 +327,13 @@
     <Content Include="Views\DistribProcesso\Edit.cshtml" />
     <Content Include="Views\DistribProcesso\Index.cshtml" />
     <Content Include="Views\Shared\_ErrosSystem.cshtml" />
+    <Content Include="Views\Shared\_Menu2.cshtml" />
+    <Content Include="Views\Login\Login.cshtml" />
+    <Content Include="Views\Pericia\Create.cshtml" />
+    <Content Include="Views\Pericia\Delete.cshtml" />
+    <Content Include="Views\Pericia\Details.cshtml" />
+    <Content Include="Views\Pericia\Edit.cshtml" />
+    <Content Include="Views\Pericia\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -314,6 +348,21 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201602290127234_BancoInicial.resx">
       <DependentUpon>201602290127234_BancoInicial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603052016027_TipoUsuario.resx">
+      <DependentUpon>201603052016027_TipoUsuario.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603060400506_RemoveObrigatoriedadeCampPericia.resx">
+      <DependentUpon>201603060400506_RemoveObrigatoriedadeCampPericia.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603060409160_RemovRelPericiaDistrib.resx">
+      <DependentUpon>201603060409160_RemovRelPericiaDistrib.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603060412273_RemovRelPericiaDistribProcesso.resx">
+      <DependentUpon>201603060412273_RemovRelPericiaDistribProcesso.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603060448309_TrocaNoTipoCamp.resx">
+      <DependentUpon>201603060448309_TrocaNoTipoCamp.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

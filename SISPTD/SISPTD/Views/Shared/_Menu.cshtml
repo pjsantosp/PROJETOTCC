@@ -1,10 +1,53 @@
-﻿<div class="container">
-    <ul class="nav nav-tabs">
-        <li class="@(SISPTD.Ultis.NavTabs.GetTab(ViewContext,"Pessoa")) active"><a href="@Url.Action("Index", "Pessoa")">Paciente</a></li>
-        <li class="@(SISPTD.Ultis.NavTabs.GetTab(ViewContext,"DistribProcesso"))"><a href="@Url.Action("Index", "DistribProcesso")">Distribuição de Processo</a></li>
-        <li class="@(SISPTD.Ultis.NavTabs.GetTab(ViewContext,"Setor"))"><a href="@Url.Action("Index", "Setor")">Cadastro de Setor</a></li>
-        <li><a href="#">Requisição</a></li>
-        <li class="@(SISPTD.Ultis.NavTabs.GetTab(ViewContext,"User"))"><a href="@Url.Action("Index", "User")">Cadastro de Usuário</a></li>
-    </ul>
-</div>
+﻿    <div class="navbar navbar-default navbar-static-top">
+        <div class="container">
+            <ul class="nav nav-tabs">
+                <li class="@(SISPTD.Ultis.NavTabs.GetTab(ViewContext,"Pessoa")) ">
+                    <a href="@Url.Action("Index", "Pessoa")">
+                        <h2 class="text-center">
+                            <i class="  glyphicon glyphicon-user"></i>
+                        </h2>
+                        <span>Paciente</span>
+                    </a>
+                </li>
+                <li class="@(SISPTD.Ultis.NavTabs.GetTab(ViewContext,"DistribProcesso"))">
+                    <a href="@Url.Action("Index", "DistribProcesso")">
+                        <h2 class="text-center">
+                            <span class="glyphicon glyphicon-envelope"></span>
+                        </h2>
+                        <span>Distribuir Processo</span>
+                    </a>
+                </li>
+                <li class="@(SISPTD.Ultis.NavTabs.GetTab(ViewContext,"Setor"))">
+                    <a href="@Url.Action("Index", "Setor")">
+                        <h2 class="text-center ">
+                            <i class="glyphicon glyphicon-inbox"></i>
+                        </h2>
+                        <span>Setor</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <h2 class="text-center">
+                            <i class="glyphicon glyphicon-plane"></i>
+                        </h2>
+                        <span>Requisição</span>
+                    </a>
+                </li>
+                <li class="@(SISPTD.Ultis.NavTabs.GetTab(ViewContext,"User"))">
+                    <a href="@Url.Action("Index", "User")">
+                        <h2 class="text-center">
+                            <i class="glyphicon glyphicon-user"></i>
+                        </h2>
+                        <span>Usuarios</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+   
+
+
+
+
 

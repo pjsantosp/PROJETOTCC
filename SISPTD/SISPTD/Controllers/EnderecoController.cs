@@ -20,7 +20,6 @@ namespace SISPTD.Controllers
 
         public ActionResult Index()
         {
-
             return View(eBO.ObterEndereco());
         }
 
@@ -61,11 +60,10 @@ namespace SISPTD.Controllers
                     TempData["Sucesso"] = "Cadastre um acompanhante";
                     return RedirectToAction("CreateAcompanhate", "Pessoa", new { acompanhate = endereco.pessoaId });
                 }
-               
-              
 
             }
 
+            TempData["Sucesso"] = "Paciente Cadastrado com Sucesso!";
             ViewBag.IdCidade = new SelectList(db.Cidades, "IdCidade", "Cidade", endereco.IdCidade);
             ViewBag.pessoaId = new SelectList(db.Pessoa, "pessoaId", "cpf", endereco.pessoaId);
             return View(endereco);

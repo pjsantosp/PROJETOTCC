@@ -17,7 +17,12 @@ namespace SISPTD.Controllers
         // GET: DistribProcesso
         public ActionResult Index()
         {
-            var distribProcesso = db.DistribProcesso.Include(d => d.Pericia).Include(d => d.Pessoa).Include(d => d.SetorDestino).Include(d => d.SetorOrigem).Include(d => d.UserEnviou).Include(d => d.UserRecebeu);
+            var distribProcesso = db.DistribProcesso
+                .Include(d => d.Pessoa)
+                .Include(d => d.SetorDestino)
+                .Include(d => d.SetorOrigem)
+                .Include(d => d.UserEnviou)
+                .Include(d => d.UserRecebeu);
             return View(distribProcesso.ToList());
         }
 
@@ -39,22 +44,23 @@ namespace SISPTD.Controllers
         // GET: DistribProcesso/Create
         public ActionResult Create()
         {
-            ViewBag.periciaId = new SelectList(db.Pericia, "periciaId", "descricao");
             ViewBag.pessoaId = new SelectList(db.Pessoa, "pessoaId", "nome");
             ViewBag.SetorDestinoId = new SelectList(db.Setor, "setorId", "descricao");
             ViewBag.SetorOrigemId = new SelectList(db.Setor, "setorId", "descricao");
+            //ViewBag.usuarioEnviouId = new SelectList(db.User, "usuarioId", "login");
             ViewBag.usuarioEnviouId = new SelectList(db.User, "usuarioId", "login");
             ViewBag.usuarioRecebeuId = new SelectList(db.User, "usuarioId", "login");
             return View();
         }
 
-        // POST: DistribProcesso/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+       
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "distrib_ProcessoId,SetorOrigemId,SetorDestinoId,observacoes,pessoaId,usuarioEnviouId,usuarioRecebeuId,periciaId")] DistribProcesso distribProcesso)
+        public ActionResult Create(DistribProcesso distribProcesso)
         {
+
+            var user = db.User.Where(u => u.login.Contains(User.Identity.Name)).FirstOrDefault();
+            distribProcesso.UserEnviou = user;
             if (ModelState.IsValid)
             {
                 db.DistribProcesso.Add(distribProcesso);
@@ -62,7 +68,6 @@ namespace SISPTD.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.periciaId = new SelectList(db.Pericia, "periciaId", "descricao", distribProcesso.periciaId);
             ViewBag.pessoaId = new SelectList(db.Pessoa, "pessoaId", "cpf", distribProcesso.pessoaId);
             ViewBag.SetorDestinoId = new SelectList(db.Setor, "setorId", "descricao", distribProcesso.SetorDestinoId);
             ViewBag.SetorOrigemId = new SelectList(db.Setor, "setorId", "descricao", distribProcesso.SetorOrigemId);
@@ -83,7 +88,7 @@ namespace SISPTD.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.periciaId = new SelectList(db.Pericia, "periciaId", "descricao", distribProcesso.periciaId);
+            //ViewBag.periciaId = new SelectList(db.Pericia, "periciaId", "descricao", distribProcesso.periciaId);
             ViewBag.pessoaId = new SelectList(db.Pessoa, "pessoaId", "cpf", distribProcesso.pessoaId);
             ViewBag.SetorDestinoId = new SelectList(db.Setor, "setorId", "descricao", distribProcesso.SetorDestinoId);
             ViewBag.SetorOrigemId = new SelectList(db.Setor, "setorId", "descricao", distribProcesso.SetorOrigemId);
@@ -92,9 +97,6 @@ namespace SISPTD.Controllers
             return View(distribProcesso);
         }
 
-        // POST: DistribProcesso/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "distrib_ProcessoId,SetorOrigemId,SetorDestinoId,observacoes,pessoaId,usuarioEnviouId,usuarioRecebeuId,periciaId")] DistribProcesso distribProcesso)
@@ -105,7 +107,6 @@ namespace SISPTD.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.periciaId = new SelectList(db.Pericia, "periciaId", "descricao", distribProcesso.periciaId);
             ViewBag.pessoaId = new SelectList(db.Pessoa, "pessoaId", "cpf", distribProcesso.pessoaId);
             ViewBag.SetorDestinoId = new SelectList(db.Setor, "setorId", "descricao", distribProcesso.SetorDestinoId);
             ViewBag.SetorOrigemId = new SelectList(db.Setor, "setorId", "descricao", distribProcesso.SetorOrigemId);

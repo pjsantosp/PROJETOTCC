@@ -1,0 +1,66 @@
+﻿@model SISPTD.Models.Pericia
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Pericia</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Cid.codigoCid)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cid.codigoCid)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Medico.crm_Medico)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Medico.crm_Medico)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Pessoa.cpf)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Pessoa.cpf)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.descricao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.descricao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dt_Pericia)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dt_Pericia)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.situacao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.situacao)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.periciaId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

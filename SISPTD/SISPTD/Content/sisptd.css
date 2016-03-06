@@ -1,6 +1,23 @@
 ﻿.btn,
 .form-control,
 .panel,
-.well  {
-    border-radius:0px;
+.well{
+    border-radius: 0px;
+}
+.btn-menu-lg{
+    padding: 10px 16px;
+    font-size: 18px;
+    line-height: 2.33;
+    border-radius: 0px;
+}
+    
+}
+.nav-menu {
+   top:auto;
+    position: fixed;
+    right: 0;
+    left: 0;
+    border-width: 0 0 2px;
+     min-height: 50px;
+   
 }

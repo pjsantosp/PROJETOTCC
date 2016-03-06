@@ -20,7 +20,9 @@ namespace SISPTD.Models
         [Display(Name="Senha")]
         [Required]
         [StringLength(50)]
+        [DataType(DataType.Password)]
         public string senha { get; set; }
+        public virtual Tipo tipo { get; set; }
 
         public long pessoaId { get; set; }
 

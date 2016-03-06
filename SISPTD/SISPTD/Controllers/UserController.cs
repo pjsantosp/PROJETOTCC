@@ -7,12 +7,14 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using SISPTD.Models;
+using SISPTD.BO;
 
 namespace SISPTD.Controllers
 {
     public class UserController : Controller
     {
         private dbSISPTD db = new dbSISPTD();
+        private UserBO uBO = new UserBO();
 
         // GET: User
         public ActionResult Index()
@@ -38,23 +40,32 @@ namespace SISPTD.Controllers
 
         public ActionResult Create(string user)
         {
-          
+            ViewBag.roles = new SelectList(Enum.GetValues(typeof(Tipo)));
             ViewBag.pessoaId = new SelectList(db.Pessoa, "pessoaId", "nome");
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "usuarioId,login,senha,pessoaId")] User user)
+        public ActionResult Create(User user, string roles)
         {
-            if (ModelState.IsValid)
+            if (uBO.VerificaUser(user) != true)
             {
-                db.User.Add(user);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                user.tipo = (Tipo)Enum.Parse(typeof(Tipo), roles);
+
+                user.senha = uBO.Encrypt(user.senha);
+
+                if (ModelState.IsValid)
+                {
+                    db.User.Add(user);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
             }
 
-            ViewBag.pessoaId = new SelectList(db.Pessoa, "pessoaId", "cpf", user.pessoaId);
+            TempData["Erro"] = "O Login " + user.login + " Já Esta cadastrado para Uma Pessoa!";
+            ViewBag.pessoaId = new SelectList(db.Pessoa, "pessoaId", "nome", user.pessoaId);
+            ViewBag.roles = new SelectList(Enum.GetValues(typeof(Tipo)));
             return View(user);
         }
 
@@ -74,9 +85,7 @@ namespace SISPTD.Controllers
             return View(user);
         }
 
-        // POST: User/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "usuarioId,login,senha,pessoaId")] User user)

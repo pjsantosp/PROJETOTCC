@@ -11,11 +11,14 @@ namespace SISPTD.Models
     {
        [Key]
         public long distrib_ProcessoId { get; set; }
-      
+        [Required, Display(Name="Setor de Origem")]      
+        
         public long? SetorOrigemId { get; set; }
+        [Display(Name="Setor de Destino")]   
       
         public long SetorDestinoId { get; set; }
-
+        [Display(Name="Observações")]
+        [DataType(DataType.MultilineText)]
         public string observacoes { get; set; }
 
         public long pessoaId { get; set; }
@@ -24,10 +27,10 @@ namespace SISPTD.Models
 
         public long? usuarioRecebeuId { get; set; }
 
-        public long? periciaId { get; set; }
+        //public long? periciaId { get; set; }
 
 
-        public virtual Pericia Pericia { get; set; }
+        //public virtual Pericia Pericia { get; set; }
 
         public virtual Pessoa Pessoa { get; set; }
 

@@ -139,10 +139,10 @@ namespace SISPTD.Models
             //    .Property(e => e.descricao)
             //    .IsUnicode(false);
 
-            modelBuilder.Entity<Pericia>()
-                .HasMany(e => e.DistribProcesso)
-                .WithOptional(e => e.Pericia)
-                .HasForeignKey(e => e.periciaId);
+            //modelBuilder.Entity<Pericia>()
+            //    .HasMany(e => e.DistribProcesso)
+            //    .WithOptional(e => e.Pericia)
+            //    .HasForeignKey(e => e.periciaId);
 
             //modelBuilder.Entity<Pessoa>()
             //    .Property(e => e.cpf)
@@ -235,10 +235,10 @@ namespace SISPTD.Models
                 .HasForeignKey(e => e.pessoaId)
                 .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<Pericia>()
-                .HasMany(e => e.DistribProcesso)
-                .WithRequired(e => e.Pericia)
-                .HasForeignKey(e => e.periciaId);
+            //modelBuilder.Entity<Pericia>()
+            //    .HasMany(e => e.DistribProcesso)
+            //    .WithOptional(e => e.Pericia)
+            //    .HasForeignKey(e => e.periciaId);
 
             modelBuilder.Entity<Requisicao>()
                 .HasMany(e => e.ItemRequisicao)

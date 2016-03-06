@@ -15,11 +15,12 @@ namespace SISPTD.Controllers
     {
         private PessoaBO pBO = new PessoaBO();
         private dbSISPTD db = new dbSISPTD();
-
        
-        public ActionResult Index()
+       
+        public ActionResult Index(string p = "")
         {
-            return View(pBO.ObterPessoa());
+            IEnumerable<Pessoa> listapessoa = db.Pessoa.Include("DistribProcesso").Where(x => x.cpf.Contains(p));
+            return View(listapessoa);
         }
 
       
@@ -63,6 +64,7 @@ namespace SISPTD.Controllers
             if (ModelState.IsValid)
             {
                 pBO.CriarPessoa(pessoa);
+                TempData["Sucesso"] = "Acompanhante Cadastrado com Sucesso";
                 return RedirectToAction("Index");
             }
             return View();

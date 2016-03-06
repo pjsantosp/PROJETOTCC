@@ -12,22 +12,22 @@ namespace SISPTD.Models
        [Key]
         public long periciaId { get; set; }
 
-        [Required]
+        [Required, Display(Name="Descrição")]
         public string descricao { get; set; }
-
+        [Display(Name="Cid")]
         public long? cidId { get; set; }
-
+        [Display(Name="Data da Pericia")]
         public DateTime dt_Pericia { get; set; }
-
+        [Display(Name="Medico")]
         public long medicoId { get; set; }
-
-        public int? situacao { get; set; }
-
+        [Display(Name="Situação")]
+        [DataType(DataType.MultilineText)]
+        
+        public string situacao { get; set; }
+        [Display(Name="Paciente")]
         public long pessoaId { get; set; }
 
         public virtual Cid Cid { get; set; }
-
-        public virtual ICollection<DistribProcesso> DistribProcesso { get; set; }
 
         public virtual Medico Medico { get; set; }
 

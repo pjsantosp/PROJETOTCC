@@ -44,7 +44,15 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                @Html.Label("Perfil Usuário", htmlAttributes: new { @class = "control-label" })
+                                @Html.DropDownList("roles", ViewBag.role as SelectList, new { @class = "form-control" })
 
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="well well-sm">
@@ -55,14 +63,8 @@
             <div>
             </div>
         }
-
     </div>
-    <div class="col-md-4"></div>
 </div>
-
-
-
-
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
