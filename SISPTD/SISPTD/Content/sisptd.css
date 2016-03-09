@@ -1,23 +1,51 @@
 ﻿.btn,
 .form-control,
 .panel,
-.well{
+.well {
     border-radius: 0px;
 }
-.btn-menu-lg{
+
+.btn-menu-lg {
     padding: 10px 16px;
     font-size: 18px;
     line-height: 2.33;
     border-radius: 0px;
 }
-    
+
+.navbar-menu {
+    background-color: #3276b1;
 }
+
 .nav-menu {
-   top:auto;
-    position: fixed;
-    right: 0;
+    width: 100%;
+    top: 45px;
     left: 0;
-    border-width: 0 0 2px;
-     min-height: 50px;
-   
+    z-index: 6;
+    position: fixed;
+    background: none repeat scroll 0 0 #f7f7f7;
+    background-color: rgb(247, 247, 247);
+    background-image: none;
+    background-repeat: repeat;
+    background-attachment: scroll;
+    background-position: 0px 0px;
+    background-clip: border-box;
+    background-origin: padding-box;
+    background-size: auto auto;
+}
+
+.menu ul li {
+    text-align: center;
+    border-left: solid 1px #ecf0f1;
+    border-left-width: 1px;
+    border-left-style: solid;
+    border-left-color: rgb(236, 240, 241);
+    float: left;
+    width: 12.5%;
+}
+
+.column, .columns {
+    position: relative;
+    padding-left: .9375em;
+    padding-right: .9375em;
+    float: left;
 }

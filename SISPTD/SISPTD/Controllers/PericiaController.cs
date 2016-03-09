@@ -41,14 +41,14 @@ namespace SISPTD.Controllers
         {
             ViewBag.cidId = new SelectList(db.Cid, "cidId", "codigoCid");
             ViewBag.medicoId = new SelectList(db.Medico, "medicoId", "crm_Medico");
-            ViewBag.pessoaId = new SelectList(db.Pessoa, "pessoaId", "cpf");
+            ViewBag.pessoaId = new SelectList(db.Pessoa, "pessoaId", "nome");
             return View();
         }
 
         
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "periciaId,descricao,cidId,dt_Pericia,medicoId,situacao,pessoaId")] Pericia pericia)
+        public ActionResult Create(Pericia pericia)
         {
             if (ModelState.IsValid)
             {
@@ -80,10 +80,7 @@ namespace SISPTD.Controllers
             ViewBag.pessoaId = new SelectList(db.Pessoa, "pessoaId", "cpf", pericia.pessoaId);
             return View(pericia);
         }
-
-        // POST: Pericia/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+       
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "periciaId,descricao,cidId,dt_Pericia,medicoId,situacao,pessoaId")] Pericia pericia)

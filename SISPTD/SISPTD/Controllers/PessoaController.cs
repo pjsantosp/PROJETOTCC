@@ -19,7 +19,7 @@ namespace SISPTD.Controllers
        
         public ActionResult Index(string p = "")
         {
-            IEnumerable<Pessoa> listapessoa = db.Pessoa.Include("DistribProcesso").Where(x => x.cpf.Contains(p));
+            IEnumerable<Pessoa> listapessoa = db.Pessoa.Include("DistribProcesso").Where(x => x.cpf.Contains(p)).Take(7);
             return View(listapessoa);
         }
 
@@ -43,7 +43,7 @@ namespace SISPTD.Controllers
             if (ModelState.IsValid)
             {
                 pBO.CriarPessoa(pessoa);
-                return RedirectToAction("Create", "Endereco", new { pessoaId = pessoa.pessoaId, tab = "tabEndereco" });
+                return RedirectToAction("Create", "Endereco", new { pessoaId = pessoa.pessoaId });
             }
 
             ViewBag.pessoaPai = new SelectList(pBO.ObterPessoa(), "pessoaId", "cpf", pessoa.pessoaPai);

@@ -1,6 +1,6 @@
-﻿    <div class="navbar navbar-default navbar-static-top">
+﻿    <div class="navbar navbar-default navbar-static-top menu nav-menu">
         <div class="container">
-            <ul class="nav nav-tabs">
+            <ul class="nav  columns col-md-12">
                 <li class="@(SISPTD.Ultis.NavTabs.GetTab(ViewContext,"Pessoa")) ">
                     <a href="@Url.Action("Index", "Pessoa")">
                         <h2 class="text-center">
@@ -14,9 +14,19 @@
                         <h2 class="text-center">
                             <span class="glyphicon glyphicon-envelope"></span>
                         </h2>
-                        <span>Distribuir Processo</span>
+                        <span>Distribuir </span>
                     </a>
                 </li>
+
+                <li class="@(SISPTD.Ultis.NavTabs.GetTab(ViewContext,"Pericia"))">
+                    <a href="@Url.Action("Index", "Pericia")">
+                        <h2 class="text-center">
+                            <span class="glyphicon glyphicon-list-alt"></span>
+                        </h2>
+                        <span>Pericia Médica</span>
+                    </a>
+                </li>
+
                 <li class="@(SISPTD.Ultis.NavTabs.GetTab(ViewContext,"Setor"))">
                     <a href="@Url.Action("Index", "Setor")">
                         <h2 class="text-center ">

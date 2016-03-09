@@ -11,12 +11,12 @@ namespace SISPTD.Models
     {
        [Key]
         public long clinicaId { get; set; }
-
+        [Display(Name="Clinica")]
         [StringLength(150)]
         public string nome_Clinica { get; set; }
-
+        [Display(Name="Cidade")]
         public int? IdCidade { get; set; }
-
+        [Display(Name="Telefone")]
         [StringLength(10)]
         public string tel_Clinica { get; set; }
 

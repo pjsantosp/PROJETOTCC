@@ -14,6 +14,7 @@ namespace SISPTD.Controllers
 {
     public class LoginController : Controller
     {
+        dbSISPTD db = new dbSISPTD();
 
         // GET: Login
         public ActionResult Login()
@@ -28,11 +29,13 @@ namespace SISPTD.Controllers
             UserBO uBO = new UserBO();
             conta.senha = Encrypt(conta.senha);
             conta = uBO.Validar(conta); 
+            
             if (conta != null)
             {
                 FormsAuthentication.SetAuthCookie(conta.login, false);
                 CreateAuthorizeTicket((int)conta.usuarioId,conta.login.ToString(),conta.tipo.ToString());
-
+                
+                
                 //String returnUrl = Request.QueryString["ReturnUrl"];
                 //if (returnUrl != null)
                 //    return Redirect(returnUrl);
@@ -55,9 +58,11 @@ namespace SISPTD.Controllers
             ViewBag.msg = "Login e/ou Senha Inválidos";
             return View();
         }
-        public void Deslogar()
+        public ActionResult Deslogar()
         {
             FormsAuthentication.SignOut();
+
+            return RedirectToAction("Login", "Login");
         }
 
         public static string Encrypt(string senha)
