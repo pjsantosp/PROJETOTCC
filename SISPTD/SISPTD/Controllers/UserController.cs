@@ -49,7 +49,7 @@ namespace SISPTD.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(User user, string roles)
         {
-            if (uBO.VerificaUser(user) != true)
+            if (uBO.VerificaUser(user) != false)
             {
                 user.tipo = (Tipo)Enum.Parse(typeof(Tipo), roles);
 

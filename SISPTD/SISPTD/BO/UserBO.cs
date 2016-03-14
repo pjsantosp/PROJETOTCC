@@ -69,8 +69,12 @@ namespace SISPTD.BO
         {
             try
             {
-                var userExist = db.User.Where(u => u.login.Contains(user.login));
-                return true;
+                var userExist = db.User.FirstOrDefault(u => u.login == user.login);
+                if (userExist == null)
+                    return true;
+                else
+                    return false;
+                
             }
             catch (Exception)
             {

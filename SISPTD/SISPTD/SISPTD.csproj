@@ -234,7 +234,7 @@
     <Content Include="Content\chosen-sprite.png" />
     <Content Include="Content\chosen.css" />
     <Content Include="Content\sisptd.css" />
-    <Content Include="favicon.ico" />
+    <Content Include="favicon1.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -309,8 +309,7 @@
     <Content Include="Views\Endereco\Edit.cshtml" />
     <Content Include="Views\Endereco\Index.cshtml" />
     <Content Include="Views\Shared\_Menu.cshtml" />
-    <Content Include="Views\Pessoa\CreateAcompanhate.cshtml" />
-    <Content Include="Views\Pessoa\CreateAcompanhate1.cshtml" />
+    <Content Include="Views\Pessoa\CreateAcompanhante.cshtml" />
     <Content Include="Views\User\Create.cshtml" />
     <Content Include="Views\User\Delete.cshtml" />
     <Content Include="Views\User\Details.cshtml" />
@@ -334,6 +333,8 @@
     <Content Include="Views\Pericia\Details.cshtml" />
     <Content Include="Views\Pericia\Edit.cshtml" />
     <Content Include="Views\Pericia\Index.cshtml" />
+    <Content Include="Views\Pessoa\_EndPessoa.cshtml" />
+    <Content Include="Views\Pessoa\_Formulario.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

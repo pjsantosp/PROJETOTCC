@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<SISPTD.Models.Pessoa>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Lista de Pessoa";
 }
 
 
@@ -11,7 +11,7 @@
         <div class="input-group-btn">
             <a href="@Url.Action("Create")" class="btn btn-success"><i class="glyphicon glyphicon-plus"></i> Novo</a>
         </div>
-        @Html.TextBox("p", Request.QueryString["p"], new { autofocus = "", @class = "col-md-2 form-control", placeholder = "Procure por CPF" })
+        @Html.TextBox("busca", Request.QueryString["busca"], new { autofocus = "", @class = "col-md-2 form-control", placeholder = "Procure por CPF" })
         <span class="input-group-btn">
             <button class="btn btn-primary" type="submit"><i class="glyphicon glyphicon-search"></i></button>
         </span>
@@ -21,16 +21,13 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Pessoa2.cpf)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.dt_Cadastro)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.cpf)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.cns)
+            @Html.DisplayNameFor(model => model.nome)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.dt_Nascimento)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.rg)
@@ -42,19 +39,7 @@
             @Html.DisplayNameFor(model => model.dt_Emissao)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.nome)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.dt_Nascimento)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.email)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.nome_Mae)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.nome_Pai)
+            @Html.DisplayNameFor(model => model.cns)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.tel)
@@ -62,59 +47,71 @@
         <th>
             @Html.DisplayNameFor(model => model.cel)
         </th>
+        @*<th>
+                @Html.DisplayNameFor(model => model.nome_Pai)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.nome_Mae)
+            </th>*@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Pessoa2.cpf)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.dt_Cadastro)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.cpf)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.cns)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.rg)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.orgaoemissor)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.dt_Emissao)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.nome)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.dt_Nascimento)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.nome_Mae)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.nome_Pai)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.tel)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.cel)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.pessoaId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.pessoaId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.pessoaId })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.Pessoa2.pessoaPai)
+                </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.cpf)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.nome)
+
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.dt_Nascimento)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.rg)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.orgaoemissor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.dt_Emissao)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.cns)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.tel)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.cel)
+            </td>
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.nome_Mae)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.nome_Pai)
+                </td>*@
+            <td></td>
+            <td >
+                
+                <a class="glyphicon glyphicon-edit "  href="@Url.Action("", "Pessoa", new { id = item.pessoaId })"></a> |
+                <a class="glyphicon glyphicon-align-justify" href="@Url.Action("Details", "Pessoa", new { id = item.pessoaId })"></a> |
+                <a class="glyphicon glyphicon-remove" href="@Url.Action("Delete", "Pessoa", new { id = item.pessoaId })"></a> |
+                <a class="glyphicon glyphicon-paperclip" href="@Url.Action("CreateAcompanhante", new { acompanhante = item.pessoaId })"></a> |
+                @Html.ActionLink("Acompanhante", "CreateAcompanhante", new { acompanhante = item.pessoaId })
+            </td>
+        </tr>
+    }
 
 </table>

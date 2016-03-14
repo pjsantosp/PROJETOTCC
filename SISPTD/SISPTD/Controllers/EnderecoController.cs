@@ -23,7 +23,7 @@ namespace SISPTD.Controllers
             return View(eBO.ObterEndereco());
         }
 
-        // GET: Endereco/Details/5
+       
         public ActionResult Details(long? id)
         {
             var endereco = eBO.ObterEndereco(id);
@@ -31,7 +31,7 @@ namespace SISPTD.Controllers
         }
 
         // GET: Endereco/Create
-        public ActionResult Create(long? pessoaId)
+        public ActionResult Create(long? pessoaId )
         {
             Endereco endPessoa = new Endereco();
             endPessoa.pessoaId = pessoaId;
@@ -58,12 +58,14 @@ namespace SISPTD.Controllers
                 if (pBO.CalculoIdade(pessoa))
                 {
                     TempData["Sucesso"] = "Cadastre um acompanhante";
-                    return RedirectToAction("CreateAcompanhate", "Pessoa", new { acompanhate = endereco.pessoaId });
+
+                    return RedirectToAction("CreateAcompanhate", "Pessoa", new { acompanhante = endereco.pessoaId });
                 }
 
             }
 
-            TempData["Sucesso"] = "Paciente Cadastrado com Sucesso!";
+            TempData["Sucesso"] = "Paciente Cadastrado com Sucesso!"; 
+            
             ViewBag.IdCidade = new SelectList(db.Cidades, "IdCidade", "Cidade", endereco.IdCidade);
             ViewBag.pessoaId = new SelectList(db.Pessoa, "pessoaId", "cpf", endereco.pessoaId);
             return View(endereco);
@@ -89,7 +91,7 @@ namespace SISPTD.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "enderecoId,IdCidade,pessoaId,rua,numero,cep,bairro")] Endereco endereco)
+        public ActionResult Edit( Endereco endereco)
         {
             if (ModelState.IsValid)
             {

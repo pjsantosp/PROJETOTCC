@@ -13,22 +13,29 @@ namespace SISPTD.Controllers
 {
     public class PessoaController : Controller
     {
+        private EnderecoBO eBO = new EnderecoBO();
         private PessoaBO pBO = new PessoaBO();
         private dbSISPTD db = new dbSISPTD();
        
        
-        public ActionResult Index(string p = "")
+        public ActionResult Index(string busca = "")
         {
-            IEnumerable<Pessoa> listapessoa = db.Pessoa.Include("DistribProcesso").Where(x => x.cpf.Contains(p)).Take(7);
-            return View(listapessoa);
+            IEnumerable<Pessoa> listapessoa = db.Pessoa
+                .Include("DistribProcesso")
+                .Where(x => x.cpf.Contains(busca));
+  
+          return View(listapessoa);
         }
 
-      
+
         public ActionResult Details(long? id)
         {
+ 
          
-            return View(pBO.ObterPessoa(id));
+           return View(pBO.ObterPessoa(id));
         }
+  
+        
 
         public ActionResult Create()
         {
@@ -42,6 +49,7 @@ namespace SISPTD.Controllers
         {
             if (ModelState.IsValid)
             {
+                pessoa.dt_Cadastro = DateTime.Now;
                 pBO.CriarPessoa(pessoa);
                 return RedirectToAction("Create", "Endereco", new { pessoaId = pessoa.pessoaId });
             }
@@ -49,16 +57,16 @@ namespace SISPTD.Controllers
             ViewBag.pessoaPai = new SelectList(pBO.ObterPessoa(), "pessoaId", "cpf", pessoa.pessoaPai);
             return View(pessoa);
         }
-        public ActionResult CreateAcompanhate(long? acompanhate)
+        public ActionResult CreateAcompanhante(long? acompanhante)
         {
-            ViewBag.Paciente = db.Pessoa.Where(p => p.pessoaId == acompanhate).FirstOrDefault().nome;
-            Pessoa objAcompanhate = new Pessoa();
-            objAcompanhate.pessoaPai = acompanhate;
-            return View(objAcompanhate);
+            ViewBag.Paciente = db.Pessoa.Where(p => p.pessoaId == acompanhante).FirstOrDefault().nome;
+            Pessoa objAcompanhante = new Pessoa();
+            objAcompanhante.pessoaPai = acompanhante;
+            return View(objAcompanhante);
         }
 
         [HttpPost, ValidateAntiForgeryToken]
-        public ActionResult CreateAcompanhate(Pessoa pessoa)
+        public ActionResult CreateAcompanhante(Pessoa pessoa)
         {
             
             if (ModelState.IsValid)

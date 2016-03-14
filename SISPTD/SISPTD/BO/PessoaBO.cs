@@ -45,7 +45,20 @@ namespace SISPTD.BO
                 throw new Exception("Erro durante a busca", e);
             }
         }
-       
+        public IEnumerable<Pessoa> ObterPessoaAcompanhante(long? id)
+        {
+            try
+            {
+                dbSISPTD db = new dbSISPTD();
+                List<Pessoa> listaAcompanhante = db.Pessoa.Include("Pessoa2").Where(p => p.pessoaPai == id).ToList();
+                return listaAcompanhante;
+            }
+            catch (Exception e)
+            {
+
+                throw new Exception("Erro durante a busca", e);
+            }
+        }
         public Pessoa AtualizarPessoa(Pessoa pessoa)
         {
 

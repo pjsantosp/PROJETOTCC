@@ -18,7 +18,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-               
+
                 @Html.ActionLink("Tratamento Fora Domicilio", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <ul class="nav navbar-nav navbar-right">
@@ -41,22 +41,11 @@
         </div>
 
     </div>
-    @if (Request.IsAuthenticated)
-    {
 
-        if (User.IsInRole("Medico"))
-        {
-            @Html.Partial("_Menu")
-        }
-    }
+    @Html.Partial("_Menu")
 
-    <br /><br />
-    <br /><br />
-    <br /><br />
-    <br /><br />
 
-    
-    @Html.Partial("_ErrosSystem")
+   @Html.Partial("_ErrosSystem")
 
 
     <div class="container">

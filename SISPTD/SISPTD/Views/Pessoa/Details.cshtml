@@ -1,130 +1,147 @@
 ﻿@model SISPTD.Models.Pessoa
 
-@{
-    ViewBag.Title = "Details";
-}
+<div class="panel panel-default">
+    <div class="panel-heading"><strong>@Html.DisplayFor(model => model.nome)</strong></div>
+    <div class="panel-body">
 
-<h2>Details</h2>
+    </div>
+    <table class="table table-striped">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.cpf)
+            </th>
 
-<div>
-    <h4>Pessoa</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Pessoa2.cpf)
-        </dt>
+            <th>
+                @Html.DisplayNameFor(model => model.rg)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.orgaoemissor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.dt_Emissao)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.cns)
+            </th>
+        </tr>
 
-        <dd>
-            @Html.DisplayFor(model => model.Pessoa2.cpf)
-        </dd>
+        <tr>
+            <td>
+                @Html.DisplayFor(model => model.cpf)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.rg)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.orgaoemissor)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.dt_Emissao)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.cns)
+            </td>
+        </tr>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.dt_Cadastro)
-        </dt>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.nome_Mae)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.nome_Pai)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.tel)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.cel)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.email)
+            </th>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(model => model.nome_Mae)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.nome_Pai)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.tel)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.cel)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.email)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="5">
+                @Html.Partial("_EndPessoa", Model.Endereco)
+            </td>
 
-        <dd>
-            @Html.DisplayFor(model => model.dt_Cadastro)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.cpf)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.cpf)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.cns)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.cns)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.rg)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.rg)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.orgaoemissor)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.orgaoemissor)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.dt_Emissao)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.dt_Emissao)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.nome)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.nome)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.dt_Nascimento)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.dt_Nascimento)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.email)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.email)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.nome_Mae)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.nome_Mae)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.nome_Pai)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.nome_Pai)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.tel)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.tel)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.cel)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.cel)
-        </dd>
-
-    </dl>
+        </tr>
+        <tr></tr>
+    </table>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.pessoaId }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title"><strong>Acompanhantes</strong></h3>
+    </div>
+    <div class="panel-body">
+
+
+    </div>
+    <table class="table table-striped ">
+        <tr>
+            <th>
+                @Html.LabelFor(model => model.cpf, new { @class = "control-label" })
+            </th>
+            <th>
+                @Html.LabelFor(model => model.nome, new { @class = "control-label" })
+            </th>
+            <th>
+                @Html.LabelFor(model => model.rg, new { @class = "control-label" })
+            </th>
+            <th>
+                @Html.LabelFor(model => model.orgaoemissor, new { @class = "control-label" })
+            </th>
+            <th>
+                @Html.LabelFor(model => model.dt_Emissao, new { @class = "control-label" })
+            </th>
+            <th>
+                @Html.LabelFor(model => model.cns, new { @class = "control-label" })
+            </th>
+        </tr>
+        @foreach (var item in Model.Pessoa1)
+        {
+            <tr>
+                <td>
+                    @item.cpf
+                </td>
+                <td>
+                    <a href="@Url.Action("Edit", "Pessoa", new {id = item.pessoaId })">@item.nome</a>
+                </td>
+                <td>
+                    @item.rg
+                </td>
+                <td>
+                    @item.orgaoemissor
+                </td>
+                <td>
+                    @item.dt_Emissao
+                </td>
+                <td>
+                    @item.cns
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+<div class="well well-sm ">
+   <a class="btn btn-primary"  href="@Url.Action("Edit",  new { id = Model.pessoaId })">Editar</a>
+    @Html.ActionLink("Voltar para lista", "Index", null, new { @class = "btn btn-link pull-right" })
+</div>
+

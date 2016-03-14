@@ -34,19 +34,19 @@ namespace SISPTD.BO
                 throw new Exception("Erro no Detalhe do Endereço", e);
             }
         }
-        //public Endereco CriarEndPessoa(Endereco endereco)
-        //{
-        //    try
-        //    {
+        public List<Endereco> ObterEnderecoPorPessoa(long? id)
+        {
+            try
+            {
+                List<Endereco> listaEndPessoa = db.Endereco.Include("Pessoa").Where(e => e.pessoaId == id).ToList();
+                return listaEndPessoa;
+            }
+            catch (Exception e)
+            {
 
-                
-        //    }
-        //    catch (Exception)
-        //    {
-                
-        //        throw;
-        //    }
-        //}
+                throw new Exception("Erro no Detalhe do Endereço", e);
+            }
+        }
 
     }
 }
