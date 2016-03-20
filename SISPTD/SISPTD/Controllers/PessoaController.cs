@@ -15,27 +15,19 @@ namespace SISPTD.Controllers
     {
         private EnderecoBO eBO = new EnderecoBO();
         private PessoaBO pBO = new PessoaBO();
-        private dbSISPTD db = new dbSISPTD();
        
        
         public ActionResult Index(string busca = "")
         {
-            IEnumerable<Pessoa> listapessoa = db.Pessoa
-                .Include("DistribProcesso")
-                .Where(x => x.cpf.Contains(busca));
   
-          return View(listapessoa);
+          return View(pBO.ObterPessoa(busca));
         }
-
 
         public ActionResult Details(long? id)
         {
- 
          
            return View(pBO.ObterPessoa(id));
         }
-  
-        
 
         public ActionResult Create()
         {
@@ -59,7 +51,6 @@ namespace SISPTD.Controllers
         }
         public ActionResult CreateAcompanhante(long? acompanhante)
         {
-            ViewBag.Paciente = db.Pessoa.Where(p => p.pessoaId == acompanhante).FirstOrDefault().nome;
             Pessoa objAcompanhante = new Pessoa();
             objAcompanhante.pessoaPai = acompanhante;
             return View(objAcompanhante);
@@ -82,7 +73,6 @@ namespace SISPTD.Controllers
         public ActionResult Edit(long? id)
         {
             Pessoa pessoa = pBO.ObterPessoa(id);
-            ViewBag.pessoaPai = new SelectList(pBO.ObterPessoa(), "pessoaId", "cpf", pessoa.pessoaPai);
             return View(pessoa);
         }
 
@@ -95,7 +85,6 @@ namespace SISPTD.Controllers
                 pBO.AtualizarPessoa(pessoa);
                 return RedirectToAction("Index");
             }
-            ViewBag.pessoaPai = new SelectList(db.Pessoa, "pessoaId", "cpf", pessoa.pessoaPai);
             return View(pessoa);
         }
 
@@ -116,13 +105,6 @@ namespace SISPTD.Controllers
             return RedirectToAction("Index");
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+      
     }
 }

@@ -47,24 +47,14 @@
         <th>
             @Html.DisplayNameFor(model => model.cel)
         </th>
-        @*<th>
-                @Html.DisplayNameFor(model => model.nome_Pai)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.email)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.nome_Mae)
-            </th>*@
+       
         <th></th>
     </tr>
 
     @foreach (var item in Model)
     {
         <tr>
-            @*<td>
-                    @Html.DisplayFor(modelItem => item.Pessoa2.pessoaPai)
-                </td>*@
+          
             <td>
                 @Html.DisplayFor(modelItem => item.cpf)
             </td>
@@ -93,23 +83,13 @@
             <td>
                 @Html.DisplayFor(modelItem => item.cel)
             </td>
-            @*<td>
-                    @Html.DisplayFor(modelItem => item.email)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.nome_Mae)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.nome_Pai)
-                </td>*@
+          
             <td></td>
             <td >
-                
-                <a class="glyphicon glyphicon-edit "  href="@Url.Action("", "Pessoa", new { id = item.pessoaId })"></a> |
+                <a class="glyphicon glyphicon-edit "  href="@Url.Action("Edit", new { id = item.pessoaId })"></a> |
                 <a class="glyphicon glyphicon-align-justify" href="@Url.Action("Details", "Pessoa", new { id = item.pessoaId })"></a> |
                 <a class="glyphicon glyphicon-remove" href="@Url.Action("Delete", "Pessoa", new { id = item.pessoaId })"></a> |
-                <a class="glyphicon glyphicon-paperclip" href="@Url.Action("CreateAcompanhante", new { acompanhante = item.pessoaId })"></a> |
-                @Html.ActionLink("Acompanhante", "CreateAcompanhante", new { acompanhante = item.pessoaId })
+                <a class="glyphicon glyphicon-paperclip" href="@Url.Action("CreateAcompanhante", new { acompanhante = item.pessoaId })"></a>
             </td>
         </tr>
     }

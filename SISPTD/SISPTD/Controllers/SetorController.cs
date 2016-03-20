@@ -7,32 +7,27 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using SISPTD.Models;
+using SISPTD.BO;
+
 
 namespace SISPTD.Controllers
 {
     public class SetorController : Controller
     {
-        private dbSISPTD db = new dbSISPTD();
+        private SetorBO sBO = new SetorBO();
+     
 
         // GET: Setor
         public ActionResult Index()
         {
-            return View(db.Setor.ToList());
+            return View(sBO.ObterSetor());
         }
 
         // GET: Setor/Details/5
         public ActionResult Details(long? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Setor setor = db.Setor.Find(id);
-            if (setor == null)
-            {
-                return HttpNotFound();
-            }
-            return View(setor);
+
+           return View(sBO.ObterSetor(id));
         }
 
         // GET: Setor/Create
@@ -44,12 +39,11 @@ namespace SISPTD.Controllers
        
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "setorId,descricao")] Setor setor)
+        public ActionResult Create(Setor setor)
         {
             if (ModelState.IsValid)
             {
-                db.Setor.Add(setor);
-                db.SaveChanges();
+                sBO.CriarSetor(setor);
                 return RedirectToAction("Index");
             }
 
@@ -63,7 +57,7 @@ namespace SISPTD.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Setor setor = db.Setor.Find(id);
+            Setor setor = sBO.ObterSetor(id);
             if (setor == null)
             {
                 return HttpNotFound();
@@ -71,17 +65,14 @@ namespace SISPTD.Controllers
             return View(setor);
         }
 
-        // POST: Setor/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+     
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "setorId,descricao")] Setor setor)
+        public ActionResult Edit(Setor setor)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(setor).State = EntityState.Modified;
-                db.SaveChanges();
+                sBO.AtualizarSetor(setor);
                 return RedirectToAction("Index");
             }
             return View(setor);
@@ -94,7 +85,7 @@ namespace SISPTD.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Setor setor = db.Setor.Find(id);
+            Setor setor = sBO.ObterSetor(id);
             if (setor == null)
             {
                 return HttpNotFound();
@@ -107,19 +98,10 @@ namespace SISPTD.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(long id)
         {
-            Setor setor = db.Setor.Find(id);
-            db.Setor.Remove(setor);
-            db.SaveChanges();
+            sBO.Excluir(id);
             return RedirectToAction("Index");
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+       
     }
 }

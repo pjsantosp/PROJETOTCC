@@ -7,18 +7,21 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using SISPTD.Models;
+using SISPTD.BO;
 
 namespace SISPTD.Controllers
 {
     public class PericiaController : Controller
     {
         private dbSISPTD db = new dbSISPTD();
+        private PericiaBO prBO = new PericiaBO();
+        private PessoaBO pBO = new PessoaBO();
 
         // GET: Pericia
         public ActionResult Index()
         {
-            var pericia = db.Pericia.Include(p => p.Cid).Include(p => p.Medico).Include(p => p.Pessoa);
-            return View(pericia.ToList());
+            
+            return View(prBO.ObterPericia());
         }
 
         // GET: Pericia/Details/5
@@ -28,7 +31,7 @@ namespace SISPTD.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Pericia pericia = db.Pericia.Find(id);
+            Pericia pericia = prBO.ObterPericia(id);
             if (pericia == null)
             {
                 return HttpNotFound();
@@ -41,7 +44,7 @@ namespace SISPTD.Controllers
         {
             ViewBag.cidId = new SelectList(db.Cid, "cidId", "codigoCid");
             ViewBag.medicoId = new SelectList(db.Medico, "medicoId", "crm_Medico");
-            ViewBag.pessoaId = new SelectList(db.Pessoa, "pessoaId", "nome");
+            ViewBag.pessoaId = new SelectList(pBO.ObterPessoa(), "pessoaId", "nome");
             return View();
         }
 

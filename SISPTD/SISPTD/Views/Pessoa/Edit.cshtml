@@ -1,11 +1,13 @@
 ﻿@model SISPTD.Models.Pessoa
 <span class="text-danger pull-right"><i class="glyphicon glyphicon-info-sign "></i> Os campos em vermelho são de preenchimento obrigatório.</span>
 <br />
+ 
+@using (Html.BeginForm())
+{
+    @Html.HiddenFor(p=> p.pessoaId)
+  @Html.Partial("_Formulario", Model)
 
-
-    <div>
-        @Html.Partial("_Formulario",Model)
-    </div>
+}
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

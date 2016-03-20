@@ -7,7 +7,7 @@
         <div class="input-group-btn">
             <a href="@Url.Action("Create")" class="btn btn-success"><i class="glyphicon glyphicon-plus"></i> Novo</a>
         </div>
-        @Html.TextBox("p", Request.QueryString["p"], new { autofocus = "", @class = "col-md-2 form-control", placeholder = "Procure por CPF" })
+        @Html.TextBox("buscar", Request.QueryString["buscar"], new { autofocus = "", @class = "col-md-2 form-control", placeholder = "Procure por CPF" })
         <span class="input-group-btn">
             <button class="btn btn-primary" type="submit"><i class="glyphicon glyphicon-search"></i></button>
         </span>

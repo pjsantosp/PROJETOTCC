@@ -15,7 +15,7 @@ namespace SISPTD.BO
         /// <returns> Lista de Pessoas</returns>
         public List<Pessoa> ObterPessoa()
         {
-             dbSISPTD db = new dbSISPTD();
+             
             try
             {
                 return db.Pessoa.Include("Pessoa2").Take(10).ToList();
@@ -35,7 +35,6 @@ namespace SISPTD.BO
         {
             try
             {
-                dbSISPTD db = new dbSISPTD();
                 Pessoa pessoa = db.Pessoa.Find(id);
                 return pessoa;
             }
@@ -45,23 +44,26 @@ namespace SISPTD.BO
                 throw new Exception("Erro durante a busca", e);
             }
         }
-        public IEnumerable<Pessoa> ObterPessoaAcompanhante(long? id)
+        
+        public IEnumerable<Pessoa> ObterPessoa(string busca)
         {
             try
             {
-                dbSISPTD db = new dbSISPTD();
-                List<Pessoa> listaAcompanhante = db.Pessoa.Include("Pessoa2").Where(p => p.pessoaPai == id).ToList();
-                return listaAcompanhante;
+                IEnumerable<Pessoa> listapessoa = db.Pessoa
+               .Include("DistribProcesso")
+               .Where(x => x.cpf.Contains(busca));
+                return listapessoa;
             }
             catch (Exception e)
             {
-
-                throw new Exception("Erro durante a busca", e);
+                
+                throw new Exception("Erro na busca na lista de pessoa",e);
             }
+            
         }
+       
         public Pessoa AtualizarPessoa(Pessoa pessoa)
         {
-
             try
             {
                 db.Entry(pessoa).State = System.Data.Entity.EntityState.Modified;
@@ -115,5 +117,6 @@ namespace SISPTD.BO
                 throw new Exception("Erro durante a Verificação da Idade do Paciente", e);
             }
         }
+      
     }
 }

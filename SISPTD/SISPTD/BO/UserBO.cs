@@ -82,6 +82,18 @@ namespace SISPTD.BO
                 throw new Exception("Ops! erro durante a verificação do usuário");
             }
         }
+        public List<User> ObterUsuario()
+        {
+            try
+            {
+                return db.User.ToList();
+            }
+            catch (Exception e)
+            {
+
+                throw new Exception("Ops! algo deu errado durante a listagem de usuario.", e);
+            }
+        }
         
     }
 }

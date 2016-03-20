@@ -1,0 +1,45 @@
+﻿@model IEnumerable<SISPTD.Models.Clinica>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Cidades.Cidade)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.nome_Clinica)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tel_Clinica)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Cidades.Cidade)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.nome_Clinica)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tel_Clinica)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.clinicaId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.clinicaId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.clinicaId })
+        </td>
+    </tr>
+}
+
+</table>
