@@ -14,15 +14,15 @@ namespace SISPTD.Controllers
     public class ClinicaController : Controller
     {
         private dbSISPTD db = new dbSISPTD();
-        private ClinicaBO cBO = new ClinicaBO();
-        private CidadeBO ciBO = new CidadeBO();
+        private ClinicaBO clinicaBO = new ClinicaBO(new dbSISPTD());
+        private CidadeBO cidadeBO = new CidadeBO(new dbSISPTD());
 
 
         // GET: Clinica
         public ActionResult Index()
         {
            
-            return View(cBO.ObterClinica());
+            return View(clinicaBO.Selecionar());
         }
 
         // GET: Clinica/Details/5
@@ -32,7 +32,7 @@ namespace SISPTD.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Clinica clinica = cBO.ObterClinica(id);
+            Clinica clinica = clinicaBO.SelecionarPorId(id.Value);
             if (clinica == null)
             {
                 return HttpNotFound();
@@ -42,7 +42,7 @@ namespace SISPTD.Controllers
 
         public ActionResult Create()
         {
-            ViewBag.IdCidade = new SelectList(ciBO.ObterCidades(), "IdCidade", "Cidade");
+            ViewBag.IdCidade = new SelectList(cidadeBO.ObterCidades(), "IdCidade", "Cidade");
             return View();
         }
 
@@ -53,11 +53,11 @@ namespace SISPTD.Controllers
         {
             if (ModelState.IsValid)
             {
-                cBO.CriarClinica(clinica);
+                clinicaBO.Inserir(clinica);
                 return RedirectToAction("Index");
             }
 
-            ViewBag.IdCidade = new SelectList(ciBO.ObterCidades(), "IdCidade", "Cidade", clinica.IdCidade);
+            ViewBag.IdCidade = new SelectList(cidadeBO.ObterCidades(), "IdCidade", "Cidade", clinica.IdCidade);
             return View(clinica);
         }
 
@@ -68,12 +68,12 @@ namespace SISPTD.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Clinica clinica = cBO.ObterClinica(id);
+            Clinica clinica = clinicaBO.SelecionarPorId(id.Value);
             if (clinica == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.IdCidade = new SelectList(ciBO.ObterCidades(), "IdCidade", "Cidade", clinica.IdCidade);
+            ViewBag.IdCidade = new SelectList(cidadeBO.ObterCidades(), "IdCidade", "Cidade", clinica.IdCidade);
             return View(clinica);
         }
 
@@ -84,10 +84,10 @@ namespace SISPTD.Controllers
         {
             if (ModelState.IsValid)
             {
-                cBO.AtualizarClinica(clinica);
+                clinicaBO.Alterar(clinica);
                 return RedirectToAction("Index");
             }
-            ViewBag.IdCidade = new SelectList(ciBO.ObterCidades(), "IdCidade", "Cidade", clinica.IdCidade);
+            ViewBag.IdCidade = new SelectList(cidadeBO.ObterCidades(), "IdCidade", "Cidade", clinica.IdCidade);
             return View(clinica);
         }
 
@@ -98,7 +98,7 @@ namespace SISPTD.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Clinica clinica = cBO.ObterClinica(id);
+            Clinica clinica = clinicaBO.SelecionarPorId(id.Value);
             if (clinica == null)
             {
                 return HttpNotFound();
@@ -111,7 +111,7 @@ namespace SISPTD.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(long id)
         {
-            cBO.Excluir(id);
+            clinicaBO.ExcluirPorId(id);
             return RedirectToAction("Index");
         }
 

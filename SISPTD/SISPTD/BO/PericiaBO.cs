@@ -6,38 +6,13 @@ using SISPTD.Models;
 
 namespace SISPTD.BO
 {
-    public class PericiaBO
+    public class PericiaBO:CrudComumEntity<Pericia, long>
     {
-        private dbSISPTD db = new dbSISPTD();
+        public PericiaBO(dbSISPTD contexto)
+            :base(contexto)
+        {
 
-        public List<Pericia> ObterPericia()
-        {
-            try
-            {
-                var pericia = db.Pericia
-                    .Include("Cid")
-                    .Include("Medico")
-                    .Include("Pessoa");
-                return pericia.ToList();
-            }
-            catch (Exception)
-            {
-                
-                throw;
-            }
         }
-        public Pericia ObterPericia(long? id)
-        {
-            try
-            {
-                Pericia pericia = db.Pericia.Find(id);
-                return pericia;
-            }
-            catch (Exception)
-            {
-                
-                throw;
-            }
-        }
+       
     }
 }

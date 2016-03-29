@@ -1,0 +1,5 @@
+D:\PROJETOTCC\PROJETOTCC\SISPTD\BusinessObject\bin\Debug\BusinessObject.dll
+D:\PROJETOTCC\PROJETOTCC\SISPTD\BusinessObject\bin\Debug\BusinessObject.pdb
+D:\PROJETOTCC\PROJETOTCC\SISPTD\BusinessObject\obj\Debug\BusinessObject.csprojResolveAssemblyReference.cache
+D:\PROJETOTCC\PROJETOTCC\SISPTD\BusinessObject\obj\Debug\BusinessObject.dll
+D:\PROJETOTCC\PROJETOTCC\SISPTD\BusinessObject\obj\Debug\BusinessObject.pdb

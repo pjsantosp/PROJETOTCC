@@ -13,14 +13,13 @@ namespace SISPTD.Controllers
 {
     public class UserController : Controller
     {
-        private dbSISPTD db = new dbSISPTD();
-        private UserBO uBO = new UserBO();
+        private UserBO userBO = new UserBO(new dbSISPTD());
+        private PessoaBO pessoaBO = new PessoaBO(new dbSISPTD());
 
         // GET: User
         public ActionResult Index()
         {
-            var user = db.User.Include(u => u.Pessoa).Take(10);
-            return View(user.ToList());
+            return View(userBO.Selecionar());
         }
 
         // GET: User/Details/5
@@ -30,7 +29,7 @@ namespace SISPTD.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            User user = db.User.Find(id);
+            User user = userBO.SelecionarPorId(id.Value);
             if (user == null)
             {
                 return HttpNotFound();
@@ -41,7 +40,7 @@ namespace SISPTD.Controllers
         public ActionResult Create(string user)
         {
             ViewBag.roles = new SelectList(Enum.GetValues(typeof(Tipo)));
-            ViewBag.pessoaId = new SelectList(db.Pessoa, "pessoaId", "nome");
+            ViewBag.pessoaId = new SelectList(pessoaBO.Selecionar(), "pessoaId", "nome");
             return View();
         }
 
@@ -49,22 +48,21 @@ namespace SISPTD.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(User user, string roles)
         {
-            if (uBO.VerificaUser(user) != false)
+            if (userBO.VerificaUser(user) != false)
             {
                 user.tipo = (Tipo)Enum.Parse(typeof(Tipo), roles);
 
-                user.senha = uBO.Encrypt(user.senha);
+                user.senha = userBO.Encrypt(user.senha);
 
                 if (ModelState.IsValid)
                 {
-                    db.User.Add(user);
-                    db.SaveChanges();
+                    userBO.Inserir(user);
                     return RedirectToAction("Index");
                 }
             }
 
             TempData["Erro"] = "O Login " + user.login + " Já Esta cadastrado para Uma Pessoa!";
-            ViewBag.pessoaId = new SelectList(db.Pessoa, "pessoaId", "nome", user.pessoaId);
+            ViewBag.pessoaId = new SelectList(pessoaBO.Selecionar(), "pessoaId", "nome", user.pessoaId);
             ViewBag.roles = new SelectList(Enum.GetValues(typeof(Tipo)));
             return View(user);
         }
@@ -76,27 +74,26 @@ namespace SISPTD.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            User user = db.User.Find(id);
+            User user = userBO.SelecionarPorId(id.Value);
             if (user == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.pessoaId = new SelectList(db.Pessoa, "pessoaId", "cpf", user.pessoaId);
+            ViewBag.pessoaId = new SelectList(pessoaBO.Selecionar(), "pessoaId", "cpf", user.pessoaId);
             return View(user);
         }
 
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "usuarioId,login,senha,pessoaId")] User user)
+        public ActionResult Edit(User user)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(user).State = EntityState.Modified;
-                db.SaveChanges();
+                userBO.Alterar(user);
                 return RedirectToAction("Index");
             }
-            ViewBag.pessoaId = new SelectList(db.Pessoa, "pessoaId", "cpf", user.pessoaId);
+            ViewBag.pessoaId = new SelectList(pessoaBO.Selecionar(), "pessoaId", "cpf", user.pessoaId);
             return View(user);
         }
 
@@ -107,7 +104,7 @@ namespace SISPTD.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            User user = db.User.Find(id);
+            User user = userBO.SelecionarPorId(id.Value);
             if (user == null)
             {
                 return HttpNotFound();
@@ -120,19 +117,9 @@ namespace SISPTD.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(long id)
         {
-            User user = db.User.Find(id);
-            db.User.Remove(user);
-            db.SaveChanges();
+            userBO.ExcluirPorId(id);
             return RedirectToAction("Index");
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
     }
 }

@@ -14,14 +14,14 @@ namespace SISPTD.Controllers
     public class PericiaController : Controller
     {
         private dbSISPTD db = new dbSISPTD();
-        private PericiaBO prBO = new PericiaBO();
-        private PessoaBO pBO = new PessoaBO();
+        private PericiaBO periciaBO = new PericiaBO(new dbSISPTD());
+        private PessoaBO pessoBO = new PessoaBO(new dbSISPTD());
 
         // GET: Pericia
         public ActionResult Index()
         {
             
-            return View(prBO.ObterPericia());
+            return View(periciaBO.Selecionar());
         }
 
         // GET: Pericia/Details/5
@@ -31,7 +31,7 @@ namespace SISPTD.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Pericia pericia = prBO.ObterPericia(id);
+            Pericia pericia = periciaBO.SelecionarPorId(id.Value);
             if (pericia == null)
             {
                 return HttpNotFound();
@@ -44,7 +44,7 @@ namespace SISPTD.Controllers
         {
             ViewBag.cidId = new SelectList(db.Cid, "cidId", "codigoCid");
             ViewBag.medicoId = new SelectList(db.Medico, "medicoId", "crm_Medico");
-            ViewBag.pessoaId = new SelectList(pBO.ObterPessoa(), "pessoaId", "nome");
+            ViewBag.pessoaId = new SelectList(pessoBO.Selecionar(), "pessoaId", "nome");
             return View();
         }
 

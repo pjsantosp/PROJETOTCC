@@ -160,10 +160,12 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="BO\CidadeBO.cs" />
     <Compile Include="BO\ClinicaBO.cs" />
+    <Compile Include="BO\CrudComumEntity.cs" />
     <Compile Include="BO\DistribProcessoBO.cs" />
     <Compile Include="BO\EnderecoBO.cs" />
     <Compile Include="BO\EspecialidadeBO.cs" />
     <Compile Include="BO\EstadoBO.cs" />
+    <Compile Include="BO\ICRUDGenerico.cs" />
     <Compile Include="BO\MedicoBO.cs" />
     <Compile Include="BO\PericiaBO.cs" />
     <Compile Include="BO\PessoaBO.cs" />
@@ -246,6 +248,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Imagens\logo.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\bootstrap-chosen.scss" />
@@ -358,6 +361,8 @@
     <Content Include="Views\Clinica\Details.cshtml" />
     <Content Include="Views\Clinica\Edit.cshtml" />
     <Content Include="Views\Clinica\Index.cshtml" />
+    <Content Include="Views\Setor\_Formulario.cshtml" />
+    <Content Include="Views\Shared\_LayoutLogin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

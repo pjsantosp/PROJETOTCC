@@ -13,15 +13,15 @@ namespace SISPTD.Controllers
 {
     public class MedicoController : Controller
     {
-        private MedicoBO mBO = new MedicoBO();
-        private PessoaBO pBO = new PessoaBO();
-        private EspecialidadeBO eBO = new EspecialidadeBO();
+        private MedicoBO medicoBO = new MedicoBO(new dbSISPTD());
+        private PessoaBO pessoaBO = new PessoaBO(new dbSISPTD());
+        private EspecialidadeBO especialidadeBO = new EspecialidadeBO(new dbSISPTD());
 
         // GET: Medico
         public ActionResult Index()
         {
            
-            return View(mBO.ObterMedico());
+            return View(medicoBO.Selecionar());
         }
 
         // GET: Medico/Details/5
@@ -31,7 +31,7 @@ namespace SISPTD.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Medico medico = mBO.ObterMedico(id);
+            Medico medico = medicoBO.SelecionarPorId(id.Value);
             if (medico == null)
             {
                 return HttpNotFound();
@@ -42,8 +42,8 @@ namespace SISPTD.Controllers
         // GET: Medico/Create
         public ActionResult Create()
         {
-            ViewBag.especialidadeId = new SelectList(eBO.ObterEspecialidade(), "EspecialidadeId", "descricao");
-            ViewBag.pessoaId = new SelectList(pBO.ObterPessoa(), "pessoaId", "cpf");
+            ViewBag.especialidadeId = new SelectList(especialidadeBO.Selecionar(), "EspecialidadeId", "descricao");
+            ViewBag.pessoaId = new SelectList(pessoaBO.Selecionar(), "pessoaId", "cpf");
             return View();
         }
 
@@ -54,12 +54,12 @@ namespace SISPTD.Controllers
         {
             if (ModelState.IsValid)
             {
-                mBO.CriarMedico(medico);
+                medicoBO.Inserir(medico);
                 return RedirectToAction("Index");
             }
 
-            ViewBag.especialidadeId = new SelectList(eBO.ObterEspecialidade(), "EspecialidadeId", "descricao", medico.especialidadeId);
-            ViewBag.pessoaId = new SelectList(pBO.ObterPessoa(), "pessoaId", "cpf", medico.pessoaId);
+            ViewBag.especialidadeId = new SelectList(especialidadeBO.Selecionar(), "EspecialidadeId", "descricao", medico.especialidadeId);
+            ViewBag.pessoaId = new SelectList(pessoaBO.Selecionar(), "pessoaId", "cpf", medico.pessoaId);
             return View(medico);
         }
 
@@ -70,13 +70,13 @@ namespace SISPTD.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Medico medico = mBO.ObterMedico(id);
+            Medico medico = medicoBO.SelecionarPorId(id.Value);
             if (medico == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.especialidadeId = new SelectList(eBO.ObterEspecialidade(), "EspecialidadeId", "descricao", medico.especialidadeId);
-            ViewBag.pessoaId = new SelectList(pBO.ObterPessoa(), "pessoaId", "cpf", medico.pessoaId);
+            ViewBag.especialidadeId = new SelectList(especialidadeBO.Selecionar(), "EspecialidadeId", "descricao", medico.especialidadeId);
+            ViewBag.pessoaId = new SelectList(pessoaBO.Selecionar(), "pessoaId", "cpf", medico.pessoaId);
             return View(medico);
         }
 
@@ -87,12 +87,12 @@ namespace SISPTD.Controllers
         {
             if (ModelState.IsValid)
             {
-                mBO.AtualizarMedico(medico);
+                medicoBO.Alterar(medico);
                 
                 return RedirectToAction("Index");
             }
-            ViewBag.especialidadeId = new SelectList(eBO.ObterEspecialidade(), "EspecialidadeId", "descricao", medico.especialidadeId);
-            ViewBag.pessoaId = new SelectList(pBO.ObterPessoa(), "pessoaId", "cpf", medico.pessoaId);
+            ViewBag.especialidadeId = new SelectList(especialidadeBO.Selecionar(), "EspecialidadeId", "descricao", medico.especialidadeId);
+            ViewBag.pessoaId = new SelectList(pessoaBO.Selecionar(), "pessoaId", "cpf", medico.pessoaId);
             return View(medico);
         }
 
@@ -103,7 +103,7 @@ namespace SISPTD.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Medico medico =mBO.ObterMedico(id);
+            Medico medico =medicoBO.SelecionarPorId(id.Value);
             if (medico == null)
             {
                 return HttpNotFound();
@@ -116,7 +116,7 @@ namespace SISPTD.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(long id)
         {
-            mBO.Excluir(id);
+            medicoBO.ExcluirPorId(id);
             return RedirectToAction("Index");
         }
 

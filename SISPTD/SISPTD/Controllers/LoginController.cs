@@ -25,10 +25,9 @@ namespace SISPTD.Controllers
         public ActionResult Login(User conta)
         {
             
-            
-            UserBO uBO = new UserBO();
+            UserBO userBO = new UserBO(new dbSISPTD());
             conta.senha = Encrypt(conta.senha);
-            conta = uBO.Validar(conta); 
+            conta = userBO.Validar(conta); 
             
             if (conta != null)
             {
@@ -36,21 +35,10 @@ namespace SISPTD.Controllers
                 CreateAuthorizeTicket((int)conta.usuarioId,conta.login.ToString(),conta.tipo.ToString());
                 
                 
-                //String returnUrl = Request.QueryString["ReturnUrl"];
-                //if (returnUrl != null)
-                //    return Redirect(returnUrl);
-                //else
+               
                 return RedirectToAction("Index", "Pessoa");
 
-                //Deslogar 
-
-              //  FormsAuthentication.SignOut();
-                // ususario que esta logado saber
-                //if (Request.IsAuthenticated)
-                //{
-                    
-                //}
-
+              
                 //regra do usuario
 
 

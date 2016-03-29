@@ -6,14 +6,18 @@ using SISPTD.Models;
 
 namespace SISPTD.BO
 {
-    public class CidadeBO
+    public class CidadeBO: CrudComumEntity<Cidades, int>
     {
-        private dbSISPTD db = new dbSISPTD();
+        public CidadeBO(dbSISPTD contexto)
+            :base(contexto)
+        {
+
+        }
         public List<Cidades> ObterCidades()
         {
             try
             {
-                return db.Cidades.Where(c => c.Estado.Sigla == "RO").ToList();
+                return _contexto.Set<Cidades>().Where(c => c.Estado.Sigla == "RO").ToList();
             }
             catch (Exception e)
             {

@@ -12,17 +12,16 @@ namespace SISPTD.Controllers
 {
     public class DistribProcessoController : Controller
     {
-        private DistribProcessoBO dBO = new DistribProcessoBO();
-        private SetorBO sBO = new SetorBO();
-        private UserBO uBO = new UserBO();
-        private PessoaBO pBO = new PessoaBO();
-        private dbSISPTD db = new dbSISPTD();
+        private DistribProcessoBO distribProcessoBO = new DistribProcessoBO(new dbSISPTD());
+        private SetorBO setorBO = new SetorBO(new dbSISPTD());
+        private UserBO userBO = new UserBO(new dbSISPTD());
+        private PessoaBO pessoaBO = new PessoaBO(new dbSISPTD());
 
         // GET: DistribProcesso
         public ActionResult Index()
         {
             
-            return View(dBO.ObterProcesso());
+            return View(distribProcessoBO.Selecionar());
 
         }
 
@@ -33,7 +32,7 @@ namespace SISPTD.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            DistribProcesso distribProcesso = dBO.ObterProcesso(id);
+            DistribProcesso distribProcesso = distribProcessoBO.SelecionarPorId(id.Value);
             if (distribProcesso == null)
             {
                 return HttpNotFound();
@@ -44,12 +43,12 @@ namespace SISPTD.Controllers
         // GET: DistribProcesso/Create
         public ActionResult Create()
         {
-            ViewBag.pessoaId = new SelectList(dBO.ObterProcesso(), "pessoaId", "nome");
-            ViewBag.SetorDestinoId = new SelectList(sBO.ObterSetor(), "setorId", "descricao");
-            ViewBag.SetorOrigemId = new SelectList(sBO.ObterSetor(), "setorId", "descricao");
+            ViewBag.pessoaId = new SelectList(pessoaBO.Selecionar(), "pessoaId", "nome");
+            ViewBag.SetorDestinoId = new SelectList(setorBO.Selecionar(), "setorId", "descricao");
+            ViewBag.SetorOrigemId = new SelectList(setorBO.Selecionar(), "setorId", "descricao");
             //ViewBag.usuarioEnviouId = new SelectList(db.User, "usuarioId", "login");
-            ViewBag.usuarioEnviouId = new SelectList(uBO.ObterUsuario(), "usuarioId", "login");
-            ViewBag.usuarioRecebeuId = new SelectList(uBO.ObterUsuario(), "usuarioId", "login");
+            ViewBag.usuarioEnviouId = new SelectList(userBO.Selecionar(), "usuarioId", "login");
+            ViewBag.usuarioRecebeuId = new SelectList(userBO.Selecionar(), "usuarioId", "login");
             return View();
         }
 
@@ -59,20 +58,20 @@ namespace SISPTD.Controllers
         public ActionResult Create(DistribProcesso distribProcesso)
         {
 
-            var user = db.User.Where(u => u.login.Contains(User.Identity.Name)).FirstOrDefault();
-            distribProcesso.UserEnviou = user;
+            var user = userBO.userLogado(User.Identity.Name);
+            distribProcesso.usuarioEnviouId = user.usuarioId;
             if (ModelState.IsValid)
             {
-                db.DistribProcesso.Add(distribProcesso);
-                db.SaveChanges();
+                distribProcessoBO.Inserir(distribProcesso);
+
                 return RedirectToAction("Index");
             }
 
-            ViewBag.pessoaId = new SelectList(pBO.ObterPessoa(), "pessoaId", "cpf", distribProcesso.pessoaId);
-            ViewBag.SetorDestinoId = new SelectList(sBO.ObterSetor(), "setorId", "descricao", distribProcesso.SetorDestinoId);
-            ViewBag.SetorOrigemId = new SelectList(sBO.ObterSetor(), "setorId", "descricao", distribProcesso.SetorOrigemId);
-            ViewBag.usuarioEnviouId = new SelectList(uBO.ObterUsuario(), "usuarioId", "login", distribProcesso.usuarioEnviouId);
-            ViewBag.usuarioRecebeuId = new SelectList(uBO.ObterUsuario(), "usuarioId", "login", distribProcesso.usuarioRecebeuId);
+            ViewBag.pessoaId = new SelectList(pessoaBO.Selecionar(), "pessoaId", "cpf", distribProcesso.pessoaId);
+            ViewBag.SetorDestinoId = new SelectList(setorBO.Selecionar(), "setorId", "descricao", distribProcesso.SetorDestinoId);
+            ViewBag.SetorOrigemId = new SelectList(setorBO.Selecionar(), "setorId", "descricao", distribProcesso.SetorOrigemId);
+            ViewBag.usuarioEnviouId = new SelectList(userBO.Selecionar(), "usuarioId", "login", distribProcesso.usuarioEnviouId, pessoaBO.Selecionar());
+            ViewBag.usuarioRecebeuId = new SelectList(userBO.Selecionar(), "usuarioId", "login", distribProcesso.usuarioRecebeuId);
             return View(distribProcesso);
         }
 
@@ -83,17 +82,17 @@ namespace SISPTD.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            DistribProcesso distribProcesso = dBO.ObterProcesso(id);
+            DistribProcesso distribProcesso = distribProcessoBO.SelecionarPorId(id.Value);
             if (distribProcesso == null)
             {
                 return HttpNotFound();
             }
             //ViewBag.periciaId = new SelectList(db.Pericia, "periciaId", "descricao", distribProcesso.periciaId);
-            ViewBag.pessoaId = new SelectList(pBO.ObterPessoa(), "pessoaId", "cpf", distribProcesso.pessoaId);
-            ViewBag.SetorDestinoId = new SelectList(sBO.ObterSetor(), "setorId", "descricao", distribProcesso.SetorDestinoId);
-            ViewBag.SetorOrigemId = new SelectList(sBO.ObterSetor(), "setorId", "descricao", distribProcesso.SetorOrigemId);
-            ViewBag.usuarioEnviouId = new SelectList(uBO.ObterUsuario(), "usuarioId", "login", distribProcesso.usuarioEnviouId);
-            ViewBag.usuarioRecebeuId = new SelectList(uBO.ObterUsuario(), "usuarioId", "login", distribProcesso.usuarioRecebeuId);
+            ViewBag.pessoaId = new SelectList(pessoaBO.Selecionar(), "pessoaId", "cpf", distribProcesso.pessoaId);
+            ViewBag.SetorDestinoId = new SelectList(setorBO.Selecionar(), "setorId", "descricao", distribProcesso.SetorDestinoId);
+            ViewBag.SetorOrigemId = new SelectList(setorBO.Selecionar(), "setorId", "descricao", distribProcesso.SetorOrigemId);
+            ViewBag.usuarioEnviouId = new SelectList(userBO.Selecionar(), "usuarioId", "login", distribProcesso.usuarioEnviouId);
+            ViewBag.usuarioRecebeuId = new SelectList(userBO.Selecionar(), "usuarioId", "login", distribProcesso.usuarioRecebeuId);
             return View(distribProcesso);
         }
 
@@ -103,14 +102,14 @@ namespace SISPTD.Controllers
         {
             if (ModelState.IsValid)
             {
-                dBO.AtualizarProcesso(distribProcesso);
+                distribProcessoBO.Alterar(distribProcesso);
                 return RedirectToAction("Index");
             }
-            ViewBag.pessoaId = new SelectList(pBO.ObterPessoa(), "pessoaId", "cpf", distribProcesso.pessoaId);
-            ViewBag.SetorDestinoId = new SelectList(sBO.ObterSetor(), "setorId", "descricao", distribProcesso.SetorDestinoId);
-            ViewBag.SetorOrigemId = new SelectList(sBO.ObterSetor(), "setorId", "descricao", distribProcesso.SetorOrigemId);
-            ViewBag.usuarioEnviouId = new SelectList(uBO.ObterUsuario(), "usuarioId", "login", distribProcesso.usuarioEnviouId);
-            ViewBag.usuarioRecebeuId = new SelectList(uBO.ObterUsuario(), "usuarioId", "login", distribProcesso.usuarioRecebeuId);
+            ViewBag.pessoaId = new SelectList(pessoaBO.Selecionar(), "pessoaId", "cpf", distribProcesso.pessoaId);
+            ViewBag.SetorDestinoId = new SelectList(setorBO.Selecionar(), "setorId", "descricao", distribProcesso.SetorDestinoId);
+            ViewBag.SetorOrigemId = new SelectList(setorBO.Selecionar(), "setorId", "descricao", distribProcesso.SetorOrigemId);
+            ViewBag.usuarioEnviouId = new SelectList(userBO.Selecionar(), "usuarioId", "login", distribProcesso.usuarioEnviouId);
+            ViewBag.usuarioRecebeuId = new SelectList(userBO.Selecionar(), "usuarioId", "login", distribProcesso.usuarioRecebeuId);
             return View(distribProcesso);
         }
 
@@ -121,7 +120,7 @@ namespace SISPTD.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            DistribProcesso distribProcesso = dBO.ObterProcesso(id);
+            DistribProcesso distribProcesso = distribProcessoBO.SelecionarPorId(id.Value);
             if (distribProcesso == null)
             {
                 return HttpNotFound();
@@ -134,17 +133,9 @@ namespace SISPTD.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(long id)
         {
-            dBO.Excluir(id);
+            distribProcessoBO.ExcluirPorId(id);
             return RedirectToAction("Index");
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
     }
 }

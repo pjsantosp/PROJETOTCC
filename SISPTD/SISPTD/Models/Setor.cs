@@ -13,6 +13,7 @@ namespace SISPTD.Models
         public long setorId { get; set; }
 
         [StringLength(25)]
+        [Display(Name="Nome do Setor")]
         public string descricao { get; set; }
 
         public virtual ICollection<DistribProcesso> DistribProcesso { get; set; }

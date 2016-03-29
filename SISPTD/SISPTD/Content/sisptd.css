@@ -14,6 +14,7 @@
 
 .navbar-menu {
     background-color: #3276b1;
+    color:#f7f7f7;
 }
 
 .nav-menu {
@@ -31,6 +32,9 @@
     background-clip: border-box;
     background-origin: padding-box;
     background-size: auto auto;
+}
+.uperText{
+    text-transform:uppercase;
 }
 
 .menu ul li {

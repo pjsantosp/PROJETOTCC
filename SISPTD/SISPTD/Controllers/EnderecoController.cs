@@ -13,20 +13,20 @@ namespace SISPTD.Controllers
 {
     public class EnderecoController : Controller
     {
-        private CidadeBO cBO = new CidadeBO();
-        private EnderecoBO eBO = new EnderecoBO();
+        private CidadeBO cidadeBO = new CidadeBO(new dbSISPTD());
+        private EnderecoBO enderecoBO = new EnderecoBO(new dbSISPTD());
         private dbSISPTD db = new dbSISPTD();
-        private PessoaBO pBO = new PessoaBO();
+        private PessoaBO pessoaBO = new PessoaBO(new dbSISPTD());
 
         public ActionResult Index()
         {
-            return View(eBO.ObterEndereco());
+            return View(enderecoBO.Selecionar());
         }
 
        
         public ActionResult Details(long? id)
         {
-            var endereco = eBO.ObterEndereco(id);
+            var endereco = enderecoBO.SelecionarPorId(id.Value);
             return View(endereco);
         }
 
@@ -36,10 +36,10 @@ namespace SISPTD.Controllers
             Endereco endPessoa = new Endereco();
             endPessoa.pessoaId = pessoaId;
             var listaUf = db.Estado.Include(c => c.Cidades).ToList();
-            var pessoa = pBO.ObterPessoa(pessoaId);
+            var pessoa = pessoaBO.SelecionarPorId(pessoaId.Value);
            
 
-            ViewBag.Cidade = new SelectList(cBO.ObterCidades(), "IdCidade", "Cidade");
+            ViewBag.Cidade = new SelectList(cidadeBO.ObterCidades(), "IdCidade", "Cidade");
             ViewBag.pessoaId = pessoa.nome;
             return View(endPessoa);
         }
@@ -49,13 +49,13 @@ namespace SISPTD.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Endereco endereco)
         {
-            var pessoa = pBO.ObterPessoa(endereco.pessoaId);
+            var pessoa = pessoaBO.SelecionarPorId(endereco.pessoaId.Value);
 
             if (ModelState.IsValid)
             {
                 db.Endereco.Add(endereco);
                 db.SaveChanges();
-                if (pBO.CalculoIdade(pessoa))
+                if (pessoaBO.CalculoIdade(pessoa))
                 {
                     TempData["Sucesso"] = "Cadastre um acompanhante";
 

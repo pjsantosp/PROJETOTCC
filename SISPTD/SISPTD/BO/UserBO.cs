@@ -9,8 +9,13 @@ using System.IO;
 
 namespace SISPTD.BO
 {
-    public class UserBO
+    public class UserBO:CrudComumEntity<User, long>
     {
+        public UserBO(dbSISPTD contexto)
+            :base(contexto)
+        {
+
+        }
         private dbSISPTD db = new dbSISPTD();
         /// <summary>
         /// Metodo Para Validar Conta de Login
@@ -82,16 +87,17 @@ namespace SISPTD.BO
                 throw new Exception("Ops! erro durante a verificação do usuário");
             }
         }
-        public List<User> ObterUsuario()
+        public User userLogado(string userLogado)
         {
             try
             {
-                return db.User.ToList();
+                return _contexto.Set<User>().Where(u => u.login.Contains(userLogado)).SingleOrDefault();
+
             }
-            catch (Exception e)
+            catch (Exception)
             {
 
-                throw new Exception("Ops! algo deu errado durante a listagem de usuario.", e);
+                throw;
             }
         }
         

@@ -1,0 +1,64 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Autenticação</title>
+    @Styles.Render("~/Content/css")
+    @RenderSection("Styles", required: false)
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+<body>
+    <div class="navbar navbar-menu navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+
+                @Html.ActionLink("Tratamento Fora Domicilio", "", "", new { area = "" }, new { @class = "navbar-brand navbar-menu" })
+            </div>
+            @*<ul class="nav navbar-nav navbar-right">
+
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <span><strong>@User.Identity.Name</strong></span>
+                        <i class=" glyphicon glyphicon-user"></i>
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Trocar Senha</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#"><i class="glyphicon glyphicon-user"></i> Meu cadastro</a></li>
+                        <li class="divider"></li>
+                        <li><a title="Clique para sair do sistema" href="@Url.Action("Deslogar","Login")"><i class="glyphicon glyphicon-off"></i> Sair</a></li>
+                    </ul>
+                </li>
+            </ul>*@
+        </div>
+
+    </div>
+   
+    <div class="container">
+        @RenderBody()
+       
+        <br />
+        <br />
+        <br />
+        <hr />
+        <footer>
+            <p>&copy; Projeto de Conclusão de Curso @DateTime.Now.Year</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/Pessoa")
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>

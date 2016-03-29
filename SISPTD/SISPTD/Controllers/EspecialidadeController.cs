@@ -13,12 +13,12 @@ namespace SISPTD.Controllers
 {
     public class EspecialidadeController : Controller
     {
-        private EspecialidadeBO eBO = new EspecialidadeBO();
+        private EspecialidadeBO especialidadeBO = new EspecialidadeBO(new dbSISPTD());
 
         // GET: Especialidade
         public ActionResult Index()
         {
-            return View(eBO.ObterEspecialidade());
+            return View(especialidadeBO.Selecionar());
         }
 
         // GET: Especialidade/Details/5
@@ -28,7 +28,7 @@ namespace SISPTD.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Especialidade especialidade = eBO.ObterEspecialidade(id);
+            Especialidade especialidade = especialidadeBO.SelecionarPorId(id.Value);
             if (especialidade == null)
             {
                 return HttpNotFound();
@@ -49,7 +49,7 @@ namespace SISPTD.Controllers
         {
             if (ModelState.IsValid)
             {
-                eBO.CriarEspecialidade(especialidade);
+                especialidadeBO.Inserir(especialidade);
                 return RedirectToAction("Index");
             }
 
@@ -63,7 +63,7 @@ namespace SISPTD.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Especialidade especialidade = eBO.ObterEspecialidade(id);
+            Especialidade especialidade = especialidadeBO.SelecionarPorId(id.Value);
             if (especialidade == null)
             {
                 return HttpNotFound();
@@ -80,7 +80,7 @@ namespace SISPTD.Controllers
         {
             if (ModelState.IsValid)
             {
-                eBO.AtualizarEspecialidade(especialidade);
+                especialidadeBO.Alterar(especialidade);
                 return RedirectToAction("Index");
             }
             return View(especialidade);
@@ -93,7 +93,7 @@ namespace SISPTD.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Especialidade especialidade = eBO.ObterEspecialidade(id);
+            Especialidade especialidade = especialidadeBO.SelecionarPorId(id.Value);
             if (especialidade == null)
             {
                 return HttpNotFound();
@@ -106,7 +106,7 @@ namespace SISPTD.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(long id)
         {
-            eBO.Excluir(id);
+            especialidadeBO.ExcluirPorId(id);
             return RedirectToAction("Index");
         }
 

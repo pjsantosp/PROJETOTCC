@@ -1,12 +1,35 @@
-﻿<div class="nav nav-menu navbar-static-top">
+﻿<div class="navbar navbar-default navbar-static-top menu nav-menu">
     <div class="container">
+        <ul class="nav  columns col-md-12">
+            <li class="@(SISPTD.Ultis.NavTabs.GetTab(ViewContext,"DistribProcesso"))">
+                <a href="@Url.Action("Index", "DistribProcesso")">
+                    <h2 class="text-center">
+                        <span class="glyphicon glyphicon-envelope"></span>
+                    </h2>
+                    <span>Distribuir </span>
+                </a>
+            </li>
 
-        <ul class="nav nav-tabs-justified">
-            <li> teste   </li>
+            <li class="@(SISPTD.Ultis.NavTabs.GetTab(ViewContext,"Pericia"))">
+                <a href="@Url.Action("Index", "Pericia")">
+                    <h2 class="text-center">
+                        <span class="glyphicon glyphicon-list-alt"></span>
+                    </h2>
+                    <span>Pericia Médica</span>
+                </a>
+            </li>
+
+
         </ul>
     </div>
-
-
-
 </div>
-   
+
+<li class="@(SISPTD.Ultis.NavTabs.GetTab(ViewContext,"Pericia"))">
+    <a href="@Url.Action("Index", "Pericia")">
+        <h2 class="text-center">
+            <span class="glyphicon glyphicon-list-alt"></span>
+        </h2>
+        <span>Pericia Médica</span>
+    </a>
+</li>
+

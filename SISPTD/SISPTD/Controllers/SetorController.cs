@@ -14,20 +14,19 @@ namespace SISPTD.Controllers
 {
     public class SetorController : Controller
     {
-        private SetorBO sBO = new SetorBO();
-     
+        private SetorBO setorBO = new SetorBO(new dbSISPTD());
 
         // GET: Setor
         public ActionResult Index()
         {
-            return View(sBO.ObterSetor());
+            return View(setorBO.Selecionar());
         }
 
         // GET: Setor/Details/5
         public ActionResult Details(long? id)
         {
 
-           return View(sBO.ObterSetor(id));
+           return View(setorBO.SelecionarPorId(id.Value));
         }
 
         // GET: Setor/Create
@@ -43,7 +42,7 @@ namespace SISPTD.Controllers
         {
             if (ModelState.IsValid)
             {
-                sBO.CriarSetor(setor);
+                setorBO.Inserir(setor);
                 return RedirectToAction("Index");
             }
 
@@ -57,7 +56,7 @@ namespace SISPTD.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Setor setor = sBO.ObterSetor(id);
+            Setor setor = setorBO.SelecionarPorId(id.Value);
             if (setor == null)
             {
                 return HttpNotFound();
@@ -72,7 +71,7 @@ namespace SISPTD.Controllers
         {
             if (ModelState.IsValid)
             {
-                sBO.AtualizarSetor(setor);
+                setorBO.Alterar(setor);
                 return RedirectToAction("Index");
             }
             return View(setor);
@@ -85,7 +84,7 @@ namespace SISPTD.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Setor setor = sBO.ObterSetor(id);
+            Setor setor = setorBO.SelecionarPorId(id.Value);
             if (setor == null)
             {
                 return HttpNotFound();
@@ -98,7 +97,7 @@ namespace SISPTD.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(long id)
         {
-            sBO.Excluir(id);
+            setorBO.ExcluirPorId(id);
             return RedirectToAction("Index");
         }
 

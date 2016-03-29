@@ -6,8 +6,13 @@ using SISPTD.Models;
 
 namespace SISPTD.BO
 {
-    public class ClinicaBO
+    public class ClinicaBO: CrudComumEntity<Clinica, long>
     {
+        public ClinicaBO(dbSISPTD contexto)
+            :base(contexto)
+        {
+
+        }
         private dbSISPTD db = new dbSISPTD();
         public List<Clinica> ObterClinica()
         {

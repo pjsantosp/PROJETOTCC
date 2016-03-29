@@ -19,7 +19,7 @@
                     <span class="icon-bar"></span>
                 </button>
 
-                @Html.ActionLink("Tratamento Fora Domicilio", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Tratamento Fora Domicilio", "Index", "Home", new { area = "" }, new { @class = "navbar-brand navbar-menu" })
             </div>
             <ul class="nav navbar-nav navbar-right">
 
@@ -41,11 +41,18 @@
         </div>
 
     </div>
+    @if (User.IsInRole("Medico"))
+    {
+        @Html.Partial("_Menu2")
+    }
+    else
+    {
+        @Html.Partial("_Menu")
+    }
 
-    @Html.Partial("_Menu")
 
 
-   @Html.Partial("_ErrosSystem")
+    @Html.Partial("_ErrosSystem")
 
 
     <div class="container">
