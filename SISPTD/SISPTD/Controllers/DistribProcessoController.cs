@@ -22,9 +22,13 @@ namespace SISPTD.Controllers
         {
             
             return View(distribProcessoBO.Selecionar());
-
         }
-
+        //public ActionResult Pesquisar(string cpf)
+        //{
+        //    var pessoa = pessoaBO.Selecionar().Where(p => p.cpf == cpf).FirstOrDefault();
+           
+        //    return Json(new {Nome = pessoa.nome }, JsonRequestBehavior.AllowGet);
+        //}
         // GET: DistribProcesso/Details/5
         public ActionResult Details(long? id)
         {
@@ -43,7 +47,8 @@ namespace SISPTD.Controllers
         // GET: DistribProcesso/Create
         public ActionResult Create()
         {
-            ViewBag.pessoaId = new SelectList(pessoaBO.Selecionar(), "pessoaId", "nome");
+           
+            ViewBag.pessoaId = new SelectList(pessoaBO.Selecionar().Take(2), "pessoaId", "nome");
             ViewBag.SetorDestinoId = new SelectList(setorBO.Selecionar(), "setorId", "descricao");
             ViewBag.SetorOrigemId = new SelectList(setorBO.Selecionar(), "setorId", "descricao");
             //ViewBag.usuarioEnviouId = new SelectList(db.User, "usuarioId", "login");

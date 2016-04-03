@@ -7,44 +7,51 @@ using System.Data.Entity;
 
 namespace SISPTD.BO
 {
-    public class PessoaBO : CrudComumEntity<Pessoa,long>
+    public class PessoaBO : CrudComumEntity<Pessoa, long>
     {
         public PessoaBO(dbSISPTD contexto)
             : base(contexto)
         {
-           
+
         }
         public IEnumerable<Pessoa> ObterPessoa(string busca)
         {
             try
             {
                 IEnumerable<Pessoa> listapessoa = _contexto.Set<Pessoa>()
-               .Include(d=> d.DistribProcesso)
+               .Include(d => d.DistribProcesso)
                .Where(x => x.cpf.Contains(busca));
                 return listapessoa;
             }
             catch (Exception e)
             {
-                
-                throw new Exception("Erro na busca na lista de pessoa",e);
+
+                throw new Exception("Erro na busca na lista de pessoa", e);
             }
-            
+
         }
-       
-      public override void Inserir(Pessoa pessoa)
-      {
-          try
-          {
-             
-              Inserir(pessoa);
-          }
-          catch (Exception)
-          {
-              
-              throw;
-          }
-      
-      }
+
+        public override void Inserir(Pessoa pessoa)
+        {
+            try
+            {
+                if (pessoa!=null)
+                {
+                    Inserir(pessoa);
+                    
+                }
+                else
+                {
+
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        }
         public bool CalculoIdade(Pessoa pessoa)
         {
             try
@@ -62,10 +69,10 @@ namespace SISPTD.BO
             }
             catch (Exception e)
             {
-                
+
                 throw new Exception("Erro durante a Verificação da Idade do Paciente", e);
             }
         }
-      
+
     }
 }

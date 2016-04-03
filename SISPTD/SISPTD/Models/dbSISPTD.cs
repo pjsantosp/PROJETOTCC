@@ -1,13 +1,7 @@
 namespace SISPTD.Models
 {
-    using System;
     using System.Data.Entity;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Linq;
     using System.Data.Entity.ModelConfiguration.Conventions;
-    using System.Data.Entity.Validation;
-    using System.Data.Entity.Infrastructure;
-    using System.Data.SqlClient;
 
     public class dbSISPTD : DbContext
     {
@@ -15,7 +9,6 @@ namespace SISPTD.Models
             : base("dbSISPTD")
         {
         }
-
       
         public virtual DbSet<Agendamento> Agendamento { get; set; }
         public virtual DbSet<Cid> Cid { get; set; }
@@ -39,12 +32,10 @@ namespace SISPTD.Models
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
 
-
             modelBuilder.Entity<Cid>()
                 .HasMany(e => e.Pericia)
                 .WithOptional(e => e.Cid)
                 .HasForeignKey(e => e.cidId);
-
 
             modelBuilder.Entity<Cidades>()
                 .HasMany(e => e.Clinica)
@@ -57,29 +48,21 @@ namespace SISPTD.Models
                 .HasForeignKey(e => e.IdCidade)
                 .WillCascadeOnDelete(false);
 
-          
-
             modelBuilder.Entity<Especialidade>()
                 .HasMany(e => e.Medico)
                 .WithOptional(e => e.Especialidade)
                 .HasForeignKey(e => e.especialidadeId);
-
-            
 
             modelBuilder.Entity<Estado>()
                 .HasMany(e => e.Cidades)
                 .WithRequired(e => e.Estado)
                 .WillCascadeOnDelete(false);
 
-            
-
             modelBuilder.Entity<Medico>()
                 .HasMany(e => e.Pericia)
                 .WithRequired(e => e.Medico)
                 .HasForeignKey(e => e.medicoId)
                 .WillCascadeOnDelete(false);
-
-            
 
             modelBuilder.Entity<Pessoa>()
                 .HasMany(e => e.Agendamento)
@@ -134,8 +117,6 @@ namespace SISPTD.Models
                 .WithOptional(e => e.Requisicao)
                 .HasForeignKey(e => e.requisicaoId);
 
-           
-
             modelBuilder.Entity<Setor>()
                 .HasMany(e => e.DistribProcesso)
                 .WithRequired(e => e.SetorOrigem)
@@ -146,8 +127,6 @@ namespace SISPTD.Models
                 .WithRequired(e => e.SetorDestino)
                 .HasForeignKey(e => e.SetorDestinoId)
                 .WillCascadeOnDelete(false);
-
-           
 
             modelBuilder.Entity<User>()
                 .HasMany(e => e.Agendamento)

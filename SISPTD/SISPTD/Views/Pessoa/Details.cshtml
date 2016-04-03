@@ -122,7 +122,15 @@
                     @item.cpf
                 </td>
                 <td>
-                    <a href="@Url.Action("Edit", "Pessoa", new {id = item.pessoaId })">@item.nome</a>
+                    @if (User.IsInRole("Medico"))
+                    {
+                        @Html.Raw("<p>"+item.nome+"</p>");
+                    }
+                    else
+                    {
+                        <a href="@Url.Action("Edit", "Pessoa", new { id = item.pessoaId })">@item.nome</a>
+                        @*@Html.ActionLink(item.nome, "Edit", "Pessoa", new { id = item.pessoaId });*@
+                    }
                 </td>
                 <td>
                     @item.rg
@@ -140,8 +148,14 @@
         }
     </table>
 </div>
-<div class="well well-sm ">
-   <a class="btn btn-primary"  href="@Url.Action("Edit",  new { id = Model.pessoaId })">Editar</a>
-    @Html.ActionLink("Voltar para lista", "Index", null, new { @class = "btn btn-link pull-right" })
+<div class="well well-sm  " style=" height:50px">
+    @if (!User.IsInRole("Medico"))
+    {
+        <a class="btn btn-primary" href="@Url.Action("Edit",  new { id = Model.pessoaId })">Editar</a>
+
+    }
+
+    @*@Html.ActionLink("Voltar para lista", "Index", null, new { @class = "btn btn-link pull-right" })*@
+    <a class="btn btn-success pull-right" href="#" onclick="history.back()">Voltar</a>
 </div>
 

@@ -20,7 +20,7 @@ namespace SISPTD.Controllers
         // GET: Medico
         public ActionResult Index()
         {
-           
+            
             return View(medicoBO.Selecionar());
         }
 

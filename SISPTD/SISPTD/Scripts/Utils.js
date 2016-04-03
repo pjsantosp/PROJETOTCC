@@ -10,3 +10,21 @@ $('.chosen-select-deselect').chosen({
     placeholder_text_single: chosen_placeholder
 });
 
+
+$(document).ready(function () {
+    $('.procurarPessoa').change(function () {
+        var cpf = $('#buscar').val();
+        $.ajax({
+            method: 'GET',
+            url: "/Pessoa/Pesquisar/?cpf=" + cpf,
+            //url: '/DistribProcesso/Pesquisar',data: cpf,
+            success: function (data) {
+                console.debug
+                $('#paciente').val(data.Nome);
+            },
+            error: function (data) {
+                console.error
+            }
+        });
+    });
+});

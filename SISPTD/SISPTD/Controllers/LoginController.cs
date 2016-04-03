@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using SISPTD.BO;
+using SISPTD.Models;
+using System;
+using System.IO;
+using System.Security.Cryptography;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
-using SISPTD.Models;
-using SISPTD.BO;
-using System.Text;
-using System.Security.Cryptography;
-using System.IO;
 using System.Web.Security;
 
 namespace SISPTD.Controllers
@@ -24,27 +22,31 @@ namespace SISPTD.Controllers
         [HttpPost, ValidateAntiForgeryToken]
         public ActionResult Login(User conta)
         {
-            
-            UserBO userBO = new UserBO(new dbSISPTD());
-            conta.senha = Encrypt(conta.senha);
-            conta = userBO.Validar(conta); 
-            
-            if (conta != null)
+            try
             {
-                FormsAuthentication.SetAuthCookie(conta.login, false);
-                CreateAuthorizeTicket((int)conta.usuarioId,conta.login.ToString(),conta.tipo.ToString());
-                
-                
-               
-                return RedirectToAction("Index", "Pessoa");
+                UserBO userBO = new UserBO(new dbSISPTD());
+                conta.senha = Encrypt(conta.senha);
+                conta = userBO.Validar(conta);
 
-              
-                //regra do usuario
+                if (conta != null)
+                {
+                    FormsAuthentication.SetAuthCookie(conta.login, false);
+                    CreateAuthorizeTicket((int)conta.usuarioId, conta.login.ToString(), conta.tipo.ToString());
 
+                    return RedirectToAction("Index", "Pessoa");
 
+                }
+               TempData["Erro"] = "Login e/ou Senha Inválidos";
+                return View();
             }
-            ViewBag.msg = "Login e/ou Senha Inválidos";
-            return View();
+            catch (Exception e)
+            {
+
+                TempData["Erro"] = "Ops! Houve um erro " + e.Message;
+                return View();
+            }
+
+
         }
         public ActionResult Deslogar()
         {
@@ -55,26 +57,35 @@ namespace SISPTD.Controllers
 
         public static string Encrypt(string senha)
         {
-            var clearBytes = Encoding.UTF8.GetBytes(senha);
-            using (var provider = new RijndaelManaged())
+            try
             {
-                byte[] key = new byte[provider.KeySize / 8];
-                byte[] initializationVector = new byte[provider.BlockSize / 8];
-                ICryptoTransform transformer = provider.CreateEncryptor(key, initializationVector);
-                using (var buffer = new MemoryStream())
+                var clearBytes = Encoding.UTF8.GetBytes(senha);
+                using (var provider = new RijndaelManaged())
                 {
-                    using (var stream = new CryptoStream(
-                        stream: buffer,
-                        transform: transformer,
-                        mode: CryptoStreamMode.Write)
-                        )
+                    byte[] key = new byte[provider.KeySize / 8];
+                    byte[] initializationVector = new byte[provider.BlockSize / 8];
+                    ICryptoTransform transformer = provider.CreateEncryptor(key, initializationVector);
+                    using (var buffer = new MemoryStream())
                     {
-                        stream.Write(clearBytes, 0, clearBytes.Length);
-                        stream.FlushFinalBlock();
-                        return Convert.ToBase64String(buffer.ToArray());
+                        using (var stream = new CryptoStream(
+                            stream: buffer,
+                            transform: transformer,
+                            mode: CryptoStreamMode.Write)
+                            )
+                        {
+                            stream.Write(clearBytes, 0, clearBytes.Length);
+                            stream.FlushFinalBlock();
+                            return Convert.ToBase64String(buffer.ToArray());
+                        }
                     }
                 }
             }
+            catch (Exception e)
+            {
+                throw new Exception("Erro de Encrypt " + e.Message);
+
+            }
+
         }
 
         private void CreateAuthorizeTicket(int id, string login, string roles)
@@ -92,6 +103,6 @@ namespace SISPTD.Controllers
 
         }
 
-      
+
     }
 }

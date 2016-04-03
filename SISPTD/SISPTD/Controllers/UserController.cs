@@ -48,23 +48,33 @@ namespace SISPTD.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(User user, string roles)
         {
-            if (userBO.VerificaUser(user) != false)
+            try
             {
-                user.tipo = (Tipo)Enum.Parse(typeof(Tipo), roles);
-
-                user.senha = userBO.Encrypt(user.senha);
-
-                if (ModelState.IsValid)
+                if (userBO.VerificaUser(user) != false)
                 {
-                    userBO.Inserir(user);
-                    return RedirectToAction("Index");
-                }
-            }
+                    user.tipo = (Tipo)Enum.Parse(typeof(Tipo), roles);
 
-            TempData["Erro"] = "O Login " + user.login + " Já Esta cadastrado para Uma Pessoa!";
-            ViewBag.pessoaId = new SelectList(pessoaBO.Selecionar(), "pessoaId", "nome", user.pessoaId);
-            ViewBag.roles = new SelectList(Enum.GetValues(typeof(Tipo)));
-            return View(user);
+                    user.senha = userBO.Encrypt(user.senha);
+
+                    if (ModelState.IsValid)
+                    {
+                        userBO.Inserir(user);
+                        return RedirectToAction("Index");
+                    }
+                }
+
+                TempData["Erro"] = "O Login " + user.login + " Já Esta cadastrado para Uma Pessoa!";
+                ViewBag.pessoaId = new SelectList(pessoaBO.Selecionar(), "pessoaId", "nome", user.pessoaId);
+                ViewBag.roles = new SelectList(Enum.GetValues(typeof(Tipo)));
+                return View(user);
+            }
+            catch (Exception)
+            {
+
+                TempData["Erro"] = "Ops! Houve um erro";
+                return View();
+            }
+           
         }
 
         // GET: User/Edit/5

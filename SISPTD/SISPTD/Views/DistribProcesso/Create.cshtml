@@ -31,19 +31,25 @@
                 <div class="col-md-10">
                     <div class="form-group">
                         @Html.LabelFor(model => model.observacoes, htmlAttributes: new { @class = "control-label" })
-                        @Html.TextAreaFor(model => model.observacoes, 5, 175, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.TextAreaFor(model => model.observacoes, 5, 175,  htmlAttributes: new { @class = "form-control" } )
                         @Html.ValidationMessageFor(model => model.observacoes, "", new { @class = "text-danger" })
                     </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="form-group">
-                        @Html.LabelFor(model => model.pessoaId, "Paciente", htmlAttributes: new { @class = "control-label" })
-                        @Html.DropDownList("pessoaId", null, htmlAttributes: new { @class = "form-control chosen-select" })
-                        @Html.ValidationMessageFor(model => model.pessoaId, "", new { @class = "text-danger" })
+                        @Html.TextBox("buscar", Request.QueryString["CPF"], new { autofocus = "", @class = " procurarPessoa col-md-2 form-control", placeholder = "Procure por CPF" })
                     </div>
+                   
                 </div>
+                <div class="col-md-7">
+                    <div class="form-group">
+                        <input readonly id="paciente" type="text" value="@ViewBag.paciente" class="form-control" />
+                    </div>
+                    
+                </div>
+
             </div>
 
         </div>

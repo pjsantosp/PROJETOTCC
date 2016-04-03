@@ -1,4 +1,6 @@
-﻿using System;
+﻿using SISPTD.BO;
+using SISPTD.Models;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -6,8 +8,6 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using SISPTD.Models;
-using SISPTD.BO;
 
 namespace SISPTD.Controllers
 {
@@ -15,29 +15,36 @@ namespace SISPTD.Controllers
     {
         private EnderecoBO enderecoBO = new EnderecoBO(new dbSISPTD());
         private PessoaBO pessoaBO = new PessoaBO(new dbSISPTD());
-       
-       
+
+
         public ActionResult Index(string busca = "")
         {
-  
-          return View(pessoaBO.ObterPessoa(busca));
+            return View(pessoaBO.ObterPessoa(busca));
+        }
+        public ActionResult Pesquisar(string cpf)
+        {
+            var pessoa = pessoaBO.Selecionar().Where(p => p.cpf == cpf).FirstOrDefault();
+
+            return Json(new { Nome = pessoa.nome }, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult Details(long? id)
         {
-         
-           return View(pessoaBO.SelecionarPorId(id.Value));
+
+            return View(pessoaBO.SelecionarPorId(id.Value));
         }
 
+        [Authorize(Roles = "Funcionario, Gerente")]
         public ActionResult Create()
         {
-            
+
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create( Pessoa pessoa)
+        [Authorize(Roles = "Funcionario, Gerente")]
+        public ActionResult Create(Pessoa pessoa)
         {
             if (ModelState.IsValid)
             {
@@ -59,7 +66,7 @@ namespace SISPTD.Controllers
         [HttpPost, ValidateAntiForgeryToken]
         public ActionResult CreateAcompanhante(Pessoa pessoa)
         {
-            
+
             if (ModelState.IsValid)
             {
                 pessoaBO.Inserir(pessoa);
@@ -70,6 +77,7 @@ namespace SISPTD.Controllers
         }
 
         // GET: Pessoa/Edit/5
+        [Authorize(Roles = "Funcionario, Gerente")]
         public ActionResult Edit(long? id)
         {
             if (id == null)
@@ -85,8 +93,9 @@ namespace SISPTD.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Funcionario, Gerente")]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit( Pessoa pessoa)
+        public ActionResult Edit(Pessoa pessoa)
         {
             if (ModelState.IsValid)
             {
@@ -99,7 +108,7 @@ namespace SISPTD.Controllers
         // GET: Pessoa/Delete/5
         public ActionResult Delete(long? id)
         {
-          Pessoa pessoa =   pessoaBO.SelecionarPorId(id.Value);
+            Pessoa pessoa = pessoaBO.SelecionarPorId(id.Value);
             return View(pessoa);
         }
 
@@ -109,10 +118,10 @@ namespace SISPTD.Controllers
         public ActionResult DeleteConfirmed(long id)
         {
             pessoaBO.ExcluirPorId(id);
-            
+
             return RedirectToAction("Index");
         }
 
-      
+
     }
 }
