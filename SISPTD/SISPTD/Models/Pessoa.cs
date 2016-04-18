@@ -7,38 +7,42 @@ namespace SISPTD.Models
     using System.Data.Entity.Spatial;
 
     [Table("Pessoa")]
-    public  class Pessoa
+    public class Pessoa
     {
-      [Key]
+        [Key]
         public long pessoaId { get; set; }
 
         public long? pessoaPai { get; set; }
 
-       
-        [Display(Name="Data Cadastro")]
+        public int? tipo { get; set; }
+
+        [Display(Name = "Data Cadastro")]
         public DateTime? dt_Cadastro { get; set; }
 
         [Required]
         [StringLength(25)]
-        [Display(Name="CPF")]
+        [Display(Name = "CPF")]
         public string cpf { get; set; }
+        [StringLength(8)]
+        [Display(Name = "Crm")]
+        public string crm { get; set; }
 
         [StringLength(25)]
-        [Display(Name="Cartão SUS")]
+        [Display(Name = "Cartão SUS")]
         public string cns { get; set; }
 
         [StringLength(25)]
-        [Display(Name="RG")]
+        [Display(Name = "RG")]
         public string rg { get; set; }
         [StringLength(10)]
-        [Display(Name="Orgão Emissor")]
+        [Display(Name = "Orgão Emissor")]
         public string orgaoemissor { get; set; }
         [Display(Name = "Data de Emissão")]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public System.DateTime? dt_Emissao { get; set; }
         [Required]
         [StringLength(160)]
-        [Display(Name="Nome")]
+        [Display(Name = "Nome")]
         public string nome { get; set; }
         [Display(Name = "Data de Nascimento")]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
@@ -59,7 +63,6 @@ namespace SISPTD.Models
         [Display(Name = "Pai")]
         public string nome_Pai { get; set; }
 
-       
         [StringLength(20)]
         [Display(Name = "Telefone")]
         [Required(ErrorMessage = "Campo de Preenchimento Obrigatório")]
@@ -71,23 +74,25 @@ namespace SISPTD.Models
         [DataType(DataType.PhoneNumber)]
         public string cel { get; set; }
 
+
         public virtual ICollection<Agendamento> Agendamento { get; set; }
 
         public virtual ICollection<DistribProcesso> DistribProcesso { get; set; }
 
-        
         public virtual ICollection<Endereco> Endereco { get; set; }
 
-        public virtual ICollection<ItemRequisicao> ItemRequisicao { get; set; }
+        public virtual ICollection<Requisicao> Requisicao { get; set; }
 
-        public virtual ICollection<Medico> Medico { get; set; }
+        public virtual ICollection<Pericia> PericiaPaciente { get; set; }
 
-        public virtual ICollection<Pericia> Pericia { get; set; }
+        public virtual ICollection<Pericia> PericiaMedico { get; set; }
 
         public virtual ICollection<Pessoa> Pessoa1 { get; set; }
 
         public virtual Pessoa Pessoa2 { get; set; }
 
         public virtual ICollection<User> User { get; set; }
+
+        public virtual ICollection<Especialidade> Especialidade { get; set; }
     }
 }

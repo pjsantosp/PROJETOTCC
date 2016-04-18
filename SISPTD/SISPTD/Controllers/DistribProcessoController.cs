@@ -20,15 +20,10 @@ namespace SISPTD.Controllers
         // GET: DistribProcesso
         public ActionResult Index()
         {
-            
+
             return View(distribProcessoBO.Selecionar());
         }
-        //public ActionResult Pesquisar(string cpf)
-        //{
-        //    var pessoa = pessoaBO.Selecionar().Where(p => p.cpf == cpf).FirstOrDefault();
-           
-        //    return Json(new {Nome = pessoa.nome }, JsonRequestBehavior.AllowGet);
-        //}
+
         // GET: DistribProcesso/Details/5
         public ActionResult Details(long? id)
         {
@@ -47,8 +42,8 @@ namespace SISPTD.Controllers
         // GET: DistribProcesso/Create
         public ActionResult Create()
         {
-           
-            ViewBag.pessoaId = new SelectList(pessoaBO.Selecionar().Take(2), "pessoaId", "nome");
+            ViewBag.pessoaId = 0;
+            //ViewBag.pessoaId = new SelectList(pessoaBO.Selecionar().Take(2), "pessoaId", "nome");
             ViewBag.SetorDestinoId = new SelectList(setorBO.Selecionar(), "setorId", "descricao");
             ViewBag.SetorOrigemId = new SelectList(setorBO.Selecionar(), "setorId", "descricao");
             //ViewBag.usuarioEnviouId = new SelectList(db.User, "usuarioId", "login");
@@ -56,28 +51,32 @@ namespace SISPTD.Controllers
             ViewBag.usuarioRecebeuId = new SelectList(userBO.Selecionar(), "usuarioId", "login");
             return View();
         }
-
-       
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(DistribProcesso distribProcesso)
         {
-
-            var user = userBO.userLogado(User.Identity.Name);
-            distribProcesso.usuarioEnviouId = user.usuarioId;
-            if (ModelState.IsValid)
+            try
             {
-                distribProcessoBO.Inserir(distribProcesso);
-
-                return RedirectToAction("Index");
+                var user = userBO.userLogado(User.Identity.Name);
+                distribProcesso.usuarioEnviouId = user.usuarioId;
+                if (ModelState.IsValid)
+                {
+                    distribProcessoBO.Inserir(distribProcesso);
+                    return RedirectToAction("Index");
+                }
+            }
+            catch (Exception e)
+            {
+                TempData["Erro"] = "Ops!" + e.Message;
             }
 
-            ViewBag.pessoaId = new SelectList(pessoaBO.Selecionar(), "pessoaId", "cpf", distribProcesso.pessoaId);
+            ViewBag.pessoaId = 0;
+            //ViewBag.pessoaId = new SelectList(pessoaBO.Selecionar(), "pessoaId", "cpf", distribProcesso.pessoaId);
             ViewBag.SetorDestinoId = new SelectList(setorBO.Selecionar(), "setorId", "descricao", distribProcesso.SetorDestinoId);
             ViewBag.SetorOrigemId = new SelectList(setorBO.Selecionar(), "setorId", "descricao", distribProcesso.SetorOrigemId);
             ViewBag.usuarioEnviouId = new SelectList(userBO.Selecionar(), "usuarioId", "login", distribProcesso.usuarioEnviouId, pessoaBO.Selecionar());
             ViewBag.usuarioRecebeuId = new SelectList(userBO.Selecionar(), "usuarioId", "login", distribProcesso.usuarioRecebeuId);
-            return View(distribProcesso);
+            return View();
         }
 
         // GET: DistribProcesso/Edit/5
@@ -103,7 +102,7 @@ namespace SISPTD.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit( DistribProcesso distribProcesso)
+        public ActionResult Edit(DistribProcesso distribProcesso)
         {
             if (ModelState.IsValid)
             {

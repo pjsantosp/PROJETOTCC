@@ -14,6 +14,16 @@ namespace SISPTD.BO
         {
 
         }
+        public override void Inserir(Pessoa entidade)
+        {
+            if (!ValidarCPF(entidade.cpf))
+                throw new Exception("CPF Informado não é valido!");
+            if (ExistPessoa(entidade))
+                throw new Exception("já existe esse CPF cadastrado para uma Pessoa !");
+            if(CalculoIdade(entidade))
+                throw new Exception("É Necessário Acompanhante Para o Paciente!");
+            base.Inserir(entidade);
+        }
         public IEnumerable<Pessoa> ObterPessoa(string busca)
         {
             try
@@ -31,26 +41,60 @@ namespace SISPTD.BO
 
         }
 
-        public override void Inserir(Pessoa pessoa)
+        public bool ValidarCPF(string cpf)
+        {
+            if (String.IsNullOrWhiteSpace(cpf))
+            {
+                return false;
+            }
+
+            int[] multiplicador1 = new int[9] { 10, 9, 8, 7, 6, 5, 4, 3, 2 };
+            int[] multiplicador2 = new int[10] { 11, 10, 9, 8, 7, 6, 5, 4, 3, 2 };
+            string tempCpf;
+            string digito;
+            int soma;
+            int resto;
+            cpf = cpf.Trim();
+            cpf = cpf.Replace(".", "").Replace("-", "");
+            if (cpf.Length != 11)
+                return false;
+            tempCpf = cpf.Substring(0, 9);
+            soma = 0;
+
+            for (int i = 0; i < 9; i++)
+                soma += int.Parse(tempCpf[i].ToString()) * multiplicador1[i];
+            resto = soma % 11;
+            if (resto < 2)
+                resto = 0;
+            else
+                resto = 11 - resto;
+            digito = resto.ToString();
+            tempCpf = tempCpf + digito;
+            soma = 0;
+            for (int i = 0; i < 10; i++)
+                soma += int.Parse(tempCpf[i].ToString()) * multiplicador2[i];
+            resto = soma % 11;
+            if (resto < 2)
+                resto = 0;
+            else
+                resto = 11 - resto;
+            digito = digito + resto.ToString();
+            return cpf.EndsWith(digito);
+        }
+        public bool ExistPessoa(Pessoa pessoa)
         {
             try
             {
-                if (pessoa!=null)
-                {
-                    Inserir(pessoa);
-                    
-                }
+                var Exist = _contexto.Set<Pessoa>().FirstOrDefault(p => p.cpf == pessoa.cpf);
+                if (Exist != null)
+                    return true;
                 else
-                {
-
-                }
+                    return false;
             }
-            catch (Exception)
+            catch (Exception )
             {
-
-                throw;
+                throw new Exception(" Outra coisa Qualquer !");
             }
-
         }
         public bool CalculoIdade(Pessoa pessoa)
         {

@@ -25,7 +25,7 @@ namespace SISPTD.Controllers
         {
             var pessoa = pessoaBO.Selecionar().Where(p => p.cpf == cpf).FirstOrDefault();
 
-            return Json(new { Nome = pessoa.nome }, JsonRequestBehavior.AllowGet);
+            return Json(new { Nome = pessoa.nome, Id = pessoa.pessoaId}, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult Details(long? id)
@@ -34,7 +34,7 @@ namespace SISPTD.Controllers
             return View(pessoaBO.SelecionarPorId(id.Value));
         }
 
-        [Authorize(Roles = "Funcionario, Gerente")]
+        //[Authorize(Roles = "Funcionario, Gerente")]
         public ActionResult Create()
         {
 
@@ -43,14 +43,22 @@ namespace SISPTD.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Funcionario, Gerente")]
+        //[Authorize(Roles = "Funcionario, Gerente")]
         public ActionResult Create(Pessoa pessoa)
         {
-            if (ModelState.IsValid)
+            try
             {
-                pessoa.dt_Cadastro = DateTime.Now;
-                pessoaBO.Inserir(pessoa);
-                return RedirectToAction("Create", "Endereco", new { pessoaId = pessoa.pessoaId });
+                if (ModelState.IsValid)
+                {
+                    pessoa.dt_Cadastro = DateTime.Now;
+                    pessoaBO.Inserir(pessoa);
+                    pessoaBO.SelecionarPorId(pessoa.pessoaId);
+                    return RedirectToAction("Create", "Endereco", new { pessoaId = pessoa.pessoaId });
+                }
+            }
+            catch (Exception e)
+            {
+                TempData["Erro"] = "Ops! " + e.Message;
             }
 
             ViewBag.pessoaPai = new SelectList(pessoaBO.Selecionar(), "pessoaId", "cpf", pessoa.pessoaPai);

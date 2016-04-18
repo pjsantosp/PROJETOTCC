@@ -22,7 +22,6 @@ namespace SISPTD.Controllers
         {
             return View(enderecoBO.Selecionar());
         }
-
        
         public ActionResult Details(long? id)
         {
@@ -136,13 +135,5 @@ namespace SISPTD.Controllers
             return RedirectToAction("Index");
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
     }
 }

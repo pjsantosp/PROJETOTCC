@@ -36,6 +36,22 @@
                     <span>Setor</span>
                 </a>
             </li>
+            <li class="@(SISPTD.Ultis.NavTabs.GetTab(ViewContext,"Clinica"))">
+                <a href="@Url.Action("Index", "Clinica")">
+                    <h2 class="text-center">
+                        <i class="glyphicon glyphicon-glass"></i>
+                    </h2>
+                    <span>Clinica / Hospital</span>
+                </a>
+            </li>
+            <li class="@(SISPTD.Ultis.NavTabs.GetTab(ViewContext,"Agendamento"))">
+                <a href="@Url.Action("Index", "Agendamento")">
+                    <h2 class="text-center">
+                        <i class="glyphicon glyphicon-calendar"></i>
+                    </h2>
+                    <span>Agendamento</span>
+                </a>
+            </li>
             <li>
                 <a href="#">
                     <h2 class="text-center">

@@ -4,6 +4,7 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
+    @Html.Hidden("pessoaId",(int)ViewBag.pessoaId)
     <div class="panel panel-default">
         <div class="panel-body">
 
@@ -45,7 +46,9 @@
                 </div>
                 <div class="col-md-7">
                     <div class="form-group">
-                        <input readonly id="paciente" type="text" value="@ViewBag.paciente" class="form-control" />
+                        <input type="text" id="paciente" readonly class="form-control paciente" name="name" value=" " />
+                       @* @Html.EditorFor(model => model.Pessoa.nome, new { HtmlAttributes = new {disabled="disabled",  @class = "form-control paciente readonly" } })*@
+                        @Html.ValidationMessageFor(model => model.Pessoa.nome, null, new { @class="text-danger" })
                     </div>
                     
                 </div>

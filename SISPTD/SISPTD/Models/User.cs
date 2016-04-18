@@ -1,28 +1,25 @@
 namespace SISPTD.Models
 {
-    using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
-    using System.Data.Entity.Spatial;
 
     [Table("User")]
-    public  class User
+    public class User
     {
 
-      [Key]
+        [Key]
         public long usuarioId { get; set; }
 
         [Required]
         [StringLength(50)]
-        [Display(Name="Login")]
+        [Display(Name = "Login")]
         public string login { get; set; }
-        [Display(Name="Senha")]
+        [Display(Name = "Senha")]
         [Required]
         [StringLength(50)]
         [DataType(DataType.Password)]
         public string senha { get; set; }
-        public virtual Tipo tipo { get; set; }
 
         public long pessoaId { get; set; }
 
@@ -33,6 +30,8 @@ namespace SISPTD.Models
         public virtual ICollection<DistribProcesso> DistribProcesso1 { get; set; }
 
         public virtual Pessoa Pessoa { get; set; }
+
+        public virtual Perfil Perfil { get; set; }
 
         public virtual ICollection<Requisicao> Requisicao { get; set; }
     }

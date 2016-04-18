@@ -53,10 +53,6 @@ D:\PROJETOTCC\PROJETOTCC\SISPTD\SISPTD\bin\Microsoft.Owin.Security.MicrosoftAcco
 D:\PROJETOTCC\PROJETOTCC\SISPTD\SISPTD\obj\Debug\SISPTD.csprojResolveAssemblyReference.cache
 D:\PROJETOTCC\PROJETOTCC\SISPTD\SISPTD\obj\Debug\SISPTD.dll
 D:\PROJETOTCC\PROJETOTCC\SISPTD\SISPTD\obj\Debug\SISPTD.pdb
-D:\PROJETOTCC\PROJETOTCC\SISPTD\SISPTD\obj\Debug\SISPTD.Migrations.BancoInicial.resources
+D:\PROJETOTCC\PROJETOTCC\SISPTD\SISPTD\obj\Debug\SISPTD.Migrations.Inicial.resources
 D:\PROJETOTCC\PROJETOTCC\SISPTD\SISPTD\obj\Debug\SISPTD.csproj.GenerateResource.Cache
-D:\PROJETOTCC\PROJETOTCC\SISPTD\SISPTD\obj\Debug\SISPTD.Migrations.TipoUsuario.resources
-D:\PROJETOTCC\PROJETOTCC\SISPTD\SISPTD\obj\Debug\SISPTD.Migrations.RemoveObrigatoriedadeCampPericia.resources
-D:\PROJETOTCC\PROJETOTCC\SISPTD\SISPTD\obj\Debug\SISPTD.Migrations.RemovRelPericiaDistrib.resources
-D:\PROJETOTCC\PROJETOTCC\SISPTD\SISPTD\obj\Debug\SISPTD.Migrations.RemovRelPericiaDistribProcesso.resources
-D:\PROJETOTCC\PROJETOTCC\SISPTD\SISPTD\obj\Debug\SISPTD.Migrations.TrocaNoTipoCamp.resources
+D:\PROJETOTCC\PROJETOTCC\SISPTD\SISPTD\obj\Debug\SISPTD.Migrations.relacaopessoa_requisicao.resources

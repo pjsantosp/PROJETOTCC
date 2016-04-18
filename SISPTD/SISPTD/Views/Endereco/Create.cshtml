@@ -9,7 +9,7 @@
 
 <div class="well well-sm">
     <span><i class="glyphicon glyphicon-road"></i></span>
-    <span class="pull-right"><strong>@ViewBag.pessoaId</strong></span>
+    <span class="pull-right"> Cadastrar endereços para: <strong>@ViewBag.pessoaId</strong></span>
 </div>
         @using (Html.BeginForm())
         {
@@ -67,7 +67,7 @@
 
             <div class="well well-sm">
                 <input type="submit" value="Salvar Endereço" class="btn btn-primary btn-confirm" />
-                @Html.ActionLink("Voltar para lista", "Index", null, new { @class = "btn btn-link pull-right" })
+                @Html.ActionLink("Voltar para lista", "Index", "Pessoa", new { @class = "btn btn-link pull-right" })
             </div>
         }
    

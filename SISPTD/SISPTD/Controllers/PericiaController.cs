@@ -43,7 +43,6 @@ namespace SISPTD.Controllers
         public ActionResult Create()
         {
             ViewBag.cidId = new SelectList(db.Cid, "cidId", "codigoCid");
-            ViewBag.medicoId = new SelectList(db.Medico, "medicoId", "crm_Medico");
             ViewBag.pessoaId = new SelectList(pessoBO.Selecionar(), "pessoaId", "nome");
             return View();
         }
@@ -61,8 +60,7 @@ namespace SISPTD.Controllers
             }
 
             ViewBag.cidId = new SelectList(db.Cid, "cidId", "codigoCid", pericia.cidId);
-            ViewBag.medicoId = new SelectList(db.Medico, "medicoId", "crm_Medico", pericia.medicoId);
-            ViewBag.pessoaId = new SelectList(db.Pessoa, "pessoaId", "cpf", pericia.pessoaId);
+            ViewBag.pessoaId = new SelectList(db.Pessoa, "pessoaId", "cpf", pericia.pacientePessoaId);
             return View(pericia);
         }
 
@@ -79,8 +77,7 @@ namespace SISPTD.Controllers
                 return HttpNotFound();
             }
             ViewBag.cidId = new SelectList(db.Cid, "cidId", "codigoCid", pericia.cidId);
-            ViewBag.medicoId = new SelectList(db.Medico, "medicoId", "crm_Medico", pericia.medicoId);
-            ViewBag.pessoaId = new SelectList(db.Pessoa, "pessoaId", "cpf", pericia.pessoaId);
+            ViewBag.pessoaId = new SelectList(db.Pessoa, "pessoaId", "cpf", pericia.pacientePessoaId);
             return View(pericia);
         }
        
@@ -95,8 +92,7 @@ namespace SISPTD.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.cidId = new SelectList(db.Cid, "cidId", "codigoCid", pericia.cidId);
-            ViewBag.medicoId = new SelectList(db.Medico, "medicoId", "crm_Medico", pericia.medicoId);
-            ViewBag.pessoaId = new SelectList(db.Pessoa, "pessoaId", "cpf", pericia.pessoaId);
+            ViewBag.pessoaId = new SelectList(db.Pessoa, "pessoaId", "cpf", pericia.pacientePessoaId);
             return View(pericia);
         }
 

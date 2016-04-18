@@ -6,12 +6,12 @@ namespace SISPTD.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
     [Table("Cidades")]
-    public  class Cidades
+    public class Cidades
     {
-        
+
 
         [Key]
-       
+
         public int IdCidade { get; set; }
 
         [Required]
@@ -25,5 +25,8 @@ namespace SISPTD.Models
         public virtual ICollection<Clinica> Clinica { get; set; }
 
         public virtual ICollection<Endereco> Endereco { get; set; }
+        public virtual ICollection<Requisicao> CidadesOrigem { get; set; }
+
+        public virtual ICollection<Requisicao> CidadesDestino { get; set; }
     }
 }

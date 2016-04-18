@@ -39,7 +39,7 @@ namespace SISPTD.Controllers
 
         public ActionResult Create(string user)
         {
-            ViewBag.roles = new SelectList(Enum.GetValues(typeof(Tipo)));
+            ViewBag.roles = new SelectList(Enum.GetValues(typeof(Perfil)));
             ViewBag.pessoaId = new SelectList(pessoaBO.Selecionar(), "pessoaId", "nome");
             return View();
         }
@@ -52,7 +52,7 @@ namespace SISPTD.Controllers
             {
                 if (userBO.VerificaUser(user) != false)
                 {
-                    user.tipo = (Tipo)Enum.Parse(typeof(Tipo), roles);
+                    user.Perfil = (Perfil)Enum.Parse(typeof(Perfil), roles);
 
                     user.senha = userBO.Encrypt(user.senha);
 
@@ -65,7 +65,7 @@ namespace SISPTD.Controllers
 
                 TempData["Erro"] = "O Login " + user.login + " Já Esta cadastrado para Uma Pessoa!";
                 ViewBag.pessoaId = new SelectList(pessoaBO.Selecionar(), "pessoaId", "nome", user.pessoaId);
-                ViewBag.roles = new SelectList(Enum.GetValues(typeof(Tipo)));
+                ViewBag.roles = new SelectList(Enum.GetValues(typeof(Perfil)));
                 return View(user);
             }
             catch (Exception)

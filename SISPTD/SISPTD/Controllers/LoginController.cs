@@ -31,7 +31,7 @@ namespace SISPTD.Controllers
                 if (conta != null)
                 {
                     FormsAuthentication.SetAuthCookie(conta.login, false);
-                    CreateAuthorizeTicket((int)conta.usuarioId, conta.login.ToString(), conta.tipo.ToString());
+                    CreateAuthorizeTicket((int)conta.usuarioId, conta.login.ToString(), conta.Perfil.ToString());
 
                     return RedirectToAction("Index", "Pessoa");
 
@@ -91,10 +91,10 @@ namespace SISPTD.Controllers
         private void CreateAuthorizeTicket(int id, string login, string roles)
         {
 
-            FormsAuthenticationTicket authTicket = new FormsAuthenticationTicket(id, login,  // Id do usuário é muito importante
+            FormsAuthenticationTicket authTicket = new FormsAuthenticationTicket(id, login,  
               DateTime.Now,
-              DateTime.Now.AddMinutes(30),  // validade 30 min tá bom demais
-              false,   // Se você deixar true, o cookie ficará no PC do usuário
+              DateTime.Now.AddMinutes(30),  
+              false,   
               roles);
 
             HttpCookie cookie = new HttpCookie(FormsAuthentication.FormsCookieName, FormsAuthentication.Encrypt(authTicket));

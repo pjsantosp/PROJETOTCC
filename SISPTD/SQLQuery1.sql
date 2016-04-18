@@ -1,1 +1,1 @@
-﻿select * from Setor
+﻿select * from Pessoa where cpf ='83025308249'

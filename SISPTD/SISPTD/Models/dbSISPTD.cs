@@ -9,7 +9,7 @@ namespace SISPTD.Models
             : base("dbSISPTD")
         {
         }
-      
+
         public virtual DbSet<Agendamento> Agendamento { get; set; }
         public virtual DbSet<Cid> Cid { get; set; }
         public virtual DbSet<Cidades> Cidades { get; set; }
@@ -19,15 +19,13 @@ namespace SISPTD.Models
         public virtual DbSet<Especialidade> Especialidade { get; set; }
         public virtual DbSet<Estado> Estado { get; set; }
         public virtual DbSet<ItemRequisicao> ItemRequisicao { get; set; }
-        public virtual DbSet<Medico> Medico { get; set; }
         public virtual DbSet<Pericia> Pericia { get; set; }
         public virtual DbSet<Pessoa> Pessoa { get; set; }
         public virtual DbSet<Requisicao> Requisicao { get; set; }
         public virtual DbSet<Setor> Setor { get; set; }
-       
         public virtual DbSet<User> User { get; set; }
 
-    
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
@@ -48,20 +46,21 @@ namespace SISPTD.Models
                 .HasForeignKey(e => e.IdCidade)
                 .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<Especialidade>()
-                .HasMany(e => e.Medico)
-                .WithOptional(e => e.Especialidade)
-                .HasForeignKey(e => e.especialidadeId);
+            modelBuilder.Entity<Cidades>()
+                .HasMany(e => e.CidadesOrigem)
+                .WithRequired(e => e.CidadeOrigem)
+                .HasForeignKey(e => e.IdCidadeOrigem)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Cidades>()
+                .HasMany(e => e.CidadesDestino)
+                .WithRequired(e => e.CidadeDestino)
+                .HasForeignKey(e => e.IdCidadeDestino)
+                .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Estado>()
                 .HasMany(e => e.Cidades)
                 .WithRequired(e => e.Estado)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<Medico>()
-                .HasMany(e => e.Pericia)
-                .WithRequired(e => e.Medico)
-                .HasForeignKey(e => e.medicoId)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Pessoa>()
@@ -79,25 +78,12 @@ namespace SISPTD.Models
                 .HasMany(e => e.Endereco)
                 .WithRequired(e => e.Pessoa)
                 .HasForeignKey(e => e.pessoaId);
-                
+
 
             modelBuilder.Entity<Pessoa>()
-                .HasMany(e => e.ItemRequisicao)
-                .WithRequired(e => e.Pessoa)
-                .HasForeignKey(e => e.pessoaId)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<Pessoa>()
-                .HasMany(e => e.Medico)
-                .WithRequired
-                (e => e.Pessoa)
-                .HasForeignKey(e => e.pessoaId)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<Pessoa>()
-                .HasMany(e => e.Pericia)
-                .WithRequired(e => e.Pessoa)
-                .HasForeignKey(e => e.pessoaId)
+                .HasMany(e => e.PericiaPaciente)
+                .WithOptional(e => e.Paciente)
+                .HasForeignKey(e => e.pacientePessoaId)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Pessoa>()
@@ -110,6 +96,32 @@ namespace SISPTD.Models
                 .WithRequired(e => e.Pessoa)
                 .HasForeignKey(e => e.pessoaId)
                 .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Pessoa>()
+                .HasMany(e => e.Requisicao)
+                .WithRequired(e => e.Pessoa)
+                .HasForeignKey(e => e.pessoaId)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Especialidade>()
+                .HasMany(e => e.Pessoa)
+                .WithMany(e => e.Especialidade)
+                .Map(e =>
+                   {
+                        e.MapLeftKey("EspecialidadeId");
+                        e.MapRightKey("pessoaId");
+                        e.ToTable("PessoaEspecialidade");
+                    });
+
+            modelBuilder.Entity<Pessoa>()
+                .HasMany(e => e.PericiaMedico)
+                .WithMany(e => e.Medico)
+                .Map(e =>
+                  {
+                      e.MapLeftKey("pessoaId");
+                      e.MapRightKey("periciaId");
+                      e.ToTable("medicoPericia");
+                  });
 
 
             modelBuilder.Entity<Requisicao>()
