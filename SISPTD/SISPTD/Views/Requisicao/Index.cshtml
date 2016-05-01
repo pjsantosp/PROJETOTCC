@@ -17,6 +17,7 @@
     </p>
     <table class="table">
         <tr>
+         
             <th>
                 @Html.DisplayNameFor(model => model.CidadeDestino.Cidade)
             </th>
@@ -24,13 +25,16 @@
                 @Html.DisplayNameFor(model => model.CidadeOrigem.Cidade)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Pessoa.cpf)
+                @Html.DisplayNameFor(model => model.Usuario.login)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.User.login)
+                @Html.DisplayNameFor(model => model.dtRequisicao)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.observacoes)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.via)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.trecho)
@@ -40,6 +44,7 @@
     
     @foreach (var item in Model) {
         <tr>
+          
             <td>
                 @Html.DisplayFor(modelItem => item.CidadeDestino.Cidade)
             </td>
@@ -47,13 +52,16 @@
                 @Html.DisplayFor(modelItem => item.CidadeOrigem.Cidade)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Pessoa.cpf)
+                @Html.DisplayFor(modelItem => item.Usuario.login)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.User.login)
+                @Html.DisplayFor(modelItem => item.dtRequisicao)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.observacoes)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.via)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.trecho)

@@ -1,0 +1,47 @@
+﻿@model IEnumerable<SISPTD.Models.ItemRequisicao>
+
+
+<div class="form-horizontal">
+    <h4>Itens da Requisição Acompanhantes</h4>
+   
+</div>
+
+@Html.Hidden("requisicaoId", (int)ViewBag.requisicao)
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayName("Data")
+        </th>
+        <th>
+            @Html.DisplayName("CPF")
+        </th> 
+        <th>
+            @Html.DisplayName("Nome")
+        </th>
+        <th>
+            @Html.DisplayName("Classificação")
+        </th>
+        <th>
+            @Html.DisplayName("Observação")
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Requisicao.observacoes)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Requisicao.Pessoa.nome)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.itemId }) |
+                @Html.ActionLink("Details", "Details", new { id = item.itemId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.itemId })
+            </td>
+        </tr>
+    }
+
+</table>

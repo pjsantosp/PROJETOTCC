@@ -16,19 +16,14 @@ namespace SISPTD.BO
         {
 
         }
-        private dbSISPTD db = new dbSISPTD();
-        /// <summary>
-        /// Metodo Para Validar Conta de Login
-        /// </summary>
-        /// <param name="conta"></param>
-        /// <returns></returns>
+       
         public User Validar(User conta)
         {
             try
             {
                 string login = conta.login;
                 string senha = conta.senha;
-                var _conta = db.User.Where(u => u.login == login && u.senha == senha);
+                var _conta = Selecionar().Where(u => u.login == login && u.senha == senha);
                 if (_conta.Count() >0)
                 {
                     conta = _conta.FirstOrDefault();
@@ -74,7 +69,7 @@ namespace SISPTD.BO
         {
             try
             {
-                var userExist = db.User.FirstOrDefault(u => u.login == user.login);
+                var userExist = Selecionar().FirstOrDefault(u => u.login == user.login);
                 if (userExist == null)
                     return true;
                 else
@@ -100,6 +95,6 @@ namespace SISPTD.BO
                 throw;
             }
         }
-        
+
     }
 }

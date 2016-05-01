@@ -18,6 +18,14 @@
         <hr />
         <dl class="dl-horizontal">
             <dt>
+                @Html.DisplayNameFor(model => model.Agendamento.agendamentoId)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Agendamento.agendamentoId)
+            </dd>
+    
+            <dt>
                 @Html.DisplayNameFor(model => model.CidadeDestino.Cidade)
             </dt>
     
@@ -34,19 +42,19 @@
             </dd>
     
             <dt>
-                @Html.DisplayNameFor(model => model.Pessoa.cpf)
+                @Html.DisplayNameFor(model => model.Usuario.login)
             </dt>
     
             <dd>
-                @Html.DisplayFor(model => model.Pessoa.cpf)
+                @Html.DisplayFor(model => model.Usuario.login)
             </dd>
     
             <dt>
-                @Html.DisplayNameFor(model => model.User.login)
+                @Html.DisplayNameFor(model => model.dtRequisicao)
             </dt>
     
             <dd>
-                @Html.DisplayFor(model => model.User.login)
+                @Html.DisplayFor(model => model.dtRequisicao)
             </dd>
     
             <dt>
@@ -55,6 +63,14 @@
     
             <dd>
                 @Html.DisplayFor(model => model.observacoes)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.via)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.via)
             </dd>
     
             <dt>

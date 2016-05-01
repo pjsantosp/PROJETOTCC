@@ -104,6 +104,34 @@
                     </div>
 
                 </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Endereco.cep)
+                        @Html.EditorFor(model => model.Endereco.cep, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Endereco.cep, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Endereco.rua)
+                        @Html.EditorFor(model => model.Endereco.rua, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Endereco.rua, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model=> model.Endereco.numero)
+                        @Html.EditorFor(model => model.Endereco.numero, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Endereco.numero, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Endereco.bairro)
+                        @Html.EditorFor(model => model.Endereco.bairro, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Endereco.bairro, "", new { @class = "text-danger" })
+                    </div>
+                </div>
             </div>
         </div>
     </div>

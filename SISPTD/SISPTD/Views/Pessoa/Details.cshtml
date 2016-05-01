@@ -77,12 +77,7 @@
                 @Html.DisplayFor(model => model.email)
             </td>
         </tr>
-        <tr>
-            <td colspan="5">
-                @Html.Partial("_EndPessoa", Model.Endereco)
-            </td>
-
-        </tr>
+      
         <tr></tr>
     </table>
 </div>
@@ -91,8 +86,7 @@
         <h3 class="panel-title"><strong>Acompanhantes</strong></h3>
     </div>
     <div class="panel-body">
-
-
+      
     </div>
     <table class="table table-striped ">
         <tr>
@@ -115,7 +109,7 @@
                 @Html.LabelFor(model => model.cns, new { @class = "control-label" })
             </th>
         </tr>
-        @foreach (var item in Model.Pessoa1)
+        @foreach (var item in Model.PessoaAcompanhante)
         {
             <tr>
                 <td>

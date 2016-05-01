@@ -7,11 +7,10 @@
 
 <h2>Cadastro de Acompanhante</h2>
 <div>
-    @ViewBag.Paciente
-   
     
 </div>
-@{ <input type="hidden" id="pessoaPai" name="pessoaPai" value="@Model.pessoaPai" />}
+@*@{ <input type="hidden" id="pessoaPai" name="pessoaPai" value="@Model.pessoaPai" />}*@
+@Html.HiddenFor(model=> model.pessoaPai)
 @Html.Partial("_Formulario")
 
 @section Scripts {

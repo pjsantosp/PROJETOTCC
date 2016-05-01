@@ -13,8 +13,8 @@ namespace SISPTD.Controllers
 {
     public class PessoaController : Controller
     {
-        private EnderecoBO enderecoBO = new EnderecoBO(new dbSISPTD());
         private PessoaBO pessoaBO = new PessoaBO(new dbSISPTD());
+        private CidadeBO cidadeBO = new CidadeBO(new dbSISPTD());
 
 
         public ActionResult Index(string busca = "")
@@ -23,9 +23,17 @@ namespace SISPTD.Controllers
         }
         public ActionResult Pesquisar(string cpf)
         {
-            var pessoa = pessoaBO.Selecionar().Where(p => p.cpf == cpf).FirstOrDefault();
-
-            return Json(new { Nome = pessoa.nome, Id = pessoa.pessoaId}, JsonRequestBehavior.AllowGet);
+           
+                var pessoa = pessoaBO.Selecionar().Where(p => p.cpf == cpf).FirstOrDefault();
+                if (pessoa== null)
+                {
+                    return Json(new { Nome ="", Id = 0}, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json(new { Nome = pessoa.nome, Id = pessoa.pessoaId }, JsonRequestBehavior.AllowGet);
+                }
+           
         }
 
         public ActionResult Details(long? id)
@@ -37,6 +45,7 @@ namespace SISPTD.Controllers
         //[Authorize(Roles = "Funcionario, Gerente")]
         public ActionResult Create()
         {
+            ViewBag.cidade = new SelectList(cidadeBO.Selecionar(), "IdCidade", "Cidade");
 
             return View();
         }
@@ -51,9 +60,12 @@ namespace SISPTD.Controllers
                 if (ModelState.IsValid)
                 {
                     pessoa.dt_Cadastro = DateTime.Now;
+                    pessoaBO.CalculoIdade(pessoa);
                     pessoaBO.Inserir(pessoa);
+                    TempData["Sucesso"] = "Cadastrado Realizado com Sucesso!";
+                    
                     pessoaBO.SelecionarPorId(pessoa.pessoaId);
-                    return RedirectToAction("Create", "Endereco", new { pessoaId = pessoa.pessoaId });
+                    return RedirectToAction("Edit", new {id = pessoa.pessoaId});
                 }
             }
             catch (Exception e)
@@ -61,31 +73,66 @@ namespace SISPTD.Controllers
                 TempData["Erro"] = "Ops! " + e.Message;
             }
 
+            ViewBag.cidade = new SelectList(cidadeBO.Selecionar(), "IdCidade", "Cidade");
             ViewBag.pessoaPai = new SelectList(pessoaBO.Selecionar(), "pessoaId", "cpf", pessoa.pessoaPai);
             return View(pessoa);
         }
-        public ActionResult CreateAcompanhante(long? acompanhante)
+        public ActionResult CreateAcompanhante(long? pessoaPai)
         {
-            Pessoa objAcompanhante = new Pessoa();
-            objAcompanhante.pessoaPai = acompanhante;
-            return View(objAcompanhante);
+            try
+            {
+                if (pessoaPai != null)
+                {
+                    if (ModelState.IsValid)
+                    {
+                        Pessoa acompanhante = new Pessoa();
+                        acompanhante.pessoaPai = pessoaPai;
+                        ViewBag.pessoaId = pessoaPai;
+                        return View(acompanhante);
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                TempData["Erro"] = "Ops! erro durante o Cadastro do Acompanhante!";
+            }
+           
+
+            ViewBag.pessoaId = 0;
+
+            return View();
+         
+            
         }
 
         [HttpPost, ValidateAntiForgeryToken]
-        public ActionResult CreateAcompanhante(Pessoa pessoa)
+        public ActionResult CreateAcompanhante(Pessoa pessoa, long? pessoaPai)
         {
-
-            if (ModelState.IsValid)
+            try
             {
-                pessoaBO.Inserir(pessoa);
-                TempData["Sucesso"] = "Acompanhante Cadastrado com Sucesso";
-                return RedirectToAction("Index");
+                pessoa.pessoaPai = pessoaPai;
+               
+                if (ModelState.IsValid)
+                {
+                    pessoa.dt_Cadastro = DateTime.Now;
+                    pessoaBO.CalculoIdade(pessoa);
+                    pessoaBO.Inserir(pessoa);
+                    TempData["Sucesso"] = "Acompanhante Cadastrado com Sucesso";
+                    return RedirectToAction("Edit", new {id = pessoa.pessoaPai });
+                }
             }
+            catch (Exception ex)
+            {
+
+                TempData["Erro"] = "Erro durante o Cadastro de Acompanhante " + ex.Message;
+            }
+
+            
             return View();
         }
 
         // GET: Pessoa/Edit/5
-        [Authorize(Roles = "Funcionario, Gerente")]
+        //[Authorize(Roles = "Funcionario, Gerente")]
         public ActionResult Edit(long? id)
         {
             if (id == null)
@@ -101,7 +148,7 @@ namespace SISPTD.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Funcionario, Gerente")]
+        //[Authorize(Roles = "Funcionario, Gerente")]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Pessoa pessoa)
         {

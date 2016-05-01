@@ -165,23 +165,20 @@
     <Compile Include="BO\ClinicaBO.cs" />
     <Compile Include="BO\CrudComumEntity.cs" />
     <Compile Include="BO\DistribProcessoBO.cs" />
-    <Compile Include="BO\EnderecoBO.cs" />
     <Compile Include="BO\EspecialidadeBO.cs" />
     <Compile Include="BO\EstadoBO.cs" />
     <Compile Include="BO\ICRUDGenerico.cs" />
-    <Compile Include="BO\ItemRequisicaoBO.cs" />
     <Compile Include="BO\PericiaBO.cs" />
     <Compile Include="BO\PessoaBO.cs" />
     <Compile Include="BO\RequisicaoBO.cs" />
     <Compile Include="BO\SetorBO.cs" />
     <Compile Include="BO\UserBO.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AgendamentoController.cs" />
     <Compile Include="Controllers\ClinicaController.cs" />
     <Compile Include="Controllers\DistribProcessoController.cs" />
-    <Compile Include="Controllers\EnderecoController.cs" />
     <Compile Include="Controllers\EspecialidadeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\ItensController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PericiaController.cs" />
@@ -192,19 +189,17 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201604170012267_Inicial.cs" />
-    <Compile Include="Migrations\201604170012267_Inicial.Designer.cs">
-      <DependentUpon>201604170012267_Inicial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201604170025024_relacao pessoa_requisicao.cs" />
-    <Compile Include="Migrations\201604170025024_relacao pessoa_requisicao.Designer.cs">
-      <DependentUpon>201604170025024_relacao pessoa_requisicao.cs</DependentUpon>
+    <Compile Include="Migrations\201604281715469_Criar o Banco.cs" />
+    <Compile Include="Migrations\201604281715469_Criar o Banco.Designer.cs">
+      <DependentUpon>201604281715469_Criar o Banco.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Agendamento.cs" />
     <Compile Include="Models\Cid.cs" />
     <Compile Include="Models\Cidades.cs" />
+    <Compile Include="Models\ClassificacaoPessoa.cs" />
+    <Compile Include="Models\ClassificaPessoa.cs" />
     <Compile Include="Models\Clinica.cs" />
     <Compile Include="Models\dbSISPTD.cs" />
     <Compile Include="Models\DistribProcesso.cs" />
@@ -212,7 +207,6 @@
     <Compile Include="Models\Especialidade.cs" />
     <Compile Include="Models\Estado.cs" />
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\ItemRequisicao.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Pericia.cs" />
     <Compile Include="Models\Pessoa.cs" />
@@ -222,6 +216,7 @@
     <Compile Include="Models\TipoPericia.cs" />
     <Compile Include="Models\Trecho.cs" />
     <Compile Include="Models\User.cs" />
+    <Compile Include="Models\Via.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Ultis\NavTabs.cs" />
@@ -311,7 +306,6 @@
     <Content Include="Views\Endereco\Edit.cshtml" />
     <Content Include="Views\Endereco\Index.cshtml" />
     <Content Include="Views\Shared\_Menu.cshtml" />
-    <Content Include="Views\Pessoa\CreateAcompanhante.cshtml" />
     <Content Include="Views\User\Create.cshtml" />
     <Content Include="Views\User\Delete.cshtml" />
     <Content Include="Views\User\Details.cshtml" />
@@ -335,7 +329,6 @@
     <Content Include="Views\Pericia\Details.cshtml" />
     <Content Include="Views\Pericia\Edit.cshtml" />
     <Content Include="Views\Pericia\Index.cshtml" />
-    <Content Include="Views\Pessoa\_EndPessoa.cshtml" />
     <Content Include="Views\Pessoa\_Formulario.cshtml" />
     <Content Include="Views\Medico\Create.cshtml" />
     <Content Include="Views\Medico\Delete.cshtml" />
@@ -355,13 +348,21 @@
     <Content Include="Views\Setor\_Formulario.cshtml" />
     <Content Include="Views\Shared\_LayoutLogin.cshtml" />
     <Content Include="Views\Pessoa\_Links.cshtml" />
+    <Content Include="Views\Itens\GravarItem.cshtml" />
+    <Content Include="Views\Itens\ListarItens.cshtml" />
     <Content Include="Views\Requisicao\Create.cshtml" />
     <Content Include="Views\Requisicao\Delete.cshtml" />
     <Content Include="Views\Requisicao\Details.cshtml" />
     <Content Include="Views\Requisicao\Edit.cshtml" />
     <Content Include="Views\Requisicao\Index.cshtml" />
-    <Content Include="Views\Itens\ListarItens.cshtml" />
-    <Content Include="Views\Itens\GravarItem.cshtml" />
+    <Content Include="Views\Agendamento\Create.cshtml" />
+    <Content Include="Views\Agendamento\Delete.cshtml" />
+    <Content Include="Views\Agendamento\Details.cshtml" />
+    <Content Include="Views\Agendamento\Edit.cshtml" />
+    <Content Include="Views\Agendamento\Index.cshtml" />
+    <Content Include="Views\Requisicao\_ListaPessoa.cshtml" />
+    <Content Include="Views\Pessoa\_CreateAcompanhante.cshtml" />
+    <Content Include="Views\Pessoa\CreateAcompanhante.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -374,11 +375,8 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201604170012267_Inicial.resx">
-      <DependentUpon>201604170012267_Inicial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201604170025024_relacao pessoa_requisicao.resx">
-      <DependentUpon>201604170025024_relacao pessoa_requisicao.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201604281715469_Criar o Banco.resx">
+      <DependentUpon>201604281715469_Criar o Banco.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

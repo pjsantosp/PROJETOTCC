@@ -1,7 +1,8 @@
 ﻿@model SISPTD.Models.Pessoa
 <span class="text-danger pull-right"><i class="glyphicon glyphicon-info-sign "></i> Os campos em vermelho são de preenchimento obrigatório.</span>
 <br />
- 
+ <a class="btn btn-primary" href="@Url.Action("CreateAcompanhante","Pessoa", new {pessoaPai= Model.pessoaId })"><i class="glyphicon glyphicon-paperclip"></i> Acompanhante <span class="badge">@Model.PessoaAcompanhante.Count()</span> </a>
+
 @using (Html.BeginForm())
 {
     @Html.HiddenFor(p=> p.pessoaId)

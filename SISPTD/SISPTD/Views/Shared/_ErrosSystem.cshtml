@@ -3,7 +3,7 @@
     {
         <div class="alert alert-warning alert-success" role="alert">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <strong>@TempData["Sucesso"]</strong>
+            <strong>@Html.Raw(TempData["Sucesso"]) </strong>
         </div>
 
     }
@@ -11,6 +11,7 @@
    {
     <div class="alert alert-warning alert-danger" role="alert">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <strong>ATENÇÃO!</strong><br />
         <stron>@TempData["Erro"]</stron>
     </div>
    } 

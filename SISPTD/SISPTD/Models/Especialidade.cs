@@ -10,11 +10,8 @@ namespace SISPTD.Models
     [Table("Especialidade")]
     public class Especialidade
     {
-        
-
         [Key]
         public long EspecialidadeId { get; set; }
-        public long pessoaId { get; set; }
         [StringLength(150)]
         public string descricao { get; set; }
         public virtual ICollection<Pessoa> Pessoa { get; set; }

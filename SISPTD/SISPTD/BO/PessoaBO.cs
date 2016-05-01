@@ -20,8 +20,8 @@ namespace SISPTD.BO
                 throw new Exception("CPF Informado não é valido!");
             if (ExistPessoa(entidade))
                 throw new Exception("já existe esse CPF cadastrado para uma Pessoa !");
-            if(CalculoIdade(entidade))
-                throw new Exception("É Necessário Acompanhante Para o Paciente!");
+            //if (CalculoIdade(entidade))
+            //    throw new Exception("É Necessário Acompanhante Para o Paciente!");
             base.Inserir(entidade);
         }
         public IEnumerable<Pessoa> ObterPessoa(string busca)
@@ -91,7 +91,7 @@ namespace SISPTD.BO
                 else
                     return false;
             }
-            catch (Exception )
+            catch (Exception)
             {
                 throw new Exception(" Outra coisa Qualquer !");
             }
@@ -103,7 +103,7 @@ namespace SISPTD.BO
                 int anoNascimento = pessoa.dt_Nascimento.Year;
                 int anoAtual = DateTime.Now.Year;
                 int idade = anoAtual - anoNascimento;
-
+                pessoa.idade = idade;
                 if (idade < 18 || idade > 60)
                     return true;
                 else
@@ -116,6 +116,21 @@ namespace SISPTD.BO
 
                 throw new Exception("Erro durante a Verificação da Idade do Paciente", e);
             }
+        }
+        public string ObterPessoaLogin(User login)
+        {
+            try
+            {
+                var  loginNome = Selecionar().FirstOrDefault(p => p.cpf == login.login).ToString();
+                return loginNome;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+           
         }
 
     }

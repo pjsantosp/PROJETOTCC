@@ -1,36 +1,33 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Web;
+
 namespace SISPTD.Models
 {
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-
-    [Table("Endereco")]
-    public  class Endereco
+    public class Endereco
     {
-        
-       [Key]
-        public long enderecoId { get; set; }
-        [Display(Name = "Cidade")]
-        public int IdCidade { get; set; }
-        public long? pessoaId { get; set; }
+        [Key]
+        public int enderecoId { get; set; }
+        public int? IdCidade { get; set; }
 
-        [Display(Name = "Rua")]
-        [Required]
-        [StringLength(150)]
-        public string rua { get; set; }
-        [Display(Name = "Numero")]
-        [Required]
-        [StringLength(5)]
-        public string numero { get; set; }
+        [StringLength(15)]
         [Display(Name = "CEP")]
-        [StringLength(8)]
         public string cep { get; set; }
-        [Display(Name="Bairro")]
-        [StringLength(10)]
+
+        [StringLength(100)]
+        [Display(Name = "Rua")]
+        public string rua { get; set; }
+
+        [Display(Name = "Numero")]
+        public int numero { get; set; }
+
+        [StringLength(100)]
+        [Display(Name = "Bairro")]
         public string bairro { get; set; }
 
-        public virtual Cidades Cidades { get; set; }
-        public virtual Pessoa Pessoa { get; set; }
-
-        
+        public virtual Cidades Cidade { get; set; }
+        public virtual ICollection<Pessoa> Pessoa { get; set; }
     }
 }

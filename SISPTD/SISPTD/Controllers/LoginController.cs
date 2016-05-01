@@ -2,6 +2,7 @@
 using SISPTD.Models;
 using System;
 using System.IO;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Web;
@@ -12,7 +13,9 @@ namespace SISPTD.Controllers
 {
     public class LoginController : Controller
     {
-        dbSISPTD db = new dbSISPTD();
+        //dbSISPTD db = new dbSISPTD();
+        private UserBO userBO = new UserBO(new dbSISPTD());
+        private PessoaBO pessoaBO = new PessoaBO(new dbSISPTD());
 
         // GET: Login
         public ActionResult Login()
@@ -24,9 +27,17 @@ namespace SISPTD.Controllers
         {
             try
             {
-                UserBO userBO = new UserBO(new dbSISPTD());
+
                 conta.senha = Encrypt(conta.senha);
                 conta = userBO.Validar(conta);
+                   var nomeLogin = pessoaBO.Selecionar().Where(p => p.cpf == conta.login).FirstOrDefault();
+                
+                    
+                
+                Session["NomeLogin"] = nomeLogin.nome;
+
+
+
 
                 if (conta != null)
                 {
@@ -36,7 +47,7 @@ namespace SISPTD.Controllers
                     return RedirectToAction("Index", "Pessoa");
 
                 }
-               TempData["Erro"] = "Login e/ou Senha Inválidos";
+                TempData["Erro"] = "Login e/ou Senha Inválidos";
                 return View();
             }
             catch (Exception e)
@@ -91,10 +102,10 @@ namespace SISPTD.Controllers
         private void CreateAuthorizeTicket(int id, string login, string roles)
         {
 
-            FormsAuthenticationTicket authTicket = new FormsAuthenticationTicket(id, login,  
+            FormsAuthenticationTicket authTicket = new FormsAuthenticationTicket(id, login,
               DateTime.Now,
-              DateTime.Now.AddMinutes(30),  
-              false,   
+              DateTime.Now.AddMinutes(30),
+              false,
               roles);
 
             HttpCookie cookie = new HttpCookie(FormsAuthentication.FormsCookieName, FormsAuthentication.Encrypt(authTicket));
@@ -102,6 +113,7 @@ namespace SISPTD.Controllers
             Response.Cookies.Add(cookie);
 
         }
+
 
 
     }

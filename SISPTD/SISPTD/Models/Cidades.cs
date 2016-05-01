@@ -8,25 +8,17 @@ namespace SISPTD.Models
     [Table("Cidades")]
     public class Cidades
     {
-
-
         [Key]
-
         public int IdCidade { get; set; }
 
         [Required]
         [StringLength(100)]
         public string Cidade { get; set; }
-
         public int IdEstado { get; set; }
-
         public virtual Estado Estado { get; set; }
-
         public virtual ICollection<Clinica> Clinica { get; set; }
-
         public virtual ICollection<Endereco> Endereco { get; set; }
-        public virtual ICollection<Requisicao> CidadesOrigem { get; set; }
-
-        public virtual ICollection<Requisicao> CidadesDestino { get; set; }
+        public virtual ICollection<Requisicao> CidadeOrigem { get; set; }
+        public virtual ICollection<Requisicao> CidadeDestino { get; set; }
     }
 }

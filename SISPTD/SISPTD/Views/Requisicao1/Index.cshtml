@@ -1,0 +1,71 @@
+﻿@model IEnumerable<SISPTD.Models.Requisicao>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CidadeDestino.Cidade)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CidadeOrigem.Cidade)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Pessoa.cpf)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User.login)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.observacoes)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.trecho)
+            </th>
+            <th></th>
+        </tr>
+    
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CidadeDestino.Cidade)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CidadeOrigem.Cidade)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Pessoa.cpf)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.login)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.observacoes)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.trecho)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.requisicaoId }) |
+                @Html.ActionLink("Details", "Details", new { id=item.requisicaoId }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.requisicaoId })
+            </td>
+        </tr>
+    }
+    
+    </table>
+</body>
+</html>
