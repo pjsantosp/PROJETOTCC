@@ -35,10 +35,10 @@ namespace SISPTD.BO
                 }
  
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 
-                throw new Exception("Ops! Alguma coisa deu Errado");
+                throw new Exception( ex.Message);
             }
         }
         public  string Encrypt(string senha)

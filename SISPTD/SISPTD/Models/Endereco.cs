@@ -16,13 +16,16 @@ namespace SISPTD.Models
         [Display(Name = "CEP")]
         public string cep { get; set; }
 
+        [Required(ErrorMessage = "Campo de Preenchimento Obrigatório")]
         [StringLength(100)]
         [Display(Name = "Rua")]
         public string rua { get; set; }
 
+        [Required(ErrorMessage = "Campo de Preenchimento Obrigatório")]
         [Display(Name = "Numero")]
         public int numero { get; set; }
-
+        
+        [Required(ErrorMessage = "Campo de Preenchimento Obrigatório")]
         [StringLength(100)]
         [Display(Name = "Bairro")]
         public string bairro { get; set; }

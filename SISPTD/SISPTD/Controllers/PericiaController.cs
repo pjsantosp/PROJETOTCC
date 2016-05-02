@@ -24,7 +24,6 @@ namespace SISPTD.Controllers
             return View(periciaBO.Selecionar());
         }
 
-        // GET: Pericia/Details/5
         public ActionResult Details(long? id)
         {
             if (id == null)
@@ -43,22 +42,34 @@ namespace SISPTD.Controllers
         public ActionResult Create()
         {
             ViewBag.cidId = new SelectList(db.Cid, "cidId", "codigoCid");
-            ViewBag.pessoaId = new SelectList(pessoBO.Selecionar(), "pessoaId", "nome");
+            ViewBag.pessoaId = new SelectList(pessoBO.Selecionar().Where(p=> p.tipo== 0), "pessoaId", "nome");
+            ViewBag.medico = new SelectList(pessoBO.Selecionar().Where(m=> m.tipo== 2), "pessoaId", "nome");
             return View();
         }
 
         
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Pericia pericia)
+        public ActionResult Create(string TipoPericia, Pericia pericia)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Pericia.Add(pericia);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
 
+                pericia.dt_Pericia = DateTime.Now;
+                if (ModelState.IsValid)
+                {
+                    db.Pericia.Add(pericia);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+
+                
+            }
+            catch (Exception ex)
+            {
+
+                TempData["Erro"] = "Ops ! " + ex.Message;
+            }
             ViewBag.cidId = new SelectList(db.Cid, "cidId", "codigoCid", pericia.cidId);
             ViewBag.pessoaId = new SelectList(db.Pessoa, "pessoaId", "cpf", pericia.pacientePessoaId);
             return View(pericia);

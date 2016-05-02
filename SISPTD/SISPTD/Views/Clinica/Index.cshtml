@@ -4,10 +4,10 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Cadastro de Clinicas e Hospitais</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Cadastrar", "Create",null, new {@class="btn btn-primary" })
 </p>
 <table class="table">
     <tr>
@@ -19,6 +19,9 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.tel_Clinica)
+        </th>
+        <th>
+            @Html.DisplayName("Operação")
         </th>
         <th></th>
     </tr>
@@ -35,9 +38,9 @@
             @Html.DisplayFor(modelItem => item.tel_Clinica)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.clinicaId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.clinicaId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.clinicaId })
+            <a title="Editar" class="glyphicon glyphicon-edit " href="@Url.Action("Edit", "Clinica", new { id = item.clinicaId})"></a> |
+            <a title="Delete" class="glyphicon glyphicon-remove" href="@Url.Action("Delete", "Clinica" ,new { id = item.clinicaId })"></a>
+
         </td>
     </tr>
 }

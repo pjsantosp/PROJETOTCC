@@ -24,7 +24,10 @@ namespace SISPTD
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
-                      "~/Scripts/respond.js"
+                      "~/Scripts/respond.js",
+                      "~/Scripts/bootstrap-datepicker.pt-BR.min.js",
+                      "~/Scripts/bootstrap-datepicker.js"
+                      
                       ));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
@@ -33,7 +36,7 @@ namespace SISPTD
                       "~/Content/sisptd.css",
                       "~/Content/chosen.css",
                       "~/Content/bootstrap-chosen.css",
-                       "~/Content/bootstrap-chosen.lesss"
+                      "~/Content/bootstrap-chosen.lesss"
                       ));
         }
     }

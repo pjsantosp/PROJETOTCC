@@ -1,24 +1,22 @@
 ﻿@model IEnumerable<SISPTD.Models.Pericia>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Pericia Medica";
 }
 
-<h2>Index</h2>
+<h2>Pericia Medica</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Nova Pericia", "Create", null, new { @class = "btn btn-primary" })
 </p>
 <table class="table">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Cid.codigoCid)
         </th>
+      
         <th>
-            @Html.DisplayNameFor(model => model.Medico.crm_Medico)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Pessoa.cpf)
+            @Html.DisplayNameFor(model => model.Paciente.cpf)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.descricao)
@@ -37,11 +35,9 @@
         <td>
             @Html.DisplayFor(modelItem => item.Cid.codigoCid)
         </td>
+       
         <td>
-            @Html.DisplayFor(modelItem => item.Medico.crm_Medico)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Pessoa.cpf)
+            @Html.DisplayFor(modelItem => item.Paciente.cpf)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.descricao)

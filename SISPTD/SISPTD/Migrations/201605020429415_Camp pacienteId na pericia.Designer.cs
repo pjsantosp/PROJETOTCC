@@ -7,13 +7,13 @@ namespace SISPTD.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class CriaroBanco : IMigrationMetadata
+    public sealed partial class CamppacienteIdnapericia : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(CriaroBanco));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(CamppacienteIdnapericia));
         
         string IMigrationMetadata.Id
         {
-            get { return "201604281715469_Criar o Banco"; }
+            get { return "201605020429415_Camp pacienteId na pericia"; }
         }
         
         string IMigrationMetadata.Source

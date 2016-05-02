@@ -1,10 +1,6 @@
 ﻿@model SISPTD.Models.Pericia
 
-@{
-    ViewBag.Title = "Create";
-}
 
-<h2>Create</h2>
 
 @using (Html.BeginForm())
 {
@@ -18,42 +14,56 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                        @Html.LabelFor(model => model.pessoaId, "Paciente", htmlAttributes: new { @class = "control-label" })
-                        @Html.DropDownList("pessoaId", null, htmlAttributes: new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.pessoaId, "", new { @class = "text-danger" })
+                        @Html.LabelFor(model => model.pacientePessoaId, "Paciente", htmlAttributes: new { @class = "control-label" })
+                        @Html.DropDownList("pessoaId", null, htmlAttributes: new { @class = "form-control chosen-select" })
+                        @Html.ValidationMessageFor(model => model.pacientePessoaId, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         @Html.LabelFor(model => model.cidId, "Cid", htmlAttributes: new { @class = "control-label" })
-                        @Html.DropDownList("cidId", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.DropDownList("cidId", null, htmlAttributes: new { @class = "form-control chosen-select" })
                         @Html.ValidationMessageFor(model => model.cidId, "", new { @class = "text-danger" })
                     </div>
                 </div>
             </div>
             <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.Label("Medico", htmlAttributes: new { @class = "control-label" })
+                        @Html.DropDownList("medico", ViewBag.medico as SelectList, new { @class = "form-control chosen-select" })
+                        @Html.ValidationMessageFor(model => model.pacientePessoaId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+         
+            <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
                         @Html.LabelFor(model => model.descricao, htmlAttributes: new { @class = "control-label" })
-                        @Html.TextAreaFor(model => model.descricao, 5, 170, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.TextAreaFor(model => model.descricao, 5, 155, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.descricao, "", new { @class = "text-danger" })
                     </div>
 
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-4">
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.medicoId, "medicoId", htmlAttributes: new { @class = "control-label" })
-                        @Html.DropDownList("medicoId", null, htmlAttributes: new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.medicoId, "", new { @class = "text-danger" })
-                    </div>
-                </div>
+               
                 <div class="col-md-4">
                     <div class="form-group">
                         @Html.LabelFor(model => model.situacao, htmlAttributes: new { @class = "control-label" })
-                        @Html.EditorFor(model => model.situacao, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.TextAreaFor(model => model.situacao, 5, 155, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.situacao, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.Label("Primeira Vez")
+                            @Html.RadioButtonFor(model => model.TipoPericia, "Primeira Vez")
+                            @Html.Label("Retorno")
+                            @Html.RadioButtonFor(model => model.TipoPericia, "Retorno")
+                        </div>
                     </div>
                 </div>
             </div>

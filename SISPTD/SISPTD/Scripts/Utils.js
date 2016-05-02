@@ -62,6 +62,25 @@ $(document).ready(function () {
             }
         });
     });
+
+    //Localiza paciente no DistribProcesso
+    $('.buscarPacienteDistrib').change(function () {
+        debugger;
+        var cpf = $('#buscarPacienteDistrib').val();
+        $.ajax({
+            method: 'GET',
+            url: "/Pessoa/Pesquisar/?cpf=" + cpf,
+            success: function (data) {
+
+                $('#nomePacienteDistrib').val(data.Nome);
+                $('#idPacienteDistrib').val(data.Id)
+                //top._pessoaId = data.Id;
+            },
+            error: function (data) {
+                alert("Algo está errado, não foi possível pesquisar o paciente!");
+            }
+        });
+    });
    
 });
 
@@ -91,53 +110,37 @@ function RemoveAcompanhanteLista() {
         });
 }
 
-//function SalvarRequisicao() {
+$(function () {
+    $("#dt_Nascimento").datepicker({
+        language: "pt-BR",
+        format: "dd/mm/yyyy",
+        clearBtn: true,
+        orientation: "bottom auto",
+        calendarWeeks: true,
+        toggleActive: true,
+        autoclose: true
 
+    });
+    //$("#calendario").datepicker();
+});
+$(function() {
+    $("#dt_Nascimento").datepicker({
+        showOn: "button",
+        buttonImage: "calendario.png",
+        buttonImageOnly: true
+    });
+});
+$(function() {
+    $("#calendario").datepicker({
+        dateFormat: 'dd/mm/yy',
+        dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado','Domingo'],
+        dayNamesMin: ['D','S','T','Q','Q','S','S','D'],
+        dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb','Dom'],
+        monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
+        monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez']
+    });
+});
 
-//    var usuario = $('#usuarioId').val();
-//    var origem = $('#IdCidadesOrigem').val();
-//    var destino = $('#IdCidadesDestino').val();
-//    var observacoes = $('#observacoes').val();
-//    var trecho = $('#trecho').val();
-//    var via = $('#via').val();
-//    var agendamento = $('#agendaId').val();
-
-//    var token = $('input[name="__RequestVerificationToken"]').val();
-//    var tokenadr = $('form[action="/Requisicao/Create"] input[name="__RequestVerificationToken"]').val();
-//    var headers = {};
-//    var headersadr = {};
-//    headers['__RequestVerificationToken'] = token;
-//    headersadr['__RequestVerificationToken'] = tokenadr;
-
-//    var url = "/Requisicao/Create";
-
-//    $.ajax({
-//        url: url,
-//        method: "POST",
-//        datatype: "json",
-//        headers: headersadr,
-//        data: {
-//            requisicaoId: 0,
-//            usuarioId: usuario,
-//            IdCidadesOrigem: origem,
-//            IdCidadesDestino: destino,
-//            Observacoes: observacoes,
-//            Trecho: trecho,
-//            Via: via,
-//            Agendamento: agendamento,
-//            __RequestVerificationToken: token
-//        },
-//        success: function (data) {
-
-//            if (data.Requisicao > 0) {
-
-//                ListarItens(data.Requisicao)
-//            }
-//        }
-
-
-//    });
-//}
 
 
 

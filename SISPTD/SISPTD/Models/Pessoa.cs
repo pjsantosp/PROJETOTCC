@@ -23,7 +23,7 @@ namespace SISPTD.Models
         [StringLength(8)]
         [Display(Name = "Crm")]
         public string crm { get; set; }
-
+        [Required]
         [StringLength(25)]
         [Display(Name = "Cartão SUS")]
         public string cns { get; set; }
@@ -40,11 +40,12 @@ namespace SISPTD.Models
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime? dt_Emissao { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Campo de Preenchimento Obrigatório")]
         [StringLength(160)]
         [Display(Name = "Nome")]
         public string nome { get; set; }
 
+       
         [Display(Name = "Data de Nascimento")]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public System.DateTime dt_Nascimento { get; set; }
@@ -56,11 +57,13 @@ namespace SISPTD.Models
         [Display(Name = "E-Mail")]
         [DataType(DataType.EmailAddress)]
         public string email { get; set; }
+
        
         [StringLength(150)]
         [Display(Name = "Mãe")]
         public string nome_Mae { get; set; }
-       
+
+        
         [StringLength(150)]
         [Display(Name = "Pai")]
         public string nome_Pai { get; set; }
@@ -80,12 +83,12 @@ namespace SISPTD.Models
         public virtual ICollection<DistribProcesso> DistribProcesso { get; set; }
         public virtual ICollection<Pericia> PericiaPaciente { get; set; }
         public virtual ICollection<Pericia> PericiaMedico { get; set; }
-        public virtual ICollection<Pessoa> PessoaAcompanhante { get; set; }//        RETIRAR
-        public virtual Pessoa Pessoa_Pai { get; set; }//        RETIRAR
+        public virtual ICollection<Pessoa> PessoaAcompanhante { get; set; }
+        public virtual Pessoa Pessoa_Pai { get; set; }
         public virtual ICollection<User> User { get; set; }
         public virtual ICollection<Especialidade> Especialidade { get; set; }
         public virtual ICollection<Requisicao> RequisicaoComoPaciente { get; set; }
-		public virtual ICollection<Requisicao> RequisicaoComoAcompanhante { get; set; }//ADICIONAR
+		public virtual ICollection<Requisicao> RequisicaoComoAcompanhante { get; set; }
         public virtual Endereco Endereco { get; set; }
        
     }

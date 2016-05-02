@@ -53,21 +53,23 @@ namespace SISPTD.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(DistribProcesso distribProcesso)
+        public ActionResult Create(long? idPacienteDistrib, DistribProcesso distribProcesso)
         {
             try
             {
+                distribProcesso.pessoaId = idPacienteDistrib.Value ;
                 var user = userBO.userLogado(User.Identity.Name);
                 distribProcesso.usuarioEnviouId = user.usuarioId;
                 if (ModelState.IsValid)
                 {
                     distribProcessoBO.Inserir(distribProcesso);
-                    return RedirectToAction("Index");
+                    TempData["Sucesso"] = "Enviado com Sucesso! ";
                 }
+                return RedirectToAction("Index");
             }
             catch (Exception e)
             {
-                TempData["Erro"] = "Ops!" + e.Message;
+                TempData["Erro"] = "Ops! " + e.Message;
             }
 
             ViewBag.pessoaId = 0;
