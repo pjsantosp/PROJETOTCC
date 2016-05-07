@@ -14,6 +14,7 @@ namespace SISPTD.Controllers
     public class EspecialidadeController : Controller
     {
         private EspecialidadeBO especialidadeBO = new EspecialidadeBO(new dbSISPTD());
+        
 
         // GET: Especialidade
         public ActionResult Index()

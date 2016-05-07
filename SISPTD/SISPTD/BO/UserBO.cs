@@ -41,29 +41,7 @@ namespace SISPTD.BO
                 throw new Exception( ex.Message);
             }
         }
-        public  string Encrypt(string senha)
-        {
-            var clearBytes = Encoding.UTF8.GetBytes(senha);
-            using (var provider = new RijndaelManaged())
-            {
-                byte[] key = new byte[provider.KeySize / 8];
-                byte[] initializationVector = new byte[provider.BlockSize / 8];
-                ICryptoTransform transformer = provider.CreateEncryptor(key, initializationVector);
-                using (var buffer = new MemoryStream())
-                {
-                    using (var stream = new CryptoStream(
-                        stream: buffer,
-                        transform: transformer,
-                        mode: CryptoStreamMode.Write)
-                        )
-                    {
-                        stream.Write(clearBytes, 0, clearBytes.Length);
-                        stream.FlushFinalBlock();
-                        return Convert.ToBase64String(buffer.ToArray());
-                    }
-                }
-            }
-        }
+       
 
         public bool VerificaUser(User user)
         {

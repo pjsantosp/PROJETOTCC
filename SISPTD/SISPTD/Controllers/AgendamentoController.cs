@@ -7,28 +7,28 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using SISPTD.Models;
+using SISPTD.BO;
 
 namespace SISPTD.Controllers
 {
     public class AgendamentoController : Controller
     {
-        private dbSISPTD db = new dbSISPTD();
+        private UserBO usuarioBO = new UserBO(new dbSISPTD());
+        private PessoaBO pessoaBO = new PessoaBO(new dbSISPTD());
+        private AgendamentoBO agendamentoBO = new AgendamentoBO(new dbSISPTD());
 
-        // GET: Agendamento
         public ActionResult Index()
         {
-            var agendamento = db.Agendamento.Include(a => a.Pessoa).Include(a => a.User);
-            return View(agendamento.ToList());
+            return View(agendamentoBO.Selecionar());
         }
 
-        // GET: Agendamento/Details/5
         public ActionResult Details(long? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Agendamento agendamento = db.Agendamento.Find(id);
+            Agendamento agendamento = agendamentoBO.SelecionarPorId(id.Value);
             if (agendamento == null)
             {
                 return HttpNotFound();
@@ -36,11 +36,9 @@ namespace SISPTD.Controllers
             return View(agendamento);
         }
 
-        // GET: Agendamento/Create
         public ActionResult Create()
         {
-            ViewBag.pessoaId = new SelectList(db.Pessoa, "pessoaId", "cpf");
-            ViewBag.usuarioId = new SelectList(db.User, "usuarioId", "login");
+            ViewBag.pessoaId = new SelectList(pessoaBO.Selecionar().Where(p=> p.tipo==0), "pessoaId", "cpf");
             return View();
         }
 
@@ -49,16 +47,26 @@ namespace SISPTD.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Agendamento agendamento)
         {
-            if (ModelState.IsValid)
+            try
             {
-                agendamento.dt_Marcacao = DateTime.Now;
-                db.Agendamento.Add(agendamento);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                var user = usuarioBO.userLogado(User.Identity.Name);
+                agendamento.usuarioId = user.usuarioId;
+                if (ModelState.IsValid)
+                {
+                    agendamento.dt_Marcacao = DateTime.Now;
+                   agendamentoBO.Inserir(agendamento);
+                    return RedirectToAction("Index");
+                }
             }
+            catch (Exception ex)
+            {
 
-            ViewBag.pessoaId = new SelectList(db.Pessoa, "pessoaId", "cpf", agendamento.pessoaId);
-            ViewBag.usuarioId = new SelectList(db.User, "usuarioId", "login", agendamento.usuarioId);
+                TempData["Erro"] = "Ops! " + ex.Message;
+            }
+            
+
+            ViewBag.pessoaId = new SelectList(pessoaBO.Selecionar(), "pessoaId", "cpf", agendamento.pessoaId);
+            //ViewBag.usuarioId = new SelectList(db.User, "usuarioId", "login", agendamento.usuarioId);
             return View(agendamento);
         }
 
@@ -69,29 +77,28 @@ namespace SISPTD.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Agendamento agendamento = db.Agendamento.Find(id);
+            Agendamento agendamento = agendamentoBO.SelecionarPorId(id.Value);
             if (agendamento == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.pessoaId = new SelectList(db.Pessoa, "pessoaId", "cpf", agendamento.pessoaId);
-            ViewBag.usuarioId = new SelectList(db.User, "usuarioId", "login", agendamento.usuarioId);
+            ViewBag.pessoaId = new SelectList(pessoaBO.Selecionar(), "pessoaId", "cpf", agendamento.pessoaId);
+            ViewBag.usuarioId = new SelectList(usuarioBO.Selecionar(), "usuarioId", "login", agendamento.usuarioId);
             return View(agendamento);
         }
 
        
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "agendamentoId,pessoaId,usuarioId,dt_Agendamento,dt_Marcacao")] Agendamento agendamento)
+        public ActionResult Edit(Agendamento agendamento)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(agendamento).State = EntityState.Modified;
-                db.SaveChanges();
+                agendamentoBO.Alterar(agendamento);
                 return RedirectToAction("Index");
             }
-            ViewBag.pessoaId = new SelectList(db.Pessoa, "pessoaId", "cpf", agendamento.pessoaId);
-            ViewBag.usuarioId = new SelectList(db.User, "usuarioId", "login", agendamento.usuarioId);
+            ViewBag.pessoaId = new SelectList(pessoaBO.Selecionar(), "pessoaId", "cpf", agendamento.pessoaId);
+            ViewBag.usuarioId = new SelectList(usuarioBO.Selecionar(), "usuarioId", "login", agendamento.usuarioId);
             return View(agendamento);
         }
 
@@ -102,7 +109,7 @@ namespace SISPTD.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Agendamento agendamento = db.Agendamento.Find(id);
+            Agendamento agendamento = agendamentoBO.SelecionarPorId(id.Value);
             if (agendamento == null)
             {
                 return HttpNotFound();
@@ -115,19 +122,10 @@ namespace SISPTD.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(long id)
         {
-            Agendamento agendamento = db.Agendamento.Find(id);
-            db.Agendamento.Remove(agendamento);
-            db.SaveChanges();
+            Agendamento agendamento = agendamentoBO.SelecionarPorId(id);
+            agendamentoBO.Excluir(agendamento);
             return RedirectToAction("Index");
         }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+    
     }
 }

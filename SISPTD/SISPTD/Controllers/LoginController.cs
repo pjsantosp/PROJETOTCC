@@ -1,5 +1,6 @@
 ﻿using SISPTD.BO;
 using SISPTD.Models;
+using SISPTD.Ultis;
 using System;
 using System.IO;
 using System.Linq;
@@ -13,7 +14,6 @@ namespace SISPTD.Controllers
 {
     public class LoginController : Controller
     {
-        //dbSISPTD db = new dbSISPTD();
         private UserBO userBO = new UserBO(new dbSISPTD());
         private PessoaBO pessoaBO = new PessoaBO(new dbSISPTD());
 
@@ -25,25 +25,25 @@ namespace SISPTD.Controllers
         [HttpPost, ValidateAntiForgeryToken]
         public ActionResult Login(User conta)
         {
+            conta.login = Util.RemoverMascara(conta.login);
+
+            if (conta.login == conta.senha)
+            {
+                TempData["Erro"] = "Deve trocar sua senha!";
+            }
+
             try
             {
-
-                conta.senha = Encrypt(conta.senha);
+                conta.senha = Util.Encrypt(conta.senha);
                 conta = userBO.Validar(conta);
-                   var nomeLogin = pessoaBO.Selecionar().Where(p => p.cpf == conta.login).FirstOrDefault();
-                
-                    
-                
+              
+                var nomeLogin = pessoaBO.Selecionar().Where(p => p.cpf == conta.login).FirstOrDefault();
                 Session["NomeLogin"] = nomeLogin.nome;
-
-
-
 
                 if (conta != null)
                 {
                     FormsAuthentication.SetAuthCookie(conta.login, false);
                     CreateAuthorizeTicket((int)conta.usuarioId, conta.login.ToString(), conta.Perfil.ToString());
-
                     return RedirectToAction("Index", "Pessoa");
 
                 }
@@ -59,6 +59,7 @@ namespace SISPTD.Controllers
 
 
         }
+
         public ActionResult Deslogar()
         {
             FormsAuthentication.SignOut();
@@ -66,38 +67,7 @@ namespace SISPTD.Controllers
             return RedirectToAction("Login", "Login");
         }
 
-        public static string Encrypt(string senha)
-        {
-            try
-            {
-                var clearBytes = Encoding.UTF8.GetBytes(senha);
-                using (var provider = new RijndaelManaged())
-                {
-                    byte[] key = new byte[provider.KeySize / 8];
-                    byte[] initializationVector = new byte[provider.BlockSize / 8];
-                    ICryptoTransform transformer = provider.CreateEncryptor(key, initializationVector);
-                    using (var buffer = new MemoryStream())
-                    {
-                        using (var stream = new CryptoStream(
-                            stream: buffer,
-                            transform: transformer,
-                            mode: CryptoStreamMode.Write)
-                            )
-                        {
-                            stream.Write(clearBytes, 0, clearBytes.Length);
-                            stream.FlushFinalBlock();
-                            return Convert.ToBase64String(buffer.ToArray());
-                        }
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                throw new Exception("Erro de Encrypt " + e.Message);
 
-            }
-
-        }
 
         private void CreateAuthorizeTicket(int id, string login, string roles)
         {

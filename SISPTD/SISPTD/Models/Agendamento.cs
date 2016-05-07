@@ -19,7 +19,7 @@ namespace SISPTD.Models
 
         [Display(Name ="Data do Agendamento")]
         public DateTime? dt_Agendamento { get; set; }
-
+          [Display(Name = "Marcado")]
         public DateTime? dt_Marcacao { get; set; }
         public virtual Pessoa Pessoa { get; set; }
         public virtual User User { get; set; }

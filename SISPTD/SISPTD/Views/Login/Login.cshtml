@@ -21,7 +21,7 @@
                             <div class="form-group ">
                                 <div class="input-group input-lg">
                                     <div class="input-group-addon"><i class="glyphicon  glyphicon-user"></i></div>
-                                    @Html.TextBoxFor(model => model.login, new { autofocus = "", placeholder = "Digite seu CPF", @class = "input-lg  form-control" })
+                                    @Html.TextBoxFor(model => model.login, new { autofocus = "", placeholder = "Digite seu CPF", @class = "input-lg cpf form-control" })
                                 </div>
                                 @Html.ValidationMessageFor(model => model.login, "", new { @class = "text-danger" })
 

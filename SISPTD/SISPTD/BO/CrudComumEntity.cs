@@ -17,38 +17,94 @@ namespace SISPTD.BO
         }
         public IEnumerable<TEntidade> Selecionar()
         {
-            return _contexto.Set<TEntidade>().AsEnumerable();
+            try
+            {
+                return _contexto.Set<TEntidade>().AsEnumerable();
+            }
+            catch (Exception e)
+            {
+
+                throw new Exception("Erro em CrudComum Selecionar ! "+ e.Message);
+            }
+           
         }
 
         public TEntidade SelecionarPorId(TChave id)
         {
-            return _contexto.Set<TEntidade>().Find(id);
+            try
+            {
+                return _contexto.Set<TEntidade>().Find(id);
+            }
+            catch (Exception e)
+            {
+
+                throw new Exception("Erro em CrudComum SelecionarPorId ! " +e.Message);
+            }
+            
         }
 
         public virtual void Inserir(TEntidade entidade)
         {
-            _contexto.Set<TEntidade>().Add(entidade);
-            _contexto.SaveChanges();
+            try
+            {
+                _contexto.Set<TEntidade>().Add(entidade);
+                _contexto.SaveChanges();
+
+            }
+            catch (Exception e)
+            {
+                
+                throw new Exception("Erro em CrudComum Inserir " + e.Message);
+            }
+            
         }
 
         public virtual void  Alterar(TEntidade entitade)
         {
-            _contexto.Set<TEntidade>().Attach(entitade);
-            _contexto.Entry(entitade).State = EntityState.Modified;
-            _contexto.SaveChanges();
+            try
+            {
+                _contexto.Set<TEntidade>().Attach(entitade);
+                _contexto.Entry(entitade).State = EntityState.Modified;
+                _contexto.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                
+                throw new Exception("Erro em CrudComum Alterar " + e.Message);
+            }
+           
         }
 
         public void Excluir(TEntidade entidade)
         {
-            _contexto.Set<TEntidade>().Attach(entidade);
-            _contexto.Entry(entidade).State = EntityState.Deleted;
-            _contexto.SaveChanges();
+            try
+            {
+                _contexto.Set<TEntidade>().Attach(entidade);
+                _contexto.Entry(entidade).State = EntityState.Deleted;
+                _contexto.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                
+                throw new Exception("Erro em CrudComum Excluir ! " + e.Message);
+            }
+           
         }
 
         public void ExcluirPorId(TChave id)
         {
-            TEntidade entidade = SelecionarPorId(id);
-            Excluir(entidade);
+            try
+            {
+                TEntidade entidade = SelecionarPorId(id);
+                Excluir(entidade);
+            }
+            catch (Exception e)
+            {
+                
+                throw new Exception("Erro em CrudComum ExcluirPorId " + e.Message);
+            }
+            
+            
         }
     }
 }

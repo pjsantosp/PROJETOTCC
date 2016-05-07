@@ -11,9 +11,9 @@
                     options = $.extend({
                     elCep: $(this),
                     campos: {
-                        cep:        '#cep',
+                        cep: '#Endereco_cep',
                         logradouro: '#endereco',
-                        bairro:     '#bairro',
+                        bairro: '#Endereco_bairro',
                         localidade: '#cidade',
                         uf:         '#uf'
                     },

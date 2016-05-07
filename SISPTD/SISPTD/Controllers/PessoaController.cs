@@ -1,5 +1,6 @@
 ﻿using SISPTD.BO;
 using SISPTD.Models;
+using SISPTD.Ultis;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -23,17 +24,17 @@ namespace SISPTD.Controllers
         }
         public ActionResult Pesquisar(string cpf)
         {
-           
-                var pessoa = pessoaBO.Selecionar().Where(p => p.cpf == cpf).FirstOrDefault();
-                if (pessoa== null)
-                {
-                    return Json(new { Nome ="", Id = 0}, JsonRequestBehavior.AllowGet);
-                }
-                else
-                {
-                    return Json(new { Nome = pessoa.nome, Id = pessoa.pessoaId }, JsonRequestBehavior.AllowGet);
-                }
-           
+            cpf = Util.RemoverMascara(cpf);
+            var pessoa = pessoaBO.Selecionar().Where(p => p.cpf == cpf).FirstOrDefault();
+            if (pessoa == null)
+            {
+                return Json(new { Nome = "", Id = 0 }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(new { Nome = pessoa.nome, Id = pessoa.pessoaId }, JsonRequestBehavior.AllowGet);
+            }
+
         }
 
         public ActionResult Details(long? id)
@@ -59,13 +60,14 @@ namespace SISPTD.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    pessoa.cpf = Util.RemoverMascara(pessoa.cpf);
                     pessoa.dt_Cadastro = DateTime.Now;
                     pessoaBO.CalculoIdade(pessoa);
                     pessoaBO.Inserir(pessoa);
                     TempData["Sucesso"] = "Cadastrado Realizado com Sucesso!";
-                    
+
                     pessoaBO.SelecionarPorId(pessoa.pessoaId);
-                    return RedirectToAction("Edit", new {id = pessoa.pessoaId});
+                    return RedirectToAction("Edit", new { id = pessoa.pessoaId });
                 }
             }
             catch (Exception e)
@@ -96,13 +98,13 @@ namespace SISPTD.Controllers
             {
                 TempData["Erro"] = "Ops! erro durante o Cadastro do Acompanhante!";
             }
-           
+
 
             ViewBag.pessoaId = 0;
 
             return View();
-         
-            
+
+
         }
 
         [HttpPost, ValidateAntiForgeryToken]
@@ -111,14 +113,14 @@ namespace SISPTD.Controllers
             try
             {
                 pessoa.pessoaPai = pessoaPai;
-               
+
                 if (ModelState.IsValid)
                 {
                     pessoa.dt_Cadastro = DateTime.Now;
                     pessoaBO.CalculoIdade(pessoa);
                     pessoaBO.Inserir(pessoa);
                     TempData["Sucesso"] = "Acompanhante Cadastrado com Sucesso";
-                    return RedirectToAction("Edit", new {id = pessoa.pessoaPai });
+                    return RedirectToAction("Edit", new { id = pessoa.pessoaPai });
                 }
             }
             catch (Exception ex)
@@ -127,7 +129,7 @@ namespace SISPTD.Controllers
                 TempData["Erro"] = "Erro durante o Cadastro de Acompanhante " + ex.Message;
             }
 
-            
+
             return View();
         }
 

@@ -80,10 +80,7 @@ namespace SISPTD.Models
                 .HasForeignKey(e => e.pacientePessoaId)
                 .WillCascadeOnDelete(false);
 
-            //modelBuilder.Entity<Pessoa>()
-            //    .HasMany(e => e.PessoaAcompanhante)
-            //    .WithOptional(e => e.Pessoa_Pai)
-            //    .HasForeignKey(e => e.pessoaPai);
+         
 
             modelBuilder.Entity<Pessoa>()
                 .HasMany(e => e.User)

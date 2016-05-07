@@ -1,18 +1,18 @@
-﻿using System;
+﻿using SISPTD.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using SISPTD.Models;
 
 namespace SISPTD.BO
 {
-    public class ClinicaBO: CrudComumEntity<Clinica, long>
+    public class AgendamentoBO:CrudComumEntity<Agendamento, long>
     {
-        public ClinicaBO(dbSISPTD contexto)
+        public AgendamentoBO(dbSISPTD contexto )
             :base(contexto)
         {
 
         }
-      
+
     }
 }

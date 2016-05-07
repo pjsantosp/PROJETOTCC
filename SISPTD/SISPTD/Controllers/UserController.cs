@@ -37,34 +37,46 @@ namespace SISPTD.Controllers
             return View(user);
         }
 
-        public ActionResult Create(string user)
+        public ActionResult Create()
         {
             ViewBag.roles = new SelectList(Enum.GetValues(typeof(Perfil)));
-            ViewBag.pessoaId = new SelectList(pessoaBO.Selecionar(), "pessoaId", "nome");
+            //ViewBag.pessoaId = new SelectList(pessoaBO.Selecionar(), "pessoaId", "nome");
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(User user, string roles)
+        public ActionResult Create(User user)
         {
+            if (!Ultis.Util.ValidarCPF(user.login))
+            {
+                TempData["Erro"] = "O CPF informado não é valido!";
+            }
             try
             {
+                user.login = Ultis.Util.RemoverMascara(user.login);
+                user.senha = user.login;
+
                 if (userBO.VerificaUser(user) != false)
                 {
-                    user.Perfil = (Perfil)Enum.Parse(typeof(Perfil), roles);
+                    //user.Perfil = (Perfil)Enum.Parse(typeof(Perfil), roles);
 
-                    user.senha = userBO.Encrypt(user.senha);
+                    user.senha = Ultis.Util.Encrypt(user.senha);
 
                     if (ModelState.IsValid)
                     {
                         userBO.Inserir(user);
+                        TempData["Erro"] = "Usuário Cadastrado com Sucesso";
                         return RedirectToAction("Index");
                     }
                 }
+                else
+                {
+                    TempData["Erro"] = "O Login " + user.login + " Já Esta cadastrado para Uma Pessoa!";
+                }
 
-                TempData["Erro"] = "O Login " + user.login + " Já Esta cadastrado para Uma Pessoa!";
-                ViewBag.pessoaId = new SelectList(pessoaBO.Selecionar(), "pessoaId", "nome", user.pessoaId);
+
+                //ViewBag.pessoaId = new SelectList(pessoaBO.Selecionar(), "pessoaId", "nome", user.pessoaId);
                 ViewBag.roles = new SelectList(Enum.GetValues(typeof(Perfil)));
                 return View(user);
             }
@@ -74,8 +86,57 @@ namespace SISPTD.Controllers
                 TempData["Erro"] = "Ops! Houve um erro";
                 return View();
             }
-           
+
         }
+        public ActionResult TrocaSenha(string login, string senha, string novaSenha, string confSenha)
+        {
+            try
+            {
+                if (!string.IsNullOrWhiteSpace(login))
+                {
+                    TempData["Erro"] = "Login não é valido";
+
+                }
+                if (!string.IsNullOrWhiteSpace(senha))
+                {
+                    senha = Ultis.Util.Encrypt(senha);
+                    TempData["Erro"] = "O campo senha está em branco";
+                }
+
+                if (novaSenha != confSenha)
+                {
+                    TempData["Erro"] = "Nova senha e a confirmação devem ser iguais !";
+
+                }
+
+                User usuario = new User();
+                usuario.login = login;
+                usuario.senha = senha;
+
+
+
+                if (!userBO.VerificaUser(usuario))
+                {
+                    usuario.senha = Ultis.Util.Encrypt(novaSenha);
+                    usuario.usuarioId = userBO.Selecionar().Where(u => u.login.Contains(login)).First().usuarioId;
+                    usuario.senha = novaSenha;
+
+                    userBO.Alterar(usuario);
+                    TempData["Erro"] = "Senha alterada com sucesso!";
+                }
+
+                return View();
+            }
+            catch (Exception e)
+            {
+
+                TempData["Erro"] = "Ops! Erro durante a troca de senha" + e.Message;
+            }
+            return View();
+
+        }
+
+
 
         // GET: User/Edit/5
         public ActionResult Edit(long? id)

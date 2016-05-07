@@ -15,8 +15,8 @@ namespace SISPTD.Models
         [StringLength(50)]
         [Display(Name = "Login")]
         public string login { get; set; }
+
         [Display(Name = "Senha")]
-        [Required]
         [StringLength(50)]
         [DataType(DataType.Password)]
         public string senha { get; set; }

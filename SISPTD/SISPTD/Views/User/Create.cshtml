@@ -19,36 +19,39 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
+                                    @Html.LabelFor(model => model.login, htmlAttributes: new { @class = "control-label" })
+                                <div class="input-group">
+                                    @Html.TextBox("login", Request.QueryString["CPF"], new { autofocus = "", @class = " buscarPessoaUser cpf col-md-2 form-control", placeholder = "Procure por CPF" })
+                                    <span class="input-group-btn"><button type="button" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
                                 @Html.LabelFor(model => model.pessoaId, "Pessoa", htmlAttributes: new { @class = "control-label" })
-                                @Html.DropDownList("pessoaId", null, htmlAttributes: new { @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.pessoaId, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.login, htmlAttributes: new { @class = "control-label" })
-                                @Html.EditorFor(model => model.login, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.login, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.senha, htmlAttributes: new { @class = "control-label" })
-                                @Html.EditorFor(model => model.senha, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.senha, "", new { @class = "text-danger" })
+                                <input type="text" id="nomePessoaUser" readonly class="form-control paciente" name="nomePessoaUser" value=" " />
+                                <input type="text" id="idPessoaUser" class="form-control paciente" name="pessoaId" value=" " />
 
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12">
+                            @*<div class="form-group">
+                                @Html.LabelFor(model => model.senha, htmlAttributes: new { @class = "control-label" })
+                                @Html.EditorFor(model => model.senha, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.senha, "", new { @class = "text-danger" })
+
+                            </div>*@
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
                             <div class="form-group">
                                 @Html.Label("Perfil Usuário", htmlAttributes: new { @class = "control-label" })
-                                @Html.DropDownList("roles", ViewBag.role as SelectList, new { @class = "form-control" })
+                                @Html.EnumDropDownListFor(model=> model.Perfil, new { @class = "form-control" })
 
                             </div>
                         </div>

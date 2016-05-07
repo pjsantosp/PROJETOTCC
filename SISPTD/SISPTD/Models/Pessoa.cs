@@ -38,7 +38,7 @@ namespace SISPTD.Models
 
         [Display(Name = "Data de Emissão")]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
-        public DateTime? dt_Emissao { get; set; }
+        public System.DateTime? dt_Emissao { get; set; }
 
         [Required(ErrorMessage = "Campo de Preenchimento Obrigatório")]
         [StringLength(160)]

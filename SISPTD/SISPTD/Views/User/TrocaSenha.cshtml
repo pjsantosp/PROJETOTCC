@@ -1,0 +1,38 @@
+﻿@{
+    ViewBag.Title = "TrocaSenha";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>TrocaSenha</h2>
+@using (Html.BeginForm())
+{
+    <div class="row">
+        <div class=" col-md-6 form-group">
+            @Html.Label("Login")
+            @Html.TextBox("login", null, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 form-group">
+            @Html.Label("Senha Atual")
+            @Html.TextBox("senha", null, new {@type = "password", @class = "form-control" })
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 form-group">
+            @Html.Label("Nova Senha")
+            @Html.TextBox("novaSenha", null, new {@class= "form-control" })
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 form-group">
+            @Html.Label("Confirme a Nova Senha")
+            @Html.TextBox("confSenha", null, new { @class="form-control"})
+        </div>
+    </div>
+
+    <div class="row">
+        <button type="submit" class="btn btn-primary">Gravar</button>
+    </div>
+}
+

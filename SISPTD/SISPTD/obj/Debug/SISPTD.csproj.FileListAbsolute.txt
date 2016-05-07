@@ -279,3 +279,4 @@ D:\PROJETOTCC\PROJETOTCC\SISPTD\SISPTD\bin\EntityFramework.SqlServer.dll
 D:\PROJETOTCC\PROJETOTCC\SISPTD\SISPTD\obj\Debug\SISPTD.Migrations.CamppacienteIdnapericia.resources
 D:\PROJETOTCC\PROJETOTCC\SISPTD\SISPTD\obj\Debug\SISPTD.csproj.GenerateResource.Cache
 D:\PROJETOTCC\PROJETOTCC\SISPTD\SISPTD\obj\Debug\SISPTD.Migrations.CamppacienteIdnapericiaremovido.resources
+D:\PROJETOTCC\PROJETOTCC\SISPTD\SISPTD\obj\Debug\SISPTD.Migrations.Obrigatoriedadesenha.resources

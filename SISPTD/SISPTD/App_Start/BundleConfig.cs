@@ -16,7 +16,9 @@ namespace SISPTD
                         ));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
-                        "~/Scripts/jquery.validate*"));
+                        "~/Scripts/jquery.validate*",
+                        "~/Scripts/methods_pt.js"
+                        ));
 
             
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(

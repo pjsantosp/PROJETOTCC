@@ -13,10 +13,8 @@ namespace SISPTD.Controllers
 {
     public class ClinicaController : Controller
     {
-        //private dbSISPTD db = new dbSISPTD();
         private ClinicaBO clinicaBO = new ClinicaBO(new dbSISPTD());
         private CidadeBO cidadeBO = new CidadeBO(new dbSISPTD());
-
 
         // GET: Clinica
         public ActionResult Index()

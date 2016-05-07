@@ -44,7 +44,6 @@ $(document).ready(function () {
 
 
     //Localiza pessoa na requisicao
-
     $('.procurarPaciente').change(function () {
 
         var cpf = $('#buscarPaciente').val();
@@ -65,7 +64,7 @@ $(document).ready(function () {
 
     //Localiza paciente no DistribProcesso
     $('.buscarPacienteDistrib').change(function () {
-        debugger;
+        
         var cpf = $('#buscarPacienteDistrib').val();
         $.ajax({
             method: 'GET',
@@ -75,6 +74,28 @@ $(document).ready(function () {
                 $('#nomePacienteDistrib').val(data.Nome);
                 $('#idPacienteDistrib').val(data.Id)
                 //top._pessoaId = data.Id;
+            },
+            error: function (data) {
+                alert("Algo está errado, não foi possível pesquisar o paciente!");
+            }
+        });
+    });
+
+    //Localiza Pessoa p cadastrar usuario
+    $('.buscarPessoaUser').change(function () {
+        
+        var cpf = $('#login').val();
+        $.ajax({
+            method: 'GET',
+            url: "/Pessoa/Pesquisar/?cpf=" + cpf,
+            success: function (data) {
+                if (data.Id >0) {
+                    $('#nomePessoaUser').val(data.Nome);
+                    $('#idPessoaUser').val(data.Id)
+                }
+                else {
+                    alert("Pessoa não encontrada, Verifique o nome de login! ")
+                }
             },
             error: function (data) {
                 alert("Algo está errado, não foi possível pesquisar o paciente!");
@@ -111,7 +132,7 @@ function RemoveAcompanhanteLista() {
 }
 
 $(function () {
-    $("#dt_Nascimento").datepicker({
+    $(".date").datepicker({
         language: "pt-BR",
         format: "dd/mm/yyyy",
         clearBtn: true,
@@ -130,15 +151,14 @@ $(function() {
         buttonImageOnly: true
     });
 });
-$(function() {
-    $("#calendario").datepicker({
-        dateFormat: 'dd/mm/yy',
-        dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado','Domingo'],
-        dayNamesMin: ['D','S','T','Q','Q','S','S','D'],
-        dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb','Dom'],
-        monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
-        monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez']
-    });
+
+//Aplica mascara
+$(function () {
+    $('.cpf').mask('999.999.999-99');
+    $('.date').mask('99/99/9999');
+    $('.cep').mask('99999-999');
+    $('.cns').mask('999 9999 9999 9999');
+    $('.telefone').mask('(99) 9999-9999');
 });
 
 

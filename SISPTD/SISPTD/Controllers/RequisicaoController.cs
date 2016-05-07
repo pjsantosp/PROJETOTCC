@@ -13,9 +13,10 @@ namespace SISPTD.Controllers
 {
     public class RequisicaoController : Controller
     {
-        private dbSISPTD db = new dbSISPTD();
         private PessoaBO pessoaBO = new PessoaBO(new dbSISPTD());
         private RequisicaoBO requisicaoBO = new RequisicaoBO(new dbSISPTD());
+        private UserBO usuarioBO = new UserBO(new dbSISPTD());
+        private CidadeBO cidadeBO = new CidadeBO(new dbSISPTD());
         // GET: Requisicaos
         public ActionResult Index()
         {
@@ -70,7 +71,7 @@ namespace SISPTD.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Requisicao requisicao = db.Requisicao.Find(id);
+            Requisicao requisicao = requisicaoBO.SelecionarPorId(id.Value);
             if (requisicao == null)
             {
                 return HttpNotFound();
@@ -81,10 +82,9 @@ namespace SISPTD.Controllers
         // GET: Requisicaos/Create
         public ActionResult Create()
         {
-            //ViewBag.agendamentoId = new SelectList(db.Agendamento, "agendamentoId", "dt_Agendamento");
-            ViewBag.IdCidadesDestino = new SelectList(db.Cidades, "IdCidade", "Cidade");
-            ViewBag.IdCidadesOrigem = new SelectList(db.Cidades, "IdCidade", "Cidade");
-            ViewBag.usuarioId = new SelectList(db.User, "usuarioId", "login");
+            ViewBag.IdCidadesDestino = new SelectList(cidadeBO.Selecionar(), "IdCidade", "Cidade");
+            ViewBag.IdCidadesOrigem = new SelectList(cidadeBO.Selecionar(), "IdCidade", "Cidade");
+            ViewBag.usuarioId = new SelectList(usuarioBO.Selecionar(), "usuarioId", "login");
             Requisicao requisicao = new Requisicao();
             return View(requisicao);
         }
@@ -100,53 +100,51 @@ namespace SISPTD.Controllers
             if (ModelState.IsValid)
             {
                 requisicao.dtRequisicao = DateTime.Now;
-                db.Requisicao.Add(requisicao);
-                db.SaveChanges();
+                requisicaoBO.Inserir(requisicao);
             }
 
             return View();
 
 
-            ViewBag.IdCidadesDestino = new SelectList(db.Cidades, "IdCidade", "Cidade", requisicao.IdCidadesDestino);
-            ViewBag.IdCidadesOrigem = new SelectList(db.Cidades, "IdCidade", "Cidade", requisicao.IdCidadesOrigem);
-            ViewBag.usuarioId = new SelectList(db.User, "usuarioId", "login", requisicao.usuarioId);
+            ViewBag.IdCidadesDestino = new SelectList(cidadeBO.Selecionar(), "IdCidade", "Cidade", requisicao.IdCidadesDestino);
+            ViewBag.IdCidadesOrigem = new SelectList(cidadeBO.Selecionar(), "IdCidade", "Cidade", requisicao.IdCidadesOrigem);
+            ViewBag.usuarioId = new SelectList(usuarioBO.Selecionar(), "usuarioId", "login", requisicao.usuarioId);
             return View(requisicao);
         }
 
         // GET: Requisicaos/Edit/5
-        public ActionResult Edit(long? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Requisicao requisicao = db.Requisicao.Find(id);
-            if (requisicao == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.IdCidadesDestino = new SelectList(db.Cidades, "IdCidade", "Cidade", requisicao.IdCidadesDestino);
-            ViewBag.IdCidadesOrigem = new SelectList(db.Cidades, "IdCidade", "Cidade", requisicao.IdCidadesOrigem);
-            ViewBag.usuarioId = new SelectList(db.User, "usuarioId", "login", requisicao.usuarioId);
-            return View(requisicao);
-        }
+        //public ActionResult Edit(long? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    Requisicao requisicao = requisicaoBO.SelecionarPorId(id.Value);
+        //    if (requisicao == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    ViewBag.IdCidadesDestino = new SelectList(cidadeBO.Selecionar(), "IdCidade", "Cidade", requisicao.IdCidadesDestino);
+        //    ViewBag.IdCidadesOrigem = new SelectList(cidadeBO.Selecionar(), "IdCidade", "Cidade", requisicao.IdCidadesOrigem);
+        //    ViewBag.usuarioId = new SelectList(usuarioBO.Selecionar(), "usuarioId", "login", requisicao.usuarioId);
+        //    return View(requisicao);
+        //}
 
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "requisicaoId,usuarioId,IdCidadesOrigem,IdCidadesDestino,agendamentoId,dtRequisicao,observacoes,via,trecho")] Requisicao requisicao)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(requisicao).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.IdCidadesDestino = new SelectList(db.Cidades, "IdCidade", "Cidade", requisicao.IdCidadesDestino);
-            ViewBag.IdCidadesOrigem = new SelectList(db.Cidades, "IdCidade", "Cidade", requisicao.IdCidadesOrigem);
-            ViewBag.usuarioId = new SelectList(db.User, "usuarioId", "login", requisicao.usuarioId);
-            return View(requisicao);
-        }
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Edit(Requisicao requisicao)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        requisicaoBO.Alterar(requisicaoBO);
+        //        return RedirectToAction("Index");
+        //    }
+        //    ViewBag.IdCidadesDestino = new SelectList(db.Cidades, "IdCidade", "Cidade", requisicao.IdCidadesDestino);
+        //    ViewBag.IdCidadesOrigem = new SelectList(db.Cidades, "IdCidade", "Cidade", requisicao.IdCidadesOrigem);
+        //    ViewBag.usuarioId = new SelectList(db.User, "usuarioId", "login", requisicao.usuarioId);
+        //    return View(requisicao);
+        //}
 
         // GET: Requisicaos/Delete/5
         public ActionResult Delete(long? id)
@@ -155,7 +153,7 @@ namespace SISPTD.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Requisicao requisicao = db.Requisicao.Find(id);
+            Requisicao requisicao = requisicaoBO.SelecionarPorId(id.Value);
             if (requisicao == null)
             {
                 return HttpNotFound();
@@ -168,19 +166,10 @@ namespace SISPTD.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(long id)
         {
-            Requisicao requisicao = db.Requisicao.Find(id);
-            db.Requisicao.Remove(requisicao);
-            db.SaveChanges();
+            requisicaoBO.ExcluirPorId(id);
             return RedirectToAction("Index");
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+
     }
 }
