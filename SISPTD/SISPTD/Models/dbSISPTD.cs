@@ -139,7 +139,7 @@ namespace SISPTD.Models
                 .HasMany(e => e.DistribProcesso)
                 .WithRequired(e => e.UserEnviou)
                 .HasForeignKey(e => e.usuarioEnviouId)
-                .WillCascadeOnDelete(false);
+                .WillCascadeOnDelete(true);
 
             modelBuilder.Entity<User>()
                 .HasMany(e => e.DistribProcesso1)

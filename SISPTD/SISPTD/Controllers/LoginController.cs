@@ -27,37 +27,42 @@ namespace SISPTD.Controllers
         {
             conta.login = Util.RemoverMascara(conta.login);
 
-            if (conta.login == conta.senha)
-            {
-                TempData["Erro"] = "Deve trocar sua senha!";
-            }
 
             try
             {
-                conta.senha = Util.Encrypt(conta.senha);
-                conta = userBO.Validar(conta);
-              
-                var nomeLogin = pessoaBO.Selecionar().Where(p => p.cpf == conta.login).FirstOrDefault();
-                Session["NomeLogin"] = nomeLogin.nome;
-
-                if (conta != null)
+                if (conta.login == conta.senha)
                 {
-                    FormsAuthentication.SetAuthCookie(conta.login, false);
-                    CreateAuthorizeTicket((int)conta.usuarioId, conta.login.ToString(), conta.Perfil.ToString());
-                    return RedirectToAction("Index", "Pessoa");
-
+                    TempData["Erro"] = "Deve trocar sua senha!";
                 }
-                TempData["Erro"] = "Login e/ou Senha Inválidos";
-                return View();
+
+                if (ModelState.IsValid)
+                {
+                    conta.senha = Util.Encrypt(conta.senha);
+                    conta = userBO.Validar(conta);
+                    if (conta != null)
+                    {
+                        var nomeLogin = pessoaBO.Selecionar().Where(p => p.cpf == conta.login).FirstOrDefault();
+                        Session["NomeLogin"] = nomeLogin.nome;
+                        if (conta != null)
+                        {
+                            FormsAuthentication.SetAuthCookie(conta.login, false);
+                            CreateAuthorizeTicket((int)conta.usuarioId, conta.login.ToString(), conta.Perfil.ToString());
+                            return RedirectToAction("Index", "Pessoa");
+                        }
+                    }
+                    else
+                    {
+                        TempData["Erro"] = "Login e/ou Senha Inválidos";
+                    }
+                    return View();
+                }
             }
             catch (Exception e)
             {
-
                 TempData["Erro"] = "Ops! Houve um erro " + e.Message;
-                return View();
+
             }
-
-
+            return View();
         }
 
         public ActionResult Deslogar()
@@ -66,8 +71,6 @@ namespace SISPTD.Controllers
 
             return RedirectToAction("Login", "Login");
         }
-
-
 
         private void CreateAuthorizeTicket(int id, string login, string roles)
         {

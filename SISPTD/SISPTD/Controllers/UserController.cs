@@ -88,50 +88,53 @@ namespace SISPTD.Controllers
             }
 
         }
+
+        public ActionResult TrocaSenha()
+        {
+            return View();
+        }
+        [HttpPost]
         public ActionResult TrocaSenha(string login, string senha, string novaSenha, string confSenha)
         {
+            
+
             try
             {
-                if (!string.IsNullOrWhiteSpace(login))
+                login = Ultis.Util.RemoverMascara(login);
+                if (!string.IsNullOrEmpty(login) && Ultis.Util.ValidarCPF(login))
                 {
-                    TempData["Erro"] = "Login não é valido";
-
+                    if (novaSenha != confSenha || string.IsNullOrEmpty(novaSenha))
+                    {
+                        TempData["Erro"] = "A nova Senha é diferente da confirmação!";
+                    }
+                    else
+                    {
+                        var usuario = userBO.Selecionar().Where(u => u.login.Contains(login)).FirstOrDefault();
+                        if (usuario.senha == Ultis.Util.Encrypt(senha))
+                        {
+                            usuario = userBO.Validar(usuario);
+                            usuario.senha = Ultis.Util.Encrypt(novaSenha);
+                            userBO.Alterar(usuario);
+                            TempData["Sucesso"] = "Senha alterada com Sucesso!";
+                            return View();
+                        }
+                        else
+                        {
+                            TempData["Erro"] = "Senha atual não confere!";
+                        }
+                    }
                 }
-                if (!string.IsNullOrWhiteSpace(senha))
+                else
                 {
-                    senha = Ultis.Util.Encrypt(senha);
-                    TempData["Erro"] = "O campo senha está em branco";
+                    TempData["Erro"] = "Campo login em branco ou é nulo";
                 }
-
-                if (novaSenha != confSenha)
-                {
-                    TempData["Erro"] = "Nova senha e a confirmação devem ser iguais !";
-
-                }
-
-                User usuario = new User();
-                usuario.login = login;
-                usuario.senha = senha;
-
-
-
-                if (!userBO.VerificaUser(usuario))
-                {
-                    usuario.senha = Ultis.Util.Encrypt(novaSenha);
-                    usuario.usuarioId = userBO.Selecionar().Where(u => u.login.Contains(login)).First().usuarioId;
-                    usuario.senha = novaSenha;
-
-                    userBO.Alterar(usuario);
-                    TempData["Erro"] = "Senha alterada com sucesso!";
-                }
-
-                return View();
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
 
-                TempData["Erro"] = "Ops! Erro durante a troca de senha" + e.Message;
+                TempData["Erro"] = "Não foi Possivel trocar a Senha " + ex.Message;
             }
+
             return View();
 
         }
