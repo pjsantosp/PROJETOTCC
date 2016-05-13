@@ -81,9 +81,9 @@ namespace SISPTD.Models
 
         public virtual ICollection<Agendamento> Agendamento { get; set; }
         public virtual ICollection<DistribProcesso> DistribProcesso { get; set; }
-        public virtual ICollection<Pericia> PericiaPaciente { get; set; }
-        public virtual ICollection<Pericia> PericiaMedico { get; set; }
-        public virtual ICollection<Pessoa> PessoaAcompanhante { get; set; }
+        public virtual ICollection<SolicitacaoPericia> PericiaPaciente { get; set; }
+        public virtual ICollection<SolicitacaoPericia> PericiaMedico { get; set; }
+        //public virtual ICollection<Pessoa> PessoaAcompanhante { get; set; }
         public virtual Pessoa Pessoa_Pai { get; set; }
         public virtual ICollection<User> User { get; set; }
         public virtual ICollection<Especialidade> Especialidade { get; set; }

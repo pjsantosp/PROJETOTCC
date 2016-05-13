@@ -3,63 +3,75 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <title>@ViewBag.Title - SPTD</title>
     @Styles.Render("~/Content/css")
     @RenderSection("Styles", required: false)
     @Scripts.Render("~/bundles/modernizr")
     <link href="~/Content/bootstrap-datepicker.min.css" rel="stylesheet" />
+    <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
 </head>
 <body>
-    <div class="navbar navbar-menu navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
+    <div class="row">
 
-                @Html.ActionLink("Tratamento Fora Domicilio", "Index", "Pessoa", new { area = "" }, new { @class = "navbar-brand navbar-menu" })
-            </div>
-           
-            <ul class="nav navbar-nav navbar-right">
+        <div class="navbar navbar-menu  navbar-fixed-top row">
+            <div class="container">
+                <div class="navbar-header">
+                    @*<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>*@
 
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <span style="color:white">@Session["NomeLogin"] </span>
-                        <span><strong>@User.Identity.Name</strong></span>
-                        <h4 class="glyphicon glyphicon-user"></h4>
-                        <b class="caret"></b>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#"></a></li>
-                        <li class="divider"></li>
-                        <li><a href="@Url.Action("TrocaSenha", "User")"><i class="glyphicon glyphicon-user"></i> Trocar Senha</a></li>
-                        <li class="divider"></li>
-                        <li><a title="Clique para sair do sistema" href="@Url.Action("Deslogar","Login")"><i class="glyphicon glyphicon-off"></i> Sair</a></li>
+                    @Html.ActionLink("Tratamento Fora Domicilio", "Index", "Pessoa", new { area = "" }, new { @class = "navbar-brand navbar-menu menu-slim" })
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav navbar-right">
+
+                        <li class="dropdown">
+                          
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-user fa-fw" style="color:white" ></i> <span style="color:white">@Session["NomeLogin"]</span> <b  class="caret"></b>
+                               @* <span style="color:white"  class="glyphicon glyphicon-user"><i></i></span><b class="caret"></b>*@
+                                <span hidden>@User.Identity.Name </span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#"></a></li>
+                                <li class="divider"></li>
+                                <li><a href="@Url.Action("TrocaSenha", "User")"><i class="glyphicon glyphicon-user"></i> Trocar Senha</a></li>
+                                <li class="divider"></li>
+                                <li><a title="Clique para sair do sistema" href="@Url.Action("Deslogar","Login")"><i class="glyphicon glyphicon-off"></i> Sair </a></li>
+                            </ul>
+                        </li>
                     </ul>
-                </li>
-            </ul>
+                </div>
+            </div>
+
         </div>
-
     </div>
-    @if (User.IsInRole("Medico"))
-    {
-        @Html.Partial("_Menu2")
-    }
-    else
-    {
-        @Html.Partial("_Menu")
-    }
+    <div class="row">
+        @if (User.IsInRole("Medico"))
+        {
+            @Html.Partial("_Menu2")
+        }
+        else
+        {
+            @Html.Partial("_Menu")
+        }
+    </div>
 
-    @Html.Partial("_ErrosSystem")
+   
+    <div class="container  ">
+        <br /><br /><br /><br /><br /><br /><br /> <br />
+        @Html.Partial("_ErrosSystem")
+            @RenderBody()
+      
+         
+        @*<hr />
+            <footer>
+                <p>&copy; Projeto de Conclusão de Curso @DateTime.Now.Year</p>
+            </footer>*@
 
-    <div class="container">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; Projeto de Conclusão de Curso @DateTime.Now.Year</p>
-        </footer>
     </div>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")

@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner"
+  dslVersion="1.0.0.0"
+  Id="b7e73142-2d12-4d2b-a72a-30ba60c38322"
+  name="SISPTD"
+  visibility="Private" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
+  <referencesInternal>
+    <reference
+      Id="e1b72d06-f5ac-4a8b-a072-7de88e2f5b79"
+      handle="viewcode://./CodeSchema_Namespace?Assembly%3Dfile:%2F%2F%2FD:%2FPROJETOTCC%2FPROJETOTCC%2FSISPTD%2FSISPTD%2Fbin%2FSISPTD.dll Namespace%3DSISPTD"
+      tag="ViewCode" />
+  </referencesInternal>
+  <packagedElements>
+    <packageHasNamedElement>
+      <packageMoniker
+        Id="3c518287-1419-4c26-b5ae-63d7e63fbf98"
+        LastKnownName="BO"
+        LastKnownLocation="Package1_2221.uml" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <packageMoniker
+        Id="675b3751-9baa-47a8-9775-1e71465e5373"
+        LastKnownName="Models"
+        LastKnownLocation="Package2_2221.uml" />
+    </packageHasNamedElement>
+  </packagedElements>
+</package>

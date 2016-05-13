@@ -11,8 +11,24 @@ $('.chosen-select-deselect').chosen({
     placeholder_text_single: chosen_placeholder
 });
 
+//chosen ajax
+$('#cidId').ajaxChosen({
+    type: 'GET',
+    url: $(this).data('url'),
+    jsonTermKey: "query",
+    dataType: 'json',
+},
+null,
+{
+    width: "100%",
+    placeholder_text_single: "Buscar o Serviço",
+});
+
 
 $(document).ready(function () {
+
+
+
 
     //Adicionar acompanhantes------------
     $('#procurarAcompanhentes').click(function () {
@@ -64,7 +80,7 @@ $(document).ready(function () {
 
     //Localiza paciente no DistribProcesso
     $('.buscarPacienteDistrib').change(function () {
-        
+
         var cpf = $('#buscarPacienteDistrib').val();
         $.ajax({
             method: 'GET',
@@ -83,13 +99,13 @@ $(document).ready(function () {
 
     //Localiza Pessoa p cadastrar usuario
     $('.buscarPessoaUser').change(function () {
-        
+
         var cpf = $('#login').val();
         $.ajax({
             method: 'GET',
             url: "/Pessoa/Pesquisar/?cpf=" + cpf,
             success: function (data) {
-                if (data.Id >0) {
+                if (data.Id > 0) {
                     $('#nomePessoaUser').val(data.Nome);
                     $('#idPessoaUser').val(data.Id)
                 }
@@ -102,7 +118,50 @@ $(document).ready(function () {
             }
         });
     });
-   
+
+    //Localiza Medico na Solicitação de pericia
+    $('.procurarMedico').change(function () {
+        debugger;
+        var cpf = $('#buscarMedico').val();
+        $.ajax({
+            method: 'GET',
+            url: "/Pessoa/PesquisarMedico?cpf=" + cpf,
+            success: function (data) {
+
+                $('#nomeDoMedico').val(data.Nome);
+                $('#idDoMedico').val(data.Id);
+                $('#cnsDoMedico').val(data.Cns);
+                $('#telDoMedico').val(data.Tel);
+                $('#crmDoMedico').val(data.Crm);
+
+
+                //top._pessoaId = data.Id;
+            },
+            error: function (data) {
+                alert("Algo está errado, não foi possível pesquisar o paciente!");
+            }
+        });
+    });
+
+    //Localiza Paciente na Solicitaçõa de pericia
+    $('#btnBuscaPacPericia').click(function () {
+        debugger;
+        var cpf = $('#buscarPacientePericia').val();
+        $.ajax({
+            method: 'GET',
+            url: "/Pessoa/Pesquisar/?cpf=" + cpf,
+            success: function (data) {
+                debugger;
+                $('#nomeDoPacientePericia').val(data.Nome);
+                $('#idDoPacientePericia').val(data.Id)
+                //top._pessoaId = data.Id;
+            },
+            error: function (data) {
+                alert("Algo está errado, não foi possível pesquisar o paciente!");
+            }
+        });
+    });
+
 });
 
 function AddPessoaLista() {
@@ -112,7 +171,7 @@ function AddPessoaLista() {
     var Url = url + "?id=" + id + "&pacienteId=" + pacienteId;
     var form = $('form').serialize();
     $.post(Url, $('form').serialize(),
-        
+
         function (data) {
             console.log(data)
             $("#divItens").html(data);
@@ -144,7 +203,7 @@ $(function () {
     });
     //$("#calendario").datepicker();
 });
-$(function() {
+$(function () {
     $("#dt_Nascimento").datepicker({
         showOn: "button",
         buttonImage: "calendario.png",
@@ -160,6 +219,8 @@ $(function () {
     $('.cns').mask('999 9999 9999 9999');
     $('.telefone').mask('(99) 9999-9999');
 });
+
+//$('.nav > li > a[href="' + location.pathname + '"]').parent().addClass('active').siblings().removeClass('active');
 
 
 

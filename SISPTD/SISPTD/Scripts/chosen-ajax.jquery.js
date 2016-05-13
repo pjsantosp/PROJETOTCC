@@ -11,7 +11,7 @@
             chosenOptions = {width: '100%'}; // responsivo por padrão
         }
         defaultOptions = {
-            minTermLength: 0,
+            minTermLength: 3,
             afterTypeDelay: 1500,
             jsonTermKey: "q",
             keepTypingMsg: "Continue digitando...",

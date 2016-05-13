@@ -1,4 +1,4 @@
-﻿@model SISPTD.Models.Pericia
+﻿@model SISPTD.Models.SolicitacaoPericia
 
 
 
@@ -8,72 +8,114 @@
 
     <div class="panel panel-default">
         <div class="panel-body">
-            <h4>Pericia</h4>
+            <h4>Solicitar Pericia</h4>
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
             <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.pacientePessoaId, "Paciente", htmlAttributes: new { @class = "control-label" })
-                        @Html.DropDownList("pessoaId", null, htmlAttributes: new { @class = "form-control chosen-select" })
-                        @Html.ValidationMessageFor(model => model.pacientePessoaId, "", new { @class = "text-danger" })
+                <div class="col-md-3">
+                    @Html.Label("CPF", htmlAttributes: new { @class = "control-label" })
+                    <div class="input-group">
+                        @Html.TextBox("buscarPacientePericia", Request.QueryString["CPF"], new { autofocus = "", @class = " procuraPacientePericia cpf col-md-2 form-control ", placeholder = "Procure por CPF" })
+                        <span class="input-group-btn"><button type="button" id="btnBuscaPacPericia" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button></span>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-9">
                     <div class="form-group">
-                        @Html.LabelFor(model => model.cidId, "Cid", htmlAttributes: new { @class = "control-label" })
-                        @Html.DropDownList("cidId", null, htmlAttributes: new { @class = "form-control chosen-select" })
-                        @Html.ValidationMessageFor(model => model.cidId, "", new { @class = "text-danger" })
+                        @Html.Label("Nome", htmlAttributes: new { @class = "control-labe" })
+                        <input type="text" readonly id="nomeDoPacientePericia" data-id="" class="form-control " name="Paciente" />
+                        <input type="hidden" id="idDoPacientePericia" name="pacientepessoaId" />
                     </div>
                 </div>
+
             </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        @Html.Label("Medico", htmlAttributes: new { @class = "control-label" })
-                        @Html.DropDownList("medico", ViewBag.medico as SelectList, new { @class = "form-control chosen-select" })
-                        @Html.ValidationMessageFor(model => model.pacientePessoaId, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-            </div>
-         
+
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
                         @Html.LabelFor(model => model.descricao, htmlAttributes: new { @class = "control-label" })
-                        @Html.TextAreaFor(model => model.descricao, 5, 155, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.TextAreaFor(model => model.descricao, 5, 100, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.descricao, "", new { @class = "text-danger" })
                     </div>
 
                 </div>
             </div>
             <div class="row">
-               
+
                 <div class="col-md-4">
                     <div class="form-group">
-                        @Html.LabelFor(model => model.situacao, htmlAttributes: new { @class = "control-label" })
-                        @Html.TextAreaFor(model => model.situacao, 5, 155, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.situacao, "", new { @class = "text-danger" })
+                        @Html.LabelFor(model => model.Situacao, htmlAttributes: new { @class = "control-label" })
+                        @Html.EnumDropDownListFor(model => model.Situacao, "Selecione...", htmlAttributes: new { @class = "form-control chosen-select" })
+                        @Html.ValidationMessageFor(model => model.Situacao, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
-                            @Html.Label("Primeira Vez")
+                            @Html.Label("Primeira Vez", htmlAttributes: new { @class = "control-label" })
                             @Html.RadioButtonFor(model => model.TipoPericia, "Primeira Vez")
                             @Html.Label("Retorno")
                             @Html.RadioButtonFor(model => model.TipoPericia, "Retorno")
                         </div>
                     </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.DropDownList("cidId", new List<SelectListItem>(), "Selecione...", new { @class = "form-control", data_url = @Url.Action("PesquisaCid", "Cid") })
+                        </div>
+                    </div>
+                </div>
+                <div class=" col-md-4 col-md-offset-1">
+                    @Html.Label("Dados do Medico Solicitantes", htmlAttributes: new { @class = "control-label" })
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="col-md-3">
+                    @Html.Label("CPF", htmlAttributes: new { @class = "control-label" })
+                    <div class="input-group">
+                        @Html.TextBox("buscarMedico", Request.QueryString["CPF"], new { @class = " procurarMedico cpf col-md-2 form-control ", placeholder = "Procure por CPF" })
+                        <span class="input-group-btn"><button type="button" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button></span>
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    <div class="form-group">
+                        @Html.Label("Nome", htmlAttributes: new { @class = "control-labe" })
+                        <input type="text" readonly id="nomeDoMedico" data-id="" class="form-control " name="name" />
+                        <input type="hidden" id="idDoMedico" name="medicoPessoaId" />
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.Label("Cartão do SUS", htmlAttributes: new { @class = "control-label" })
+                        <input type="text" readonly id="cnsDoMedico" data-id="" class="form-control cns " name="cnsDoMedico" />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.Label("Telefone", htmlAttributes: new { @class = "control-label" })
+                        <input type="text" readonly id="telDoMedico" data-id="" class="form-control " name="telDoMedico" />
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        @Html.Label("CRM", htmlAttributes: new { @class = "control-labe" })
+                        <input type="text" readonly id="crmDoMedico" data-id="" class="form-control " name="crmDoMedico" />
+                    </div>
                 </div>
             </div>
 
+
+
         </div>
     </div>
- 
+
     <div class="well well-sm">
         <input type="submit" class="btn btn-info" name="name" value="Gravar " />
-        @Html.ActionLink("Voltar para Lista", "Index", null, new {@class="btn btn-link pull-right" })
+        @Html.ActionLink("Voltar para Lista", "Index", null, new { @class = "btn btn-link pull-right" })
     </div>
 }
 

@@ -1,5 +1,7 @@
 ﻿@model SISPTD.Models.Pessoa
 
+
+<h3><i class="fa fa-info" aria-hidden="true"></i> Informações do Paciente</h3>
 <div class="panel panel-default">
     <div class="panel-heading"><strong>@Html.DisplayFor(model => model.nome)</strong></div>
     <div class="panel-body">
@@ -109,7 +111,7 @@
                 @Html.LabelFor(model => model.cns, new { @class = "control-label" })
             </th>
         </tr>
-        @foreach (var item in Model.PessoaAcompanhante)
+        @foreach (var item in @ViewBag.acompanhante)
         {
             <tr>
                 <td>

@@ -36,9 +36,24 @@ namespace SISPTD.Controllers
             }
 
         }
+        public ActionResult PesquisarMedico(string cpf)
+        {
+            cpf = Util.RemoverMascara(cpf);
+            var pessoa = pessoaBO.Selecionar().Where(p => p.cpf == cpf && p.tipo==2).FirstOrDefault();
+            if (pessoa == null)
+            {
+                return Json(new { Nome = "", Id = 0, Cpf = "", Cns = "", Tel = "", Crm = ""}, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(new { Nome = pessoa.nome, Id = pessoa.pessoaId, Cpf = pessoa.cpf, Tel= pessoa.tel, Crm = pessoa.crm, Cns = pessoa.cns }, JsonRequestBehavior.AllowGet);
+            }
+
+        }
 
         public ActionResult Details(long? id)
         {
+            ViewBag.acompanhante = pessoaBO.Selecionar().Where(a => a.pessoaPai == id.Value).Take(5);
 
             return View(pessoaBO.SelecionarPorId(id.Value));
         }
@@ -112,6 +127,7 @@ namespace SISPTD.Controllers
         {
             try
             {
+                pessoa.cpf = Ultis.Util.RemoverMascara(pessoa.cpf);
                 pessoa.pessoaPai = pessoaPai;
 
                 if (ModelState.IsValid)
@@ -132,11 +148,23 @@ namespace SISPTD.Controllers
 
             return View();
         }
+        public ActionResult CreateMedico()
+        {
+
+            return View();
+        }
+        [HttpPost, ValidateAntiForgeryToken]
+        public ActionResult CreateMedico(Pessoa pessoa)
+        {
+
+            return View();
+        }
 
         // GET: Pessoa/Edit/5
         //[Authorize(Roles = "Funcionario, Gerente")]
         public ActionResult Edit(long? id)
         {
+            ViewBag.acompanhante = pessoaBO.Selecionar().Where(a => a.pessoaPai == id.Value).Count();
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -154,10 +182,19 @@ namespace SISPTD.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Pessoa pessoa)
         {
-            if (ModelState.IsValid)
+            try
             {
-                pessoaBO.Alterar(pessoa);
-                return RedirectToAction("Index");
+                pessoa.cpf =  Ultis.Util.RemoverMascara(pessoa.cpf);
+                if (ModelState.IsValid)
+                {
+                    pessoaBO.Alterar(pessoa);
+                    TempData["Sucesso"] = "Alteração feita com Sucesso!";
+                }
+                return View(pessoa);
+            }
+            catch (Exception ex)
+            {
+                TempData["Erro"] = "Ops! Ocorreu um erro!" + ex.Message;
             }
             return View(pessoa);
         }

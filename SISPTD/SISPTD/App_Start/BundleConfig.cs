@@ -12,6 +12,7 @@ namespace SISPTD
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js",
                         "~/Scripts/chosen.jquery.js",
+                        "~/Scripts/chosen-ajax.jquery.js",
                         "~/Scripts/Utils.js"
                         ));
 

@@ -17,10 +17,11 @@ namespace SISPTD.Controllers
         private RequisicaoBO requisicaoBO = new RequisicaoBO(new dbSISPTD());
         private UserBO usuarioBO = new UserBO(new dbSISPTD());
         private CidadeBO cidadeBO = new CidadeBO(new dbSISPTD());
-        // GET: Requisicaos
+        private CidBO cidBO = new CidBO(new dbSISPTD());
+
         public ActionResult Index()
         {
-            return View(requisicaoBO.Selecionar());
+            return View(requisicaoBO.ObterRequisicao());
         }
 
         public ActionResult AddAcompanhante(long? pacienteId, int id, List<Pessoa> Pessoa)
@@ -34,8 +35,16 @@ namespace SISPTD.Controllers
                     if (paciente.pessoaId == acompanhante.pessoaPai)
                     {
                         Pessoa = Pessoa ?? new List<Pessoa>();
-                        Pessoa.Add(acompanhante);
-                        return PartialView("_ListaPessoa", Pessoa);
+                        if (Pessoa.Count() <= 3)
+                        {
+                            Pessoa.Add(acompanhante);
+                            return PartialView("_ListaPessoa", Pessoa);
+                        }
+                        else
+                        {
+                            TempData["Erro"] = "Só é permitido três Acompanhante!";
+                        }
+                        
                     }
                     else
                     {
@@ -64,7 +73,6 @@ namespace SISPTD.Controllers
             return PartialView("_ListaPessoa", Pessoa);
         }
 
-        // GET: Requisicaos/Details/5
         public ActionResult Details(long? id)
         {
             if (id == null)
@@ -79,7 +87,6 @@ namespace SISPTD.Controllers
             return View(requisicao);
         }
 
-        // GET: Requisicaos/Create
         public ActionResult Create()
         {
             ViewBag.IdCidadesDestino = new SelectList(cidadeBO.Selecionar(), "IdCidade", "Cidade");
@@ -96,22 +103,18 @@ namespace SISPTD.Controllers
             requisicao.pacienteId = pessoaId;
             requisicao.PessoaAcompanhante = pessoa;
 
-
             if (ModelState.IsValid)
             {
                 requisicao.dtRequisicao = DateTime.Now;
                 requisicaoBO.Inserir(requisicao);
             }
 
-            return View();
-
-
             ViewBag.IdCidadesDestino = new SelectList(cidadeBO.Selecionar(), "IdCidade", "Cidade", requisicao.IdCidadesDestino);
             ViewBag.IdCidadesOrigem = new SelectList(cidadeBO.Selecionar(), "IdCidade", "Cidade", requisicao.IdCidadesOrigem);
             ViewBag.usuarioId = new SelectList(usuarioBO.Selecionar(), "usuarioId", "login", requisicao.usuarioId);
-            return View(requisicao);
+            return RedirectToAction("Index");
         }
-
+        #region Editar 
         // GET: Requisicaos/Edit/5
         //public ActionResult Edit(long? id)
         //{
@@ -145,8 +148,7 @@ namespace SISPTD.Controllers
         //    ViewBag.usuarioId = new SelectList(db.User, "usuarioId", "login", requisicao.usuarioId);
         //    return View(requisicao);
         //}
-
-        // GET: Requisicaos/Delete/5
+        #endregion
         public ActionResult Delete(long? id)
         {
             if (id == null)
@@ -170,6 +172,6 @@ namespace SISPTD.Controllers
             return RedirectToAction("Index");
         }
 
-
+      
     }
 }

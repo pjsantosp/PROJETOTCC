@@ -1,22 +1,21 @@
-﻿@model IEnumerable<SISPTD.Models.Pericia>
+﻿@model IEnumerable<SISPTD.Models.SolicitacaoPericia>
 
 @{
     ViewBag.Title = "Pericia Medica";
 }
 
-<h2>Pericia Medica</h2>
+<h3><i class="glyphicon glyphicon-list-alt"></i> Pericia Medica</h3>
 
 <p>
     @Html.ActionLink("Nova Pericia", "Create", null, new { @class = "btn btn-primary" })
 </p>
 <table class="table">
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Cid.codigoCid)
+       <th>
+        @Html.DisplayNameFor(model => model.Paciente.cpf)
         </th>
-      
         <th>
-            @Html.DisplayNameFor(model => model.Paciente.cpf)
+            @Html.DisplayNameFor(model => model.Paciente.nome)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.descricao)
@@ -24,20 +23,18 @@
         <th>
             @Html.DisplayNameFor(model => model.dt_Pericia)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.situacao)
-        </th>
+      
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Cid.codigoCid)
+            @Html.DisplayFor(modelItem => item.Paciente.cpf)
         </td>
        
         <td>
-            @Html.DisplayFor(modelItem => item.Paciente.cpf)
+            @Html.DisplayFor(modelItem => item.Paciente.nome)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.descricao)
@@ -45,9 +42,7 @@
         <td>
             @Html.DisplayFor(modelItem => item.dt_Pericia)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.situacao)
-        </td>
+       
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.periciaId }) |
             @Html.ActionLink("Details", "Details", new { id=item.periciaId }) |

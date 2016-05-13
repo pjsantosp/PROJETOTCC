@@ -163,6 +163,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="BO\AgendamentoBO.cs" />
     <Compile Include="BO\CidadeBO.cs" />
+    <Compile Include="BO\CidBO.cs" />
     <Compile Include="BO\ClinicaBO.cs" />
     <Compile Include="BO\CrudComumEntity.cs" />
     <Compile Include="BO\DistribProcessoBO.cs" />
@@ -176,6 +177,7 @@
     <Compile Include="BO\UserBO.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AgendamentoController.cs" />
+    <Compile Include="Controllers\CidController.cs" />
     <Compile Include="Controllers\ClinicaController.cs" />
     <Compile Include="Controllers\DistribProcessoController.cs" />
     <Compile Include="Controllers\EspecialidadeController.cs" />
@@ -206,6 +208,18 @@
     <Compile Include="Migrations\201605070342282_modificado cascade.Designer.cs">
       <DependentUpon>201605070342282_modificado cascade.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201605080148037_obrigatoriedade da senha volta.cs" />
+    <Compile Include="Migrations\201605080148037_obrigatoriedade da senha volta.Designer.cs">
+      <DependentUpon>201605080148037_obrigatoriedade da senha volta.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605080336028_Agendamento c clinica.cs" />
+    <Compile Include="Migrations\201605080336028_Agendamento c clinica.Designer.cs">
+      <DependentUpon>201605080336028_Agendamento c clinica.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605112056150_Alter pericia p solicitacao.cs" />
+    <Compile Include="Migrations\201605112056150_Alter pericia p solicitacao.Designer.cs">
+      <DependentUpon>201605112056150_Alter pericia p solicitacao.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Agendamento.cs" />
@@ -221,11 +235,12 @@
     <Compile Include="Models\Estado.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\Pericia.cs" />
+    <Compile Include="Models\SolicitacaoPericia.cs" />
     <Compile Include="Models\Pessoa.cs" />
     <Compile Include="Models\Requisicao.cs" />
     <Compile Include="Models\Perfil.cs" />
     <Compile Include="Models\Setor.cs" />
+    <Compile Include="Models\Situacao.cs" />
     <Compile Include="Models\TipoPericia.cs" />
     <Compile Include="Models\TipoPessoa.cs" />
     <Compile Include="Models\Trecho.cs" />
@@ -251,8 +266,11 @@
     <Content Include="Content\chosen-sprite%402x.png" />
     <Content Include="Content\chosen-sprite.png" />
     <Content Include="Content\chosen.css" />
+    <Content Include="Content\font-awesome.css" />
+    <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\sisptd.css" />
     <Content Include="favicon1.ico" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -264,6 +282,11 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\bootstrap-chosen.scss" />
     <Content Include="Content\bootstrap-chosen.less" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="fonts\FontAwesome.otf" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\chosen-ajax.jquery.js" />
     <Content Include="Scripts\chosen.jquery.js" />
@@ -361,11 +384,6 @@
     <Content Include="Views\Pericia\Edit.cshtml" />
     <Content Include="Views\Pericia\Index.cshtml" />
     <Content Include="Views\Pessoa\_Formulario.cshtml" />
-    <Content Include="Views\Medico\Create.cshtml" />
-    <Content Include="Views\Medico\Delete.cshtml" />
-    <Content Include="Views\Medico\Details.cshtml" />
-    <Content Include="Views\Medico\Edit.cshtml" />
-    <Content Include="Views\Medico\Index.cshtml" />
     <Content Include="Views\Especialidade\Create.cshtml" />
     <Content Include="Views\Especialidade\Delete.cshtml" />
     <Content Include="Views\Especialidade\Details.cshtml" />
@@ -397,9 +415,11 @@
     <Content Include="Views\Clinica\_Formulario.cshtml" />
     <Content Include="Views\Agendamento\_Formulario.cshtml" />
     <Content Include="Views\User\TrocaSenha.cshtml" />
+    <Content Include="Views\Pessoa\CreateMedico.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Cid\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -420,6 +440,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201605070342282_modificado cascade.resx">
       <DependentUpon>201605070342282_modificado cascade.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605080148037_obrigatoriedade da senha volta.resx">
+      <DependentUpon>201605080148037_obrigatoriedade da senha volta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605080336028_Agendamento c clinica.resx">
+      <DependentUpon>201605080336028_Agendamento c clinica.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605112056150_Alter pericia p solicitacao.resx">
+      <DependentUpon>201605112056150_Alter pericia p solicitacao.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

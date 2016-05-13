@@ -281,3 +281,6 @@ D:\PROJETOTCC\PROJETOTCC\SISPTD\SISPTD\obj\Debug\SISPTD.csproj.GenerateResource.
 D:\PROJETOTCC\PROJETOTCC\SISPTD\SISPTD\obj\Debug\SISPTD.Migrations.CamppacienteIdnapericiaremovido.resources
 D:\PROJETOTCC\PROJETOTCC\SISPTD\SISPTD\obj\Debug\SISPTD.Migrations.Obrigatoriedadesenha.resources
 D:\PROJETOTCC\PROJETOTCC\SISPTD\SISPTD\obj\Debug\SISPTD.Migrations.modificadocascade.resources
+D:\PROJETOTCC\PROJETOTCC\SISPTD\SISPTD\obj\Debug\SISPTD.Migrations.obrigatoriedadedasenhavolta.resources
+D:\PROJETOTCC\PROJETOTCC\SISPTD\SISPTD\obj\Debug\SISPTD.Migrations.Agendamentocclinica.resources
+D:\PROJETOTCC\PROJETOTCC\SISPTD\SISPTD\obj\Debug\SISPTD.Migrations.Alterpericiapsolicitacao.resources

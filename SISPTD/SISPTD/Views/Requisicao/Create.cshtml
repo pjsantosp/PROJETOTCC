@@ -3,135 +3,147 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@Html.Partial("_ErrosSystem")
+
+
 @using (Html.BeginForm())
 {
+
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        <h4>Requisição</h4>
-        <hr />
-        <div class="row">
-            <div class="col-md-3">
-                <div class="input-group">
-                    @Html.TextBox("buscarPaciente", Request.QueryString["CPF"], new { autofocus = "", @class = " procurarPaciente col-md-2 form-control ", placeholder = "Procure por CPF" })
-                  <span class="input-group-btn"><button type="button" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button></span>
-                    
+    @* Inicio do panel *@
+
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <h4><i class="fa fa-plane" aria-hidden="true"></i> Requisição de Viajem</h4>
+            <hr />
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="input-group">
+                        @Html.TextBox("buscarPaciente", Request.QueryString["CPF"], new { autofocus = "", @class = " procurarPaciente cpf  form-control ", placeholder = "Procure por CPF" })
+                        <span class="input-group-btn"><button type="button" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button></span>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="form-group">
+                        <input type="text" readonly id="nomeDoPaciente" data-id="" class="form-control " name="name" />
+                        <input type="hidden" id="idDoPaciente" name="pessoaId" />
+                    </div>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="form-group">
-                    <input type="text" id="nomeDoPaciente" data-id="" class="form-control " name="name" />
-                    <input type="hidden" id="idDoPaciente" name="pessoaId" />
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.IdCidadesOrigem, "Origem", htmlAttributes: new { @class = "control-label" })
+                        @Html.DropDownList("IdCidadesOrigem", null, htmlAttributes: new { @class = "form-control chosen-select" })
+                        @Html.ValidationMessageFor(model => model.IdCidadesOrigem, "", new { @class = "text-danger" })
+                    </div>
                 </div>
-            </div>
 
-        </div>
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        
-        <div class="form-group">
-            @Html.LabelFor(model => model.usuarioId, "usuarioId", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("usuarioId", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.usuarioId, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.IdCidadesOrigem, "IdCidadesOrigem", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("IdCidadesOrigem", null, htmlAttributes: new { @class = "form-control chosen-select" })
-                @Html.ValidationMessageFor(model => model.IdCidadesOrigem, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.IdCidadesDestino, "IdCidadesDestino", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("IdCidadesDestino", null, htmlAttributes: new { @class = "form-control chosen-select" })
-                @Html.ValidationMessageFor(model => model.IdCidadesDestino, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.observacoes, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.observacoes, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.observacoes, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.via, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EnumDropDownListFor(model => model.via, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.via, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.trecho, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EnumDropDownListFor(model => model.trecho, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.trecho, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <hr />
-        <div class="">
-            <div class="col-md-3 pull-left">
-
-                Adicionar Acompanhantes
-                <!-- Dispara o Modal-->
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-                    <span class="glyphicon glyphicon-plus"></span>
-                </button>
-                <!-- Modal -->
-                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                <h4 class="modal-title" id="myModalLabel"> Adicionar Acompanhantes</h4>
-                            </div>
-                            <div class="modal-body">
-
-                                <input type="hidden" id="pessoa_id_pai" name="pessoaId" />
-                                <input type="hidden" name="idPai" id="idPai" />
-
-                                <div class="input-group">
-                                    @Html.TextBox("buscar", Request.QueryString["CPF"], new { autofocus = "", @class = " procurarPessoa col-md-2 form-control ", placeholder = "Procure por CPF" })
-                                    <span class="input-group-btn">
-                                        <button type="button" id="procurarAcompanhentes" class="btn btn-default">ir</button>
-
-                                    </span>
-                                </div>
-                                <hr />
-
-                                <label id="nome_pessoa" data-id="" class="paciente" name="name"  />
-
-                            </div>
-                            <div class="modal-footer">
-                                <a href="#" onclick="AddPessoaLista();" data-dismiss="modal" data-id="" data-url="@Url.Action("AddAcompanhante", "Requisicao") " id="AddItens" class="btn btn-success acompId "><i class="glyphicon glyphicon-plus"></i> </a>
-                            </div>
-                        </div>
+                <div class="col-md-5">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.IdCidadesDestino, "Destino", htmlAttributes: new { @class = "control-label" })
+                        @Html.DropDownList("IdCidadesDestino", null, htmlAttributes: new { @class = "form-control chosen-select" })
+                        @Html.ValidationMessageFor(model => model.IdCidadesDestino, "", new { @class = "text-danger" })
                     </div>
                 </div>
 
             </div>
-            <hr />
+            <div class="row">
+                <div class="col-md-10">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.observacoes, htmlAttributes: new { @class = "control-label " })
+                        @Html.TextAreaFor(model => model.observacoes, 5, 155, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.observacoes, "", new { @class = "text-danger" })
+                    </div>
+                </div>
 
-            <div id="divItens" class="panel-body ">
-                @Html.Partial("_ListaPessoa", Model.PessoaAcompanhante ?? new List<SISPTD.Models.Pessoa>())
             </div>
-        </div>
-        <hr />
-        <div class="col-md-offset-2 ">
+            <div class="row">
 
-            <div class="form-group">
-                @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-danger" })
-                <button type="submit" class="btn btn-default">Gravar</button>
+                <div class="col-md-5">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.via, htmlAttributes: new { @class = "control-label" })
+                        @Html.EnumDropDownListFor(model => model.via, htmlAttributes: new { @class = "form-control chosen-select" })
+                        @Html.ValidationMessageFor(model => model.via, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="col-md-5">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.trecho, htmlAttributes: new { @class = "control-label" })
+                        @Html.EnumDropDownListFor(model => model.trecho, htmlAttributes: new { @class = "form-control chosen-select" })
+                        @Html.ValidationMessageFor(model => model.trecho, "", new { @class = "text-danger" })
+                    </div>
+                </div>
             </div>
-        </div>
+            <div class="row">
+                <div class="col-md-10 pull-left">
+                    <div class="form-group">
+                        <h5>
+                            <i class="fa fa-user-plus" aria-hidden="true"></i> Adicionar Acompanhantes
+                            <!-- Dispara o Modal-->
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                               @* <span class="glyphicon glyphicon-plus"></span>*@<i class="fa fa-plus" aria-hidden="true"></i>
+                            </button>
+                        </h5>
+                    </div>
+                </div>
+            </div>
 
+
+        </div>
     </div>
+
+    <div class="">
+        <div class="col-md-3 pull-left">
+            <!-- Modal -->
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel"> Adicionar Acompanhantes</h4>
+                        </div>
+                        <div class="modal-body">
+
+                            <input type="hidden" id="pessoa_id_pai" name="pessoaId" />
+                            <input type="hidden" name="idPai" id="idPai" />
+
+                            <div class="input-group">
+                                @Html.TextBox("buscar", Request.QueryString["CPF"], new { autofocus = "", @class = " procurarPessoa cpf col-md-2 form-control ", placeholder = "Procure por CPF" })
+                                <span class="input-group-btn">
+                                    <button type="button" id="procurarAcompanhentes" class="btn btn-default">ir</button>
+
+                                </span>
+                            </div>
+                            <hr />
+                            <label id="nome_pessoa" data-id="" class="paciente" name="name" />
+
+                        </div>
+                        <div class="modal-footer">
+                            <a href="#" onclick="AddPessoaLista();" data-dismiss="modal" data-id="" data-url="@Url.Action("AddAcompanhante", "Requisicao") " id="AddItens" class="btn btn-success acompId "><i class="glyphicon glyphicon-plus"></i> </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        @*<hr />*@
+
+        <div id="divItens" class="panel-body ">
+            @Html.Partial("_ListaPessoa", Model.PessoaAcompanhante ?? new List<SISPTD.Models.Pessoa>())
+        </div>
+    </div>
+    <hr />
+    <div class="col-md-offset-2 ">
+
+        <div class="form-group">
+            @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-danger" })
+            <button type="submit" class="btn btn-default">Gravar</button>
+        </div>
+    </div>
+
 }
+        </div>
+
+

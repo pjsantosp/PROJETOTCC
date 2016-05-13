@@ -21,5 +21,6 @@ namespace SISPTD.Models
         public string tel_Clinica { get; set; }
 
         public virtual Cidades Cidades { get; set; }
+        public virtual ICollection<Agendamento> ListadeAgendamento { get; set; }
     }
 }

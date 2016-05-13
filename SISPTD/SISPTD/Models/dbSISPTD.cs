@@ -18,7 +18,7 @@ namespace SISPTD.Models
         public virtual DbSet<Endereco> Endereco { get; set; }
         public virtual DbSet<Especialidade> Especialidade { get; set; }
         public virtual DbSet<Estado> Estado { get; set; }
-        public virtual DbSet<Pericia> Pericia { get; set; }
+        public virtual DbSet<SolicitacaoPericia> Pericia { get; set; }
         public virtual DbSet<Pessoa> Pessoa { get; set; }
         public virtual DbSet<Requisicao> Requisicao { get; set; }
         public virtual DbSet<Setor> Setor { get; set; }
@@ -34,6 +34,12 @@ namespace SISPTD.Models
                 .HasMany(e => e.Pericia)
                 .WithOptional(e => e.Cid)
                 .HasForeignKey(e => e.cidId);
+
+            modelBuilder.Entity<Clinica>()
+               .HasMany(e => e.ListadeAgendamento)
+               .WithOptional(e => e.Clinica)
+               .HasForeignKey(e => e.clinicaId);
+
 
             modelBuilder.Entity<Cidades>()
                 .HasMany(e => e.Clinica)
@@ -88,6 +94,24 @@ namespace SISPTD.Models
                 .HasForeignKey(e => e.pessoaId)
                 .WillCascadeOnDelete(false);
 
+            modelBuilder.Entity<Pessoa>()
+               .HasMany(e => e.PericiaMedico)
+               .WithOptional(e => e.Medico)
+               .HasForeignKey(e => e.medicoPessoaId);
+
+            //modelBuilder.Entity<Pessoa>()
+            // .HasMany(e => e.RequisicaoComoAcompanhante)
+            // .WithMany(e => e.PessoaAcompanhante)
+            // .Map(e =>
+            // {
+            //     e.MapLeftKey("requisicaoId");
+            //     e.MapRightKey("pessoaId");
+            //     e.ToTable("PessoaRequisicao");
+            // });
+
+
+           
+              
             modelBuilder.Entity<Requisicao>()
                .HasMany(e => e.PessoaAcompanhante)
                .WithMany(e => e.RequisicaoComoAcompanhante)
@@ -109,16 +133,7 @@ namespace SISPTD.Models
                        e.ToTable("PessoaEspecialidade");
                    });
 
-            modelBuilder.Entity<Pessoa>()
-                .HasMany(e => e.PericiaMedico)
-                .WithMany(e => e.Medico)
-                .Map(e =>
-                  {
-                      e.MapLeftKey("pessoaId");
-                      e.MapRightKey("periciaId");
-                      e.ToTable("medicoPericia");
-                  });
-
+           
             modelBuilder.Entity<Setor>()
                 .HasMany(e => e.DistribProcesso)
                 .WithRequired(e => e.SetorOrigem)
