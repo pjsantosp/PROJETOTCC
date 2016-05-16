@@ -5,11 +5,12 @@
 }
 
 <h3><i class="glyphicon glyphicon-th-large"></i> Cadastro de Setor</h3>
+<div class="row">
 
-<p>
     @Html.ActionLink("Cadastrar novo Setor", "Create", null, new {@class="btn btn-primary" })
-</p>
-<table class="table">
+</div>
+<br />
+<table class="table table-condensed">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.descricao)
@@ -17,7 +18,6 @@
         <th>
             @Html.DisplayName("Operação")
         </th>
-        <th></th>
         
     </tr>
 

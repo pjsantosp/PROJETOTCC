@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using SISPTD.Models;
+using System.Data.Entity;
 
 
 
@@ -24,6 +25,21 @@ namespace SISPTD.BO
                 throw new Exception("Setor de Origem e Destino, não pode ser iguais");
             base.Inserir(entidade);
 
+        }
+        public IEnumerable<DistribProcesso> ObterProcesso(string busca)
+        {
+            try
+            {
+                IEnumerable<DistribProcesso> listaProcesso = _contexto.Set<DistribProcesso>()
+               .Include(d => d.Pessoa)
+               .Where(x => x.Pessoa.cpf.Contains(busca));
+                return listaProcesso;
+            }
+            catch (Exception e)
+            {
+
+                throw new Exception("Erro na busca na lista de pessoa", e);
+            }
 
         }
 

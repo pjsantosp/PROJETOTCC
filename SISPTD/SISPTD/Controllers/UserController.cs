@@ -40,7 +40,6 @@ namespace SISPTD.Controllers
         public ActionResult Create()
         {
             ViewBag.roles = new SelectList(Enum.GetValues(typeof(Perfil)));
-            //ViewBag.pessoaId = new SelectList(pessoaBO.Selecionar(), "pessoaId", "nome");
             return View();
         }
 
@@ -59,7 +58,7 @@ namespace SISPTD.Controllers
 
                 if (userBO.VerificaUser(user) != false)
                 {
-                    //user.Perfil = (Perfil)Enum.Parse(typeof(Perfil), roles);
+                   // user.Perfil = (Perfil)Enum.Parse(typeof(Perfil), roles);
 
                     user.senha = Ultis.Util.Encrypt(user.senha);
 

@@ -17,10 +17,10 @@ namespace SISPTD.Controllers
         private UserBO userBO = new UserBO(new dbSISPTD());
         private PessoaBO pessoaBO = new PessoaBO(new dbSISPTD());
 
-        public ActionResult Index()
+        public ActionResult Index(string busca)
         {
-
-            return View(distribProcessoBO.Selecionar());
+            busca = Ultis.Util.RemoverMascara(busca);
+            return View(distribProcessoBO.ObterProcesso(busca));
         }
 
         public ActionResult Details(long? id)

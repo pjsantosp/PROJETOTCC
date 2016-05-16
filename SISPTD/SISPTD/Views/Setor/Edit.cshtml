@@ -4,5 +4,10 @@
 <hr />
 
 <div>
+    @using (Html.BeginForm())
+    {
+    @Html.HiddenFor(s=> s.setorId)
     @Html.Partial("_Formulario", Model)
+        
+    }
 </div>

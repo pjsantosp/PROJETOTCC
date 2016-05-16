@@ -3,18 +3,28 @@
 <div>
     <h3><i class="glyphicon glyphicon-transfer"></i> Distrição de Processo</h3>
 </div>
-@using (Html.BeginForm())
-{
-    <div class="input-group">
-        <div class="input-group-btn">
-            <a href="@Url.Action("Create")" class="btn btn-success"><i class="glyphicon glyphicon-plus"></i> Novo</a>
+
+<div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4 col-md-offset-4">
+
+       @using (Html.BeginForm())
+       {
+        <div class="input-group">
+            <div class="input-group-btn">
+                <a href="@Url.Action("Create")" class="btn btn-success"><i class="glyphicon glyphicon-plus"></i> Novo</a>
+            </div>
+            @Html.TextBox("buscar", Request.QueryString["buscar"], new { autofocus = "", @class = " cpf form-control", placeholder = "Procure por CPF" })
+            <span class="input-group-btn">
+                <button class="btn btn-primary" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+            </span>
         </div>
-        @Html.TextBox("buscar", Request.QueryString["buscar"], new { autofocus = "", @class = "col-md-2 form-control", placeholder = "Procure por CPF" })
-        <span class="input-group-btn">
-            <button class="btn btn-primary" type="submit"><i class="glyphicon glyphicon-search"></i></button>
-        </span>
+       }
+
     </div>
-}
+</div>
+
+
 <br />
 
 <table class="table">
@@ -24,16 +34,16 @@
             @Html.DisplayNameFor(model => model.Pessoa.nome)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.SetorDestino.descricao)
+            @Html.DisplayName("Setor Origem")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.SetorOrigem.descricao)
+            @Html.DisplayName("Setor Destino")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.UserEnviou.login)
+            @Html.DisplayName("Usuario Enviou")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.UserRecebeu.login)
+            @Html.DisplayName("Usuario Recebeu")
         </th>
         <th>
             @Html.DisplayNameFor(model => model.observacoes)
@@ -48,10 +58,10 @@
             @Html.DisplayFor(modelItem => item.Pessoa.nome)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.SetorDestino.descricao)
+            @Html.DisplayFor(modelItem => item.SetorOrigem.descricao)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.SetorOrigem.descricao)
+            @Html.DisplayFor(modelItem => item.SetorDestino.descricao)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.UserEnviou.login)

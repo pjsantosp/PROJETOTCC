@@ -12,10 +12,10 @@
         <tr>
          
             <th>
-                @Html.DisplayNameFor(model => model.CidadeDestino.Cidade)
+                @Html.DisplayName("Origem")
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CidadeOrigem.Cidade)
+                @Html.DisplayName("Destino")
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Paciente.nome)
@@ -27,10 +27,10 @@
                 @Html.DisplayNameFor(model => model.observacoes)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.via)
+                @Html.DisplayName("Via")
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.trecho)
+                @Html.DisplayName("Trecho")
             </th>
             <th></th>
         </tr>
@@ -54,17 +54,19 @@
                 @Html.DisplayFor(modelItem => item.observacoes)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.via)
+                @Html.DisplayFor(modelItem => item.Via)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.trecho)
+                @Html.DisplayFor(modelItem => item.Trecho)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id=item.requisicaoId }) |
-                @Html.ActionLink("Details", "Details", new { id=item.requisicaoId }) |
-                @Html.ActionLink("Delete", "Delete", new { id=item.requisicaoId })
+                @*@Html.ActionLink("Edit", "Edit", new { id=item.requisicaoId }) |
+                @Html.ActionLink("Details", "Details", new { id = item.requisicaoId }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.requisicaoId })*@
+                <a title="Imprimir" class="btn btn-primary" href="@Url.Action("Details", "Requisicao", new { id=item.requisicaoId })"> <i class="fa fa-print" aria-hidden="true"></i> </a>
             </td>
         </tr>
+    
     }
     
     </table>

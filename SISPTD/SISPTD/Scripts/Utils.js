@@ -25,9 +25,10 @@ null,
 });
 
 
+
+    
+
 $(document).ready(function () {
-
-
 
 
     //Adicionar acompanhantes------------
@@ -79,7 +80,7 @@ $(document).ready(function () {
     });
 
     //Localiza paciente no DistribProcesso
-    $('.buscarPacienteDistrib').change(function () {
+    $('.buscarPacienteDistrib').click(function () {
 
         var cpf = $('#buscarPacienteDistrib').val();
         $.ajax({
@@ -110,7 +111,10 @@ $(document).ready(function () {
                     $('#idPessoaUser').val(data.Id)
                 }
                 else {
-                    alert("Pessoa não encontrada, Verifique o nome de login! ")
+                    var btCriaPessoa = $('#btnCriaPessoa');
+                    btCriaPessoa.show();
+                    $('<a href="/Pessoa/CreateUsuario/" title="Cadastra Pessoa">Cadastra Funcionario</a>').appendTo('#btnCriaPessoa');
+                    
                 }
             },
             error: function (data) {
@@ -221,8 +225,6 @@ $(function () {
 });
 
 //$('.nav > li > a[href="' + location.pathname + '"]').parent().addClass('active').siblings().removeClass('active');
-
-
 
 
 

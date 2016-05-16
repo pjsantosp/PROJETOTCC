@@ -1,26 +1,46 @@
 ﻿@model SISPTD.Models.Requisicao
-
-@{
-    Layout = null;
-}
-
-
-
 @*<script>
         window.print();
     </script>*@
 
-
-
 <div class="page">
-    <h4>Requisicao</h4>
-    <h2 class="text-center"><i class="fa fa-stethoscope" aria-hidden="true"></i> Tratamento fora Domicilio</h2>
-
+    <h2 class="text-center"><i class="fa fa-plane" aria-hidden="true"></i> Requisição de Passagem Tratamento fora Domicilio</h2>
     <div>
-        <h4>Nº @Html.DisplayFor(model => model.requisicaoId) </h4>
-
+        <h4> Requisição Nº @Html.DisplayFor(model => model.requisicaoId) </h4>
         <hr />
 
+        <div class="col-sm-offset-2">
+            <i class="fa fa-exclamation-circle" aria-hidden="true"></i> De acordo com a portaria SAS/MS n° 055 de fevereiro de 1999, requisitamos o fornecimento
+            da(s) passagem(ns) abaixo relacionada(s).
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <strong>@Html.DisplayName("Via:")</strong>
+                        @Html.DisplayFor(model => model.Via)<br /><hr />
+                        <strong>@Html.DisplayName("Trecho:")</strong> 
+                        @Html.DisplayFor(model => model.Trecho)
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-4 col-md-offset-4">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <strong>@Html.DisplayName("Origem:")</strong>
+                        @Html.DisplayFor(model => model.CidadeOrigem.Cidade)<br /><hr />
+                        <strong>@Html.DisplayName("Destino:")</strong>
+                        @Html.DisplayFor(model => model.CidadeDestino.Cidade)
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr />
+        <h3><i class="fa fa-info" aria-hidden="true"></i> Informações do Paciente</h3>
         <div class="panel panel-default">
             <div class="panel-heading"><strong>@Html.DisplayFor(model => model.Paciente.nome)</strong></div>
             <div class="panel-body">
@@ -30,7 +50,6 @@
                     <th>
                         @Html.DisplayNameFor(model => model.Paciente.cpf)
                     </th>
-
                     <th>
                         @Html.DisplayNameFor(model => model.Paciente.rg)
                     </th>
@@ -44,7 +63,6 @@
                         @Html.DisplayNameFor(model => model.Paciente.cns)
                     </th>
                 </tr>
-
                 <tr>
                     <td>
                         @Html.DisplayFor(model => model.Paciente.cpf)
@@ -62,7 +80,6 @@
                         @Html.DisplayFor(model => model.Paciente.cns)
                     </td>
                 </tr>
-
                 <tr>
                     <th>
                         @Html.DisplayNameFor(model => model.Paciente.nome_Mae)
@@ -97,240 +114,63 @@
                         @Html.DisplayFor(model => model.Paciente.email)
                     </td>
                 </tr>
-
                 <tr></tr>
             </table>
         </div>
-        <div class="row">
-            <div class="col-md-4">
-                <h3><i class="fa fa-stethoscope" aria-hidden="true"></i>  Médico Solicitante</h3>
-            </div>
-
-        </div>
-        <div class="panel panel-default">
-            <div class="panel-heading"><strong>@Html.DisplayFor(model => model.PessoaAcompanhante)</strong></div>
-            <div class="panel-body">
-
-            </div>
-            @*<table class="table table-striped">
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Medico.cpf)
-                    </th>
-
-                    <th>
-                        @Html.DisplayNameFor(model => model.Medico.rg)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Medico.orgaoemissor)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Medico.dt_Emissao)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Medico.cns)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Medico.crm)
-                    </th>
-                </tr>
-
-                <tr>
-                    <td>
-                        @Html.DisplayFor(model => model.Medico.cpf)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(model => model.Medico.rg)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(model => model.Medico.orgaoemissor)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(model => model.Medico.dt_Emissao)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(model => model.Medico.cns)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(model => model.Medico.crm)
-                    </td>
-                </tr>
-
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Medico.tel)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Medico.cel)
-                    </th>
-                    <th colspan="4">
-                        @Html.DisplayNameFor(model => model.Medico.email)
-                    </th>
-
-                </tr>
-                <tr>
-                    <td>
-                        @Html.DisplayFor(model => model.Medico.tel)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(model => model.Medico.cel)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(model => model.Medico.email)
-                    </td>
-                </tr>
-
-            </table>*@
-        </div>
-        <div class="row">
-            <div class="panel panel-default">
-                <div class="panel-heading"></div>
-                <div class="panel-body">
-
-                </div>
-              
-            </div>
-        </div>
-
-
     </div>
-    <p>
-        <a href="#" class="btn btn-primary"><i class="fa fa-print" aria-hidden="true"></i> Imprimir</a>
-        @Html.ActionLink("Voltar Para Lista", "Index", null, htmlAttributes: new { @class = "btn btn-default" })
-    </p><h3><i class="fa fa-info" aria-hidden="true"></i> Informações do Paciente</h3>
-    <div class="panel panel-default">
-        <div class="panel-heading"><strong>@Html.DisplayFor(model => model.Paciente.nome)</strong></div>
-        <div class="panel-body">
 
-        </div>
-        <table class="table table-striped">
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Paciente.cpf)
-                </th>
-
-                <th>
-                    @Html.DisplayNameFor(model => model.Paciente.rg)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Paciente.orgaoemissor)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Paciente.dt_Emissao)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Paciente.cns)
-                </th>
-            </tr>
-
-            <tr>
-                <td>
-                    @Html.DisplayFor(model => model.Paciente.cpf)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => model.Paciente.rg)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => model.Paciente.orgaoemissor)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => model.Paciente.dt_Emissao)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => model.Paciente.cns)
-                </td>
-            </tr>
-
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Paciente.nome_Mae)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Paciente.nome_Pai)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Paciente.tel)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Paciente.cel)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Paciente.email)
-                </th>
-            </tr>
-            <tr>
-                <td>
-                    @Html.DisplayFor(model => model.Paciente.nome_Mae)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => model.Paciente.nome_Pai)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => model.Paciente.tel)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => model.Paciente.cel)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => model.Paciente.email)
-                </td>
-            </tr>
-
-            <tr></tr>
-        </table>
-    </div>
+    <hr />
+    <h3><i class="fa fa-info" aria-hidden="true"></i> Informações dos Acompanhantes</h3>
     <div class="panel panel-default">
         <div class="panel-heading">
             <h3 class="panel-title"><strong>Acompanhantes</strong></h3>
         </div>
         <div class="panel-body">
-
         </div>
         <table class="table table-striped ">
             <tr>
                 <th>
-                    @Html.LabelFor(model => model.Paciente.RequisicaoComoAcompanhante, new { @class = "control-label" })
+                    @Html.Label("CPF", new { @class = "control-label" })
                 </th>
                 <th>
-                    @Html.LabelFor(model => model.PessoaAcompanhante, new { @class = "control-label" })
+                    @Html.Label("Nome", new { @class = "control-label" })
                 </th>
                 <th>
-                    @Html.LabelFor(model => model.PessoaAcompanhante, new { @class = "control-label" })
+                    @Html.Label("Data de Nascimento", new { @class = "control-label" })
                 </th>
                 <th>
-                    @Html.LabelFor(model => model.PessoaAcompanhante, new { @class = "control-label" })
+                    @Html.Label("Idade", new { @class = "control-label" })
                 </th>
                 <th>
-                    @Html.LabelFor(model => model.PessoaAcompanhante, new { @class = "control-label" })
+                    @Html.Label("Telefone", new { @class = "control-label" })
                 </th>
                 <th>
-                    @Html.LabelFor(model => model.PessoaAcompanhante, new { @class = "control-label" })
+                    @Html.Label("Celular", new { @class = "control-label" })
+                </th>
+                <th>
+                    @Html.Label("Cartão do SUS", new { @class = "control-label" })
                 </th>
             </tr>
-            @foreach (var item in Model.Paciente.RequisicaoComoAcompanhante)
+            @foreach (var item in Model.PessoaAcompanhante)
             {
                 <tr>
                     <td>
-                        @item.Paciente.RequisicaoComoAcompanhante
+                        @item.cpf
                     </td>
                     <td>
-                        @if (User.IsInRole("Medico"))
-                        {
-                            @Html.Raw("<p>" + item.nome + "</p>");
-                        }
-                        else
-                        {
-                            <a href="@Url.Action("Edit", "Pessoa", new { id = item.pessoaId })">@item.nome</a>
-                        }
+                        @item.nome
                     </td>
                     <td>
-                        @item.rg
+                        @item.dt_Nascimento.ToShortDateString()
                     </td>
                     <td>
-                        @item.orgaoemissor
+                        @item.idade
                     </td>
                     <td>
-                        @item.dt_Emissao
+                        @item.tel
+                    </td>
+                    <td>
+                        @item.cel
                     </td>
                     <td>
                         @item.cns
@@ -339,81 +179,54 @@
             }
         </table>
     </div>
-    @*<div class="well well-sm  " style=" height:50px">
-        @if (!User.IsInRole("Medico"))
-        {
-            <a class="btn btn-primary" href="@Url.Action("Edit",  new { id = Model.pessoaId })">Editar</a>
+    <hr />
 
-        }
+    <div class="row">
+        <div class="col-sm-offset-9">
 
-        <a class="btn btn-success pull-right" href="#" onclick="history.back()">Voltar</a>
-    </div>*@
+            <br />
+            <i class="fa fa-thumbs-up" aria-hidden="true">
+            </i>
+            Autorizado :
+            <br /><br />
+            _______________________________
+            <br />
+            Jair José da Rocha
+            <br />
+            Gerente/TFD/SESAU
+        </div>
 
-
-
-</div>
-@*<hr />
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.CidadeDestino.Cidade)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.CidadeDestino.Cidade)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.CidadeOrigem.Cidade)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.CidadeOrigem.Cidade)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.Usuario.login)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Usuario.login)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.dtRequisicao)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.dtRequisicao)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.observacoes)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.observacoes)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.via)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.via)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.trecho)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.trecho)
-            </dd>
-
-        </dl>
     </div>
-    <p>
-        @Html.ActionLink("Edit", "Edit", new { id = Model.requisicaoId }) |
-        @Html.ActionLink("Back to List", "Index")
-    </p>*@
+    <p></p>
 
+
+    <div class="row">
+        <div class="col-sm-offset-1">
+            <p>
+                Recebi o(s) bilhete(s) de passagem(ns) n°(s) ______________________________________________
+                de acordo com a presente requisição.
+            </p>
+            <br />
+        </div>
+        <div class="col-sm-offset-1">
+            <p>
+                Assinatura Paciente ou Responsável
+                RG:_____________________________________________
+            </p>
+        </div>
+
+    </div>
+    <hr />
+    <p>
+        <a href="#" onclick="window.open(@Url.Action("Details", "Requisicao", new { id = Model.requisicaoId }))" class="btn btn-primary"><i class="fa fa-print" aria-hidden="true"></i> Imprimir</a>
+        @Html.ActionLink("Voltar Para Lista", "Index", null, htmlAttributes: new { @class = "btn btn-default" })
+    </p>
+</div>
+<footer>
+    <div>
+        @Html.DisplayFor(model=> model.Usuario.Pessoa.nome)
+    </div>
+    <div>
+        @DateTime.Now
+    </div>
+</footer>

@@ -276,11 +276,9 @@ C:\Users\lordcyber\Downloads\SISPTD\SISPTD\obj\Debug\SISPTD.dll
 C:\Users\lordcyber\Downloads\SISPTD\SISPTD\obj\Debug\SISPTD.pdb
 D:\PROJETOTCC\PROJETOTCC\SISPTD\SISPTD\bin\EntityFramework.dll
 D:\PROJETOTCC\PROJETOTCC\SISPTD\SISPTD\bin\EntityFramework.SqlServer.dll
-D:\PROJETOTCC\PROJETOTCC\SISPTD\SISPTD\obj\Debug\SISPTD.Migrations.CamppacienteIdnapericia.resources
+D:\PROJETOTCC\PROJETOTCC\SISPTD\SISPTD\obj\Debug\SISPTD.Migrations.Criabanco.resources
 D:\PROJETOTCC\PROJETOTCC\SISPTD\SISPTD\obj\Debug\SISPTD.csproj.GenerateResource.Cache
-D:\PROJETOTCC\PROJETOTCC\SISPTD\SISPTD\obj\Debug\SISPTD.Migrations.CamppacienteIdnapericiaremovido.resources
-D:\PROJETOTCC\PROJETOTCC\SISPTD\SISPTD\obj\Debug\SISPTD.Migrations.Obrigatoriedadesenha.resources
-D:\PROJETOTCC\PROJETOTCC\SISPTD\SISPTD\obj\Debug\SISPTD.Migrations.modificadocascade.resources
-D:\PROJETOTCC\PROJETOTCC\SISPTD\SISPTD\obj\Debug\SISPTD.Migrations.obrigatoriedadedasenhavolta.resources
-D:\PROJETOTCC\PROJETOTCC\SISPTD\SISPTD\obj\Debug\SISPTD.Migrations.Agendamentocclinica.resources
-D:\PROJETOTCC\PROJETOTCC\SISPTD\SISPTD\obj\Debug\SISPTD.Migrations.Alterpericiapsolicitacao.resources
+D:\PROJETOTCC\PROJETOTCC\SISPTD\SISPTD\obj\Debug\SISPTD.Migrations.Altrelacaopessoarequisica.resources
+D:\PROJETOTCC\PROJETOTCC\SISPTD\SISPTD\obj\Debug\SISPTD.Migrations.alteradoorelacionamento.resources
+D:\PROJETOTCC\PROJETOTCC\SISPTD\SISPTD\bin\Rotativa.dll
+D:\PROJETOTCC\PROJETOTCC\SISPTD\SISPTD\obj\Debug\SISPTD.Migrations.AlttamcampteltbClinica.resources

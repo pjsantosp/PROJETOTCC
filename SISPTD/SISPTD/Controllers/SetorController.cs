@@ -26,7 +26,7 @@ namespace SISPTD.Controllers
         public ActionResult Details(long? id)
         {
 
-           return View(setorBO.SelecionarPorId(id.Value));
+            return View(setorBO.SelecionarPorId(id.Value));
         }
 
         // GET: Setor/Create
@@ -35,15 +35,25 @@ namespace SISPTD.Controllers
             return View();
         }
 
-       
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(Setor setor)
         {
-            if (ModelState.IsValid)
+            try
             {
-                setorBO.Inserir(setor);
+                if (ModelState.IsValid)
+                {
+                    setorBO.Inserir(setor);
+                    TempData["Sucesso"] = "Setor Gravado Com Sucesso!";
+                }
                 return RedirectToAction("Index");
+
+            }
+            catch (Exception ex)
+            {
+
+                TempData["Erro"] = "Ops! " + ex.Message;
             }
 
             return View(setor);
@@ -64,15 +74,25 @@ namespace SISPTD.Controllers
             return View(setor);
         }
 
-     
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Setor setor)
         {
-            if (ModelState.IsValid)
+            try
             {
-                setorBO.Alterar(setor);
+                if (ModelState.IsValid)
+                {
+                    setorBO.Alterar(setor);
+                    TempData["Sucesso"] = "Setor Alterador com Sucesso !";
+                }
                 return RedirectToAction("Index");
+
+            }
+            catch (Exception e)
+            {
+
+                TempData["Erro"] = "Ops ! " + e.Message;
             }
             return View(setor);
         }
@@ -97,10 +117,12 @@ namespace SISPTD.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(long id)
         {
+
             setorBO.ExcluirPorId(id);
+            
             return RedirectToAction("Index");
         }
 
-       
+
     }
 }

@@ -8,6 +8,10 @@ namespace SISPTD.Models
     [Table("Pessoa")]
     public class Pessoa
     {
+        public Pessoa()
+        {
+            this.RequisicaoComoAcompanhante = new HashSet<Requisicao>();
+        }
         [Key]
         public long pessoaId { get; set; }
         public long? pessoaPai { get; set; }

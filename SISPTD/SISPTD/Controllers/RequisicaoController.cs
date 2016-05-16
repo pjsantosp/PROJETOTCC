@@ -8,6 +8,8 @@ using System.Web;
 using System.Web.Mvc;
 using SISPTD.Models;
 using SISPTD.BO;
+using Rotativa;
+using Rotativa.Options;
 
 namespace SISPTD.Controllers
 {
@@ -44,7 +46,7 @@ namespace SISPTD.Controllers
                         {
                             TempData["Erro"] = "Só é permitido três Acompanhante!";
                         }
-                        
+
                     }
                     else
                     {
@@ -85,7 +87,10 @@ namespace SISPTD.Controllers
                 return HttpNotFound();
             }
             return View(requisicao);
+
+
         }
+
 
         public ActionResult Create()
         {
@@ -100,11 +105,12 @@ namespace SISPTD.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Requisicao requisicao, int? pessoaId, List<Pessoa> pessoa)
         {
-            requisicao.pacienteId = pessoaId;
-            requisicao.PessoaAcompanhante = pessoa;
-
+            var usuario = usuarioBO.userLogado(User.Identity.Name);
+            requisicao.usuarioId = usuario.usuarioId;
             if (ModelState.IsValid)
             {
+                requisicao.pacienteId = pessoaId.Value;
+                requisicao.PessoaAcompanhante = pessoa;
                 requisicao.dtRequisicao = DateTime.Now;
                 requisicaoBO.Inserir(requisicao);
             }
@@ -114,7 +120,7 @@ namespace SISPTD.Controllers
             ViewBag.usuarioId = new SelectList(usuarioBO.Selecionar(), "usuarioId", "login", requisicao.usuarioId);
             return RedirectToAction("Index");
         }
-        #region Editar 
+        #region Editar
         // GET: Requisicaos/Edit/5
         //public ActionResult Edit(long? id)
         //{
@@ -172,6 +178,6 @@ namespace SISPTD.Controllers
             return RedirectToAction("Index");
         }
 
-      
+
     }
 }

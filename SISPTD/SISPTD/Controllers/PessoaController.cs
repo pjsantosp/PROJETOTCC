@@ -20,6 +20,8 @@ namespace SISPTD.Controllers
 
         public ActionResult Index(string busca = "")
         {
+            busca = Util.RemoverMascara(busca);
+
             return View(pessoaBO.ObterPessoa(busca));
         }
         public ActionResult Pesquisar(string cpf)
@@ -75,6 +77,7 @@ namespace SISPTD.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    pessoa.tipo = (int)TipoPessoa.Paciente;
                     pessoa.cpf = Util.RemoverMascara(pessoa.cpf);
                     pessoa.dt_Cadastro = DateTime.Now;
                     pessoaBO.CalculoIdade(pessoa);
@@ -102,6 +105,7 @@ namespace SISPTD.Controllers
                 {
                     if (ModelState.IsValid)
                     {
+                        
                         Pessoa acompanhante = new Pessoa();
                         acompanhante.pessoaPai = pessoaPai;
                         ViewBag.pessoaId = pessoaPai;
@@ -147,6 +151,32 @@ namespace SISPTD.Controllers
 
 
             return View();
+        }
+        public ActionResult CreateUsuario()
+        {
+            return View();
+        }
+        [HttpPost, ValidateAntiForgeryToken]
+        public ActionResult CreateUsuario(Pessoa usuario)
+        {
+            try
+            {
+                usuario.cpf = Ultis.Util.RemoverMascara(usuario.cpf);
+                if (ModelState.IsValid)
+                {
+                    usuario.dt_Cadastro = DateTime.Now;
+                    pessoaBO.Inserir(usuario);
+                    TempData["Sucesso"] = "Cadastro Realizado com Sucesso !";
+                }
+                return RedirectToAction("Create", "User");
+            }
+            catch (Exception e)
+            {
+
+                TempData["Erro"] = "Ops !" + e.Message;
+            }
+            return View(usuario);
+
         }
         public ActionResult CreateMedico()
         {

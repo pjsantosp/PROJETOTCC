@@ -17,7 +17,7 @@ namespace SISPTD.Models
         [Display(Name="Cidade")]
         public int? IdCidade { get; set; }
         [Display(Name="Telefone")]
-        [StringLength(10)]
+        [StringLength(20)]
         public string tel_Clinica { get; set; }
 
         public virtual Cidades Cidades { get; set; }

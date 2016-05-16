@@ -8,20 +8,26 @@ namespace SISPTD.Models
     [Table("Requisicao")]
     public class Requisicao
     {
+        public Requisicao()
+        {
+            this.PessoaAcompanhante = new HashSet<Pessoa>();
+
+        }
         [Key]
         public long requisicaoId { get; set; }
         public long? pacienteId { get; set; }
         public long? usuarioId { get; set; }
         public int? IdCidadesOrigem { get; set; }
         public int IdCidadesDestino { get; set; }
+        [Display(Name = "Data da Requisição")]
         public DateTime dtRequisicao { get; set; }
 
         [StringLength(200)]
         [Display(Name = "Observações")]
         public string observacoes { get; set; }
 
-        public virtual Via via { get; set; }
-        public virtual Trecho trecho { get; set; }
+        public virtual Via Via { get; set; }
+        public virtual Trecho Trecho { get; set; }
         public virtual Cidades CidadeOrigem { get; set; }
         public virtual Cidades CidadeDestino { get; set; }
         public virtual ICollection<Pessoa> PessoaAcompanhante { get; set; }
