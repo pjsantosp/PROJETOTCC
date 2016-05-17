@@ -27,7 +27,6 @@ namespace SISPTD.Controllers
         {
             conta.login = Util.RemoverMascara(conta.login);
 
-
             try
             {
                 if (conta.login == conta.senha)

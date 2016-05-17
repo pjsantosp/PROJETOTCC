@@ -1,24 +1,25 @@
 ﻿@model IEnumerable<SISPTD.Models.User>
-
 @{
     ViewBag.Title = "Index";
 }
-
-<h2 class="glyphicon glyphicon-user">Usuários do Sistema </h2>
+<h3><i class="fa fa-user-plus" aria-hidden="true"></i> Usuários do Sistema </h3>
 <br /><br />
-@using (Html.BeginForm())
-{
-    <div class="input-group">
-        <div class="input-group-btn">
-            <a href="@Url.Action("Create")" class="btn btn-success"><i class="glyphicon glyphicon-plus"></i> Novo</a>
+<div class="col-md-4"></div>
+<div class="col-md-4 col-md-offset-4">
+    @using (Html.BeginForm())
+    {
+        <div class="input-group">
+            <div class="input-group-btn">
+                <a href="@Url.Action("Create")" class="btn btn-success"><i class="glyphicon glyphicon-plus"></i> Novo</a>
+            </div>
+            @Html.TextBox("user", Request.QueryString["user"], new { autofocus = "", @class = "cpf form-control", placeholder = "Procure por CPF" })
+            <span class="input-group-btn">
+                <button class="btn btn-primary" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+            </span>
         </div>
-        @Html.TextBox("user", Request.QueryString["user"], new { autofocus = "", @class = "col-md-2 form-control", placeholder = "Procure por CPF" })
-        <span class="input-group-btn">
-            <button class="btn btn-primary" type="submit"><i class="glyphicon glyphicon-search"></i></button>
-        </span>
-    </div>
-}
-<br />
+    }
+</div>
+<br /><br /><br />
 <table class="table">
     <tr>
         <th>
@@ -27,24 +28,26 @@
         <th>
             @Html.DisplayNameFor(model => model.login)
         </th>
-      
-        <th></th>
     </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Pessoa.nome)
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Pessoa.nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.login)
+            </td>
+            @*<td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.usuarioId }) |
+                @Html.ActionLink("Details", "Details", new { id = item.usuarioId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.usuarioId })
+            </td>*@
+            <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.usuarioId }) |
+            @*@Html.ActionLink("Details", "Details", new { id = item.usuarioId }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.usuarioId })*@
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.login)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.usuarioId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.usuarioId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.usuarioId })
-        </td>
-    </tr>
-}
-
+        </tr>
+    }
 </table>

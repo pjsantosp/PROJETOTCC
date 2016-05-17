@@ -152,7 +152,7 @@ namespace SISPTD.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.pessoaId = new SelectList(pessoaBO.Selecionar(), "pessoaId", "cpf", user.pessoaId);
+            ViewBag.pessoaId = pessoaBO.SelecionarPorId(user.pessoaId);
             return View(user);
         }
 

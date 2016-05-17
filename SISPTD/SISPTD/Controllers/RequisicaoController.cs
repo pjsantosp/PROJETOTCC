@@ -86,7 +86,8 @@ namespace SISPTD.Controllers
             {
                 return HttpNotFound();
             }
-            return View(requisicao);
+            var pdf = new ViewAsPdf { Model = requisicao,PageOrientation=Orientation.Landscape };
+            return pdf;
 
 
         }

@@ -282,3 +282,5 @@ D:\PROJETOTCC\PROJETOTCC\SISPTD\SISPTD\obj\Debug\SISPTD.Migrations.Altrelacaopes
 D:\PROJETOTCC\PROJETOTCC\SISPTD\SISPTD\obj\Debug\SISPTD.Migrations.alteradoorelacionamento.resources
 D:\PROJETOTCC\PROJETOTCC\SISPTD\SISPTD\bin\Rotativa.dll
 D:\PROJETOTCC\PROJETOTCC\SISPTD\SISPTD\obj\Debug\SISPTD.Migrations.AlttamcampteltbClinica.resources
+D:\PROJETOTCC\PROJETOTCC\SISPTD\SISPTD\obj\Debug\SISPTD.Migrations.Altobrigatoriedadedasenha.resources
+D:\PROJETOTCC\PROJETOTCC\SISPTD\SISPTD\obj\Debug\SISPTD.Migrations.Removidodatenulldoagendamento.resources

@@ -19,9 +19,10 @@ namespace SISPTD.Models
         public string observacoes { get; set; }
 
         [Display(Name ="Data do Agendamento")]
-        public DateTime? dt_Agendamento { get; set; }
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        public System.DateTime dt_Agendamento { get; set; }
           [Display(Name = "Marcado")]
-        public DateTime? dt_Marcacao { get; set; }
+        public DateTime  dt_Marcacao { get; set; }
         public virtual Pessoa Pessoa { get; set; }
         public virtual User User { get; set; }
         public virtual Clinica Clinica { get; set; }

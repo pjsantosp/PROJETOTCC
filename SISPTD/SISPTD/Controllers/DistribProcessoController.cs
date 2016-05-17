@@ -86,7 +86,8 @@ namespace SISPTD.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.pessoaId = new SelectList(pessoaBO.Selecionar(), "pessoaId", "cpf", distribProcesso.pessoaId);
+            ViewBag.pacienteId = pessoaBO.SelecionarPorId(distribProcesso.pessoaId);
+            //ViewBag.pessoaId = new SelectList(pessoaBO.Selecionar(), "pessoaId", "cpf", distribProcesso.pessoaId);
             ViewBag.SetorDestinoId = new SelectList(setorBO.Selecionar(), "setorId", "descricao", distribProcesso.SetorDestinoId);
             ViewBag.SetorOrigemId = new SelectList(setorBO.Selecionar(), "setorId", "descricao", distribProcesso.SetorOrigemId);
             ViewBag.usuarioEnviouId = new SelectList(userBO.Selecionar(), "usuarioId", "login", distribProcesso.usuarioEnviouId);
@@ -98,6 +99,8 @@ namespace SISPTD.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(DistribProcesso distribProcesso)
         {
+            var user = userBO.userLogado(User.Identity.Name);
+            distribProcesso.usuarioRecebeuId = user.usuarioId;
             if (ModelState.IsValid)
             {
                 distribProcessoBO.Alterar(distribProcesso);

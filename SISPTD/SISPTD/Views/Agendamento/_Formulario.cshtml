@@ -20,7 +20,7 @@
                 <div class="col-md-6 ">
                     <div class="form-group">
                         @Html.LabelFor(model => model.dt_Agendamento, htmlAttributes: new { @class = "control-label col-md-8" })
-                        @Html.EditorFor(model => model.dt_Agendamento, new { htmlAttributes = new { @type = "Date", @class = "form-control" } })
+                        @Html.EditorFor(model => model.dt_Agendamento, new { htmlAttributes = new {  @class = "form-control date" } })
                         @Html.ValidationMessageFor(model => model.dt_Agendamento, "", new { @class = "text-danger" })
                     </div>
                 </div>

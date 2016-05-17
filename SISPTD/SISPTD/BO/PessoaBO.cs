@@ -30,7 +30,7 @@ namespace SISPTD.BO
             {
                 IEnumerable<Pessoa> listapessoa = _contexto.Set<Pessoa>()
                .Include(d => d.DistribProcesso)
-               .Where(x => x.cpf.Contains(busca));
+               .Where(x => x.cpf.Contains(busca)).Where(x=> x.tipo==0);
                 return listapessoa;
             }
             catch (Exception e)

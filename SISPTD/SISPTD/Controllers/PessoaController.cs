@@ -59,8 +59,8 @@ namespace SISPTD.Controllers
 
             return View(pessoaBO.SelecionarPorId(id.Value));
         }
-
-        //[Authorize(Roles = "Funcionario, Gerente")]
+        //Cria Paciente Get
+        [Authorize(Roles = "Funcionario, Gerente")]
         public ActionResult Create()
         {
             ViewBag.cidade = new SelectList(cidadeBO.Selecionar(), "IdCidade", "Cidade");
@@ -68,9 +68,10 @@ namespace SISPTD.Controllers
             return View();
         }
 
+        //Cria paciente Post
         [HttpPost]
         [ValidateAntiForgeryToken]
-        //[Authorize(Roles = "Funcionario, Gerente")]
+        [Authorize(Roles = "Funcionario, Gerente")]
         public ActionResult Create(Pessoa pessoa)
         {
             try
@@ -97,6 +98,7 @@ namespace SISPTD.Controllers
             ViewBag.pessoaPai = new SelectList(pessoaBO.Selecionar(), "pessoaId", "cpf", pessoa.pessoaPai);
             return View(pessoa);
         }
+        //Cria Acompanhante
         public ActionResult CreateAcompanhante(long? pessoaPai)
         {
             try
@@ -136,6 +138,7 @@ namespace SISPTD.Controllers
 
                 if (ModelState.IsValid)
                 {
+                    pessoa.tipo = (int)TipoPessoa.Acompanhante;
                     pessoa.dt_Cadastro = DateTime.Now;
                     pessoaBO.CalculoIdade(pessoa);
                     pessoaBO.Inserir(pessoa);
@@ -152,10 +155,12 @@ namespace SISPTD.Controllers
 
             return View();
         }
+        //Cria Usuario Get 
         public ActionResult CreateUsuario()
         {
             return View();
         }
+        //Cria Usuario Post
         [HttpPost, ValidateAntiForgeryToken]
         public ActionResult CreateUsuario(Pessoa usuario)
         {
@@ -178,11 +183,13 @@ namespace SISPTD.Controllers
             return View(usuario);
 
         }
+        //Cria medico get
         public ActionResult CreateMedico()
         {
 
             return View();
         }
+        //Cria medico Post
         [HttpPost, ValidateAntiForgeryToken]
         public ActionResult CreateMedico(Pessoa pessoa)
         {
@@ -191,7 +198,7 @@ namespace SISPTD.Controllers
         }
 
         // GET: Pessoa/Edit/5
-        //[Authorize(Roles = "Funcionario, Gerente")]
+        [Authorize(Roles = "Funcionario, Gerente")]
         public ActionResult Edit(long? id)
         {
             ViewBag.acompanhante = pessoaBO.Selecionar().Where(a => a.pessoaPai == id.Value).Count();
@@ -208,7 +215,7 @@ namespace SISPTD.Controllers
         }
 
         [HttpPost]
-        //[Authorize(Roles = "Funcionario, Gerente")]
+        [Authorize(Roles = "Funcionario, Gerente")]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Pessoa pessoa)
         {

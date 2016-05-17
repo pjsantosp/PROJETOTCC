@@ -81,7 +81,7 @@ $(document).ready(function () {
 
     //Localiza paciente no DistribProcesso
     $('.buscarPacienteDistrib').click(function () {
-
+        debugger;
         var cpf = $('#buscarPacienteDistrib').val();
         $.ajax({
             method: 'GET',
@@ -131,12 +131,20 @@ $(document).ready(function () {
             method: 'GET',
             url: "/Pessoa/PesquisarMedico?cpf=" + cpf,
             success: function (data) {
-
-                $('#nomeDoMedico').val(data.Nome);
-                $('#idDoMedico').val(data.Id);
-                $('#cnsDoMedico').val(data.Cns);
-                $('#telDoMedico').val(data.Tel);
-                $('#crmDoMedico').val(data.Crm);
+                if (data.Id > 0) {
+                    $('#nomeDoMedico').val(data.Nome);
+                    $('#idDoMedico').val(data.Id);
+                    $('#cnsDoMedico').val(data.Cns);
+                    $('#telDoMedico').val(data.Tel);
+                    $('#crmDoMedico').val(data.Crm);
+                }
+                else {
+                    debugger;
+                    var btCriaMedico = $('#btCriaMedico');
+                    btCriaMedico.show();
+                    $('<a href="/Pessoa/CreateMedico/" title="Cadastra Novo Medico" >Cadastrar Medico</a>').appendTo('#btCriaMedico');
+                }
+               
 
 
                 //top._pessoaId = data.Id;

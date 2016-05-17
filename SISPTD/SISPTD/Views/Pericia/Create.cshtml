@@ -1,7 +1,5 @@
 ﻿@model SISPTD.Models.SolicitacaoPericia
 
-
-
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
@@ -11,7 +9,6 @@
             <h4>Solicitar Pericia</h4>
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
             <div class="row">
                 <div class="col-md-3">
                     @Html.Label("CPF", htmlAttributes: new { @class = "control-label" })
@@ -27,47 +24,61 @@
                         <input type="hidden" id="idDoPacientePericia" name="pacientepessoaId" />
                     </div>
                 </div>
-
             </div>
+
+
 
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
                         @Html.LabelFor(model => model.descricao, htmlAttributes: new { @class = "control-label" })
-                        @Html.TextAreaFor(model => model.descricao, 5, 100, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.TextAreaFor(model => model.descricao, 5, 150, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.descricao, "", new { @class = "text-danger" })
                     </div>
-
                 </div>
             </div>
             <div class="row">
-
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="form-group">
                         @Html.LabelFor(model => model.Situacao, htmlAttributes: new { @class = "control-label" })
                         @Html.EnumDropDownListFor(model => model.Situacao, "Selecione...", htmlAttributes: new { @class = "form-control chosen-select" })
                         @Html.ValidationMessageFor(model => model.Situacao, "", new { @class = "text-danger" })
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            @Html.Label("Primeira Vez", htmlAttributes: new { @class = "control-label" })
-                            @Html.RadioButtonFor(model => model.TipoPericia, "Primeira Vez")
-                            @Html.Label("Retorno")
-                            @Html.RadioButtonFor(model => model.TipoPericia, "Retorno")
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                @Html.Label("Primeira Vez", htmlAttributes: new { @class = "control-label" })
+                                @Html.RadioButtonFor(model => model.TipoPericia, "Primeira Vez")
+                                @Html.Label("Retorno")
+                                @Html.RadioButtonFor(model => model.TipoPericia, "Retorno")
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            @Html.DropDownList("cidId", new List<SelectListItem>(), "Selecione...", new { @class = "form-control", data_url = @Url.Action("PesquisaCid", "Cid") })
-                        </div>
+
                     </div>
                 </div>
-                <div class=" col-md-4 col-md-offset-1">
-                    @Html.Label("Dados do Medico Solicitantes", htmlAttributes: new { @class = "control-label" })
+                <div class="col-md-3">
+                    <div class="form-group">
+                        @Html.Label("Codigo CID")
+                        @Html.DropDownList("cidId", new List<SelectListItem>(), "Selecione...", new { @class = "form-control", data_url = @Url.Action("PesquisaCid", "Cid") })
+                    </div>
                 </div>
             </div>
+
+
+            <div class="row">
+                <div class="col-md-5">
+                <h5><i class="fa fa-user-md" aria-hidden="true"></i> <strong> Dados do Medico Solicitante</strong></h5>
+
+                </div>
+                <div id="btCriaMedico" style="display:none" class="alert alert-warning alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <strong>Ops!</strong> Não foi Possivel localizar o  Medico Deseja Cadastra-lo:.
+                </div>
+                <label ></label>
+            </div>
+
             <hr />
             <div class="row">
                 <div class="col-md-3">
@@ -84,9 +95,7 @@
                         <input type="hidden" id="idDoMedico" name="medicoPessoaId" />
                     </div>
                 </div>
-
             </div>
-
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
@@ -108,8 +117,6 @@
                 </div>
             </div>
 
-
-
         </div>
     </div>
 
@@ -118,5 +125,3 @@
         @Html.ActionLink("Voltar para Lista", "Index", null, new { @class = "btn btn-link pull-right" })
     </div>
 }
-
-

@@ -38,11 +38,11 @@ namespace SISPTD.Controllers
 
         public ActionResult Create()
         {
-            ViewBag.pessoaId = new SelectList(pessoaBO.Selecionar().Where(p=> p.tipo==0), "pessoaId", "cpf");
+            ViewBag.pessoaId = new SelectList(pessoaBO.Selecionar().Where(p => p.tipo == 0), "pessoaId", "cpf");
             return View();
         }
 
-        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(Agendamento agendamento)
@@ -54,16 +54,17 @@ namespace SISPTD.Controllers
                 if (ModelState.IsValid)
                 {
                     agendamento.dt_Marcacao = DateTime.Now;
-                   agendamentoBO.Inserir(agendamento);
-                    return RedirectToAction("Index");
+                    agendamentoBO.Inserir(agendamento);
+                    TempData["Sucesso"] = "Agendamento Realizado com Sucesso!";
                 }
+                return RedirectToAction("Index");
             }
             catch (Exception ex)
             {
 
                 TempData["Erro"] = "Ops! " + ex.Message;
             }
-            
+
 
             ViewBag.pessoaId = new SelectList(pessoaBO.Selecionar(), "pessoaId", "cpf", agendamento.pessoaId);
             //ViewBag.usuarioId = new SelectList(db.User, "usuarioId", "login", agendamento.usuarioId);
@@ -87,10 +88,10 @@ namespace SISPTD.Controllers
             return View(agendamento);
         }
 
-       
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Agendamento agendamento)
+        public ActionResult Edit([Bind(Include = "pessoaId,observacoes,usuarioId,dt_Agendamento,dt_Marcacao,clinicaId,agendamentoId")]Agendamento agendamento)
         {
             if (ModelState.IsValid)
             {
@@ -126,6 +127,6 @@ namespace SISPTD.Controllers
             agendamentoBO.Excluir(agendamento);
             return RedirectToAction("Index");
         }
-    
+
     }
 }

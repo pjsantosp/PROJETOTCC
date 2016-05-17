@@ -211,6 +211,14 @@
     <Compile Include="Migrations\201605152231181_Alt tam camp tel tbClinica.Designer.cs">
       <DependentUpon>201605152231181_Alt tam camp tel tbClinica.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201605161358169_Alt obrigatoriedade da senha.cs" />
+    <Compile Include="Migrations\201605161358169_Alt obrigatoriedade da senha.Designer.cs">
+      <DependentUpon>201605161358169_Alt obrigatoriedade da senha.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605162028053_Removido date null do agendamento.cs" />
+    <Compile Include="Migrations\201605162028053_Removido date null do agendamento.Designer.cs">
+      <DependentUpon>201605162028053_Removido date null do agendamento.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Agendamento.cs" />
@@ -376,7 +384,6 @@
     <Content Include="Views\Pericia\Details.cshtml" />
     <Content Include="Views\Pericia\Edit.cshtml" />
     <Content Include="Views\Pericia\Index.cshtml" />
-    <Content Include="Views\Pessoa\_Formulario.cshtml" />
     <Content Include="Views\Especialidade\Create.cshtml" />
     <Content Include="Views\Especialidade\Delete.cshtml" />
     <Content Include="Views\Especialidade\Details.cshtml" />
@@ -410,6 +417,9 @@
     <Content Include="Views\User\TrocaSenha.cshtml" />
     <Content Include="Views\Pessoa\CreateMedico.cshtml" />
     <Content Include="Views\Pessoa\CreateUsuario.cshtml" />
+    <Content Include="Views\Pericia\_Formulario.cshtml" />
+    <Content Include="Views\DistribProcesso\_Formulario.cshtml" />
+    <Content Include="Views\Pessoa\_Formulario.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -434,6 +444,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201605152231181_Alt tam camp tel tbClinica.resx">
       <DependentUpon>201605152231181_Alt tam camp tel tbClinica.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605161358169_Alt obrigatoriedade da senha.resx">
+      <DependentUpon>201605161358169_Alt obrigatoriedade da senha.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605162028053_Removido date null do agendamento.resx">
+      <DependentUpon>201605162028053_Removido date null do agendamento.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -124,7 +124,7 @@
                     }
                     else
                     {
-                        <a href="@Url.Action("Edit", "Pessoa", new { id = item.pessoaId })">@item.nome</a>
+                        <a href="@Url.Action("Edit", "Pessoa", new { id = item.pessoaId })"> @item.nome <i title="Editar" class="fa fa-pencil-square-o" aria-hidden="true"></i> </a>
                         @*@Html.ActionLink(item.nome, "Edit", "Pessoa", new { id = item.pessoaId });*@
                     }
                 </td>
