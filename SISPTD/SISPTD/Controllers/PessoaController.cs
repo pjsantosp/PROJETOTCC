@@ -60,7 +60,7 @@ namespace SISPTD.Controllers
             return View(pessoaBO.SelecionarPorId(id.Value));
         }
         //Cria Paciente Get
-        [Authorize(Roles = "Funcionario, Gerente")]
+        //[Authorize(Roles = "Funcionario, Gerente")]
         public ActionResult Create()
         {
             ViewBag.cidade = new SelectList(cidadeBO.Selecionar(), "IdCidade", "Cidade");
@@ -71,7 +71,7 @@ namespace SISPTD.Controllers
         //Cria paciente Post
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Funcionario, Gerente")]
+        //[Authorize(Roles = "Funcionario, Gerente")]
         public ActionResult Create(Pessoa pessoa)
         {
             try
