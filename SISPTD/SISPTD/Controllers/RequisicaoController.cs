@@ -104,15 +104,24 @@ namespace SISPTD.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Requisicao requisicao, int? pessoaId, List<Pessoa> pessoa)
+        public ActionResult Create(Requisicao requisicao, int? pessoaId, List<Pessoa> Pessoa)
         {
+            //List<Pessoa> acompanhante = new List<Pessoa>();
+            //foreach (var item in Pessoa)
+            //{
+            //    acompanhante.Add(pessoaBO.SelecionarPorId(item.pessoaId));
+
+            //}
+
             var usuario = usuarioBO.userLogado(User.Identity.Name);
             requisicao.usuarioId = usuario.usuarioId;
             if (ModelState.IsValid)
             {
                 requisicao.pacienteId = pessoaId.Value;
-                requisicao.PessoaAcompanhante = pessoa;
+                requisicao.PessoaAcompanhante = Pessoa;
                 requisicao.dtRequisicao = DateTime.Now;
+                //Pessoa ObjPaciente = pessoaBO.SelecionarPorId(pessoaId.Value);
+                //requisicao.Paciente = ObjPaciente;
                 requisicaoBO.Inserir(requisicao);
             }
 
@@ -170,7 +179,7 @@ namespace SISPTD.Controllers
             return View(requisicao);
         }
 
-        // POST: Requisicaos/Delete/5
+    
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(long id)

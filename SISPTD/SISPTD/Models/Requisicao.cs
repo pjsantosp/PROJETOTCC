@@ -10,7 +10,8 @@ namespace SISPTD.Models
     {
         public Requisicao()
         {
-            this.PessoaAcompanhante = new HashSet<Pessoa>();
+            //this.PessoaAcompanhante = new HashSet<Pessoa>();
+            this.PessoaAcompanhante = new List<Pessoa>(); 
 
         }
         [Key]
@@ -30,7 +31,7 @@ namespace SISPTD.Models
         public virtual Trecho Trecho { get; set; }
         public virtual Cidades CidadeOrigem { get; set; }
         public virtual Cidades CidadeDestino { get; set; }
-        public virtual ICollection<Pessoa> PessoaAcompanhante { get; set; }
+        public virtual List<Pessoa> PessoaAcompanhante { get; set; }
         public virtual Pessoa Paciente { get; set; }
         public virtual User Usuario { get; set; }
     }
