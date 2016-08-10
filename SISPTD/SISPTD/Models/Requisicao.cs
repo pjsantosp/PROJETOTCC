@@ -11,11 +11,12 @@ namespace SISPTD.Models
         public Requisicao()
         {
             //this.PessoaAcompanhante = new HashSet<Pessoa>();
-            this.PessoaAcompanhante = new List<Pessoa>(); 
+            //this.PessoaAcompanhante = new List<Pessoa>(); 
 
         }
         [Key]
         public long requisicaoId { get; set; }
+       
         public long? pacienteId { get; set; }
         public long? usuarioId { get; set; }
         public int? IdCidadesOrigem { get; set; }

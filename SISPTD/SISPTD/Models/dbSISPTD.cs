@@ -110,29 +110,26 @@ namespace SISPTD.Models
             // });
 
 
-            modelBuilder.Entity<Pessoa>()
-                .HasMany(e => e.RequisicaoComoPaciente)
-                .WithOptional(e => e.Paciente)
-                .HasForeignKey(e => e.pacienteId)
-                .WillCascadeOnDelete(false);
-              
-            //modelBuilder.Entity<Requisicao>()
-            //   .HasMany(e => e.PessoaAcompanhante)
-            //   .WithMany(e => e.RequisicaoComoAcompanhante)
-            //   .Map(e =>
-            //   {
-            //       e.MapLeftKey("requisicaoId");
-            //       e.MapRightKey("pessoaId");
-            //       e.ToTable("PessoaRequisicao");
-            //   });
+            //aqui mexi
+
+
+            modelBuilder.Entity<Requisicao>()
+               .HasMany(e => e.PessoaAcompanhante)
+               .WithMany(e => e.RequisicaoComoAcompanhante)
+               .Map(e =>
+               {
+                   e.MapLeftKey("pessoaId");
+                   e.MapRightKey("requisicaoId");
+                   e.ToTable("PessoaRequisicao");
+               });
 
             modelBuilder.Entity<Pessoa>()
                .HasMany(e => e.RequisicaoComoAcompanhante)
                .WithMany(e => e.PessoaAcompanhante)
                .Map(e =>
                {
-                   e.MapLeftKey("requisicaoId");
-                   e.MapRightKey("pessoaId");
+                   e.MapLeftKey("pessoaId");
+                   e.MapRightKey("requisicaoId");
                    e.ToTable("PessoaRequisicao");
                });
 

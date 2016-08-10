@@ -10,7 +10,7 @@ namespace SISPTD.Models
     {
         public Pessoa()
         {
-            this.RequisicaoComoAcompanhante = new HashSet<Requisicao>();
+            //this.RequisicaoComoAcompanhante = new HashSet<Requisicao>();
         }
         [Key]
         public long pessoaId { get; set; }
@@ -91,8 +91,8 @@ namespace SISPTD.Models
         public virtual Pessoa Pessoa_Pai { get; set; }
         public virtual ICollection<User> User { get; set; }
         public virtual ICollection<Especialidade> Especialidade { get; set; }
-        public virtual ICollection<Requisicao> RequisicaoComoPaciente { get; set; }
-		public virtual ICollection<Requisicao> RequisicaoComoAcompanhante { get; set; }
+        //public virtual ICollection<Requisicao> RequisicaoComoPaciente { get; set; }
+        public virtual ICollection<Requisicao> RequisicaoComoAcompanhante { get; set; }
         public virtual Endereco Endereco { get; set; }
        
     }
