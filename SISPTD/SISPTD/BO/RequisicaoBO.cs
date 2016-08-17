@@ -20,8 +20,8 @@ namespace SISPTD.BO
             {
                 IEnumerable<Requisicao> listarequisicao = _contexto.Set<Requisicao>()
                .Include(d => d.Paciente)
-               .Include(d => d.PessoaAcompanhante).ToList();
-               
+               .ToList();
+
                 return listarequisicao;
             }
             catch (Exception e)

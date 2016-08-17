@@ -175,6 +175,7 @@
     <Compile Include="BO\ICRUDGenerico.cs" />
     <Compile Include="BO\PericiaBO.cs" />
     <Compile Include="BO\PessoaBO.cs" />
+    <Compile Include="BO\PessoaRequisicaoBO.cs" />
     <Compile Include="BO\RequisicaoBO.cs" />
     <Compile Include="BO\SetorBO.cs" />
     <Compile Include="BO\UserBO.cs" />
@@ -204,8 +205,6 @@
     <Compile Include="Models\Agendamento.cs" />
     <Compile Include="Models\Cid.cs" />
     <Compile Include="Models\Cidades.cs" />
-    <Compile Include="Models\ClassificacaoPessoa.cs" />
-    <Compile Include="Models\ClassificaPessoa.cs" />
     <Compile Include="Models\Clinica.cs" />
     <Compile Include="Models\dbSISPTD.cs" />
     <Compile Include="Models\DistribProcesso.cs" />
@@ -214,6 +213,7 @@
     <Compile Include="Models\Estado.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\PessoaRequisicao.cs" />
     <Compile Include="Models\SolicitacaoPericia.cs" />
     <Compile Include="Models\Pessoa.cs" />
     <Compile Include="Models\Requisicao.cs" />

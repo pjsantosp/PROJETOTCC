@@ -20,6 +20,7 @@ namespace SISPTD.Controllers
         private UserBO usuarioBO = new UserBO(new dbSISPTD());
         private CidadeBO cidadeBO = new CidadeBO(new dbSISPTD());
         private CidBO cidBO = new CidBO(new dbSISPTD());
+        private PessoaRequisicaoBO pessoaRequisicaoBO = new PessoaRequisicaoBO(new dbSISPTD());
 
         public ActionResult Index()
         {
@@ -106,50 +107,50 @@ namespace SISPTD.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Requisicao requisicao, int? pessoaId, List<Pessoa> Pessoa)
         {
+
+
+            #region Comentario
             List<Pessoa> ListaDeAcompanhante = new List<Pessoa>();
             foreach (var acompanhante in Pessoa)
             {
                 ListaDeAcompanhante.Add(pessoaBO.SelecionarPorId(acompanhante.pessoaId));
-                //acompanhante.Agendamento = null;
-                //acompanhante.cel = null;
-                //acompanhante.cns = null;
-                //acompanhante.cpf = acompanhante.cpf;
-                //acompanhante.crm = null;
-                //acompanhante.DistribProcesso = null;
-                //acompanhante.dt_Cadastro = acompanhante.dt_Cadastro;
-                //acompanhante.dt_Emissao = acompanhante.dt_Emissao;
-                //acompanhante.dt_Nascimento = acompanhante.dt_Nascimento;
-                //acompanhante.email = acompanhante.email;
-
-
-
-                //acompanhante.idade = acompanhante.idade;
-                //acompanhante.nome = acompanhante.nome;
-                //acompanhante.nome_Mae = acompanhante.nome_Mae;
-                //acompanhante.nome_Pai = acompanhante.nome_Pai;
-                //acompanhante.orgaoemissor = null;
-                //acompanhante.PericiaMedico = null;
-                //acompanhante.PericiaPaciente = null;
-                //acompanhante.RequisicaoComoAcompanhante = null;
-                //acompanhante.User = null;
-                //acompanhante.rg = null;
-                //acompanhante.tel = acompanhante.tel;
-
-                //ListaDeAcompanhante.Add(acompanhante);
 
             }
+          
 
+
+            #endregion
 
             var usuario = usuarioBO.userLogado(User.Identity.Name);
             requisicao.usuarioId = usuario.usuarioId;
             if (ModelState.IsValid)
             {
-                requisicao.pacienteId = pessoaId.Value;
-                requisicao.PessoaAcompanhante = Pessoa;
+                requisicao.PacienteId = pessoaId.Value;
+                //requisicao.PessoaAcompanhante = ListaDeAcompanhante;
                 requisicao.dtRequisicao = DateTime.Now;
                 //Pessoa ObjPaciente = pessoaBO.SelecionarPorId(pessoaId.Value);
                 //requisicao.Paciente = ObjPaciente;
                 requisicaoBO.Inserir(requisicao);
+
+                int i = 0;
+                List<PessoaRequisicao> ListaPessoaRequisicao = new List<Models.PessoaRequisicao>();
+                foreach (var item in ListaDeAcompanhante)
+                {
+                    ListaPessoaRequisicao.Add(new PessoaRequisicao
+                    {
+                        pessoaId = item.pessoaId,
+                        requisicaoId = requisicao.requisicaoId,
+                        TipoPessoa = TipoPessoa.Acompanhante,
+
+                    });
+                    i++;
+                }
+                if (ListaPessoaRequisicao.Count > 0)
+                {
+                    pessoaRequisicaoBO.InserirLista(ListaPessoaRequisicao);
+                }
+
+
             }
 
             ViewBag.IdCidadesDestino = new SelectList(cidadeBO.Selecionar(), "IdCidade", "Cidade", requisicao.IdCidadesDestino);

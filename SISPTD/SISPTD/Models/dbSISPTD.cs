@@ -23,13 +23,14 @@ namespace SISPTD.Models
         public virtual DbSet<Requisicao> Requisicao { get; set; }
         public virtual DbSet<Setor> Setor { get; set; }
         public virtual DbSet<User> User { get; set; }
+        public virtual DbSet<PessoaRequisicao> PessoaRequisicao { get; set; }
 
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
 
-           
+
             modelBuilder.Entity<Cid>()
                 .HasMany(e => e.Pericia)
                 .WithOptional(e => e.Cid)
@@ -79,14 +80,14 @@ namespace SISPTD.Models
                 .WithRequired(e => e.Pessoa)
                 .HasForeignKey(e => e.pessoaId)
                 .WillCascadeOnDelete(false);
-           
+
             modelBuilder.Entity<Pessoa>()
                 .HasMany(e => e.PericiaPaciente)
                 .WithOptional(e => e.Paciente)
                 .HasForeignKey(e => e.pacientePessoaId)
                 .WillCascadeOnDelete(false);
 
-         
+
 
             modelBuilder.Entity<Pessoa>()
                 .HasMany(e => e.User)
@@ -99,6 +100,9 @@ namespace SISPTD.Models
                .WithOptional(e => e.Medico)
                .HasForeignKey(e => e.medicoPessoaId);
 
+
+
+
             //modelBuilder.Entity<Pessoa>()
             // .HasMany(e => e.RequisicaoComoAcompanhante)
             // .WithMany(e => e.PessoaAcompanhante)
@@ -109,31 +113,49 @@ namespace SISPTD.Models
             //     e.ToTable("PessoaRequisicao");
             // });
 
-
+            #region Cria relacionamento Pessoa - Requisicao sem Tipo
             //aqui mexi
 
 
-            modelBuilder.Entity<Requisicao>()
-               .HasMany(e => e.PessoaAcompanhante)
-               .WithMany(e => e.RequisicaoComoAcompanhante)
-               .Map(e =>
-               {
-                   e.MapLeftKey("pessoaId");
-                   e.MapRightKey("requisicaoId");
-                   e.ToTable("PessoaRequisicao");
-               });
+            //modelBuilder.Entity<Requisicao>()
+            //   .HasMany(e => e.PessoaAcompanhante)
+            //   .WithMany(e => e.RequisicaoComoAcompanhante)
+            //   .Map(e =>
+            //   {
+            //       e.MapLeftKey("pessoaId");
+            //       e.MapRightKey("requisicaoId");
+            //       e.ToTable("PessoaRequisicao");
+            //   });
+
+            //modelBuilder.Entity<Pessoa>()
+            //   .HasMany(e => e.RequisicaoComoAcompanhante)
+            //   .WithMany(e => e.PessoaAcompanhante)
+            //   .Map(e =>
+            //   {
+            //       e.MapLeftKey("pessoaId");
+            //       e.MapRightKey("requisicaoId");
+            //       e.ToTable("PessoaRequisicao");
+            //   });
+
+            #endregion
+
+            #region Cria Relacionamento Pessoa - Requisicao com Tipo
 
             modelBuilder.Entity<Pessoa>()
-               .HasMany(e => e.RequisicaoComoAcompanhante)
-               .WithMany(e => e.PessoaAcompanhante)
-               .Map(e =>
-               {
-                   e.MapLeftKey("pessoaId");
-                   e.MapRightKey("requisicaoId");
-                   e.ToTable("PessoaRequisicao");
-               });
+               .HasMany(e => e.PessoaRequisicao)
+               .WithRequired(e => e.Pessoa)
+               .HasForeignKey(e => e.pessoaId);
 
 
+
+            modelBuilder.Entity<Requisicao>()
+              .HasMany(e => e.PessoaRequisicao)
+              .WithRequired(e => e.Requisicao)
+              .HasForeignKey(e => e.requisicaoId);
+
+
+
+            #endregion
             modelBuilder.Entity<Especialidade>()
                 .HasMany(e => e.Pessoa)
                 .WithMany(e => e.Especialidade)
@@ -144,7 +166,7 @@ namespace SISPTD.Models
                        e.ToTable("PessoaEspecialidade");
                    });
 
-           
+
             modelBuilder.Entity<Setor>()
                 .HasMany(e => e.DistribProcesso)
                 .WithRequired(e => e.SetorOrigem)

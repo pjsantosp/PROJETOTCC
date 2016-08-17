@@ -154,29 +154,29 @@
                     @Html.Label("Cartão do SUS", new { @class = "control-label" })
                 </th>
             </tr>
-            @foreach (var item in Model.PessoaAcompanhante)
+            @foreach (var item in Model.PessoaRequisicao)
             {
                 <tr>
                     <td>
-                        @item.cpf
+                        @item.Pessoa.cpf
                     </td>
                     <td>
-                        @item.nome
+                        @item.Pessoa.nome
                     </td>
                     <td>
-                        @item.dt_Nascimento.ToShortDateString()
+                        @item.Pessoa.dt_Nascimento.ToShortDateString()
                     </td>
                     <td>
-                        @item.idade
+                        @item.Pessoa.idade
                     </td>
                     <td>
-                        @item.tel
+                        @item.Pessoa.tel
                     </td>
                     <td>
-                        @item.cel
+                        @item.Pessoa.cel
                     </td>
                     <td>
-                        @item.cns
+                        @item.Pessoa.cns
                     </td>
                 </tr>
             }

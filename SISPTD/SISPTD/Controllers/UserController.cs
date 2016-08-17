@@ -75,8 +75,8 @@ namespace SISPTD.Controllers
                 }
 
 
-                //ViewBag.pessoaId = new SelectList(pessoaBO.Selecionar(), "pessoaId", "nome", user.pessoaId);
-                ViewBag.roles = new SelectList(Enum.GetValues(typeof(Perfil)));
+                ViewBag.pessoaId = new SelectList(pessoaBO.Selecionar(), "pessoaId", "nome", user.pessoaId);
+                //ViewBag.roles = new SelectList(Enum.GetValues(typeof(Perfil)));
                 return View(user);
             }
             catch (Exception)

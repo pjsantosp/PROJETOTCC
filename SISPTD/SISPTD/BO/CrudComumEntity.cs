@@ -58,6 +58,11 @@ namespace SISPTD.BO
             }
             
         }
+        public virtual void InserirLista(List<TEntidade> Lista)
+        {
+            _contexto.Set<TEntidade>().AddRange(Lista);
+            _contexto.SaveChanges();
+        }
 
         public virtual void  Alterar(TEntidade entitade)
         {
