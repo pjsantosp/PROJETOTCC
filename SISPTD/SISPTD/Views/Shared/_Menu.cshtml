@@ -1,14 +1,15 @@
-﻿<div class="spaco navbar navbar-default navbar-fixed-top menu nav-menu">
+﻿<div class="navbar navbar-default menu">
     <div class="container">
         <ul class="nav  columns col-md-12">
-            <li class="@(SISPTD.Ultis.NavTabs.GetTab(ViewContext,"Pessoa")) ">
+            <li class="@(SISPTD.Ultis.NavTabs.GetTab(ViewContext,"Pessoa")) dropdown">
                 <a href="@Url.Action("Create", "Pessoa")">
                     <h2 class="text-center">
-                        <i class="  glyphicon glyphicon-book"></i>
+                        <i class="glyphicon glyphicon-book"></i>
                     </h2>
                     <span>Cad Paciente</span>
                 </a>
             </li>
+              
             <li class="@(SISPTD.Ultis.NavTabs.GetTab(ViewContext,"DistribProcesso"))">
                 <a href="@Url.Action("Index", "DistribProcesso")">
                     <h2 class="text-center">

@@ -17,12 +17,14 @@ namespace SISPTD.Controllers
         private PessoaBO pessoaBO = new PessoaBO(new dbSISPTD());
         private CidadeBO cidadeBO = new CidadeBO(new dbSISPTD());
 
-
-        public ActionResult Index(string busca = "")
+        public ActionResult Index(int? pagina, string busca = "")
         {
+            int tamanhoPagina = 10;
+            int numeroPagina = pagina ?? 1;
+
             busca = Util.RemoverMascara(busca);
 
-            return View(pessoaBO.ObterPessoa(busca));
+            return View(pessoaBO.ObterPessoa(busca, numeroPagina, tamanhoPagina ));
         }
         public ActionResult Pesquisar(string cpf)
         {
@@ -34,7 +36,7 @@ namespace SISPTD.Controllers
             }
             else
             {
-                return Json(new { Nome = pessoa.nome, Id = pessoa.pessoaId }, JsonRequestBehavior.AllowGet);
+                return Json(new { Nome = pessoa.nome, Id = pessoa.pessoaId, Cpf = pessoa.cpf }, JsonRequestBehavior.AllowGet);
             }
 
         }
@@ -64,7 +66,6 @@ namespace SISPTD.Controllers
         public ActionResult Create()
         {
             ViewBag.cidade = new SelectList(cidadeBO.Selecionar(), "IdCidade", "Cidade");
-
             return View();
         }
 
@@ -84,7 +85,6 @@ namespace SISPTD.Controllers
                     pessoaBO.CalculoIdade(pessoa);
                     pessoaBO.Inserir(pessoa);
                     TempData["Sucesso"] = "Cadastrado Realizado com Sucesso!";
-
                     pessoaBO.SelecionarPorId(pessoa.pessoaId);
                     return RedirectToAction("Edit", new { id = pessoa.pessoaId });
                 }
@@ -107,7 +107,6 @@ namespace SISPTD.Controllers
                 {
                     if (ModelState.IsValid)
                     {
-                        
                         Pessoa acompanhante = new Pessoa();
                         acompanhante.pessoaPai = pessoaPai;
                         ViewBag.pessoaId = pessoaPai;
@@ -120,11 +119,9 @@ namespace SISPTD.Controllers
                 TempData["Erro"] = "Ops! erro durante o Cadastro do Acompanhante!";
             }
 
-
             ViewBag.pessoaId = 0;
 
             return View();
-
 
         }
 

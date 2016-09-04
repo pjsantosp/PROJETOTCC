@@ -20,7 +20,6 @@ namespace SISPTD
                         "~/Scripts/jquery.validate*",
                         "~/Scripts/methods_pt.js"
                         ));
-
             
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
@@ -28,8 +27,8 @@ namespace SISPTD
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js",
-                      "~/Scripts/bootstrap-datepicker.pt-BR.min.js",
-                      "~/Scripts/bootstrap-datepicker.js"
+                      "~/Scripts/bootstrap-datepicker.min.js",
+                      "~/Scripts/bootstrap-datepicker.pt-BR.min.js"
                       
                       ));
 

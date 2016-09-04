@@ -3,6 +3,6 @@
 
 @if (User.IsInRole("Gerente"))
 {
-    <a title="Editar" class="glyphicon glyphicon-edit " href="@Url.Action("Edit", "Pessoa", new { id = Model.pessoaId })"></a>
+    <a  class="glyphicon glyphicon-edit " data-toggle="tooltip" data-placement="top" title="Editar" href="@Url.Action("Edit", "Pessoa", new { id = Model.pessoaId })"></a>
     @*<a title="Delete"  class="glyphicon glyphicon-remove" href="@Url.Action("Delete", "Pessoa" ,new { id = Model.pessoaId })"></a>*@
 }

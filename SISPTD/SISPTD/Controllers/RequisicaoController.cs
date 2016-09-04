@@ -10,6 +10,7 @@ using SISPTD.Models;
 using SISPTD.BO;
 using Rotativa;
 using Rotativa.Options;
+using PagedList;
 
 namespace SISPTD.Controllers
 {
@@ -22,15 +23,19 @@ namespace SISPTD.Controllers
         private CidBO cidBO = new CidBO(new dbSISPTD());
         private PessoaRequisicaoBO pessoaRequisicaoBO = new PessoaRequisicaoBO(new dbSISPTD());
 
-        public ActionResult Index()
+        public ActionResult Index(int? pagina)
         {
-            return View(requisicaoBO.ObterRequisicao());
+            int tamanhoPagina = 10;
+            int numeroPagina = pagina ?? 1;
+
+            return View(requisicaoBO.ObterRequisicao(numeroPagina, tamanhoPagina));
         }
 
         public ActionResult AddAcompanhante(long? pacienteId, int id, List<Pessoa> Pessoa)
         {
             try
             {
+               
                 if (pacienteId != null)
                 {
                     Pessoa acompanhante = pessoaBO.SelecionarPorId(id);
@@ -38,7 +43,8 @@ namespace SISPTD.Controllers
                     if (paciente.pessoaId == acompanhante.pessoaPai)
                     {
                         Pessoa = Pessoa ?? new List<Pessoa>();
-                        if (Pessoa.Count() <= 3)
+
+                        if (Pessoa.Count() < 3)
                         {
                             Pessoa.Add(acompanhante);
                             return PartialView("_ListaPessoa", Pessoa);
@@ -87,7 +93,7 @@ namespace SISPTD.Controllers
             {
                 return HttpNotFound();
             }
-            var pdf = new ViewAsPdf { Model = requisicao,PageOrientation=Orientation.Landscape };
+            var pdf = new ViewAsPdf { Model = requisicao, PageOrientation = Orientation.Landscape };
             return pdf;
 
 
@@ -108,55 +114,54 @@ namespace SISPTD.Controllers
         public ActionResult Create(Requisicao requisicao, int? pessoaId, List<Pessoa> Pessoa)
         {
 
-
-            #region Comentario
-            List<Pessoa> ListaDeAcompanhante = new List<Pessoa>();
-            foreach (var acompanhante in Pessoa)
+            try
             {
-                ListaDeAcompanhante.Add(pessoaBO.SelecionarPorId(acompanhante.pessoaId));
-
-            }
-          
-
-
-            #endregion
-
-            var usuario = usuarioBO.userLogado(User.Identity.Name);
-            requisicao.usuarioId = usuario.usuarioId;
-            if (ModelState.IsValid)
-            {
-                requisicao.PacienteId = pessoaId.Value;
-                //requisicao.PessoaAcompanhante = ListaDeAcompanhante;
-                requisicao.dtRequisicao = DateTime.Now;
-                //Pessoa ObjPaciente = pessoaBO.SelecionarPorId(pessoaId.Value);
-                //requisicao.Paciente = ObjPaciente;
-                requisicaoBO.Inserir(requisicao);
-
-                int i = 0;
-                List<PessoaRequisicao> ListaPessoaRequisicao = new List<Models.PessoaRequisicao>();
-                foreach (var item in ListaDeAcompanhante)
+                List<Pessoa> ListaDeAcompanhante = new List<Pessoa>();
+                if (Pessoa != null && Pessoa.Any())
                 {
-                    ListaPessoaRequisicao.Add(new PessoaRequisicao
+                    foreach (var acompanhante in Pessoa)
                     {
-                        pessoaId = item.pessoaId,
-                        requisicaoId = requisicao.requisicaoId,
-                        TipoPessoa = TipoPessoa.Acompanhante,
-
-                    });
-                    i++;
+                        ListaDeAcompanhante.Add(pessoaBO.SelecionarPorId(acompanhante.pessoaId));
+                    }
                 }
-                if (ListaPessoaRequisicao.Count > 0)
+
+                var usuario = usuarioBO.userLogado(User.Identity.Name);
+                requisicao.usuarioId = usuario.usuarioId;
+                if (ModelState.IsValid)
                 {
-                    pessoaRequisicaoBO.InserirLista(ListaPessoaRequisicao);
+                    requisicao.PacienteId = pessoaId.Value;
+                    requisicao.dtRequisicao = DateTime.Now;
+                    requisicaoBO.Inserir(requisicao);
+
+                    int i = 0;
+                    List<PessoaRequisicao> ListaPessoaRequisicao = new List<Models.PessoaRequisicao>();
+                    foreach (var item in ListaDeAcompanhante)
+                    {
+                        ListaPessoaRequisicao.Add(new PessoaRequisicao
+                        {
+                            pessoaId = item.pessoaId,
+                            requisicaoId = requisicao.requisicaoId,
+                            TipoPessoa = TipoPessoa.Acompanhante,
+                        });
+                        i++;
+                    }
+                    if (ListaPessoaRequisicao.Count > 0)
+                    {
+                        pessoaRequisicaoBO.InserirLista(ListaPessoaRequisicao);
+                    }
                 }
+                return RedirectToAction("Index");
+            }
+            catch (Exception)
+            {
 
-
+                throw;
             }
 
             ViewBag.IdCidadesDestino = new SelectList(cidadeBO.Selecionar(), "IdCidade", "Cidade", requisicao.IdCidadesDestino);
             ViewBag.IdCidadesOrigem = new SelectList(cidadeBO.Selecionar(), "IdCidade", "Cidade", requisicao.IdCidadesOrigem);
             ViewBag.usuarioId = new SelectList(usuarioBO.Selecionar(), "usuarioId", "login", requisicao.usuarioId);
-            return RedirectToAction("Index");
+            return View(requisicao);
         }
         #region Editar
         // GET: Requisicaos/Edit/5
@@ -207,7 +212,7 @@ namespace SISPTD.Controllers
             return View(requisicao);
         }
 
-    
+
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(long id)

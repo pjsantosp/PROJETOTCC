@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using SISPTD.Models;
+using PagedList;
 
 namespace SISPTD.BO
 {
@@ -14,7 +15,7 @@ namespace SISPTD.BO
         {
         }
 
-        public IEnumerable<Requisicao> ObterRequisicao()
+        public IEnumerable<Requisicao> ObterRequisicao(int? pagina, int numPagina)
         {
             try
             {
@@ -22,7 +23,7 @@ namespace SISPTD.BO
                .Include(d => d.Paciente)
                .ToList();
 
-                return listarequisicao;
+                return listarequisicao.OrderByDescending(s=>s.dtRequisicao).ToPagedList(pagina.Value, numPagina);
             }
             catch (Exception e)
             {

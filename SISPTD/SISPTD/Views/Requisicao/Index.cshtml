@@ -1,4 +1,5 @@
-﻿@model IEnumerable<SISPTD.Models.Requisicao>
+﻿@model PagedList.IPagedList<SISPTD.Models.Requisicao>
+    @using PagedList.Mvc
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -8,66 +9,71 @@
     <p>
         @Html.ActionLink("Nova Requisição", "Create", null, new {@class="btn btn-primary" })
     </p>
-    <table class="table">
-        <tr>
-         
-            <th>
-                @Html.DisplayName("Origem")
-            </th>
-            <th>
-                @Html.DisplayName("Destino")
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Paciente.nome)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.dtRequisicao)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.observacoes)
-            </th>
-            <th>
-                @Html.DisplayName("Via")
-            </th>
-            <th>
-                @Html.DisplayName("Trecho")
-            </th>
-            <th></th>
-        </tr>
-    
-    @foreach (var item in Model) {
-        <tr>
-          
-            <td>
-                @Html.DisplayFor(modelItem => item.CidadeDestino.Cidade)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CidadeOrigem.Cidade)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Paciente.nome)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.dtRequisicao)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.observacoes)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Via)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Trecho)
-            </td>
-            <td>
-                @*@Html.ActionLink("Edit", "Edit", new { id=item.requisicaoId }) |
-                @Html.ActionLink("Details", "Details", new { id = item.requisicaoId }) |
-                @Html.ActionLink("Delete", "Delete", new { id=item.requisicaoId })*@
-                <a title="Imprimir" class="btn btn-primary" href="@Url.Action("Details", "Requisicao", new { id=item.requisicaoId })"> <i class="fa fa-print" aria-hidden="true"></i> </a>
-            </td>
-        </tr>
-    
-    }
-    
+    <table class="table" id="myTable">
+        <thead>
+            <tr>
+
+                <th>
+                    @Html.DisplayName("Origem")
+                </th>
+                <th>
+                    @Html.DisplayName("Destino")
+                </th>
+                <th>
+                    @Html.DisplayName("Paciente")
+                </th>
+                <th>
+                    @Html.DisplayName("Data da Requisição")
+                </th>
+                <th>
+                    @Html.DisplayName("Observações")
+                </th>
+                <th>
+                    @Html.DisplayName("Via")
+                </th>
+                <th>
+                    @Html.DisplayName("Trecho")
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CidadeDestino.Cidade)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CidadeOrigem.Cidade)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Paciente.nome)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.dtRequisicao)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.observacoes)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Via)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Trecho)
+                    </td>
+                    <td>
+                        @*@Html.ActionLink("Edit", "Edit", new { id=item.requisicaoId }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.requisicaoId }) |
+                        @Html.ActionLink("Delete", "Delete", new { id=item.requisicaoId })*@
+                        <a title="Imprimir" class="btn btn-primary" href="@Url.Action("Details", "Requisicao", new { id=item.requisicaoId })" target="_blank"> <i class="fa fa-print" aria-hidden="true"></i> </a>
+                    </td>
+                </tr>
+
+            }
+        </tbody>
     </table>
 
+Pagina @Model.PageNumber de @Model.PageCount
+@Html.PagedListPager(Model, pagina => Url.Action("Index", new { pagina }))

@@ -26,17 +26,30 @@ null,
 
 
 
-    
+
 
 $(document).ready(function () {
 
 
     //Adicionar acompanhantes------------
     $('#procurarAcompanhentes').click(function () {
+
+
+        debugger
+        var cpfAcomp = $('#cpfAcomp').val();
+        var acomp = $('.paciente').text();
         var cpf = $('#buscar').val();
         var cpfPaciente = $('#buscarPaciente').val();
+
+
         if (cpf == cpfPaciente) {
             $('.paciente').text("CPF do Acompnhante não pode ser o mesmo do paciente!")
+
+        }
+
+        else if (acomp == cpfAcomp) {
+            $('.paciente').text("Ops! Já consta esse Acompnhante na equisição!")
+
         }
         else {
             $.ajax({
@@ -44,19 +57,28 @@ $(document).ready(function () {
                 url: "/Pessoa/Pesquisar/?cpf=" + cpf,
 
                 success: function (data) {
+                    $('#cpfAcomp').val(data.Nome);
                     $('.paciente').text(data.Nome);
                     $('#pessoaId').val(data.Id);
                     $('#AddItens').data('id', data.Id);
                     $('#idPai').data('id', data.Id);
+
                 },
+
                 error: function (data) {
                     alert("Algo está errado!");
                 }
+
             });
+
+
         }
 
 
+
     });
+
+
     //Adicionar acompanhantes--------------
 
 
@@ -114,7 +136,7 @@ $(document).ready(function () {
                     var btCriaPessoa = $('#btnCriaPessoa');
                     btCriaPessoa.show();
                     $('<a href="/Pessoa/CreateUsuario/" title="Cadastra Pessoa">Cadastra Funcionario</a>').appendTo('#btnCriaPessoa');
-                    
+
                 }
             },
             error: function (data) {
@@ -144,7 +166,7 @@ $(document).ready(function () {
                     btCriaMedico.show();
                     $('<a href="/Pessoa/CreateMedico/" title="Cadastra Novo Medico" >Cadastrar Medico</a>').appendTo('#btCriaMedico');
                 }
-               
+
 
 
                 //top._pessoaId = data.Id;
@@ -177,22 +199,42 @@ $(document).ready(function () {
 });
 
 function AddPessoaLista() {
+    debugger
     var url = $('#AddItens').data("url").trim();
     var id = $('#AddItens').data("id");
     var pacienteId = top._pessoaId;
     var Url = url + "?id=" + id + "&pacienteId=" + pacienteId;
+    var removeAcompanhante = $('#removeAcompanhante').val();
     var form = $('form').serialize();
     $.post(Url, $('form').serialize(),
 
         function (data) {
-            console.log(data)
+            if (data.id == removeAcompanhante) {
+                $('.paciente').text("Ops! Já consta esse Acompnhante na equisição!")
+            }
+
             $("#divItens").html(data);
+
+
         });
+
+}
+
+//$('#myModal').on('show.bs.modal', function (e) {
+//    var $botaoQueAbriu = $(e.relatedTarget);
+//    $('#nome_pessoa').text("");
+//    $('.procurarPessoa').empty();
+//});
+function Limpar() {
+    debugger
+    $('#btnLimpar').click(function () {
+        $('#nome_pessoa').text("");
+        $('#procurarAcompanhentes').attr('value', '');
+    });
 }
 function RemoveAcompanhanteLista() {
     var url = $('#RemoveItens').data("url").trim();
     var id = $('#RemoveItens').data("id");
-    //var idPai = top._pessoaId;
     var Url = url + "?id=" + id;
     var form = $('form').serialize();
     $.post(Url, $('form').serialize(),
@@ -202,19 +244,18 @@ function RemoveAcompanhanteLista() {
         });
 }
 
-$(function () {
-    $(".date").datepicker({
-        language: "pt-BR",
-        format: "dd/mm/yyyy",
-        clearBtn: true,
-        orientation: "bottom auto",
-        calendarWeeks: true,
-        toggleActive: true,
-        autoclose: true
 
-    });
-    //$("#calendario").datepicker();
+$(".date").datepicker({
+    language: "pt-BR",
+    format: "dd/mm/yyyy",
+    clearBtn: true,
+    orientation: "bottom auto",
+    calendarWeeks: true,
+    toggleActive: true,
+    autoclose: true
 });
+//$("#calendario").datepicker();
+
 $(function () {
     $("#dt_Nascimento").datepicker({
         showOn: "button",
@@ -233,9 +274,18 @@ $(function () {
 });
 
 //$('.nav > li > a[href="' + location.pathname + '"]').parent().addClass('active').siblings().removeClass('active');
-
-
-
+// time do alert 
+$(function () {
+    if ($(".alert").length) {
+        window.setTimeout(function () {
+            $(".alert").fadeOut();
+        }, 2000);
+    };
+});
+//Abrir em nova Janela
+//$(function novaJanela (URL){
+//    window.open(URL,"janela1","width=800,height=600,directories=no,location=no,menubar=no,scrollbars=no,status=no,toolbar=no,resizable=no")
+//    })
 
 
 

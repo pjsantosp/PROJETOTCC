@@ -93,3 +93,13 @@ body, html {
         page-break-after: always;
     }
 }
+
+.navbar-nav > .dropdown > .dropdown-toggle:hover,
+.navbar-nav > .dropdown > .dropdown-toggle:focus{
+    background-color:initial;
+    color:#f7f7f7
+}
+
+.text-branco{
+    color:#f7f7f7
+}

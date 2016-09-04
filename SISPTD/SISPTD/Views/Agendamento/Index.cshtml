@@ -3,19 +3,21 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<!DOCTYPE html>
+    <h3>
+        Agendamento <a class="btn btn-primary" role="button" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+            Novo
+        </a>
+        <div class="pull-right">
+            <input type="type" name="name" class="form-control  col-md-3" value="" placeholder="Busca por nome ou cpf" />
+        </div>
+    </h3>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Index-Agendamento</title>
-</head>
-<body>
-   <h3>Agendamento</h3>
-    <p>
-        @Html.ActionLink("Novo Agendamento", "Create", null, new  {@class="btn btn-primary" })
-    </p>
-    <table class="table">
+    <div class="collapse" id="collapseExample">
+
+        @Html.Partial("_Formulario", new SISPTD.Models.Agendamento() { dt_Agendamento = DateTime.Now })
+
+    </div>
+    <table class="table table-striped">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Pessoa.cpf)
@@ -31,29 +33,29 @@
             </th>
             <th></th>
         </tr>
-    
-    @foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Pessoa.cpf)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.User.login)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.dt_Agendamento)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.dt_Marcacao)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id=item.agendamentoId }) |
-                @Html.ActionLink("Details", "Details", new { id=item.agendamentoId }) |
-                @Html.ActionLink("Delete", "Delete", new { id=item.agendamentoId })
-            </td>
-        </tr>
-    }
-    
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Pessoa.cpf)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.User.login)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.dt_Agendamento)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.dt_Marcacao)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.agendamentoId }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.agendamentoId }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.agendamentoId })
+                </td>
+            </tr>
+        }
+
     </table>
-</body>
-</html>
+

@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using SISPTD.Models;
 using System.Data.Entity;
+using PagedList.Mvc;
+using PagedList;
 
 namespace SISPTD.BO
 {
@@ -24,14 +26,14 @@ namespace SISPTD.BO
             //    throw new Exception("É Necessário Acompanhante Para o Paciente!");
             base.Inserir(entidade);
         }
-        public IEnumerable<Pessoa> ObterPessoa(string busca)
+        public IEnumerable<Pessoa> ObterPessoa(string busca, int? pagina, int tamanhoPagina)
         {
             try
             {
                 IEnumerable<Pessoa> listapessoa = _contexto.Set<Pessoa>()
                .Include(d => d.DistribProcesso)
                .Where(x => x.cpf.Contains(busca)).Where(x=> x.tipo==0);
-                return listapessoa;
+                return listapessoa.OrderBy(p=> p.dt_Cadastro).ToPagedList(pagina.Value, tamanhoPagina);
             }
             catch (Exception e)
             {

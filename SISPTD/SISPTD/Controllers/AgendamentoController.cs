@@ -19,6 +19,7 @@ namespace SISPTD.Controllers
 
         public ActionResult Index()
         {
+            ViewBag.pessoaId = new SelectList(pessoaBO.Selecionar().Where(p => p.tipo == 0), "pessoaId", "cpf");
             return View(agendamentoBO.Selecionar());
         }
 
