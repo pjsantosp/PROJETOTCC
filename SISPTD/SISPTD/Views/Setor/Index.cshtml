@@ -1,38 +1,72 @@
-﻿@model IEnumerable<SISPTD.Models.Setor>
-
+﻿@model PagedList.IPagedList<SISPTD.Models.Setor>
+    @using PagedList.Mvc
 @{
     ViewBag.Title = "Cadastro de Setor";
 }
-
 <h3><i class="glyphicon glyphicon-th-large"></i> Cadastro de Setor</h3>
 <div class="row">
+    <div class="col-xs-6">
+        <div>
+            @Html.Partial("_Formulario", new SISPTD.Models.Setor())
+        </div>
+    </div>
 
-    @Html.ActionLink("Cadastrar novo Setor", "Create", null, new {@class="btn btn-primary" })
+
+    <div class="col-xs-6">
+        <div class="row">
+            @*<div class="col-md-3">
+                <label> Lista de Setores </label>
+            </div>*@
+            <div class="col-md-8 col-md-offset-4">
+                <div>
+
+                    @using (Html.BeginForm(FormMethod.Get))
+            {
+
+                        <div class="input-group ">
+
+                            @Html.TextBox("busca", Request.QueryString["busca"], new { autofocus = "", @class = " form-control", placeholder = "Procure pelo nome do Setor" })
+                            <span class="input-group-btn">
+                                <button class="btn btn-primary" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                            </span>
+                        </div>
+                    }
+                    <br />
+                </div>
+
+            </div>
+        </div>
+
+
+
+        <table class="table table-condensed">
+            <tr>
+                <th>
+                    @Html.DisplayName("Descricao")
+                </th>
+                <th>
+                    @Html.DisplayName("Operação")
+                </th>
+
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.descricao)
+                    </td>
+                    <td>
+                        <a title="Editar" href="@Url.Action("Edit", "Setor", new { id = item.setorId})"><i class="fa fa-pencil fa-fw"></i></a>
+                        <a title="Delete"  href="@Url.Action("Delete", "Setor" ,new { id = item.setorId })"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+
+                    </td>
+                </tr>
+            }
+        </table>
+        <div class="pull-right">
+            <strong>Pagina @Model.PageNumber  de @Model.PageCount</strong>
+            @Html.PagedListPager(Model, pagina => Url.Action("Index", new { pagina }))
+        </div>
+    </div>
 </div>
-<br />
-<table class="table table-condensed">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.descricao)
-        </th>
-        <th>
-            @Html.DisplayName("Operação")
-        </th>
-        
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.descricao)
-        </td>
-
-        <td>
-            <a title="Editar" class="glyphicon glyphicon-edit " href="@Url.Action("Edit", "Setor", new { id = item.setorId})"></a>
-            <a title="Delete" class="glyphicon glyphicon-remove" href="@Url.Action("Delete", "Setor" ,new { id = item.setorId })"></a>
-         
-        </td>
-    </tr>
-}
-
-</table>
+                                                            

@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using SISPTD.Models;
 using SISPTD.BO;
+using PagedList;
 
 namespace SISPTD.Controllers
 {
@@ -17,10 +18,12 @@ namespace SISPTD.Controllers
         private CidadeBO cidadeBO = new CidadeBO(new dbSISPTD());
 
         // GET: Clinica
-        public ActionResult Index()
+        public ActionResult Index(int? pagina)
         {
-           
-            return View(clinicaBO.Selecionar());
+            int nPorPagina = 10;
+            int numPagina = pagina ?? 1; 
+            //ViewBag.IdCidade = new SelectList(cidadeBO.ObterCidades(), "IdCidade", "Cidade");
+            return View(clinicaBO.Selecionar().OrderBy(x=> x.nome_Clinica).ToPagedList(numPagina, nPorPagina));
         }
 
         // GET: Clinica/Details/5
@@ -40,7 +43,7 @@ namespace SISPTD.Controllers
 
         public ActionResult Create()
         {
-            ViewBag.IdCidade = new SelectList(cidadeBO.ObterCidades(), "IdCidade", "Cidade");
+           
             return View();
         }
 

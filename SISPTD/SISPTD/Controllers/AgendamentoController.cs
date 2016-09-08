@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using SISPTD.Models;
 using SISPTD.BO;
+using PagedList;
 
 namespace SISPTD.Controllers
 {
@@ -17,10 +18,12 @@ namespace SISPTD.Controllers
         private PessoaBO pessoaBO = new PessoaBO(new dbSISPTD());
         private AgendamentoBO agendamentoBO = new AgendamentoBO(new dbSISPTD());
 
-        public ActionResult Index()
+        public ActionResult Index(int? pagina)
         {
+            int nPorPagina = 10;
+            int tamPagina = pagina ?? 1;
             ViewBag.pessoaId = new SelectList(pessoaBO.Selecionar().Where(p => p.tipo == 0), "pessoaId", "cpf");
-            return View(agendamentoBO.Selecionar());
+            return View(agendamentoBO.Selecionar().OrderBy(a=> a.dt_Agendamento).ToPagedList(tamPagina, nPorPagina));
         }
 
         public ActionResult Details(long? id)

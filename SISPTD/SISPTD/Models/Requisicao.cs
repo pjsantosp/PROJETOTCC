@@ -16,7 +16,7 @@ namespace SISPTD.Models
         }
         [Key]
         public long requisicaoId { get; set; }
-        public long? PacienteId { get; set; }
+        public long pacienteId { get; set; }
         public long? usuarioId { get; set; }
         public int? IdCidadesOrigem { get; set; }
         public int IdCidadesDestino { get; set; }

@@ -189,6 +189,7 @@
     <Compile Include="BO\UserBO.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AgendamentoController.cs" />
+    <Compile Include="Controllers\CidadeController.cs" />
     <Compile Include="Controllers\CidController.cs" />
     <Compile Include="Controllers\ClinicaController.cs" />
     <Compile Include="Controllers\DistribProcessoController.cs" />
@@ -641,6 +642,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Cidade\" />
     <Folder Include="Views\Cid\" />
   </ItemGroup>
   <ItemGroup>

@@ -11,8 +11,20 @@ $('.chosen-select-deselect').chosen({
     placeholder_text_single: chosen_placeholder
 });
 
-//chosen ajax
+//chosen ajax cid
 $('#cidId').ajaxChosen({
+    type: 'GET',
+    url: $(this).data('url'),
+    jsonTermKey: "query",
+    dataType: 'json',
+},
+null,
+{
+    width: "100%",
+    placeholder_text_single: "Buscar o Serviço",
+});
+//chosen ajax busca cidade
+$('#IdCidade').ajaxChosen({
     type: 'GET',
     url: $(this).data('url'),
     jsonTermKey: "query",

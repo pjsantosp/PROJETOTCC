@@ -146,12 +146,17 @@ namespace SISPTD.Models
                .WithRequired(e => e.Pessoa)
                .HasForeignKey(e => e.pessoaId);
 
-
+            modelBuilder.Entity<Pessoa>()
+              .HasMany(e => e.RequisicaoComoPaciente)
+              .WithRequired(e => e.Paciente)
+              .HasForeignKey(e => e.pacienteId);
 
             modelBuilder.Entity<Requisicao>()
               .HasMany(e => e.PessoaRequisicao)
               .WithRequired(e => e.Requisicao)
               .HasForeignKey(e => e.requisicaoId);
+
+           
 
 
 

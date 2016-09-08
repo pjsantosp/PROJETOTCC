@@ -129,7 +129,7 @@ namespace SISPTD.Controllers
                 requisicao.usuarioId = usuario.usuarioId;
                 if (ModelState.IsValid)
                 {
-                    requisicao.PacienteId = pessoaId.Value;
+                    requisicao.pacienteId = pessoaId.Value;
                     requisicao.dtRequisicao = DateTime.Now;
                     requisicaoBO.Inserir(requisicao);
 

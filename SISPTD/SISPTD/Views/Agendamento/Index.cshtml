@@ -1,61 +1,80 @@
-﻿@model IEnumerable<SISPTD.Models.Agendamento>
+﻿@model PagedList.IPagedList<SISPTD.Models.Agendamento>
+@using PagedList.Mvc
+
 @{
+    ViewBag.Title = "Agendamento";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-    <h3>
-        Agendamento <a class="btn btn-primary" role="button" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-            Novo
-        </a>
-        <div class="pull-right">
-            <input type="type" name="name" class="form-control  col-md-3" value="" placeholder="Busca por nome ou cpf" />
-        </div>
-    </h3>
+<h3>
+    Agendamento <a class="btn btn-primary" role="button" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+        <i class="fa fa-plus" aria-hidden="true"></i>
+    </a>
+    <span class="col-md-4 pull-right">
 
-    <div class="collapse" id="collapseExample">
+        @using (Html.BeginForm(FormMethod.Get))
+            {
 
-        @Html.Partial("_Formulario", new SISPTD.Models.Agendamento() { dt_Agendamento = DateTime.Now })
-
-    </div>
-    <table class="table table-striped">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Pessoa.cpf)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.User.login)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.dt_Agendamento)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.dt_Marcacao)
-            </th>
-            <th></th>
-        </tr>
-
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Pessoa.cpf)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.User.login)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.dt_Agendamento)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.dt_Marcacao)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.agendamentoId }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.agendamentoId }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.agendamentoId })
-                </td>
-            </tr>
+            <span class="input-group ">
+               
+                @Html.TextBox("busca", Request.QueryString["busca"], new { autofocus = "", @class = " form-control", placeholder = "Procure por CPF" })
+                <span class="input-group-btn">
+                    <button class="btn btn-primary" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                </span>
+            </span>
         }
 
-    </table>
+    </span>
+</h3>
+
+<div class="collapse" id="collapseExample">
+
+    @Html.Partial("_Formulario", new SISPTD.Models.Agendamento() { dt_Agendamento = DateTime.Now })
+
+</div>
+<table class="table table-striped">
+    <tr>
+        <th>
+            @Html.DisplayName("Nome")
+        </th>
+        <th>
+            @Html.DisplayName("Usuário")
+        </th>
+        <th>
+            @Html.DisplayName("Data do Agendamento")
+        </th>
+        <th>
+            @Html.DisplayName("Marcado")
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Pessoa.nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.login)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.dt_Agendamento)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.dt_Marcacao)
+            </td>
+            <td>
+                <a href="@Url.Action("Edit", "Edit", new { id = item.agendamentoId })"> <i class="fa fa-pencil fa-fw"></i></a> |
+                <a title="Imprimir" href="@Url.Action("Details", "Details", new { id=item.agendamentoId })"> <i class="fa fa-bars fa-lg " aria-hidden="true"></i> </a> |
+                <a href="@Url.Action("Delete", "Delete", new { id = item.agendamentoId })"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+            </td>
+        </tr>
+    }
+
+</table>
+<div class="pull-right">
+    <strong>Pagina @Model.PageNumber de @Model.PageCount</strong>
+    @Html.PagedListPager(Model, pagina => Url.Action("Index", new { pagina }))
+</div>
 

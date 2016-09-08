@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using SISPTD.Models;
 using SISPTD.BO;
-
+using PagedList;
 
 namespace SISPTD.Controllers
 {
@@ -17,9 +14,11 @@ namespace SISPTD.Controllers
         private SetorBO setorBO = new SetorBO(new dbSISPTD());
 
         // GET: Setor
-        public ActionResult Index()
+        public ActionResult Index(int? pagina)
         {
-            return View(setorBO.Selecionar());
+            int nPorPagina = 5;
+            int tamPagina = pagina ?? 1;
+            return View(setorBO.Selecionar().OrderBy(s=> s.descricao).ToPagedList(tamPagina, nPorPagina ));
         }
 
         // GET: Setor/Details/5

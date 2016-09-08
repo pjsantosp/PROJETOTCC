@@ -1,79 +1,96 @@
 ﻿@model PagedList.IPagedList<SISPTD.Models.Requisicao>
-    @using PagedList.Mvc
+@using PagedList.Mvc
 
 @{
+    ViewBag.Title = "Requisição de Passagem";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<h3><i class="fa fa-plane" aria-hidden="true"></i> Gerar Requisição de Viajem</h3>
+<h3>
+    <i class="fa fa-plane" aria-hidden="true"></i> Gerar Requisição de Viajem
+    <a class="btn btn-primary" href="@Url.Action("Create","Requisicao")"><i class="fa fa-plus" aria-hidden="true"></i></a>
+    <span class="col-md-4 pull-right">
 
-    <p>
-        @Html.ActionLink("Nova Requisição", "Create", null, new {@class="btn btn-primary" })
-    </p>
-    <table class="table" id="myTable">
-        <thead>
+        @using (Html.BeginForm(FormMethod.Get))
+            {
+
+            <span class="input-group ">
+
+                @Html.TextBox("busca", Request.QueryString["busca"], new { autofocus = "", @class = " form-control", placeholder = "Procure por CPF" })
+                <span class="input-group-btn">
+                    <button class="btn btn-primary" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                </span>
+            </span>
+        }
+
+    </span>
+
+</h3>
+<table class="table table-striped">
+    <thead>
+        <tr>
+
+            <th>
+                @Html.DisplayName("Origem")
+            </th>
+            <th>
+                @Html.DisplayName("Destino")
+            </th>
+            <th>
+                @Html.DisplayName("Paciente")
+            </th>
+            <th>
+                @Html.DisplayName("Data da Requisição")
+            </th>
+            <th>
+                @Html.DisplayName("Observações")
+            </th>
+            <th>
+                @Html.DisplayName("Via")
+            </th>
+            <th>
+                @Html.DisplayName("Trecho")
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+            {
             <tr>
 
-                <th>
-                    @Html.DisplayName("Origem")
-                </th>
-                <th>
-                    @Html.DisplayName("Destino")
-                </th>
-                <th>
-                    @Html.DisplayName("Paciente")
-                </th>
-                <th>
-                    @Html.DisplayName("Data da Requisição")
-                </th>
-                <th>
-                    @Html.DisplayName("Observações")
-                </th>
-                <th>
-                    @Html.DisplayName("Via")
-                </th>
-                <th>
-                    @Html.DisplayName("Trecho")
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-
-                    <td>
-                        @Html.DisplayFor(modelItem => item.CidadeDestino.Cidade)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.CidadeOrigem.Cidade)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Paciente.nome)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.dtRequisicao)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.observacoes)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Via)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Trecho)
-                    </td>
-                    <td>
-                        @*@Html.ActionLink("Edit", "Edit", new { id=item.requisicaoId }) |
+                <td>
+                    @Html.DisplayFor(modelItem => item.CidadeDestino.Cidade)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CidadeOrigem.Cidade)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Paciente.nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.dtRequisicao)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.observacoes)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Via)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Trecho)
+                </td>
+                <td>
+                    @*@Html.ActionLink("Edit", "Edit", new { id=item.requisicaoId }) |
                         @Html.ActionLink("Details", "Details", new { id = item.requisicaoId }) |
                         @Html.ActionLink("Delete", "Delete", new { id=item.requisicaoId })*@
-                        <a title="Imprimir" class="btn btn-primary" href="@Url.Action("Details", "Requisicao", new { id=item.requisicaoId })" target="_blank"> <i class="fa fa-print" aria-hidden="true"></i> </a>
-                    </td>
-                </tr>
+                    <a title="Imprimi" href="@Url.Action("Details", "Requisicao", new { id=item.requisicaoId })" target="_blank"> <span class="fa fa-print fa-lg" ></span> </a>
+                </td>
+            </tr>
 
-            }
-        </tbody>
-    </table>
-
-Pagina @Model.PageNumber de @Model.PageCount
-@Html.PagedListPager(Model, pagina => Url.Action("Index", new { pagina }))
+        }
+    </tbody>
+</table>
+<div class="pull-right">
+    <strong>Pagina @Model.PageNumber de @Model.PageCount</strong>
+    @Html.PagedListPager(Model, pagina => Url.Action("Index", new { pagina }))
+</div>

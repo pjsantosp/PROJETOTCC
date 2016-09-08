@@ -1,24 +1,33 @@
-﻿@model IEnumerable<SISPTD.Models.Clinica>
-
+﻿@model PagedList.IPagedList<SISPTD.Models.Clinica>
+@using PagedList.Mvc
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Cad Clinica";
 }
 
-<h3> <i class="fa fa-hospital-o"></i> Cadastro de Clinicas e Hospitais</h3>
+<h3>
+    Clinica <a class="btn btn-primary" role="button" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+        Novo
+    </a>
+    <span class="pull-right">
+        <input type="text" name="name" class="form-control  col-md-3" value="" placeholder="Busca por nome ou cpf" />
+    </span>
+</h3>
 
-<p>
-    @Html.ActionLink("Cadastrar", "Create",null, new {@class="btn btn-primary" })
-</p>
+<div class="collapse" id="collapseExample">
+
+    @Html.Partial("_Formulario", new SISPTD.Models.Clinica())
+
+</div>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Cidades.Cidade)
+            @Html.DisplayName("Cidade")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.nome_Clinica)
+            @Html.DisplayName("Clinica")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.tel_Clinica)
+            @Html.DisplayName("Telefone")
         </th>
         <th>
             @Html.DisplayName("Operação")
@@ -46,3 +55,7 @@
 }
 
 </table>
+<div class="pull-right">
+    <strong>Pagina @Model.PageNumber de @Model.PageCount</strong>
+    @Html.PagedListPager(Model, pagina=> Url.Action("Index", new { pagina}))
+</div>

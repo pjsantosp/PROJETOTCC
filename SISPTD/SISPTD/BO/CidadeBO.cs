@@ -17,11 +17,11 @@ namespace SISPTD.BO
         {
             try
             {
-                return _contexto.Set<Cidades>().Where(c => c.Estado.Sigla == "RO").ToList();
+                return _contexto.Set<Cidades>().ToList();
             }
             catch (Exception e)
             {
-                
+
                 throw new Exception(" Erro durante a listagem da Cidade", e);
             }
         }

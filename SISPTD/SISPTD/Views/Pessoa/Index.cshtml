@@ -103,5 +103,7 @@
             }
         </tbody>
     </table>
-   Pagina @Model.PageNumber de @Model.PageCount
-   @Html.PagedListPager(Model, pagina=> Url.Action("Index", new { pagina}))
+<div class="pull-right">
+    <strong>  Pagina @Model.PageNumber de @Model.PageCount </strong>
+    @Html.PagedListPager(Model, pagina => Url.Action("Index", new { pagina }))
+</div>
