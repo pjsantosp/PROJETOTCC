@@ -209,6 +209,10 @@
     <Compile Include="Migrations\201608060413123_Inicial.Designer.cs">
       <DependentUpon>201608060413123_Inicial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201609120249582_Alteração pacienteId.cs" />
+    <Compile Include="Migrations\201609120249582_Alteração pacienteId.Designer.cs">
+      <DependentUpon>201609120249582_Alteração pacienteId.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Agendamento.cs" />
@@ -652,6 +656,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201608060413123_Inicial.resx">
       <DependentUpon>201608060413123_Inicial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609120249582_Alteração pacienteId.resx">
+      <DependentUpon>201609120249582_Alteração pacienteId.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

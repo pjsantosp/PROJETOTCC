@@ -341,3 +341,4 @@ D:\PROJETOTCC\SISPTD\SISPTD\bin\PagedList.dll
 D:\PROJETOTCC\SISPTD\SISPTD\bin\PagedList.Mvc.dll
 D:\PROJETOTCC\SISPTD\SISPTD\bin\PagedList.xml
 D:\PROJETOTCC\SISPTD\SISPTD\bin\PagedList.Mvc.xml
+D:\PROJETOTCC\SISPTD\SISPTD\obj\Debug\SISPTD.Migrations.AlteraçãopacienteId.resources

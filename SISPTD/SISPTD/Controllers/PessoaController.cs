@@ -19,6 +19,8 @@ namespace SISPTD.Controllers
 
         public ActionResult Index(int? pagina, string busca = "")
         {
+            ViewBag.acompanhante = pessoaBO.Selecionar().f(a => a.pessoaPai );
+
             int tamanhoPagina = 10;
             int numeroPagina = pagina ?? 1;
 

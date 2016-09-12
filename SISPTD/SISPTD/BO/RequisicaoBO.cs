@@ -19,6 +19,8 @@ namespace SISPTD.BO
         {
             try
             {
+
+
                 IEnumerable<Requisicao> listarequisicao = _contexto.Set<Requisicao>()
                .Include(d => d.Paciente)
                .ToList();

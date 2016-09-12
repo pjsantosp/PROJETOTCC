@@ -5,6 +5,7 @@
     }
     <div>
         <h3> <i class="glyphicon glyphicon-th-list "> </i> Lista de Paciente   </h3>
+       
     </div>
     <div class="row">
         <div class="col-md-4"></div>
@@ -37,9 +38,11 @@
                 <th>
                     @Html.DisplayName("Nome")
                 </th>
+              
                 <th>
                     @Html.DisplayName("Data de Nasciemnto")
                 </th>
+               
                 @*<th>
                     @Html.DisplayName("RG")
                 </th>
@@ -74,9 +77,11 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.nome)
                     </td>
+                    
                     <td>
                         @Html.DisplayFor(modelItem => item.dt_Nascimento)
                     </td>
+
                     @*<td>
                         @Html.DisplayFor(modelItem => item.rg)
                     </td>
