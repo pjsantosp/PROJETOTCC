@@ -19,7 +19,7 @@ namespace SISPTD.Controllers
 
         public ActionResult Index(int? pagina, string busca = "")
         {
-            ViewBag.acompanhante = pessoaBO.Selecionar().f(a => a.pessoaPai );
+            
 
             int tamanhoPagina = 10;
             int numeroPagina = pagina ?? 1;
@@ -172,7 +172,7 @@ namespace SISPTD.Controllers
                     pessoaBO.Inserir(usuario);
                     TempData["Sucesso"] = "Cadastro Realizado com Sucesso !";
                 }
-                return RedirectToAction("Create", "User");
+                return RedirectToAction("Index", "User");
             }
             catch (Exception e)
             {

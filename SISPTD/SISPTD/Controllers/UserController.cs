@@ -16,13 +16,13 @@ namespace SISPTD.Controllers
         private UserBO userBO = new UserBO(new dbSISPTD());
         private PessoaBO pessoaBO = new PessoaBO(new dbSISPTD());
 
-        // GET: User
-        public ActionResult Index()
+        public ActionResult Index(int? pagina)
         {
-            return View(userBO.Selecionar());
+            int tamanhoPagina = 10;
+            int numeroPagina = pagina ?? 1;
+            return View(userBO.ObterUsuario(numeroPagina, tamanhoPagina));
         }
 
-        // GET: User/Details/5
         public ActionResult Details(long? id)
         {
             if (id == null)
@@ -47,12 +47,18 @@ namespace SISPTD.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(User user)
         {
-            if (!Ultis.Util.ValidarCPF(user.login))
+            if (string.IsNullOrEmpty(user.login))
             {
-                TempData["Erro"] = "O CPF informado não é valido!";
+                TempData["Erro"] = "O Campo Login ou Senha é nulo ou vazio!";
+                return RedirectToAction("Index");
             }
             try
             {
+                if (!Ultis.Util.ValidarCPF(user.login))
+                {
+                    TempData["Erro"] = "O CPF informado não é valido!";
+                    return RedirectToAction("Index");
+                }
                 user.login = Ultis.Util.RemoverMascara(user.login);
                 user.senha = user.login;
 

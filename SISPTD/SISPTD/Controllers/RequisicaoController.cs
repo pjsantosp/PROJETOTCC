@@ -22,6 +22,7 @@ namespace SISPTD.Controllers
         private CidadeBO cidadeBO = new CidadeBO(new dbSISPTD());
         private CidBO cidBO = new CidBO(new dbSISPTD());
         private PessoaRequisicaoBO pessoaRequisicaoBO = new PessoaRequisicaoBO(new dbSISPTD());
+        private EstadoBO ufBO = new EstadoBO(new dbSISPTD());
 
         public ActionResult Index(int? pagina)
         {
@@ -82,7 +83,7 @@ namespace SISPTD.Controllers
             return PartialView("_ListaPessoa", Pessoa);
         }
 
-        public ActionResult Details(long? id)
+        public ActionResult Print(long? id)
         {
             if (id == null)
             {
@@ -93,8 +94,8 @@ namespace SISPTD.Controllers
             {
                 return HttpNotFound();
             }
-            var pdf = new ViewAsPdf { Model = requisicao, PageOrientation = Orientation.Landscape };
-            return pdf;
+            //var pdf = new ViewAsPdf { Model = requisicao, PageOrientation = Orientation.Landscape };
+            return View(requisicao);
 
 
         }
@@ -102,6 +103,8 @@ namespace SISPTD.Controllers
 
         public ActionResult Create()
         {
+            
+            ViewBag.Estado = new SelectList(ufBO.Selecionar(), "IdEstado", "Sigla");
             ViewBag.IdCidadesDestino = new SelectList(cidadeBO.Selecionar(), "IdCidade", "Cidade");
             ViewBag.IdCidadesOrigem = new SelectList(cidadeBO.Selecionar(), "IdCidade", "Cidade");
             ViewBag.usuarioId = new SelectList(usuarioBO.Selecionar(), "usuarioId", "login");
@@ -116,6 +119,12 @@ namespace SISPTD.Controllers
 
             try
             {
+                if ( pessoaId == null || pessoaId == 0 )
+                {
+                    TempData["Erro"] = "Preencha as informações do paciente !";
+                    return RedirectToAction("Create");
+                }
+                
                 List<Pessoa> ListaDeAcompanhante = new List<Pessoa>();
                 if (Pessoa != null && Pessoa.Any())
                 {
@@ -129,6 +138,11 @@ namespace SISPTD.Controllers
                 requisicao.usuarioId = usuario.usuarioId;
                 if (ModelState.IsValid)
                 {
+                    if (requisicao.CidadeDestino != null || requisicao.CidadeDestino == requisicao.CidadeOrigem )
+                    {
+                        TempData["Erro"] = "Cidade Destino não pode ser Nula ou Igual a cidade de Origem";
+                        return RedirectToAction("Create");
+                    }
                     requisicao.pacienteId = pessoaId.Value;
                     requisicao.dtRequisicao = DateTime.Now;
                     requisicaoBO.Inserir(requisicao);
@@ -220,7 +234,9 @@ namespace SISPTD.Controllers
             requisicaoBO.ExcluirPorId(id);
             return RedirectToAction("Index");
         }
+       
 
+        
 
     }
 }

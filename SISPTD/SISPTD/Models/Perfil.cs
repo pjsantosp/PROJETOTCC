@@ -10,5 +10,6 @@ namespace SISPTD.Models
         Gerente = 0,
         Funcionario = 1,
         Medico = 2,
+        Administrador = 3
     }
 }

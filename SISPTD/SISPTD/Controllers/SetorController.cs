@@ -13,7 +13,6 @@ namespace SISPTD.Controllers
     {
         private SetorBO setorBO = new SetorBO(new dbSISPTD());
 
-        // GET: Setor
         public ActionResult Index(int? pagina)
         {
             int nPorPagina = 5;
@@ -21,14 +20,13 @@ namespace SISPTD.Controllers
             return View(setorBO.Selecionar().OrderBy(s=> s.descricao).ToPagedList(tamPagina, nPorPagina ));
         }
 
-        // GET: Setor/Details/5
+ 
         public ActionResult Details(long? id)
         {
 
             return View(setorBO.SelecionarPorId(id.Value));
         }
 
-        // GET: Setor/Create
         public ActionResult Create()
         {
             return View();

@@ -6,6 +6,7 @@ using SISPTD.Models;
 using System.Security.Cryptography;
 using System.Text;
 using System.IO;
+using PagedList;
 
 namespace SISPTD.BO
 {
@@ -72,6 +73,23 @@ namespace SISPTD.BO
 
                 throw;
             }
+        }
+        public IEnumerable<User> ObterUsuario(int? pagina, int numPagina)
+        {
+            try
+            {
+
+
+                IEnumerable<User> listarequisicao = _contexto.Set<User>().ToList();
+
+                return listarequisicao.OrderByDescending(s => s.Pessoa.dt_Cadastro).ToPagedList(pagina.Value, numPagina);
+            }
+            catch (Exception e)
+            {
+
+                throw new Exception("Erro na busca na lista de Usuários", e);
+            }
+
         }
 
     }

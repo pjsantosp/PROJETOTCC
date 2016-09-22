@@ -42,12 +42,12 @@ null,
 
 $(document).ready(function () {
 
-
+    
     //Adicionar acompanhantes------------
     $('#procurarAcompanhentes').click(function () {
 
 
-        debugger
+        
         var cpfAcomp = $('#cpfAcomp').val();
         var acomp = $('.paciente').text();
         var cpf = $('#buscar').val();
@@ -147,7 +147,7 @@ $(document).ready(function () {
                 else {
                     var btCriaPessoa = $('#btnCriaPessoa');
                     btCriaPessoa.show();
-                    $('<a href="/Pessoa/CreateUsuario/" title="Cadastra Pessoa">Cadastra Funcionario</a>').appendTo('#btnCriaPessoa');
+                    $('<a href="/Pessoa/CreateUsuario/" title="Cadastra Pessoa" class="btn btn-primary">Cadastra Funcionario</a>').appendTo('#btnCriaPessoa');
 
                 }
             },
@@ -291,7 +291,7 @@ $(function () {
     if ($(".alert").length) {
         window.setTimeout(function () {
             $(".alert").fadeOut();
-        }, 2000);
+        }, 5000);
     };
 });
 //Abrir em nova Janela

@@ -16,6 +16,7 @@ namespace SISPTD.Models
         }
         [Key]
         public long requisicaoId { get; set; }
+        [Required(ErrorMessage =" O Campo Paciente é obrigatório!")]
         public long pacienteId { get; set; }
         public long? usuarioId { get; set; }
         public int? IdCidadesOrigem { get; set; }

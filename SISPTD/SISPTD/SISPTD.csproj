@@ -408,12 +408,15 @@
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\PagedList.css" />
+    <Content Include="Content\Relatorio.css" />
+    <Content Include="Content\RelatorioPrint.css" />
     <Content Include="Content\sisptd.css" />
-    <Content Include="favicon1.ico" />
+    <Content Include="Imagens\favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Imagens\BrasaoRondoniaGrande.png" />
     <Content Include="Imagens\logo.png" />
     <Content Include="Rotativa\wkhtmltopdf.exe" />
     <Content Include="Scripts\bootstrap-datepicker.js" />
@@ -597,7 +600,6 @@
     <Content Include="Views\DistribProcesso\Create.cshtml" />
     <Content Include="Views\DistribProcesso\Delete.cshtml" />
     <Content Include="Views\DistribProcesso\Details.cshtml" />
-    <Content Include="Views\DistribProcesso\Edit.cshtml" />
     <Content Include="Views\DistribProcesso\Index.cshtml" />
     <Content Include="Views\Shared\_ErrosSystem.cshtml" />
     <Content Include="Views\Shared\_Menu2.cshtml" />
@@ -624,7 +626,7 @@
     <Content Include="Views\Itens\ListarItens.cshtml" />
     <Content Include="Views\Requisicao\Create.cshtml" />
     <Content Include="Views\Requisicao\Delete.cshtml" />
-    <Content Include="Views\Requisicao\Details.cshtml" />
+    <Content Include="Views\Requisicao\Print.cshtml" />
     <Content Include="Views\Requisicao\Edit.cshtml" />
     <Content Include="Views\Requisicao\Index.cshtml" />
     <Content Include="Views\Agendamento\Create.cshtml" />
@@ -643,6 +645,9 @@
     <Content Include="Views\Pericia\_Formulario.cshtml" />
     <Content Include="Views\DistribProcesso\_Formulario.cshtml" />
     <Content Include="Views\Pessoa\_Formulario.cshtml" />
+    <Content Include="Views\DistribProcesso\Edit.cshtml" />
+    <Content Include="Views\Shared\_LayoutPrint.cshtml" />
+    <Content Include="Views\User\_Formulario.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

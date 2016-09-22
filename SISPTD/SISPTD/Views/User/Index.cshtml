@@ -1,54 +1,72 @@
-﻿@model IEnumerable<SISPTD.Models.User>
+﻿@model PagedList.IPagedList<SISPTD.Models.User>
+       @using PagedList.Mvc;
 @{
     ViewBag.Title = "Index";
 }
-<h3>
-    <i class="fa fa-user-plus" aria-hidden="true"></i> Usuários do Sistema 
-   
-    <div class="col-md-4 col-md-offset-4 pull-right">
-        @using (Html.BeginForm())
-    {
-            <div class="input-group">
-                <div class="input-group-btn">
-                    <a href="@Url.Action("Create")" class="btn btn-success"><i class="glyphicon glyphicon-plus"></i> Novo</a>
-                </div>
-                @Html.TextBox("user", Request.QueryString["user"], new { autofocus = "", @class = "cpf form-control", placeholder = "Procure por CPF" })
-                <span class="input-group-btn">
-                    <button class="btn btn-primary" type="submit"><i class="glyphicon glyphicon-search"></i></button>
-                </span>
-            </div>
-    }
+<h3><i class="fa fa-user"></i> Cadastro de Usuário</h3>
+<div class="row">
+    <div class="col-xs-6">
+        <div>
+            @Html.Partial("_Formulario", new SISPTD.Models.User())
+        </div>
     </div>
-</h3>
-<br />
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Pessoa.nome)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.login)
-        </th>
-    </tr>
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Pessoa.nome)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.login)
-            </td>
-            @*<td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.usuarioId }) |
-                @Html.ActionLink("Details", "Details", new { id = item.usuarioId }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.usuarioId })
-            </td>*@
-            <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.usuarioId }) |
-            @*@Html.ActionLink("Details", "Details", new { id = item.usuarioId }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.usuarioId })*@
-        </td>
-        </tr>
-    }
-</table>
+
+
+    <div class="col-xs-6">
+        <div class="row">
+         
+            <div class="col-md-8 col-md-offset-4">
+                <div>
+
+                    @using (Html.BeginForm(FormMethod.Get))
+            {
+
+                        <div class="input-group ">
+
+                            @Html.TextBox("busca", Request.QueryString["busca"], new { autofocus = "", @class = " form-control", placeholder = "Procure pelo nome" })
+                            <span class="input-group-btn">
+                                <button class="btn btn-primary" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                            </span>
+                        </div>
+                    }
+                    <br />
+                </div>
+
+            </div>
+        </div>
+
+
+
+        <table class="table table-condensed">
+            <tr>
+                <th>
+                    @Html.DisplayName("Nome")
+                </th>
+                <th>
+                    @Html.DisplayName("Login")
+                </th>
+
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Pessoa.nome)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.login)
+                    </td>
+                    <td>
+                        <a title="Editar" href="@Url.Action("Edit", "User", new { id = item.usuarioId})"><i class="fa fa-pencil fa-fw"></i></a>
+                        @*<a title="Delete" href="@Url.Action("Delete", "Setor" ,new { id = item.setorId })"><i class="fa fa-trash-o" aria-hidden="true"></i></a>*@
+
+                    </td>
+                </tr>
+            }
+        </table>
+        <div class="pull-right">
+            <strong>Pagina @Model.PageNumber  de @Model.PageCount</strong>
+            @Html.PagedListPager(Model, pagina => Url.Action("Index", new { pagina }))
+        </div>
+    </div>
+</div>

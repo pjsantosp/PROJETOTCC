@@ -40,6 +40,11 @@ namespace SISPTD
                       "~/Content/bootstrap-chosen.css",
                       "~/Content/bootstrap-chosen.lesss"
                       ));
+            bundles.Add(new StyleBundle("~/Content/relatorio").Include(
+             "~/Content/bootstrap.css",
+             "~/Content/fontawesome/font-awesome.css",
+             "~/Content/Relatorio.css"
+         ));
         }
     }
 }

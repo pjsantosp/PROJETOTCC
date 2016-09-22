@@ -7,7 +7,7 @@
 }
 
 <h3>
-    Agendamento <a class="btn btn-primary" role="button" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+    Agendamento <a class="btn btn-success" role="button" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
         <i class="fa fa-plus" aria-hidden="true"></i>
     </a>
     <span class="col-md-4 pull-right">
@@ -66,7 +66,7 @@
             </td>
             <td>
                 <a href="@Url.Action("Edit", "Edit", new { id = item.agendamentoId })"> <i class="fa fa-pencil fa-fw"></i></a> |
-                <a title="Imprimir" href="@Url.Action("Details", "Details", new { id=item.agendamentoId })"> <i class="fa fa-bars fa-lg " aria-hidden="true"></i> </a> |
+                <a title="Imprimir" href="@Url.Action("Details", "Agendamento", new { id=item.agendamentoId })"> <i class="fa fa-bars fa-lg " aria-hidden="true"></i> </a> |
                 <a href="@Url.Action("Delete", "Delete", new { id = item.agendamentoId })"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
             </td>
         </tr>

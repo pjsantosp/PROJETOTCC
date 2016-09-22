@@ -33,7 +33,7 @@ namespace SISPTD.BO
                 IEnumerable<Pessoa> listapessoa = _contexto.Set<Pessoa>()
                .Include(d => d.DistribProcesso)
                .Where(x => x.cpf.Contains(busca)).Where(x=> x.tipo==0);
-                return listapessoa.OrderBy(p=> p.dt_Cadastro).ToPagedList(pagina.Value, tamanhoPagina);
+                return listapessoa.OrderByDescending(p=> p.dt_Cadastro).ToPagedList(pagina.Value, tamanhoPagina);
             }
             catch (Exception e)
             {

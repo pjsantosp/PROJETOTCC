@@ -1,18 +1,18 @@
 ﻿@model SISPTD.Models.Pessoa
- @{
-     ViewBag.Title = "Cad de Paciente";
+@{
+    ViewBag.Title = "Cad de Paciente";
 }
 
-<h3 ><i class="glyphicon glyphicon-book"> </i> Cadastro de Paciente</h3>
+    <h3>
+        <i class="glyphicon glyphicon-book"> </i> Cadastro de Paciente
+    </h3>
+<i class="text-danger pull-right"><i class="glyphicon glyphicon-info-sign "></i> Os campos com o marcador (*)  são de preenchimento obrigatório.</i>
 
-<span class="text-danger pull-right"><i class="glyphicon glyphicon-info-sign "></i> Os campos com o marcador (*)  são de preenchimento obrigatório.</span>
-<br />
+
+
+
 @Html.Partial("_Formulario", Model)
 
 
-
-
-
 @*<a href="#" onclick="history.back()">Voltar</a>*@
-
 

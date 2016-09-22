@@ -67,15 +67,15 @@
             @Html.DisplayFor(modelItem => item.UserEnviou.Pessoa.nome)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.UserRecebeu.login)
+            @Html.DisplayFor(modelItem => item.UserRecebeu.Pessoa.nome)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.observacoes)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.distrib_ProcessoId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.distrib_ProcessoId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.distrib_ProcessoId })
+            <a title="Recepcionar" href="@Url.Action("Edit", "DistribProcesso", new { id = item.distrib_ProcessoId})"><i class="fa fa-check" aria-hidden="true"></i></a>
+            <a title="Detalhe" href="@Url.Action("Details", "DistribProcesso" ,new { id = item.distrib_ProcessoId })"><i class="fa fa-bars" aria-hidden="true"></i></a>
+           @* @Html.ActionLink("Delete", "Delete", new { id=item.distrib_ProcessoId })*@
         </td>
     </tr>
 }

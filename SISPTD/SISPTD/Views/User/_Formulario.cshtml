@@ -1,0 +1,76 @@
+﻿@model SISPTD.Models.User
+<div class="row">
+        <div style="display:none" id="btnCriaPessoa" class="alert alert-warning alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <strong>Ops!</strong> Não ha uma pessoa para esse CPF, Deseja Cadastra?
+        </div>
+
+        @using (Html.BeginForm("Create","User",FormMethod.Post))
+        {
+            <div class="panel panel-default">
+                <div class="panel-body">
+
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.login, htmlAttributes: new { @class = "control-label" })
+                                @Html.ValidationMessageFor(model => model.login, "", new { @class = "text-danger" })
+                                <div class="input-group">
+                                    @Html.TextBox("login", Request.QueryString["CPF"], new { autofocus = "", @class = " buscarPessoaUser cpf col-md-2 form-control", placeholder = "Procure por CPF" })
+                                    <span class="input-group-btn"><button type="button" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.pessoaId, "Pessoa", htmlAttributes: new { @class = "control-label" })
+                                <input type="text" id="nomePessoaUser" readonly class="form-control paciente" name="nomePessoaUser" value=" " />
+                                <input type="hidden" id="idPessoaUser" class="form-control paciente" name="pessoaId" value=" " />
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            @*<div class="form-group">
+                                    @Html.LabelFor(model => model.senha, htmlAttributes: new { @class = "control-label" })
+                                    @Html.EditorFor(model => model.senha, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.senha, "", new { @class = "text-danger" })
+
+                                </div>*@
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Perfil, new { @class = "control-label" })
+                                @* @Html.Label("Perfil Usuário", htmlAttributes: new { @class = "control-label" })*@
+                                @Html.EnumDropDownListFor(model => model.Perfil, " ", new { @class = "form-control chosen-select" })
+
+
+                            </div>
+                            <div class="well well-sm">
+                                <input type="submit" name="name" class="btn btn-primary btn-confirm pull-right" value="Gravar" />
+                                <br /><br />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+              
+            </div>
+          
+
+            <div>
+            </div>
+        }
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+
