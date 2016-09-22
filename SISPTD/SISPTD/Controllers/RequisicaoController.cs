@@ -105,8 +105,8 @@ namespace SISPTD.Controllers
         {
             
             ViewBag.Estado = new SelectList(ufBO.Selecionar(), "IdEstado", "Sigla");
-            ViewBag.IdCidadesDestino = new SelectList(cidadeBO.Selecionar(), "IdCidade", "Cidade");
-            ViewBag.IdCidadesOrigem = new SelectList(cidadeBO.Selecionar(), "IdCidade", "Cidade");
+            ViewBag.IdCidadesDestino = new SelectList("", "IdCidade", "Cidade");
+            ViewBag.IdCidadesOrigem = new SelectList("", "IdCidade", "Cidade");
             ViewBag.usuarioId = new SelectList(usuarioBO.Selecionar(), "usuarioId", "login");
             Requisicao requisicao = new Requisicao();
             return View(requisicao);
@@ -138,10 +138,10 @@ namespace SISPTD.Controllers
                 requisicao.usuarioId = usuario.usuarioId;
                 if (ModelState.IsValid)
                 {
-                    if (requisicao.CidadeDestino != null || requisicao.CidadeDestino == requisicao.CidadeOrigem )
+                    if (requisicao.IdCidadesDestino == 0 || requisicao.IdCidadesDestino == requisicao.IdCidadesOrigem )
                     {
                         TempData["Erro"] = "Cidade Destino não pode ser Nula ou Igual a cidade de Origem";
-                        return RedirectToAction("Create");
+                        return View(requisicao);
                     }
                     requisicao.pacienteId = pessoaId.Value;
                     requisicao.dtRequisicao = DateTime.Now;

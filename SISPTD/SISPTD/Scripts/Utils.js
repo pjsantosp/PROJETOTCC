@@ -86,8 +86,6 @@ $(document).ready(function () {
 
         }
 
-
-
     });
 
 
@@ -293,6 +291,35 @@ $(function () {
             $(".alert").fadeOut();
         }, 5000);
     };
+});
+// Drop estado cidade
+
+$('.uf-change').on('change', function () {
+    
+    var id = $(this).val(),
+      el = $(this).data("target-select"),
+      route = $(this).data("url"),
+      $targetSelect = $(el);
+
+    $targetSelect.prop("disabled", true).html('<option>Carregando...</option>').trigger("chosen:updated");
+    $.ajax({
+        url: route,
+        data: {
+            Id: id
+        }
+    }).success(function (data) {
+        $targetSelect[0].options.length = 0;
+        var options = '';
+        $.each(data, function (i, cidade) {
+            options += '<option value="' + cidade.value + '">' + cidade.text + '</option>';
+        });
+        $targetSelect.html(options).trigger("chosen:updated");
+    }).fail(function (error) {
+        console.log(error);
+        $targetSelect.html('');
+    }).always(function () {
+        $targetSelect.prop("disabled", false).trigger("chosen:updated");
+    });
 });
 //Abrir em nova Janela
 //$(function novaJanela (URL){

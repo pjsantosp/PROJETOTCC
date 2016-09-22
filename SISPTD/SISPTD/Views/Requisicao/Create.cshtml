@@ -23,7 +23,7 @@
                         <span class="input-group-btn"><button type="button" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button></span>
                     </div>
                 </div>
-                <div class="col-md-8">
+                <div class="col-md-9">
                     <div class="form-group">
                         <input type="text" readonly id="nomeDoPaciente" data-id="" class="form-control " name="name" />
                         <input type="hidden" id="idDoPaciente" name="pessoaId" />
@@ -32,77 +32,95 @@
                 </div>
             </div>
             <div class="row">
-
-                <div class="col-md-5">
-                    <div class="form-group">
-                        @Html.Label("UF", htmlAttributes: new { @class = "control-label" })
-                        @Html.DropDownList("Estado", null, htmlAttributes: new { @class = "form-control chosen-select" })
+                <div class="col-md-4">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"> <strong>Origem</strong></h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    @Html.Label("UF", htmlAttributes: new { @class = "control-label" })
+                                    @Html.DropDownList("Estado", null, "UF", new { @class = "chosen-select uf-change form-control", data_target_select = "#IdCidadesOrigem", data_url = Url.Action("PesquisaCidade", "Cidade") })
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                @Html.Label("Cidade", htmlAttributes: new { @class = "control-label" })
+                                @Html.DropDownList("IdCidadesOrigem", null, "UF Primeiro", new { @class = "chosen-select form-control" })
+                                @Html.ValidationMessageFor(model => model.IdCidadesOrigem, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"> <strong>Destino</strong></h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    @Html.Label("UF", htmlAttributes: new { @class = "control-label" })
+                                    @Html.DropDownList("Estado", null, "UF", new { @class = "chosen-select uf-change form-control", data_target_select = "#IdCidadesDestino", data_url = Url.Action("PesquisaCidade", "Cidade") })
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                @Html.Label("Cidade", htmlAttributes: new { @class = "control-label" })
+                                @Html.DropDownList("IdCidadesDestino", null, "UF Primeiro", new { @class = "chosen-select form-control" })
+                                @Html.ValidationMessageFor(model => model.IdCidadesOrigem, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
                     </div>
                 </div>
 
+                <div class="col-md-4">
 
-
-                <div class="col-md-5">
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.IdCidadesOrigem, "Origem", htmlAttributes: new { @class = "control-label" })
-                        @Html.DropDownList("IdCidadesOrigem", null, htmlAttributes: new { @class = "form-control chosen-select" })
-                        @Html.ValidationMessageFor(model => model.IdCidadesOrigem, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="col-md-5">
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.IdCidadesDestino, "Destino", htmlAttributes: new { @class = "control-label" })
-                        @Html.DropDownList("IdCidadesDestino", null, htmlAttributes: new { @class = "form-control chosen-select" })
-                        @Html.ValidationMessageFor(model => model.IdCidadesDestino, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-            </div>
-            <div class="row">
-                <div class="col-md-10">
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.observacoes, htmlAttributes: new { @class = "control-label " })
-                        @Html.TextAreaFor(model => model.observacoes, 5, 155, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.observacoes, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-            </div>
-            <div class="row">
-
-                <div class="col-md-5">
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.Via, htmlAttributes: new { @class = "control-label" })
-                        @Html.EnumDropDownListFor(model => model.Via, htmlAttributes: new { @class = "form-control chosen-select" })
-                        @Html.ValidationMessageFor(model => model.Via, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="col-md-5">
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.Trecho, htmlAttributes: new { @class = "control-label" })
-                        @Html.EnumDropDownListFor(model => model.Trecho, htmlAttributes: new { @class = "form-control chosen-select" })
-                        @Html.ValidationMessageFor(model => model.Trecho, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-10 pull-left">
-                    <div class="form-group">
-                        <h5>
-                            <i class="fa fa-user-plus" aria-hidden="true"></i> Adicionar Acompanhantes
-                            <!-- Dispara o Modal-->
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-                                @* <span class="glyphicon glyphicon-plus"></span>*@<i class="fa fa-plus" aria-hidden="true"></i>
-                            </button>
-                        </h5>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"> <strong>Informações</strong></h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="form-group col-md-6">
+                                @Html.LabelFor(model => model.Trecho, htmlAttributes: new { @class = "control-label" })
+                                @Html.EnumDropDownListFor(model => model.Trecho, htmlAttributes: new { @class = "form-control chosen-select" })
+                                @Html.ValidationMessageFor(model => model.Trecho, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group col-md-6">
+                                @Html.LabelFor(model => model.Via, htmlAttributes: new { @class = "control-label" })
+                                @Html.EnumDropDownListFor(model => model.Via, htmlAttributes: new { @class = "form-control chosen-select" })
+                                @Html.ValidationMessageFor(model => model.Via, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-
 
         </div>
+        <div class="row">
+            <div class="col-md-10">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.observacoes, htmlAttributes: new { @class = "control-label " })
+                    @Html.TextAreaFor(model => model.observacoes, 5, 155, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.observacoes, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-10 pull-left">
+                <div class="form-group">
+                    <h5>
+                        <i class="fa fa-user-plus" aria-hidden="true"></i> Adicionar Acompanhantes
+                        <!-- Dispara o Modal-->
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                            @* <span class="glyphicon glyphicon-plus"></span>*@<i class="fa fa-plus" aria-hidden="true"></i>
+                        </button>
+                    </h5>
+                </div>
+            </div>
+        </div>
+
+
     </div>
 
     <div class="">
@@ -116,21 +134,22 @@
                             <h4 class="modal-title" id="myModalLabel"> Adicionar Acompanhantes</h4>
                         </div>
                         <div class="modal-body">
-                                <input type="hidden" id="pessoa_id_pai" name="pessoaId" />
-                                <input type="hidden" name="idPai" id="idPai" />
-                                <input type="hidden" class="cpf" name="cpfAcomp" id="cpfAcomp" value="" />
-                                @Html.TextBox("buscar", Request.QueryString["CPF"], new { autofocus = "", @class = "procurarPessoa  col-md-2 form-control", placeholder = "Procure por CPF" })
-                                <span class="input-group-btn">
-                                    <button type="button" id="procurarAcompanhentes" class="btn btn-default">ir</button>
-                                </span>
-                                <hr />
+                            <input type="hidden" id="pessoa_id_pai" name="pessoaId" />
+                            <input type="hidden" name="idPai" id="idPai" />
+                            <input type="hidden" class="cpf" name="cpfAcomp" id="cpfAcomp" value="" />
+                            @Html.TextBox("buscar", Request.QueryString["CPF"], new { autofocus = "", @class = "procurarPessoa  col-md-2 form-control", placeholder = "Procure por CPF" })
+                            <span class="input-group-btn">
+                                <button type="button" id="procurarAcompanhentes" class="btn btn-default">ir</button>
+                            </span>
+                            <hr />
 
-                                <label id="nome_pessoa" data-id="" class="paciente" name="name" />
+                            <label id="nome_pessoa" data-id="" class="paciente" name="name" />
                         </div>
                         <div class="modal-footer">
                             <a href="#" onclick="AddPessoaLista();" data-dismiss="modal" data-id="" data-url="@Url.Action("AddAcompanhante", "Requisicao") " id="AddItens" class="btn btn-success acompId "><i class="glyphicon glyphicon-plus"></i> </a>
-                            <a href="#" onclick="Limpar();" id="btnLimpar" class="btn btn-success "><i class="fa fa-eraser" aria-hidden="true"></i>
- </a>
+                            <a href="#" onclick="Limpar();" id="btnLimpar" class="btn btn-success ">
+                                <i class="fa fa-eraser" aria-hidden="true"></i>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -143,14 +162,14 @@
             @Html.Partial("_ListaPessoa", Model.PessoaAcompanhante ?? new List<SISPTD.Models.Pessoa>())
         </div>
     </div>
-    <hr />
-    <div class="col-md-offset-2 ">
+        <hr />
+        <div class="col-md-offset-2 ">
 
-        <div class="form-group">
-            @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-danger" })
-            <button type="submit" class="btn btn-default">Gravar</button>
+            <div class="form-group">
+                @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-danger" })
+                <button type="submit" class="btn btn-default">Gravar</button>
+            </div>
         </div>
-    </div>
 
 }
 
