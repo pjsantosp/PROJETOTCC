@@ -10,6 +10,7 @@ namespace SISPTD.Models
 
         [Key]
         public long usuarioId { get; set; }
+        public long setorId { get; set; }
 
         [Required]
         [StringLength(50)]
@@ -26,14 +27,16 @@ namespace SISPTD.Models
 
         public virtual ICollection<Agendamento> Agendamento { get; set; }
 
-        public virtual ICollection<DistribProcesso> DistribProcesso { get; set; }
+        public virtual ICollection<Movimentacao> ListaDeEnvios { get; set; }
 
-        public virtual ICollection<DistribProcesso> DistribProcesso1 { get; set; }
+        public virtual ICollection<Movimentacao> ListaDeRecebidos { get; set; }
 
         public virtual Pessoa Pessoa { get; set; }
 
         public virtual Perfil Perfil { get; set; }
 
         public virtual ICollection<Requisicao> Requisicao { get; set; }
+        public virtual Setor Setor { get; set; }
+
     }
 }

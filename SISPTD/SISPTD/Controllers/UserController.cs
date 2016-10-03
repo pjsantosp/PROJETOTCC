@@ -15,6 +15,7 @@ namespace SISPTD.Controllers
     {
         private UserBO userBO = new UserBO(new dbSISPTD());
         private PessoaBO pessoaBO = new PessoaBO(new dbSISPTD());
+        private SetorBO setorBO = new SetorBO(new dbSISPTD());
 
         public ActionResult Index(int? pagina)
         {
@@ -40,6 +41,7 @@ namespace SISPTD.Controllers
         public ActionResult Create()
         {
             ViewBag.roles = new SelectList(Enum.GetValues(typeof(Perfil)));
+            ViewBag.setorId = new SelectList(setorBO.Selecionar(),"setorId", "descricao");
             return View();
         }
 
@@ -80,9 +82,7 @@ namespace SISPTD.Controllers
                     TempData["Erro"] = "O Login " + user.login + " Já Esta cadastrado para Uma Pessoa!";
                 }
 
-
                 ViewBag.pessoaId = new SelectList(pessoaBO.Selecionar(), "pessoaId", "nome", user.pessoaId);
-                //ViewBag.roles = new SelectList(Enum.GetValues(typeof(Perfil)));
                 return View(user);
             }
             catch (Exception)

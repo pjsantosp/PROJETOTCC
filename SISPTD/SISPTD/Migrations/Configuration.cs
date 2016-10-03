@@ -9,7 +9,7 @@ namespace SISPTD.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
         }
 
         protected override void Seed(SISPTD.Models.dbSISPTD context)

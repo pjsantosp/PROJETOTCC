@@ -59,7 +59,7 @@ namespace SISPTD.Controllers
 
         public ActionResult Details(long? id)
         {
-            ViewBag.acompanhante = pessoaBO.Selecionar().Where(a => a.pessoaPai == id.Value).Take(5);
+            ViewBag.acompanhante = pessoaBO.Selecionar().Where(a => a.acompanhanteId == id.Value).Take(5);
 
             return View(pessoaBO.SelecionarPorId(id.Value));
         }
@@ -97,7 +97,7 @@ namespace SISPTD.Controllers
             }
 
             ViewBag.cidade = new SelectList(cidadeBO.Selecionar(), "IdCidade", "Cidade");
-            ViewBag.pessoaPai = new SelectList(pessoaBO.Selecionar(), "pessoaId", "cpf", pessoa.pessoaPai);
+            ViewBag.pessoaPai = new SelectList(pessoaBO.Selecionar(), "pessoaId", "cpf", pessoa.acompanhanteId);
             return View(pessoa);
         }
         //Cria Acompanhante
@@ -110,7 +110,7 @@ namespace SISPTD.Controllers
                     if (ModelState.IsValid)
                     {
                         Pessoa acompanhante = new Pessoa();
-                        acompanhante.pessoaPai = pessoaPai;
+                        acompanhante.acompanhanteId = pessoaPai;
                         ViewBag.pessoaId = pessoaPai;
                         return View(acompanhante);
                     }
@@ -133,7 +133,7 @@ namespace SISPTD.Controllers
             try
             {
                 pessoa.cpf = Ultis.Util.RemoverMascara(pessoa.cpf);
-                pessoa.pessoaPai = pessoaPai;
+                pessoa.acompanhanteId = pessoaPai;
 
                 if (ModelState.IsValid)
                 {
@@ -142,7 +142,7 @@ namespace SISPTD.Controllers
                     pessoaBO.CalculoIdade(pessoa);
                     pessoaBO.Inserir(pessoa);
                     TempData["Sucesso"] = "Acompanhante Cadastrado com Sucesso";
-                    return RedirectToAction("Edit", new { id = pessoa.pessoaPai });
+                    return RedirectToAction("Edit", new { id = pessoa.acompanhanteId });
                 }
             }
             catch (Exception ex)
@@ -200,7 +200,7 @@ namespace SISPTD.Controllers
         [Authorize(Roles = "Funcionario, Gerente")]
         public ActionResult Edit(long? id)
         {
-            ViewBag.acompanhante = pessoaBO.Selecionar().Where(a => a.pessoaPai == id.Value).Count();
+            ViewBag.acompanhante = pessoaBO.Selecionar().Where(a => a.acompanhanteId == id.Value).Count();
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);

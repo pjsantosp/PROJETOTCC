@@ -24,7 +24,9 @@ namespace SISPTD.Models
           [Display(Name = "Marcado")]
         public DateTime  dt_Marcacao { get; set; }
         public virtual Pessoa Pessoa { get; set; }
-        public virtual User User { get; set; }
+        public virtual User Usuarios { get; set; }
         public virtual Clinica Clinica { get; set; }
+        public virtual Processo Processo { get; set; }
+
     }
 }

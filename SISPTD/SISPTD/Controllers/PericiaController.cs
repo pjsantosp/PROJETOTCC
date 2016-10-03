@@ -31,7 +31,7 @@ namespace SISPTD.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            SolicitacaoPericia pericia = periciaBO.SelecionarPorId(id.Value);
+            Pericia pericia = periciaBO.SelecionarPorId(id.Value);
             if (pericia == null)
             {
                 return HttpNotFound();
@@ -50,7 +50,7 @@ namespace SISPTD.Controllers
         
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "medicoPessoaId,descricao,cidId,situacao,pacientepessoaId")] SolicitacaoPericia pericia)
+        public ActionResult Create([Bind(Include = "medicoPessoaId,descricao,cidId,situacao,pacientepessoaId")] Pericia pericia)
         {
             try
             {
@@ -70,7 +70,7 @@ namespace SISPTD.Controllers
                 TempData["Erro"] = "Ops ! " + ex.Message;
             }
             ViewBag.cidId = new SelectList(db.Cid, "cidId", "codigoCid", pericia.cidId);
-            ViewBag.pessoaId = new SelectList(db.Pessoa, "pessoaId", "cpf", pericia.pacientePessoaId);
+            ViewBag.pessoaId = new SelectList(db.Pessoa, "pessoaId", "cpf", pericia.Processo.Paciente.cpf);
             return View(pericia);
         }
 
@@ -81,19 +81,19 @@ namespace SISPTD.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            SolicitacaoPericia pericia = db.Pericia.Find(id);
+            Pericia pericia = db.Pericia.Find(id);
             if (pericia == null)
             {
                 return HttpNotFound();
             }
             ViewBag.cidId = new SelectList(db.Cid, "cidId", "codigoCid", pericia.cidId);
-            ViewBag.pessoaId = new SelectList(db.Pessoa, "pessoaId", "cpf", pericia.pacientePessoaId);
+            ViewBag.pessoaId = new SelectList(db.Pessoa, "pessoaId", "cpf", pericia.Processo.Paciente.cpf);
             return View(pericia);
         }
        
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "periciaId,descricao,cidId,dt_Pericia,medicoId,situacao,pessoaId")] SolicitacaoPericia pericia)
+        public ActionResult Edit([Bind(Include = "periciaId,descricao,cidId,dt_Pericia,medicoId,situacao,pessoaId")] Pericia pericia)
         {
             if (ModelState.IsValid)
             {
@@ -102,7 +102,7 @@ namespace SISPTD.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.cidId = new SelectList(db.Cid, "cidId", "codigoCid", pericia.cidId);
-            ViewBag.pessoaId = new SelectList(db.Pessoa, "pessoaId", "cpf", pericia.pacientePessoaId);
+            ViewBag.pessoaId = new SelectList(db.Pessoa, "pessoaId", "cpf", pericia.Processo.Paciente.cpf);
             return View(pericia);
         }
 
@@ -113,7 +113,7 @@ namespace SISPTD.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            SolicitacaoPericia pericia = db.Pericia.Find(id);
+            Pericia pericia = db.Pericia.Find(id);
             if (pericia == null)
             {
                 return HttpNotFound();
@@ -126,7 +126,7 @@ namespace SISPTD.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(long id)
         {
-            SolicitacaoPericia pericia = db.Pericia.Find(id);
+            Pericia pericia = db.Pericia.Find(id);
             db.Pericia.Remove(pericia);
             db.SaveChanges();
             return RedirectToAction("Index");

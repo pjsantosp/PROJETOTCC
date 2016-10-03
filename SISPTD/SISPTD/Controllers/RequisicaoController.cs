@@ -8,8 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using SISPTD.Models;
 using SISPTD.BO;
-using Rotativa;
-using Rotativa.Options;
+
 using PagedList;
 
 namespace SISPTD.Controllers
@@ -41,7 +40,7 @@ namespace SISPTD.Controllers
                 {
                     Pessoa acompanhante = pessoaBO.SelecionarPorId(id);
                     Pessoa paciente = pessoaBO.SelecionarPorId(pacienteId.Value);
-                    if (paciente.pessoaId == acompanhante.pessoaPai)
+                    if (paciente.pessoaId == acompanhante.acompanhanteId)
                     {
                         Pessoa = Pessoa ?? new List<Pessoa>();
 
@@ -94,7 +93,6 @@ namespace SISPTD.Controllers
             {
                 return HttpNotFound();
             }
-            //var pdf = new ViewAsPdf { Model = requisicao, PageOrientation = Orientation.Landscape };
             return View(requisicao);
 
 

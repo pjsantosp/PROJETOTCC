@@ -37,19 +37,18 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            @*<div class="form-group">
-                                    @Html.LabelFor(model => model.senha, htmlAttributes: new { @class = "control-label" })
-                                    @Html.EditorFor(model => model.senha, new { htmlAttributes = new { @class = "form-control" } })
-                                    @Html.ValidationMessageFor(model => model.senha, "", new { @class = "text-danger" })
+                            <div class="form-group">
+                                @Html.Label("Setor", htmlAttributes: new { @class = "control-label" })
+                                @Html.DropDownList("setorId", new List<SelectListItem>(), "Selecione o Setor", new { @class = "chosen-select form-control" })
+                                @Html.ValidationMessageFor(model => model.Setor, "", new { @class = "text-danger" })
 
-                                </div>*@
+                                </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
                                 @Html.LabelFor(model => model.Perfil, new { @class = "control-label" })
-                                @* @Html.Label("Perfil Usuário", htmlAttributes: new { @class = "control-label" })*@
                                 @Html.EnumDropDownListFor(model => model.Perfil, " ", new { @class = "form-control chosen-select" })
 
 

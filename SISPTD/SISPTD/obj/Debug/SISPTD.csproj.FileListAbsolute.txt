@@ -300,7 +300,6 @@ D:\PROJETOTCC\SISPTD\SISPTD\bin\Microsoft.Owin.Security.Twitter.dll
 D:\PROJETOTCC\SISPTD\SISPTD\bin\Microsoft.Web.Infrastructure.dll
 D:\PROJETOTCC\SISPTD\SISPTD\bin\Newtonsoft.Json.dll
 D:\PROJETOTCC\SISPTD\SISPTD\bin\Owin.dll
-D:\PROJETOTCC\SISPTD\SISPTD\bin\Rotativa.dll
 D:\PROJETOTCC\SISPTD\SISPTD\bin\System.Web.Helpers.dll
 D:\PROJETOTCC\SISPTD\SISPTD\bin\System.Web.Mvc.dll
 D:\PROJETOTCC\SISPTD\SISPTD\bin\System.Web.Optimization.dll
@@ -335,10 +334,9 @@ D:\PROJETOTCC\SISPTD\SISPTD\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 D:\PROJETOTCC\SISPTD\SISPTD\obj\Debug\SISPTD.csprojResolveAssemblyReference.cache
 D:\PROJETOTCC\SISPTD\SISPTD\obj\Debug\SISPTD.dll
 D:\PROJETOTCC\SISPTD\SISPTD\obj\Debug\SISPTD.pdb
-D:\PROJETOTCC\SISPTD\SISPTD\obj\Debug\SISPTD.Migrations.Inicial.resources
-D:\PROJETOTCC\SISPTD\SISPTD\obj\Debug\SISPTD.csproj.GenerateResource.Cache
 D:\PROJETOTCC\SISPTD\SISPTD\bin\PagedList.dll
 D:\PROJETOTCC\SISPTD\SISPTD\bin\PagedList.Mvc.dll
 D:\PROJETOTCC\SISPTD\SISPTD\bin\PagedList.xml
 D:\PROJETOTCC\SISPTD\SISPTD\bin\PagedList.Mvc.xml
-D:\PROJETOTCC\SISPTD\SISPTD\obj\Debug\SISPTD.Migrations.AlteraçãopacienteId.resources
+D:\PROJETOTCC\SISPTD\SISPTD\obj\Debug\SISPTD.Migrations.CriaBanco.resources
+D:\PROJETOTCC\SISPTD\SISPTD\obj\Debug\SISPTD.csproj.GenerateResource.Cache

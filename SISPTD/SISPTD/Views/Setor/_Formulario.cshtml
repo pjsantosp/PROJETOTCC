@@ -14,6 +14,13 @@
                         @Html.ValidationMessageFor(model => model.descricao, "", new { @class = "text-danger" })
                     </div>
                 </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.abreviacao, htmlAttributes: new { @class = " control-label" })
+                        @Html.EditorFor(model => model.abreviacao, new { htmlAttributes = new { @class = "uperText form-control" } })
+                        @Html.ValidationMessageFor(model => model.abreviacao, "", new { @class = "text-danger" })
+                    </div>
+                </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
