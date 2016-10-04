@@ -69,17 +69,123 @@ body, html {
     margin: 0;
     padding: 0;
     font-size: 12px !important;
-   
 }
 
 
 
 .navbar-nav > .dropdown > .dropdown-toggle:hover,
-.navbar-nav > .dropdown > .dropdown-toggle:focus{
-    background-color:initial;
-    color:#f7f7f7
+.navbar-nav > .dropdown > .dropdown-toggle:focus {
+    background-color: initial;
+    color: #f7f7f7;
 }
 
-.text-branco{
-    color:#f7f7f7
+.text-branco {
+    color: #f7f7f7;
 }
+
+/*#region MenuLateral*/
+.menu-lateral {
+    width: 155px;
+    height: calc(100%);
+    position: fixed;
+    background: #0B486B;
+    opacity: 0.8;
+    bottom: 0;
+    left: -175px;
+    transition: all 840ms, 640ms;
+    margin-left: 0px;
+    margin-right: 0px;
+    z-index: 17;
+    padding-top: 56px;
+    border-right: 10px solid #0B486B;
+    border-left: 0px solid #000000;
+    overflow: scroll;
+}
+
+    .menu-lateral.active {
+        left: 0;
+        border-right-color: #000000;
+        border-right: 0px solid;
+        border-left: 0px solid;
+    }
+
+.botao-menu-ativo {
+}
+
+.botao-menu {
+    position: fixed;
+    left: 0px;
+    border: 0px;
+    font-size: 30px;
+    padding: 10px;
+    padding-bottom: 10px;
+    padding-top: 5px;
+    cursor: pointer;
+    z-index: 9999;
+    margin-left: 23px;
+    color: white;
+}
+
+.menu-lateral-inner {
+    padding: 0px;
+    margin-left: 0px;
+}
+
+    .menu-lateral-inner .dropdown-menu {
+        width: 100%;
+    }
+
+        .menu-lateral-inner .dropdown-menu li:hover {
+            background: rgba(0,0,0,0.2);
+            color: white;
+        }
+
+        .menu-lateral-inner .dropdown-menu li a:hover {
+            background: none;
+            color: white;
+        }
+
+.menu-lateral li {
+    padding: 2px;
+    list-style: none;
+    color: white;
+    cursor: pointer;
+    border-right: 1px solid #000000;
+    border-bottom: 1px solid #000000;
+}
+
+    .menu-lateral li:hover {
+        background: rgba(0,0,0, 0.4);
+        color: #f5f5f5;
+        border-bottom: 1px solid #5a5e6d;
+    }
+
+    .menu-lateral li a {
+        color: #F5EEEE;
+        display: block;
+        text-decoration: none;
+    }
+
+        .menu-lateral li a:hover {
+            text-decoration: none;
+        }
+
+    .menu-lateral li:hover {
+    }
+
+    .menu-lateral li a span {
+        padding-right: 10px;
+    }
+
+.principal {
+    margin-left: auto;
+    transition-property: margin-left;
+    transition-duration: 2s;
+    transition-timing-function: linear;
+    transition-delay: 4s;
+}
+
+    .principal.ativo {
+        margin-left: 185px;
+    }
+/*#endregion*/
