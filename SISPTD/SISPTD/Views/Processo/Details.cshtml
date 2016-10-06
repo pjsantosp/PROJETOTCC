@@ -1,0 +1,74 @@
+﻿@model SISPTD.Models.Processo
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>DistribProcesso</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.observacoes)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.observacoes)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Pessoa.cpf)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Pessoa.cpf)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SetorDestino.descricao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SetorDestino.descricao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SetorOrigem.descricao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SetorOrigem.descricao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserEnviou.login)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserEnviou.login)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserRecebeu.login)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserRecebeu.login)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.observacoes)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.observacoes)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.distrib_ProcessoId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
