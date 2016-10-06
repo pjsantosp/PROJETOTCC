@@ -1,6 +1,5 @@
 ﻿@model PagedList.IPagedList<SISPTD.Models.Requisicao>
 @using PagedList.Mvc
-
 @{
     ViewBag.Title = "Requisição de Passagem";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -9,55 +8,52 @@
     <i class="fa fa-plane" aria-hidden="true"></i> Gerar Requisição de Viajem
     <a class="btn btn-primary" href="@Url.Action("Create","Requisicao")"><i class="fa fa-plus" aria-hidden="true"></i></a>
     <span class="col-md-4 pull-right">
-
         @using (Html.BeginForm(FormMethod.Get))
             {
 
             <span class="input-group ">
-
                 @Html.TextBox("busca", Request.QueryString["busca"], new { autofocus = "", @class = " form-control", placeholder = "Procure por CPF" })
                 <span class="input-group-btn">
                     <button class="btn btn-primary" type="submit"><i class="glyphicon glyphicon-search"></i></button>
                 </span>
             </span>
         }
-
     </span>
-
 </h3>
-<table class="table table-striped">
-    <thead>
-        <tr>
+@if (Model.Any() && Model != null)
+{
 
-            <th>
-                @Html.DisplayName("Origem")
-            </th>
-            <th>
-                @Html.DisplayName("Destino")
-            </th>
-            <th>
-                @Html.DisplayName("Paciente")
-            </th>
-            <th>
-                @Html.DisplayName("Data da Requisição")
-            </th>
-            <th>
-                @Html.DisplayName("Observações")
-            </th>
-            <th>
-                @Html.DisplayName("Via")
-            </th>
-            <th>
-                @Html.DisplayName("Trecho")
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayName("Origem")
+                </th>
+                <th>
+                    @Html.DisplayName("Destino")
+                </th>
+                <th>
+                    @Html.DisplayName("Paciente")
+                </th>
+                <th>
+                    @Html.DisplayName("Data da Requisição")
+                </th>
+                <th>
+                    @Html.DisplayName("Observações")
+                </th>
+                <th>
+                    @Html.DisplayName("Via")
+                </th>
+                <th>
+                    @Html.DisplayName("Trecho")
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
             {
             <tr>
-
                 <td>
                     @Html.DisplayFor(modelItem => item.CidadeOrigem.Cidade)
                 </td>
@@ -83,14 +79,27 @@
                     @*@Html.ActionLink("Edit", "Edit", new { id=item.requisicaoId }) |
                         @Html.ActionLink("Details", "Details", new { id = item.requisicaoId }) |
                         @Html.ActionLink("Delete", "Delete", new { id=item.requisicaoId })*@
-                    <a title="Imprimi" href="@Url.Action("Print", "Requisicao", new { id=item.requisicaoId })" target="_blank"> <span class="fa fa-print fa-lg" ></span> </a>
+                    <a title="Imprimi" href="@Url.Action("Print", "Requisicao", new { id=item.requisicaoId })" target="_blank"> <span class="fa fa-print fa-lg"></span> </a>
                 </td>
             </tr>
 
         }
-    </tbody>
-</table>
-<div class="pull-right">
-    <strong>Pagina @Model.PageNumber de @Model.PageCount</strong>
-    @Html.PagedListPager(Model, pagina => Url.Action("Index", new { pagina }))
-</div>
+        </tbody>
+    </table>
+    <div class="pull-right">
+        <strong>Pagina @Model.PageNumber de @Model.PageCount</strong>
+        @Html.PagedListPager(Model, pagina => Url.Action("Index", new { pagina }))
+    </div>
+}
+else
+{
+    <br />
+    <h2 class="text-center text-muted">
+        
+        <small>
+            NENHUMA<br />
+
+            REQUISIÇÃO ENCONTRADA
+        </small>
+    </h2>
+}

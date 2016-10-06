@@ -39,7 +39,7 @@ namespace SISPTD.Controllers
 
         public ActionResult Create()
         {
-            //ViewBag.pessoaId = 0;
+            ViewBag.pessoaId = 0;
             //ViewBag.SetorDestinoId = new SelectList(setorBO.Selecionar(), "setorId", "descricao");
             //ViewBag.SetorOrigemId = new SelectList(setorBO.Selecionar(), "setorId", "descricao");
             //ViewBag.usuarioEnviouId = new SelectList(userBO.Selecionar(), "usuarioId", "login");

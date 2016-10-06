@@ -2,17 +2,14 @@
 @{
     ViewBag.Title = "Cad de Paciente";
 }
-
-    <h3>
-        <i class="glyphicon glyphicon-book"> </i> Cadastro de Paciente
-    </h3>
-<i class="text-danger pull-right"><i class="glyphicon glyphicon-info-sign "></i> Os campos com o marcador (*)  são de preenchimento obrigatório.</i>
-
-
+<div class="panel panel-body">
+<h3>
+    <i class="glyphicon glyphicon-book"> </i> Cadastro de Paciente
+</h3>
+    <i class="text-danger pull-right"><i class="glyphicon glyphicon-info-sign "></i> Os campos com o marcador (*)  são de preenchimento obrigatório.</i>
 
 
-@Html.Partial("_Formulario", Model)
+    @Html.Partial("_Formulario", Model)
 
-
-@*<a href="#" onclick="history.back()">Voltar</a>*@
-
+    @*<a href="#" onclick="history.back()">Voltar</a>*@
+</div>

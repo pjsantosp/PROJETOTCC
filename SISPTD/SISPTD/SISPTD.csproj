@@ -367,10 +367,10 @@
     <Content Include="Views\Setor\Details.cshtml" />
     <Content Include="Views\Setor\Edit.cshtml" />
     <Content Include="Views\Setor\Index.cshtml" />
-    <Content Include="Views\DistribProcesso\Create.cshtml" />
-    <Content Include="Views\DistribProcesso\Delete.cshtml" />
-    <Content Include="Views\DistribProcesso\Details.cshtml" />
-    <Content Include="Views\DistribProcesso\Index.cshtml" />
+    <Content Include="Views\Processo\Create.cshtml" />
+    <Content Include="Views\Processo\Delete.cshtml" />
+    <Content Include="Views\Processo\Details.cshtml" />
+    <Content Include="Views\Processo\Index.cshtml" />
     <Content Include="Views\Shared\_ErrosSystem.cshtml" />
     <Content Include="Views\Shared\_Menu2.cshtml" />
     <Content Include="Views\Login\Login.cshtml" />
@@ -412,10 +412,9 @@
     <Content Include="Views\User\TrocaSenha.cshtml" />
     <Content Include="Views\Pessoa\CreateMedico.cshtml" />
     <Content Include="Views\Pessoa\CreateUsuario.cshtml" />
-    <Content Include="Views\Pericia\_Formulario.cshtml" />
-    <Content Include="Views\DistribProcesso\_Formulario.cshtml" />
+    <Content Include="Views\Processo\_Formulario.cshtml" />
     <Content Include="Views\Pessoa\_Formulario.cshtml" />
-    <Content Include="Views\DistribProcesso\Edit.cshtml" />
+    <Content Include="Views\Processo\Edit.cshtml" />
     <Content Include="Views\Shared\_LayoutPrint.cshtml" />
     <Content Include="Views\User\_Formulario.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />

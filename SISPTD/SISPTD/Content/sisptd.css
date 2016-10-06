@@ -85,28 +85,28 @@ body, html {
 
 /*#region MenuLateral*/
 .menu-lateral {
-    width: 155px;
+    width: 200px;
     height: calc(100%);
     position: fixed;
     background: #0B486B;
     opacity: 0.8;
     bottom: 0;
-    left: -175px;
+    left: 0px;
     transition: all 840ms, 640ms;
     margin-left: 0px;
     margin-right: 0px;
     z-index: 17;
     padding-top: 56px;
-    border-right: 10px solid #0B486B;
     border-left: 0px solid #000000;
-    overflow: scroll;
+    padding-left:1px;
+    /*overflow: scroll;*/
 }
 
     .menu-lateral.active {
-        left: 0;
-        border-right-color: #000000;
+        left: -200px;
+        /*border-right-color: #000000;
         border-right: 0px solid;
-        border-left: 0px solid;
+        border-left: 0px solid;*/
     }
 
 .botao-menu-ativo {
@@ -146,14 +146,12 @@ body, html {
         }
 
 .menu-lateral li {
-    padding: 2px;
+    padding: 13px;
     list-style: none;
     color: white;
     cursor: pointer;
-    border-right: 1px solid #000000;
-    border-bottom: 1px solid #000000;
+    border-bottom: 1px solid #9397a1;
 }
-
     .menu-lateral li:hover {
         background: rgba(0,0,0, 0.4);
         color: #f5f5f5;
@@ -178,7 +176,8 @@ body, html {
     }
 
 .principal {
-    margin-left: auto;
+   margin-top:50px;
+    margin-left: 215px;
     transition-property: margin-left;
     transition-duration: 2s;
     transition-timing-function: linear;
@@ -186,6 +185,8 @@ body, html {
 }
 
     .principal.ativo {
-        margin-left: 185px;
+        margin-left: auto;
     }
 /*#endregion*/
+
+

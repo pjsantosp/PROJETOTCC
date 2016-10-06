@@ -5,8 +5,7 @@
 {
     @Html.AntiForgeryToken()
 
-    <div class="panel panel-default">
-        <div class="panel-body">
+   
 
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             <div class="row">
@@ -132,8 +131,7 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
+       
     <div class="well well-sm">
         <input type="submit" name="name" class="btn btn-primary " value="Salvar " />
         @Html.ActionLink("Voltar para lista", "Index", null, new { @class = "btn btn-link pull-right" })
