@@ -74,7 +74,6 @@ namespace SISPTD.Controllers
             return View(pericia);
         }
 
-        // GET: Pericia/Edit/5
         public ActionResult Edit(long? id)
         {
             if (id == null)
@@ -106,7 +105,6 @@ namespace SISPTD.Controllers
             return View(pericia);
         }
 
-        // GET: Pericia/Delete/5
         public ActionResult Delete(long? id)
         {
             if (id == null)

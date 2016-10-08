@@ -19,7 +19,7 @@ namespace SISPTD.BO
         }
         public override void Inserir(Processo entidade)
         {
-            if (entidade.pessoaId == 0)
+            if (entidade.pacienteId == 0)
                 throw new Exception("É necessario um Paciente!");
             //if (entidade. == entidade.SetorDestinoId)
             //    throw new Exception("Setor de Origem e Destino, não pode ser iguais");

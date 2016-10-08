@@ -1,4 +1,4 @@
-﻿@model IEnumerable<SISPTD.Models.SolicitacaoPericia>
+﻿@model IEnumerable<SISPTD.Models.Pericia>
 
 @{
     ViewBag.Title = "Pericia Medica";
@@ -12,10 +12,10 @@
 <table class="table table-striped">
     <tr>
        <th>
-        @Html.DisplayNameFor(model => model.Paciente.cpf)
+        @Html.DisplayNameFor(model => model.Cid)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Paciente.nome)
+            @Html.DisplayNameFor(model => model.descricao)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.descricao)
@@ -30,11 +30,11 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Paciente.cpf)
+            @Html.DisplayFor(modelItem => item.Cid)
         </td>
        
         <td>
-            @Html.DisplayFor(modelItem => item.Paciente.nome)
+            @Html.DisplayFor(modelItem => item.descricao)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.descricao)

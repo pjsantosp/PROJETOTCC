@@ -192,8 +192,29 @@ namespace SISPTD.Controllers
         [HttpPost, ValidateAntiForgeryToken]
         public ActionResult CreateMedico(Pessoa pessoa)
         {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    pessoa.tipo = (int)TipoPessoa.Medico;
+                    pessoa.cpf = Util.RemoverMascara(pessoa.cpf);
+                    pessoa.dt_Cadastro = DateTime.Now;
+                    pessoaBO.CalculoIdade(pessoa);
+                    pessoaBO.Inserir(pessoa);
+                    TempData["Sucesso"] = "Cadastrado Realizado com Sucesso!";
+                   // pessoaBO.SelecionarPorId(pessoa.pessoaId);
+                    return View(pessoa);
+                }
+            }
+            catch (Exception e)
+            {
 
-            return View();
+                TempData["Erro"] = "Ops! " + e.Message;
+                
+            }
+
+
+            return View(pessoa);
         }
 
         // GET: Pessoa/Edit/5

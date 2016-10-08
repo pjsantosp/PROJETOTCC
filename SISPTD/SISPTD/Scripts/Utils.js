@@ -174,7 +174,7 @@ $(document).ready(function () {
                     debugger;
                     var btCriaMedico = $('#btCriaMedico');
                     btCriaMedico.show();
-                    $('<a href="/Pessoa/CreateMedico/" title="Cadastra Novo Medico" >Cadastrar Medico</a>').appendTo('#btCriaMedico');
+                    $('<a href="/Pessoa/CreateMedico/" title="Cadastra Novo Medico" class="btn btn-primary" >Cadastrar Medico</a>').appendTo('#btCriaMedico');
                 }
 
 

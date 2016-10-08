@@ -48,20 +48,20 @@ namespace SISPTD.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(long? idPacienteDistrib, Processo Processo)
+        public ActionResult Create(long pacienteProcessoId, long medicoProcessoId, Processo processo)
 
         {
             try
             {
-                   Processo.pessoaId = idPacienteDistrib.Value;
-                    var user = userBO.userLogado(User.Identity.Name);
-                   // Processo.usuarioId = user.usuarioId;
-                    if (ModelState.IsValid)
-                    {
-                        ProcessoBO.Inserir(Processo);
-                        TempData["Sucesso"] = "Enviado com Sucesso! ";
-                    }
-                    return RedirectToAction("Index");
+                processo.pacienteId = pacienteProcessoId;
+                processo.medicoId = medicoProcessoId;
+               
+                if (ModelState.IsValid)
+                {
+                    ProcessoBO.Inserir(processo);
+                    TempData["Sucesso"] = "Cadastro Realizado com Sucesso! ";
+                }
+                return RedirectToAction("Index");
             }
             catch (Exception e)
             {
@@ -89,8 +89,8 @@ namespace SISPTD.Controllers
                 return HttpNotFound();
             }
 
-            ViewBag.Paciente = pessoaBO.SelecionarPorId(processo.pessoaId).nome;
-            ViewBag.PessoaId = pessoaBO.SelecionarPorId(processo.pessoaId).pessoaId;
+            ViewBag.Paciente = pessoaBO.SelecionarPorId(processo.pacienteId.Value).nome;
+            ViewBag.PessoaId = pessoaBO.SelecionarPorId(processo.pacienteId.Value).pessoaId;
             //ViewBag.pessoaId = new SelectList(pessoaBO.Selecionar().Where(p => p.tipo == 0), "pessoaId", "nome", distribProcesso.pessoaId);
             //ViewBag.SetorDestinoId = new SelectList(setorBO.Selecionar(), "setorId", "descricao", distribProcesso.SetorDestinoId);
             //ViewBag.SetorOrigemId = new SelectList(setorBO.Selecionar(), "setorId", "descricao", distribProcesso.SetorOrigemId);
@@ -102,28 +102,28 @@ namespace SISPTD.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit( long pessoaId, Processo processo)
+        public ActionResult Edit(long pessoaId, Processo processo)
         {
             //[Bind(Include = "distribProcesso.usuarioEnviouId, distribProcesso.usuarioRecebeuId,pessoaId")]
 
             //distribProcesso.pessoaId = pessoaId;
             var user = userBO.userLogado(User.Identity.Name);
-              //  processo.usuarioId = user.usuarioId;
-                if (ModelState.IsValid)
-                {
-                    ProcessoBO.Alterar(processo);
+            //  processo.usuarioId = user.usuarioId;
+            if (ModelState.IsValid)
+            {
+                ProcessoBO.Alterar(processo);
                 TempData["Sucesso"] = "Enviado com Sucesso!!";
-                    return RedirectToAction("Index");
-                }
-                ViewBag.pessoaId = new SelectList(pessoaBO.Selecionar(), "pessoaId", "cpf", processo.pessoaId);
-                //ViewBag.SetorDestinoId = new SelectList(setorBO.Selecionar(), "setorId", "descricao", distribProcesso.SetorDestinoId);
-                //ViewBag.SetorOrigemId = new SelectList(setorBO.Selecionar(), "setorId", "descricao", distribProcesso.SetorOrigemId);
-                //ViewBag.usuarioEnviouId = new SelectList(userBO.Selecionar(), "usuarioId", "login", distribProcesso.usuarioEnviouId);
-                //ViewBag.usuarioRecebeuId = new SelectList(userBO.Selecionar(), "usuarioId", "login", distribProcesso.usuarioRecebeuId);
-              
-                return View(processo);
-            
-           
+                return RedirectToAction("Index");
+            }
+            ViewBag.pessoaId = new SelectList(pessoaBO.Selecionar(), "pessoaId", "cpf", processo.pacienteId);
+            //ViewBag.SetorDestinoId = new SelectList(setorBO.Selecionar(), "setorId", "descricao", distribProcesso.SetorDestinoId);
+            //ViewBag.SetorOrigemId = new SelectList(setorBO.Selecionar(), "setorId", "descricao", distribProcesso.SetorOrigemId);
+            //ViewBag.usuarioEnviouId = new SelectList(userBO.Selecionar(), "usuarioId", "login", distribProcesso.usuarioEnviouId);
+            //ViewBag.usuarioRecebeuId = new SelectList(userBO.Selecionar(), "usuarioId", "login", distribProcesso.usuarioRecebeuId);
+
+            return View(processo);
+
+
 
 
         }
@@ -142,7 +142,7 @@ namespace SISPTD.Controllers
             return View(processo);
         }
 
-        
+
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(long id)

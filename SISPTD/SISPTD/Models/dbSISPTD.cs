@@ -32,9 +32,14 @@ namespace SISPTD.Models
 
             #region Relacionamento da  Tb Cid
             modelBuilder.Entity<Cid>()
-                .HasMany(e => e.Pericia)
+                .HasMany(e => e.ListaDePericia)
                 .WithOptional(e => e.Cid)
                 .HasForeignKey(e => e.cidId);
+
+            modelBuilder.Entity<Cid>()
+               .HasMany(e => e.ListaDeProcessos)
+               .WithOptional(e => e.Cid)
+               .HasForeignKey(e => e.cidId);
             #endregion
 
             #region Relacionamento da Tb Clinica

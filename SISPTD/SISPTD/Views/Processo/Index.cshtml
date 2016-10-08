@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<SISPTD.Models.Processo>
 
 <div>
-    <h3><i class="glyphicon glyphicon-transfer"></i> Distrição de Processo</h3>
+    <h3><i class="glyphicon glyphicon-transfer"></i> Processo</h3>
 </div>
 
 <div class="row">
@@ -29,22 +29,15 @@
 
 <table class="table">
     <tr>
+        <th>
+            @Html.DisplayName("Nº do Processo")
+        </th>
       
         <th>
-            @Html.DisplayNameFor(model => model.Pessoa.nome)
+            @Html.DisplayNameFor(model => model.Paciente.nome)
         </th>
-        <th>
-            @Html.DisplayName("Setor Origem")
-        </th>
-        <th>
-            @Html.DisplayName("Setor Destino")
-        </th>
-        <th>
-            @Html.DisplayName("Usuario Enviou")
-        </th>
-        <th>
-            @Html.DisplayName("Usuario Recebeu")
-        </th>
+      
+      
         <th>
             @Html.DisplayNameFor(model => model.observacoes)
         </th>
@@ -53,28 +46,20 @@
 
 @foreach (var item in Model) {
     <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.processoId)
+        </td>
       
         <td>
-            @Html.DisplayFor(modelItem => item.Pessoa.nome)
+            @Html.DisplayFor(modelItem => item.Paciente.nome)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SetorOrigem.descricao)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SetorDestino.descricao)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UserEnviou.Pessoa.nome)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UserRecebeu.Pessoa.nome)
-        </td>
+        
         <td>
             @Html.DisplayFor(modelItem => item.observacoes)
         </td>
         <td>
-            <a title="Recepcionar" href="@Url.Action("Edit", "DistribProcesso", new { id = item.distrib_ProcessoId})"><i class="fa fa-check" aria-hidden="true"></i></a>
-            <a title="Detalhe" href="@Url.Action("Details", "DistribProcesso" ,new { id = item.distrib_ProcessoId })"><i class="fa fa-bars" aria-hidden="true"></i></a>
+            <a title="Recepcionar" href="@Url.Action("Edit", "Processo", new { id = item.processoId})"><i class="fa fa-check" aria-hidden="true"></i></a>
+            <a title="Detalhe" href="@Url.Action("Details", "Processo" ,new { id = item.processoId })"><i class="fa fa-bars" aria-hidden="true"></i></a>
            @* @Html.ActionLink("Delete", "Delete", new { id=item.distrib_ProcessoId })*@
         </td>
     </tr>

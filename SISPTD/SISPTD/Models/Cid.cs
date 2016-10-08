@@ -18,6 +18,8 @@ namespace SISPTD.Models
         [StringLength(150)]
         public string descricao { get; set; }
 
-        public virtual ICollection<Pericia> Pericia { get; set; }
+        public virtual ICollection<Processo> ListaDeProcessos { get; set; }
+
+        public virtual ICollection<Pericia> ListaDePericia { get; set; }
     }
 }
