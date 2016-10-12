@@ -41,7 +41,7 @@ namespace SISPTD.Controllers
         public ActionResult Create()
         {
             ViewBag.roles = new SelectList(Enum.GetValues(typeof(Perfil)));
-            ViewBag.setorId = new SelectList(setorBO.Selecionar(),"setorId", "descricao");
+            //ViewBag.setorId = new SelectList(setorBO.Selecionar(),"setorId", "descricao");
             return View();
         }
 

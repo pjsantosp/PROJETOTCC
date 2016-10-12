@@ -250,5 +250,7 @@ namespace SISPTD.Models
             #endregion
 
         }
+
+        public System.Data.Entity.DbSet<SISPTD.Models.Movimentacao> Movimentacaos { get; set; }
     }
 }

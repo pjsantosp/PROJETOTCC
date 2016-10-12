@@ -17,10 +17,20 @@ namespace SISPTD.Controllers
         private UserBO userBO = new UserBO(new dbSISPTD());
         private PessoaBO pessoaBO = new PessoaBO(new dbSISPTD());
 
-        public ActionResult Index(string busca)
+        public ActionResult BuscaProcesso(long nProcesso)
         {
+            var processo = ProcessoBO.SelecionarPorId(nProcesso);
+
+            return Json( new {pacienteCpf = processo.Paciente.cpf, pacienteNome = processo.Paciente.nome }, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult Index(int ? pagina, string busca= "")
+        {
+            int tamanhoPagina = 10;
+            int numeroPagina = pagina ?? 1;
+
             busca = Ultis.Util.RemoverMascara(busca);
-            return View(ProcessoBO.ObterProcesso(busca));
+            return View(ProcessoBO.ObterProcesso(busca, numeroPagina, tamanhoPagina));
         }
 
         public ActionResult Details(long? id)
@@ -53,6 +63,7 @@ namespace SISPTD.Controllers
         {
             try
             {
+                processo.dtCadastro = DateTime.Now;
                 processo.pacienteId = pacienteProcessoId;
                 processo.medicoId = medicoProcessoId;
                

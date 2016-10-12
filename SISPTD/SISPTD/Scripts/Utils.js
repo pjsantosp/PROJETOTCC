@@ -23,6 +23,20 @@ null,
     width: "100%",
     placeholder_text_single: "Buscar o Serviço",
 });
+
+//chosen ajax Setor
+$('#setorId').ajaxChosen({
+    type: 'GET',
+    url: $(this).data('url'),
+    jsonTermKey: "query",
+    dataType: 'json',
+},
+null,
+{
+    width: "100%",
+    placeholder_text_single: "Buscar o Serviço",
+});
+
 //chosen ajax busca cidade
 $('#IdCidade').ajaxChosen({
     type: 'GET',
@@ -189,7 +203,7 @@ $(document).ready(function () {
 
     //Localiza Paciente na Solicitaçõa de pericia
     $('#btnBuscaPacPericia').click(function () {
-        debugger;
+        
         var cpf = $('#buscarPacientePericia').val();
         $.ajax({
             method: 'GET',
@@ -205,6 +219,24 @@ $(document).ready(function () {
             }
         });
     });
+    //Localiza processo na Movimentação
+    
+    $('#btnBuscaProc').click(function () {
+        debugger;
+        var nProcesso = $('#nProcesso').val();
+        $.ajax({
+            method: 'GET',
+            url: "/Processo/BuscaProcesso/?nProcesso=" + nProcesso,
+            success: function (data) {
+                $('#pacienteNomeProc').val(data.pacienteNome);
+                $('#pacienteCpfProc').val(data.pacienteCpf)
+            },
+            error: function (data) {
+                alert("Algo está errado, não foi possível pesquisar o processo do paciente!");
+            }
+        });
+    });
+
 
 });
 
@@ -321,6 +353,12 @@ $('.uf-change').on('change', function () {
         $targetSelect.prop("disabled", false).trigger("chosen:updated");
     });
 });
+
+
+// Drop setor no usuario
+
+
+
 //Abrir em nova Janela
 //$(function novaJanela (URL){
 //    window.open(URL,"janela1","width=800,height=600,directories=no,location=no,menubar=no,scrollbars=no,status=no,toolbar=no,resizable=no")

@@ -9,6 +9,7 @@ namespace SISPTD.Models
     {
        [Key]
         public long processoId { get; set; }
+        public System.DateTime dtCadastro { get; set; }
 
         public string Procedimento { get; set; }
         public string Clinica { get; set; }

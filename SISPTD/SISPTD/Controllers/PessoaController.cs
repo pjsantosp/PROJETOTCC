@@ -28,6 +28,12 @@ namespace SISPTD.Controllers
 
             return View(pessoaBO.ObterPessoa(busca, numeroPagina, tamanhoPagina ));
         }
+
+        /// <summary>
+        /// Busca um Paciente quando passado um CPF
+        /// </summary>
+        /// <param name="cpf"></param>
+        /// <returns>Json</returns>
         public ActionResult Pesquisar(string cpf)
         {
             cpf = Util.RemoverMascara(cpf);

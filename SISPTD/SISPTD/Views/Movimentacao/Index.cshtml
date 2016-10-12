@@ -1,0 +1,74 @@
+﻿@model PagedList.IPagedList<SISPTD.Models.Movimentacao>
+@using PagedList.Mvc
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayName("Paciente")
+        </th>
+        <th>
+            @Html.DisplayName("Ogigem")
+        </th>
+        <th>
+            @Html.DisplayName("Destino")
+        </th>
+        <th>
+            @Html.DisplayName("Usuario Enviou")
+        </th>
+        <th>
+            @Html.DisplayName("Usuario Recebeu")
+        </th>
+        <th>
+            @Html.DisplayName("Enviado Em")
+        </th>
+        <th>
+            @Html.DisplayName("Recebido Em")
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Processo.Paciente.nome)
+        </td>
+        <td class="">
+            @Html.DisplayFor(modelItem => item.SetorEnviou.descricao)
+            <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SetorRecebeu.descricao)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UsuarioEnviou.login)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UsuarioRecebeu.login)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.dtEnvio)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.dtRecebimento)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.movimentacaoId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.movimentacaoId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.movimentacaoId })
+        </td>
+    </tr>
+}
+
+</table>
+<div class="pull-right">
+    <strong>  Pagina @Model.PageNumber de @Model.PageCount </strong>
+    @Html.PagedListPager(Model, pagina => Url.Action("Index", new { pagina }))
+</div>

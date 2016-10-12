@@ -22,6 +22,26 @@
                     <span class="fa fa-align-justify botao-menu "></span>
                 </a>
             </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right">
+
+                    <li class="dropdown">
+
+                        <a href="#" class="dropdown-toggle text-branco" data-toggle="dropdown">
+                            <i class="fa fa-user fa-fw"></i> <span>@Session["NomeLogin"]</span> <b class="caret"></b>
+                            <span hidden>@User.Identity.Name </span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#"></a></li>
+                            <li class="divider"></li>
+                            <li><a href="@Url.Action("TrocaSenha", "User")"><i class="glyphicon glyphicon-user"></i> Trocar Senha</a></li>
+                            <li class="divider"></li>
+                            <li><a title="Clique para sair do sistema" href="@Url.Action("Deslogar","Login")"><i class="glyphicon glyphicon-off"></i> Sair </a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
         </div>
     </nav>
 
@@ -84,9 +104,15 @@
                                 Cadastros
                             </a>
                         </li>
+                    <li>
+                        <a href="@Url.Action("Index", "Processo")">
+                            <span class="fa fa-file-text"></span>
+                            <span>Processos </span>
+                        </a>
+                    </li>
                    
                     <li >
-                        <a href="@Url.Action("Index", "Processo")">
+                        <a href="@Url.Action("Index", "Movimentacao")">
                                 <span class="glyphicon glyphicon-transfer"></span>
                             <span>Distribuir </span>
                         </a>
@@ -106,13 +132,13 @@
                     </li>
                     <li >
                         <a href="@Url.Action("Index", "Clinica")">
-                            <span class="glyphicon glyphicon-glass"></span>
+                            <span class="fa fa-hospital-o"></span>
                             <span>Clinica / Hospital</span>
                         </a>
                     </li>
                     <li >
                         <a href="@Url.Action("Index", "Agendamento")">
-                            <span class="glyphicon glyphicon-calendar"></span>
+                            <span class="fa fa-calendar-plus-o"></span>
                             <span>Agendamento</span>
                         </a>
                     </li>

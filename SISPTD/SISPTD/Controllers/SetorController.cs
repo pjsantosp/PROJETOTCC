@@ -13,6 +13,16 @@ namespace SISPTD.Controllers
     {
         private SetorBO setorBO = new SetorBO(new dbSISPTD());
 
+        public ActionResult BuscaSetor(string query)
+        {
+            var setor = setorBO.Selecionar().Where(x => x.descricao.Contains(query) || x.abreviacao.Contains(query)).Select(x => new
+            {
+                text = x.abreviacao + " - " + x.descricao,
+                value = x.setorId,
+            });
+
+            return Json(setor, JsonRequestBehavior.AllowGet);
+        }
         public ActionResult Index(int? pagina)
         {
             int nPorPagina = 5;

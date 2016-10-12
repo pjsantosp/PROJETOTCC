@@ -177,6 +177,7 @@
     <Compile Include="BO\EspecialidadeBO.cs" />
     <Compile Include="BO\EstadoBO.cs" />
     <Compile Include="BO\ICRUDGenerico.cs" />
+    <Compile Include="BO\MovimentacaoBO.cs" />
     <Compile Include="BO\PericiaBO.cs" />
     <Compile Include="BO\PessoaBO.cs" />
     <Compile Include="BO\PessoaRequisicaoBO.cs" />
@@ -192,6 +193,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MovimentacaoController.cs" />
     <Compile Include="Controllers\PericiaController.cs" />
     <Compile Include="Controllers\PessoaController.cs" />
     <Compile Include="BO\ProcessoBO.cs" />
@@ -418,6 +420,11 @@
     <Content Include="Views\Shared\_LayoutPrint.cshtml" />
     <Content Include="Views\User\_Formulario.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Movimentacao\Create.cshtml" />
+    <Content Include="Views\Movimentacao\Delete.cshtml" />
+    <Content Include="Views\Movimentacao\Details.cshtml" />
+    <Content Include="Views\Movimentacao\Edit.cshtml" />
+    <Content Include="Views\Movimentacao\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

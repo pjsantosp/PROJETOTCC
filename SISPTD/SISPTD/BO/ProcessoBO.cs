@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using SISPTD.Models;
 using System.Data.Entity;
+using PagedList;
 
 
 
@@ -26,14 +27,14 @@ namespace SISPTD.BO
             base.Inserir(entidade);
 
         }
-        public IEnumerable<Processo> ObterProcesso(string busca)
+        public IEnumerable<Processo> ObterProcesso(string busca, int? pagina, int tamanhoPagina)
         {
             try
             {
                 IEnumerable<Processo> listaProcesso = _contexto.Set<Processo>()
                .Include(d => d.Paciente)
                .Where(x => x.Paciente.cpf.Contains(busca));
-                return listaProcesso;
+                return listaProcesso.OrderByDescending(p=> p.dtCadastro).ToPagedList(pagina.Value, tamanhoPagina);
             }
             catch (Exception e)
             {
