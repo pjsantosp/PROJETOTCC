@@ -358,7 +358,7 @@
     <Content Include="Views\Endereco\Details.cshtml" />
     <Content Include="Views\Endereco\Edit.cshtml" />
     <Content Include="Views\Endereco\Index.cshtml" />
-    <Content Include="Views\Shared\_Menu.cshtml" />
+    <Content Include="Views\Shared\_MenuAdm.cshtml" />
     <Content Include="Views\User\Create.cshtml" />
     <Content Include="Views\User\Delete.cshtml" />
     <Content Include="Views\User\Details.cshtml" />
@@ -374,7 +374,7 @@
     <Content Include="Views\Processo\Details.cshtml" />
     <Content Include="Views\Processo\Index.cshtml" />
     <Content Include="Views\Shared\_ErrosSystem.cshtml" />
-    <Content Include="Views\Shared\_Menu2.cshtml" />
+    <Content Include="Views\Shared\_MenuMedico.cshtml" />
     <Content Include="Views\Login\Login.cshtml" />
     <Content Include="Views\Pericia\Create.cshtml" />
     <Content Include="Views\Pericia\Delete.cshtml" />
@@ -413,7 +413,7 @@
     <Content Include="Views\Agendamento\_Formulario.cshtml" />
     <Content Include="Views\User\TrocaSenha.cshtml" />
     <Content Include="Views\Pessoa\CreateMedico.cshtml" />
-    <Content Include="Views\Pessoa\CreateUsuario.cshtml" />
+    <Content Include="Views\Pessoa\CreateFuncionario.cshtml" />
     <Content Include="Views\Processo\_Formulario.cshtml" />
     <Content Include="Views\Pessoa\_Formulario.cshtml" />
     <Content Include="Views\Processo\Edit.cshtml" />
@@ -425,6 +425,7 @@
     <Content Include="Views\Movimentacao\Details.cshtml" />
     <Content Include="Views\Movimentacao\Edit.cshtml" />
     <Content Include="Views\Movimentacao\Index.cshtml" />
+    <Content Include="Views\Pessoa\ListaDeMedico.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

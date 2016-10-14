@@ -19,7 +19,6 @@ namespace SISPTD.Controllers
 
         public ActionResult Index(int? pagina, string busca = "")
         {
-            
 
             int tamanhoPagina = 10;
             int numeroPagina = pagina ?? 1;
@@ -27,6 +26,14 @@ namespace SISPTD.Controllers
             busca = Util.RemoverMascara(busca);
 
             return View(pessoaBO.ObterPessoa(busca, numeroPagina, tamanhoPagina ));
+        }
+        public ActionResult ListaDeMedico(int? pagina, string buscaMedico = "")
+        {
+            int tamanhoPagina = 10;
+            int numeroPagina = pagina ?? 1;
+            buscaMedico = Util.RemoverMascara(buscaMedico);
+
+            return View(pessoaBO.ObterMedico(buscaMedico, numeroPagina, tamanhoPagina));
         }
 
         /// <summary>
@@ -161,21 +168,22 @@ namespace SISPTD.Controllers
             return View();
         }
         //Cria Usuario Get 
-        public ActionResult CreateUsuario()
+        public ActionResult CreateFuncionario()
         {
             return View();
         }
-        //Cria Usuario Post
+        //Cria Usuario Postx
         [HttpPost, ValidateAntiForgeryToken]
-        public ActionResult CreateUsuario(Pessoa usuario)
+        public ActionResult CreateFuncionario(Pessoa funcionario)
         {
             try
             {
-                usuario.cpf = Ultis.Util.RemoverMascara(usuario.cpf);
+                funcionario.cpf = Ultis.Util.RemoverMascara(funcionario.cpf);
                 if (ModelState.IsValid)
                 {
-                    usuario.dt_Cadastro = DateTime.Now;
-                    pessoaBO.Inserir(usuario);
+                    funcionario.tipo = (int)TipoPessoa.Funcionario;
+                    funcionario.dt_Cadastro = DateTime.Now;
+                    pessoaBO.Inserir(funcionario);
                     TempData["Sucesso"] = "Cadastro Realizado com Sucesso !";
                 }
                 return RedirectToAction("Index", "User");
@@ -185,7 +193,7 @@ namespace SISPTD.Controllers
 
                 TempData["Erro"] = "Ops !" + e.Message;
             }
-            return View(usuario);
+            return View(funcionario);
 
         }
         //Cria medico get

@@ -45,7 +45,7 @@
         </div>
     </nav>
 
-    <!-- #region Outro -->
+    <!-- #region NavBarAntiga -->
     @*<nav class="navbar navbar-menu navbar-fixed-top">
             <div class="navbar-header col-sm-offset-1 col-md-offset-1">
                 @Html.ActionLink("Tratamento Fora Domicilio", "Index", "Pessoa", new { area = "" }, new { @class = "navbar-brand navbar-menu menu-slim" })
@@ -75,68 +75,68 @@
 
   
     <!-- #region Regra do Menu -->
-    @*
+    
         <div class="row" style="margin-top:54px">
             @if (User.IsInRole("Medico"))
             {
-                @Html.Partial("_Menu2")
+                @Html.Partial("_MenuMedico")
             }
             else
             {
-                @Html.Partial("_Menu")
+                @Html.Partial("_MenuAdm")
             }
         </div>
-    *@
+    
     <!-- #endregion -->
     
 
     <div class="container-fluid principal">
 
         @Html.Partial("_ErrosSystem")
-
-        <div style="border:0px;">
-            <div class="menu-lateral" >
+        <!-- #region MenuOriginal -->
+        @*<div style="border:0px;">
+            <div class="menu-lateral">
                 <ul class="list-group ">
-                   
-                        <li>
-                            <a href="@Url.Action("Create", "Pessoa")">
-                                <span style="font-size:16px;" class="fa fa-book"></span>
-                                Cadastros
-                            </a>
-                        </li>
+
+                    <li>
+                        <a href="@Url.Action("Create", "Pessoa")">
+                            <span style="font-size:16px;" class="fa fa-book"></span>
+                            Cadastros
+                        </a>
+                    </li>
                     <li>
                         <a href="@Url.Action("Index", "Processo")">
                             <span class="fa fa-file-text"></span>
                             <span>Processos </span>
                         </a>
                     </li>
-                   
-                    <li >
+
+                    <li>
                         <a href="@Url.Action("Index", "Movimentacao")">
-                                <span class="glyphicon glyphicon-transfer"></span>
+                            <span class="glyphicon glyphicon-transfer"></span>
                             <span>Distribuir </span>
                         </a>
                     </li>
-                    <li >
+                    <li>
                         <a href="@Url.Action("Index", "Pericia")">
                             <span class="glyphicon glyphicon-list-alt"></span>
                             <span>Solicita Pericia </span>
                         </a>
                     </li>
 
-                    <li >
+                    <li>
                         <a href="@Url.Action("Index", "Setor")">
                             <span class="glyphicon glyphicon-th-large"></span>
                             <span>Setor</span>
                         </a>
                     </li>
-                    <li >
+                    <li>
                         <a href="@Url.Action("Index", "Clinica")">
                             <span class="fa fa-hospital-o"></span>
                             <span>Clinica / Hospital</span>
                         </a>
                     </li>
-                    <li >
+                    <li>
                         <a href="@Url.Action("Index", "Agendamento")">
                             <span class="fa fa-calendar-plus-o"></span>
                             <span>Agendamento</span>
@@ -157,7 +157,9 @@
                 </ul>
 
             </div>
-        </div>
+        </div>*@
+
+<!-- #endregion -->
         <!-- /.navbar-collapse -->
 
         @RenderBody()

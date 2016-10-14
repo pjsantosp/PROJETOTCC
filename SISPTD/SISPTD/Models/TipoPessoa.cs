@@ -10,6 +10,7 @@ namespace SISPTD.Models
         Paciente = 0,
         Acompanhante = 1,
         Medico = 2,
+        Funcionario = 3,
 
     }
 }
