@@ -426,6 +426,7 @@
     <Content Include="Views\Movimentacao\Edit.cshtml" />
     <Content Include="Views\Movimentacao\Index.cshtml" />
     <Content Include="Views\Pessoa\ListaDeMedico.cshtml" />
+    <Content Include="Views\Movimentacao\ProcessoEmPericia.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

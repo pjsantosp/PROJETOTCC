@@ -313,6 +313,7 @@ $(function () {
     $('.cep').mask('99999-999');
     $('.cns').mask('999 9999 9999 9999');
     $('.telefone').mask('(99) 9999-9999');
+
 });
 
 //$('.nav > li > a[href="' + location.pathname + '"]').parent().addClass('active').siblings().removeClass('active');

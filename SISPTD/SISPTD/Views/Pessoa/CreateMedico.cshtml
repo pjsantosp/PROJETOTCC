@@ -33,21 +33,21 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-3">
+                <div class="col-md-2">
                     <div class="form-group">
                         @Html.LabelFor(model => model.rg, new { @class = "" })
                         @Html.EditorFor(model => model.rg, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.rg, "", new { @class = "text-danger" })
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-lg-2 col-md-2 col-xs-2 col-lg-2">
                     <div class="form-group">
                         @Html.LabelFor(model => model.orgaoemissor, new { @class = " " })
                         @Html.EditorFor(model => model.orgaoemissor, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.orgaoemissor, "", new { @class = "text-danger" })
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-2">
                     <div class="form-group">
                         @Html.LabelFor(model => model.dt_Emissao, new { @class = "" })
                         @Html.EditorFor(model => model.dt_Emissao, new { htmlAttributes = new { @class = "form-control date" } })
@@ -67,7 +67,7 @@
                 <div class="col-md-3">
                     <div class="form-group">
                         @Html.Label("CRM *", new { @class = " " })
-                        @Html.EditorFor(model => model.crm, new { htmlAttributes = new { @class = "form-control cns" } })
+                        @Html.EditorFor(model => model.crm, new { htmlAttributes = new { @class = "form-control " } })
                         @Html.ValidationMessageFor(model => model.crm, "", new { @class = "text-danger" })
 
                     </div>

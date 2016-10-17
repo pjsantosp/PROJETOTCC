@@ -16,6 +16,7 @@ namespace SISPTD.Controllers
         private dbSISPTD db = new dbSISPTD();
         private PericiaBO periciaBO = new PericiaBO(new dbSISPTD());
         private PessoaBO pessoBO = new PessoaBO(new dbSISPTD());
+        private MovimentacaoBO movimentacaoBO = new MovimentacaoBO(new dbSISPTD());
        
 
         // GET: Pericia
@@ -24,6 +25,8 @@ namespace SISPTD.Controllers
             
             return View(periciaBO.Selecionar());
         }
+
+        
 
         public ActionResult Details(long? id)
         {

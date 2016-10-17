@@ -1,7 +1,7 @@
 ﻿@model SISPTD.Models.Pessoa
 <a title="Detalhes" class="fa fa-bars" href="@Url.Action("Details", "Pessoa", new { id = Model.pessoaId })"></a> |
 
-@if (User.IsInRole("Gerente"))
+@if (User.IsInRole("Gerente")|| User.IsInRole("Administrador"))
 {
     <a  class="fa fa-pencil " data-toggle="tooltip" data-placement="top" title="Editar" href="@Url.Action("Edit", "Pessoa", new { id = Model.pessoaId })"></a> <i>|</i> 
     <a title="Add Acompanhante" class="fa fa-users" href="@Url.Action("CreateAcompanhante","Pessoa", new {pessoaPai= Model.pessoaId })"></a>

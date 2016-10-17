@@ -1,5 +1,4 @@
 ﻿@model IEnumerable<SISPTD.Models.Pericia>
-
 @{
     ViewBag.Title = "Pericia Medica";
 }
@@ -9,6 +8,8 @@
 <p>
     @Html.ActionLink("Nova Pericia", "Create", null, new { @class = "btn btn-primary" })
 </p>
+@Html.Action("ProcessoEmPericia","Movimentacao")
+
 <table class="table table-striped">
     <tr>
        <th>
@@ -46,11 +47,13 @@
         <td>
             <a href="@Url.Action("Edit","Pericia", new {id = item.periciaId })"><i class="fa fa-pencil" aria-hidden="true"></i></a> |
             <a href="@Url.Action("Details","Pericia", new {id = item.periciaId })"><i class="fa fa-bars" aria-hidden="true"></i></a> |
-            @*@Html.ActionLink("Edit", "Edit", new { id=item.periciaId }) |
+            @Html.ActionLink("Edit", "Edit", new { id=item.periciaId }) |
             @Html.ActionLink("Details", "Details", new { id=item.periciaId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.periciaId })*@
+            @Html.ActionLink("Delete", "Delete", new { id=item.periciaId })
         </td>
     </tr>
+
 }
+   
 
 </table>

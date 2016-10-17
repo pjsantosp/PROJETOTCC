@@ -24,6 +24,8 @@ namespace SISPTD.Models
         //public long pessoaId { get; set; }
         public long movimentacaoId { get; set; }
         public long? agendamentoId { get; set; }
+        public long ?setorId { get; set; }
+
         public long? pacienteId { get; set; }
 
         public long periciaId { get; set; }
@@ -34,6 +36,8 @@ namespace SISPTD.Models
         public virtual Pessoa Paciente { get; set; }
         public virtual Pessoa Medico { get; set; }
         public virtual Cid Cid { get; set; }
+        public virtual Setor Setor { get; set; }
+
 
         public virtual ICollection<Movimentacao> ListaDeMovimentacao { get; set; }
 

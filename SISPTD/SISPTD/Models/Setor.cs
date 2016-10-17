@@ -26,6 +26,8 @@ namespace SISPTD.Models
         public virtual ICollection<Movimentacao> ListaDeProcessosRecebidos { get; set; }
 
         public virtual ICollection<User> ListaDeUsuarios { get; set; }
+        public virtual Processo Processo { get; set; }
+
 
     }
 }

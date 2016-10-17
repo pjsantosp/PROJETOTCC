@@ -221,6 +221,11 @@ namespace SISPTD.Models
                .HasOptional(e => e.Pericia)
                .WithRequired(e => e.Processo)
                .WillCascadeOnDelete(true);
+
+            modelBuilder.Entity<Processo>()
+               .HasOptional(proc => proc.Setor)
+               .WithOptionalPrincipal(s => s.Processo)
+               .WillCascadeOnDelete(false);
             #endregion
 
             #region Relacionamento Tb Setor
@@ -248,6 +253,10 @@ namespace SISPTD.Models
 
 
             #endregion
+
+            
+
+            
 
         }
 

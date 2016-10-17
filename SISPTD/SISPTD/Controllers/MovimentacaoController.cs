@@ -27,6 +27,11 @@ namespace SISPTD.Controllers
             return View(movimentacaoBO.ObterMovimentacao(buscar ,numeroPagina, tamanhoPagina));
         }
 
+        public ActionResult ProcessoEmPericia()
+        {
+            return PartialView(movimentacaoBO.ObterPericias());
+        }
+
         // GET: Movimentacao/Details/5
         public ActionResult Details(long? id)
         {
@@ -45,13 +50,12 @@ namespace SISPTD.Controllers
         // GET: Movimentacao/Create
         public ActionResult Create()
         {
-           
-            ViewBag.ProcessoId = new SelectList(db.Processo, "processoId", "processoId");
+            ViewBag.processoId = 0;
             ViewBag.setorEnviouId = new SelectList(db.Setor, "setorId", "descricao");
             ViewBag.setorRecebeuId = new SelectList(db.Setor, "setorId", "descricao");
             ViewBag.usuarioEnviouId = new SelectList(db.Usuario, "usuarioId", "login");
             ViewBag.usuarioRecebeuId = new SelectList(db.Usuario, "usuarioId", "login");
-            return View();
+            return View( );
         }
 
         // POST: Movimentacao/Create
@@ -67,7 +71,6 @@ namespace SISPTD.Controllers
                 var user = usuarioBO.userLogado(User.Identity.Name);
                 movimentacao.usuarioEnviouId = user.usuarioId;
                 movimentacao.dtEnvio = DateTime.Now;
-
                 if (ModelState.IsValid)
                 {
                     db.Movimentacaos.Add(movimentacao);

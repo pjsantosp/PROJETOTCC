@@ -14,7 +14,7 @@
     <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
 
 </head>
-<body class="container-fluid">
+<body>
     <nav class="navbar navbar-inverse navbar-fixed-top" style="color:#0B486B">
         <div class="container-fluid">
             <div class="navbar-header">
@@ -76,7 +76,7 @@
   
     <!-- #region Regra do Menu -->
     
-        <div class="row" style="margin-top:54px">
+        @*<div class="row" style="margin-top:54px"></div>*@
             @if (User.IsInRole("Medico"))
             {
                 @Html.Partial("_MenuMedico")
@@ -85,7 +85,6 @@
             {
                 @Html.Partial("_MenuAdm")
             }
-        </div>
     
     <!-- #endregion -->
     
@@ -163,12 +162,7 @@
         <!-- /.navbar-collapse -->
 
         @RenderBody()
-
-
-        <hr />
-        <footer>
-            <p>&copy; Projeto de Conclusão de Curso @DateTime.Now.Year</p>
-        </footer>
+     
 
     </div>
 

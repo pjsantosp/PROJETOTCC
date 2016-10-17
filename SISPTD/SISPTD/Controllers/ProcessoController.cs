@@ -66,6 +66,7 @@ namespace SISPTD.Controllers
                 processo.dtCadastro = DateTime.Now;
                 processo.pacienteId = pacienteProcessoId;
                 processo.medicoId = medicoProcessoId;
+              
                
                 if (ModelState.IsValid)
                 {
