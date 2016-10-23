@@ -9,6 +9,7 @@ namespace SISPTD.Models
         [Key]
         public long periciaId { get; set; }
 
+
         [Required, Display(Name = "Descrição")]
         [DataType(DataType.MultilineText)]
         public string descricao { get; set; }

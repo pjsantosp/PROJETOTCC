@@ -28,7 +28,7 @@ namespace SISPTD.Models
 
         public long? pacienteId { get; set; }
 
-        public long periciaId { get; set; }
+       // public long periciaId { get; set; }
 
         public long ? medicoId { get; set; }
         public virtual Agendamento Agendamento { get; set; }

@@ -61,11 +61,11 @@ namespace SISPTD.Controllers
             var pessoa = pessoaBO.Selecionar().Where(p => p.cpf == cpf && p.tipo==2).FirstOrDefault();
             if (pessoa == null)
             {
-                return Json(new { Nome = "", Id = 0, Cpf = "", Cns = "", Tel = "", Crm = ""}, JsonRequestBehavior.AllowGet);
+                return Json(new { Nome = "", Id = 0, Cpf = "", Cns = "", Tel = "", Cel ="", Crm = ""}, JsonRequestBehavior.AllowGet);
             }
             else
             {
-                return Json(new { Nome = pessoa.nome, Id = pessoa.pessoaId, Cpf = pessoa.cpf, Tel= pessoa.tel, Crm = pessoa.crm, Cns = pessoa.cns }, JsonRequestBehavior.AllowGet);
+                return Json(new { Nome = pessoa.nome, Id = pessoa.pessoaId, Cpf = pessoa.cpf, Tel= pessoa.tel, Cel =pessoa.cel, Crm = pessoa.crm, Cns = pessoa.cns }, JsonRequestBehavior.AllowGet);
             }
 
         }

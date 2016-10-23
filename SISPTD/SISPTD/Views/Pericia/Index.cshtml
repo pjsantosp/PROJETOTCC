@@ -1,9 +1,10 @@
-﻿@model IEnumerable<SISPTD.Models.Pericia>
+﻿@model PagedList.IPagedList<SISPTD.Models.Pericia>
+@using PagedList.Mvc
 @{
     ViewBag.Title = "Pericia Medica";
 }
 
-<h3><i class="glyphicon glyphicon-list-alt"></i> Pericia Medica</h3>
+<h3><i class="fa fa-list-alt"></i> Pericia Medica</h3>
 
 <p>
     @Html.ActionLink("Nova Pericia", "Create", null, new { @class = "btn btn-primary" })
@@ -13,16 +14,19 @@
 <table class="table table-striped">
     <tr>
        <th>
-        @Html.DisplayNameFor(model => model.Cid)
+        @Html.DisplayName("Código Cid")
         </th>
         <th>
+            @Html.DisplayName("Cid")
+        </th>
+        <th>
+            @Html.DisplayName("Descrição")
+        </th>
+        @*<th>
             @Html.DisplayNameFor(model => model.descricao)
-        </th>
+        </th>*@
         <th>
-            @Html.DisplayNameFor(model => model.descricao)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.dt_Pericia)
+            @Html.DisplayName("Data da Pericia")
         </th>
       
         <th></th>
@@ -31,15 +35,18 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Cid)
+            @Html.DisplayFor(modelItem => item.Cid.codigoCid)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Cid.descricao)
         </td>
        
         <td>
             @Html.DisplayFor(modelItem => item.descricao)
         </td>
-        <td>
+        @*<td>
             @Html.DisplayFor(modelItem => item.descricao)
-        </td>
+        </td>*@
         <td>
             @Html.DisplayFor(modelItem => item.dt_Pericia)
         </td>
@@ -47,9 +54,7 @@
         <td>
             <a href="@Url.Action("Edit","Pericia", new {id = item.periciaId })"><i class="fa fa-pencil" aria-hidden="true"></i></a> |
             <a href="@Url.Action("Details","Pericia", new {id = item.periciaId })"><i class="fa fa-bars" aria-hidden="true"></i></a> |
-            @Html.ActionLink("Edit", "Edit", new { id=item.periciaId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.periciaId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.periciaId })
+           
         </td>
     </tr>
 
@@ -57,3 +62,7 @@
    
 
 </table>
+<div class="pull-right">
+    <strong>  Pagina @Model.PageNumber de @Model.PageCount </strong>
+    @Html.PagedListPager(Model, pagina => Url.Action("Index", new { pagina }))
+</div>

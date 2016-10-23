@@ -219,8 +219,11 @@ namespace SISPTD.Models
 
             modelBuilder.Entity<Processo>()
                .HasOptional(e => e.Pericia)
-               .WithRequired(e => e.Processo)
-               .WillCascadeOnDelete(true);
+               .WithOptionalPrincipal(e => e.Processo)
+               .WillCascadeOnDelete(false);
+
+
+
 
             modelBuilder.Entity<Processo>()
                .HasOptional(proc => proc.Setor)

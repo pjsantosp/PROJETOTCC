@@ -5,6 +5,7 @@ using System.Data.Entity;
 using System.Web;
 using SISPTD.Models;
 using System.Collections;
+using PagedList;
 
 namespace SISPTD.BO
 {
@@ -17,7 +18,19 @@ namespace SISPTD.BO
         }
 
 
+        public IEnumerable<Pericia> ObterPericia(int? pagina, int tamanhoPagina)
+        {
+            try
+            {
+                IEnumerable<Pericia> listaDePericia = _contexto.Set<Pericia>().Include(p => p.Processo);
+                return listaDePericia.OrderByDescending(p => p.dt_Pericia).ToPagedList(pagina.Value, tamanhoPagina);
+            }
+            catch (Exception)
+            {
 
+                throw;
+            }
+        }
 
     }
 }

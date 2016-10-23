@@ -159,7 +159,7 @@ $(document).ready(function () {
                 else {
                     var btCriaPessoa = $('#btnCriaPessoa');
                     btCriaPessoa.show();
-                    $('<a href="/Pessoa/CreateUsuario/" title="Cadastra Pessoa" class="btn btn-primary">Cadastra Funcionario</a>').appendTo('#btnCriaPessoa');
+                    $('<a href="/Pessoa/CreateFuncionario/" title="Cadastra Pessoa" class="btn btn-primary">Cadastra Funcionario</a>').appendTo('#btnCriaPessoa');
 
                 }
             },
@@ -183,6 +183,8 @@ $(document).ready(function () {
                     $('#cnsDoMedico').val(data.Cns);
                     $('#telDoMedico').val(data.Tel);
                     $('#crmDoMedico').val(data.Crm);
+                    $('#celDoMedico').val(data.Cel);
+
                 }
                 else {
                     debugger;

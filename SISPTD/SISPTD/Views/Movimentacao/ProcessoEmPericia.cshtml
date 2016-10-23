@@ -1,63 +1,85 @@
 ﻿@model IEnumerable<SISPTD.Models.Movimentacao>
 
-<p>
+@*<p>
     @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayName("Paciente")
-        </th>
-        <th>
-            @Html.DisplayName("Origem")
-        </th>
-        <th>
-            @Html.DisplayName("Destino")
-        </th>
-        <th>
-            @Html.DisplayName("Usuário Enviou")
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UsuarioRecebeu.login)
-        </th>
-        <th>
-            @Html.DisplayName("Envio em")
-        </th>
-        <th>
-            @Html.DisplayName("Recebido em")
-        </th>
-        <th></th>
-    </tr>
+</p>*@
+@if (Model.Any() && Model != null)
+{
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Processo.Paciente.nome)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SetorEnviou.descricao)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SetorRecebeu.descricao)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UsuarioEnviou.Pessoa.nome)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UsuarioRecebeu.login)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.dtEnvio)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.dtRecebimento)
-        </td>
-        @*<td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.movimentacaoId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.movimentacaoId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.movimentacaoId })
-        </td>*@
-    </tr>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayName("Paciente")
+            </th>
+            <th>
+                @Html.DisplayName("Origem")
+            </th>
+            <th>
+                @Html.DisplayName("Destino")
+            </th>
+            <th>
+                @Html.DisplayName("Usuário Enviou")
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UsuarioRecebeu.login)
+            </th>
+            <th>
+                @Html.DisplayName("Envio em")
+            </th>
+            <th>
+                @Html.DisplayName("Recebido em")
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Processo.Paciente.nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SetorEnviou.descricao)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SetorRecebeu.descricao)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UsuarioEnviou.Pessoa.nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UsuarioRecebeu.login)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.dtEnvio)
+                </td>
+                <td>
+                    @* @Html.DisplayFor(modelItem => item.dtRecebimento)*@
+                </td>
+                <td>
+                    <a href="@Url.Action("Create","Pericia",new {pacienteId = item.ProcessoId })">Pericia</a>
+                </td>
+                @*<td>
+                        @Html.ActionLink("Edit", "Edit", new { id=item.movimentacaoId }) |
+                        @Html.ActionLink("Details", "Details", new { id=item.movimentacaoId }) |
+                        @Html.ActionLink("Delete", "Delete", new { id=item.movimentacaoId })
+                    </td>*@
+            </tr>
+        }
+
+    </table>
+
+}
+else
+{
+    <br />
+    <h2 class="text-center text-muted">
+
+        <small>
+            NENHUM<br />
+
+            PROCESSO NO SETOR DE PERICIA
+        </small>
+    </h2>
 }
 
-</table>

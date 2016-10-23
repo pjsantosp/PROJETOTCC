@@ -14,16 +14,18 @@ namespace SISPTD.Controllers
     public class PericiaController : Controller
     {
         private dbSISPTD db = new dbSISPTD();
+        private ProcessoBO processoBO = new ProcessoBO(new dbSISPTD());
         private PericiaBO periciaBO = new PericiaBO(new dbSISPTD());
         private PessoaBO pessoBO = new PessoaBO(new dbSISPTD());
         private MovimentacaoBO movimentacaoBO = new MovimentacaoBO(new dbSISPTD());
        
 
-        // GET: Pericia
-        public ActionResult Index()
+        public ActionResult Index(int? pagina)
         {
+            int tamanhoPagina = 10;
+            int numeroPagina = pagina ?? 1;
             
-            return View(periciaBO.Selecionar());
+            return View(periciaBO.ObterPericia(numeroPagina, tamanhoPagina));
         }
 
         
@@ -43,8 +45,22 @@ namespace SISPTD.Controllers
         }
 
         // GET: Pericia/Create
-        public ActionResult Create()
+        public ActionResult Create(int? pacienteId)
         {
+            if (pacienteId != null)
+            {
+                Processo objProcesso = processoBO.SelecionarPorId(pacienteId.Value);
+                Pessoa objPaciente = objProcesso.Paciente;
+                ViewBag.processoId = objProcesso.processoId;
+                ViewBag.pacienteCpf = objPaciente.cpf;
+                ViewBag.pacienteNome = objPaciente.nome;
+                ViewBag.pacienteId = objPaciente.pessoaId;
+                
+
+
+            }
+           
+           
             ViewBag.cidId = new SelectList(db.Cid, "cidId", "codigoCid");
             ViewBag.pacientePessoaId = new SelectList(pessoBO.Selecionar().Where(p=> p.tipo== 0), "pessoaId", "cpf");
             return View();
@@ -53,15 +69,20 @@ namespace SISPTD.Controllers
         
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "medicoPessoaId,descricao,cidId,situacao,pacientepessoaId")] Pericia pericia)
+        public ActionResult Create([Bind(Include = "medicoPessoaId,descricao,cidId,situacao,pacientepessoaId,processoId")]Pericia pericia)
         {
+
+
             try
             {
                 pericia.dt_Pericia = DateTime.Now;
                 if (ModelState.IsValid)
                 {
-                    db.Pericia.Add(pericia);
-                    db.SaveChanges();
+                    //pericia.TipoPericia = (int)TipoPericia.Primeira_Vez;
+                    //pericia.Situacao = (int)Situacao.Em_Tramitação;
+                    periciaBO.Inserir(pericia);
+                    //db.Pericia.Add(pericia);
+                    //db.SaveChanges();
                     return RedirectToAction("Index");
                 }
 
@@ -72,8 +93,8 @@ namespace SISPTD.Controllers
 
                 TempData["Erro"] = "Ops ! " + ex.Message;
             }
-            ViewBag.cidId = new SelectList(db.Cid, "cidId", "codigoCid", pericia.cidId);
-            ViewBag.pessoaId = new SelectList(db.Pessoa, "pessoaId", "cpf", pericia.Processo.Paciente.cpf);
+            //ViewBag.cidId = new SelectList(db.Cid, "cidId", "codigoCid", pericia.cidId);
+            //ViewBag.pessoaId = new SelectList(db.Pessoa, "pessoaId", "cpf", pericia.Processo.Paciente.cpf);
             return View(pericia);
         }
 
@@ -89,7 +110,7 @@ namespace SISPTD.Controllers
                 return HttpNotFound();
             }
             ViewBag.cidId = new SelectList(db.Cid, "cidId", "codigoCid", pericia.cidId);
-            ViewBag.pessoaId = new SelectList(db.Pessoa, "pessoaId", "cpf", pericia.Processo.Paciente.cpf);
+            //ViewBag.pessoaId = new SelectList(db.Pessoa, "pessoaId", "cpf", pericia.Processo.Paciente.cpf);
             return View(pericia);
         }
        
@@ -104,7 +125,7 @@ namespace SISPTD.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.cidId = new SelectList(db.Cid, "cidId", "codigoCid", pericia.cidId);
-            ViewBag.pessoaId = new SelectList(db.Pessoa, "pessoaId", "cpf", pericia.Processo.Paciente.cpf);
+            //ViewBag.pessoaId = new SelectList(db.Pessoa, "pessoaId", "cpf", pericia.Processo.Paciente.cpf);
             return View(pericia);
         }
 
