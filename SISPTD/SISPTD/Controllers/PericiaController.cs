@@ -44,7 +44,6 @@ namespace SISPTD.Controllers
             return View(pericia);
         }
 
-        // GET: Pericia/Create
         public ActionResult Create(int? pacienteId)
         {
             if (pacienteId != null)
@@ -72,17 +71,14 @@ namespace SISPTD.Controllers
         public ActionResult Create([Bind(Include = "medicoPessoaId,descricao,cidId,situacao,pacientepessoaId,processoId")]Pericia pericia)
         {
 
-
             try
             {
+                
                 pericia.dt_Pericia = DateTime.Now;
                 if (ModelState.IsValid)
                 {
-                    //pericia.TipoPericia = (int)TipoPericia.Primeira_Vez;
-                    //pericia.Situacao = (int)Situacao.Em_Tramitação;
                     periciaBO.Inserir(pericia);
-                    //db.Pericia.Add(pericia);
-                    //db.SaveChanges();
+                    TempData["Sucesso"] = "Pericia Cadastrada com Sucesso";
                     return RedirectToAction("Index");
                 }
 

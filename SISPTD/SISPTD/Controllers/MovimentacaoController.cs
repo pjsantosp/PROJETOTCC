@@ -23,16 +23,23 @@ namespace SISPTD.Controllers
         {
             int tamanhoPagina = 10;
             int numeroPagina = pagina ?? 1;
-            //var movimentacaos = db.Movimentacaos.Include(m => m.Processo).Include(m => m.SetorEnviou).Include(m => m.SetorRecebeu).Include(m => m.UsuarioEnviou).Include(m => m.UsuarioRecebeu);
             return View(movimentacaoBO.ObterMovimentacao(buscar ,numeroPagina, tamanhoPagina));
         }
 
-        public ActionResult ProcessoEmPericia()
+        public ActionResult ProcessoEmPericia(int? pagina)
         {
-            return PartialView(movimentacaoBO.ObterPericias());
+            int tamanhoPagina = 10;
+            int numeroPagina = pagina ?? 1;
+            return PartialView(movimentacaoBO.ObterPericias(numeroPagina, tamanhoPagina));
+        }
+        public ActionResult ProcessoEmAgendamento(int? pagina)
+        {
+            int tamanhoPagina = 10;
+            int numeroPagina = pagina ?? 1;
+            return PartialView(movimentacaoBO.ObterAgendamento(numeroPagina, tamanhoPagina));
         }
 
-        // GET: Movimentacao/Details/5
+
         public ActionResult Details(long? id)
         {
             if (id == null)
@@ -47,7 +54,6 @@ namespace SISPTD.Controllers
             return View(movimentacao);
         }
 
-        // GET: Movimentacao/Create
         public ActionResult Create()
         {
             ViewBag.processoId = 0;
@@ -58,9 +64,7 @@ namespace SISPTD.Controllers
             return View( );
         }
 
-        // POST: Movimentacao/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+       
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create( Movimentacao movimentacao)
@@ -93,7 +97,6 @@ namespace SISPTD.Controllers
             return View(movimentacao);
         }
 
-        // GET: Movimentacao/Edit/5
         public ActionResult Edit(long? id)
         {
             if (id == null)
@@ -120,6 +123,7 @@ namespace SISPTD.Controllers
         {
             if (ModelState.IsValid)
             {
+                movimentacao.dtEnvio = DateTime.Now;
                 db.Entry(movimentacao).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

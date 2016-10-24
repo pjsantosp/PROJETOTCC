@@ -31,6 +31,23 @@ namespace SISPTD.BO
                 throw;
             }
         }
+        public override void Inserir(Pericia entidade)
+        {
+            try
+            {
+                if (String.IsNullOrEmpty(entidade.Medico.nome))
+                    throw new Exception("O Nome do Médico é obrigátorio!");
+                if (string.IsNullOrEmpty(entidade.Processo.Paciente.nome))
+                    throw new Exception("O processo contido na pericia não contém um paciente");
+                    base.Inserir(entidade);
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception("Erro ao tentar inserir Pericia", ex);
+            }
+            
+        }
 
     }
 }

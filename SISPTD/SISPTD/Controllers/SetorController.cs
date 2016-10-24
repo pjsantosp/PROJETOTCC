@@ -15,6 +15,8 @@ namespace SISPTD.Controllers
 
         public ActionResult BuscaSetor(string query)
         {
+            query = query.ToUpper();
+
             var setor = setorBO.Selecionar().Where(x => x.descricao.Contains(query) || x.abreviacao.Contains(query)).Select(x => new
             {
                 text = x.abreviacao + " - " + x.descricao,
@@ -49,6 +51,8 @@ namespace SISPTD.Controllers
         {
             try
             {
+                setor.descricao = setor.descricao.ToUpper();
+                setor.abreviacao = setor.abreviacao.ToUpper();
                 if (ModelState.IsValid)
                 {
                     setorBO.Inserir(setor);
@@ -88,6 +92,8 @@ namespace SISPTD.Controllers
         {
             try
             {
+                setor.abreviacao = setor.abreviacao.ToUpper();
+                setor.descricao = setor.descricao.ToUpper();
                 if (ModelState.IsValid)
                 {
                     setorBO.Alterar(setor);

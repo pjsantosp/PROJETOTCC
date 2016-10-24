@@ -8,6 +8,8 @@ namespace SISPTD.Models
     {
         [Key]
         public long periciaId { get; set; }
+        public long processoId { get; set; }
+
 
 
         [Required, Display(Name = "Descrição")]

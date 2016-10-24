@@ -338,5 +338,5 @@ D:\PROJETOTCC\SISPTD\SISPTD\bin\PagedList.dll
 D:\PROJETOTCC\SISPTD\SISPTD\bin\PagedList.Mvc.dll
 D:\PROJETOTCC\SISPTD\SISPTD\bin\PagedList.xml
 D:\PROJETOTCC\SISPTD\SISPTD\bin\PagedList.Mvc.xml
-D:\PROJETOTCC\SISPTD\SISPTD\obj\Debug\SISPTD.Migrations.CriaBanco.resources
+D:\PROJETOTCC\SISPTD\SISPTD\obj\Debug\SISPTD.Migrations.MeuMigrationInicial.resources
 D:\PROJETOTCC\SISPTD\SISPTD\obj\Debug\SISPTD.csproj.GenerateResource.Cache

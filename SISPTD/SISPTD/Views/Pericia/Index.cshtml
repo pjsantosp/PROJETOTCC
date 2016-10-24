@@ -6,63 +6,86 @@
 
 <h3><i class="fa fa-list-alt"></i> Pericia Medica</h3>
 
-<p>
+<div>
     @Html.ActionLink("Nova Pericia", "Create", null, new { @class = "btn btn-primary" })
-</p>
-@Html.Action("ProcessoEmPericia","Movimentacao")
-
-<table class="table table-striped">
-    <tr>
-       <th>
-        @Html.DisplayName("Código Cid")
-        </th>
-        <th>
-            @Html.DisplayName("Cid")
-        </th>
-        <th>
-            @Html.DisplayName("Descrição")
-        </th>
-        @*<th>
-            @Html.DisplayNameFor(model => model.descricao)
-        </th>*@
-        <th>
-            @Html.DisplayName("Data da Pericia")
-        </th>
-      
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Cid.codigoCid)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Cid.descricao)
-        </td>
-       
-        <td>
-            @Html.DisplayFor(modelItem => item.descricao)
-        </td>
-        @*<td>
-            @Html.DisplayFor(modelItem => item.descricao)
-        </td>*@
-        <td>
-            @Html.DisplayFor(modelItem => item.dt_Pericia)
-        </td>
-       
-        <td>
-            <a href="@Url.Action("Edit","Pericia", new {id = item.periciaId })"><i class="fa fa-pencil" aria-hidden="true"></i></a> |
-            <a href="@Url.Action("Details","Pericia", new {id = item.periciaId })"><i class="fa fa-bars" aria-hidden="true"></i></a> |
-           
-        </td>
-    </tr>
-
-}
-   
-
-</table>
-<div class="pull-right">
-    <strong>  Pagina @Model.PageNumber de @Model.PageCount </strong>
-    @Html.PagedListPager(Model, pagina => Url.Action("Index", new { pagina }))
 </div>
+<br />
+
+    <div>
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Processos Para Pericia</a></li>
+            <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Lista de Percias</a></li>
+        </ul>
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="home">
+                @Html.Action("ProcessoEmPericia", "Movimentacao")
+            </div>
+            <div role="tabpanel" class="tab-pane" id="profile">
+                <table class="table table-striped table-bordered table-responsive">
+                    <tr>
+                        <th>
+                            @Html.DisplayName("Código Cid")
+                        </th>
+                        <th>
+                            @Html.DisplayName("Cid")
+                        </th>
+                        <th>
+                            @Html.DisplayName("Descrição")
+                        </th>
+
+                        <th>
+                            @Html.DisplayName("Data da Pericia")
+                        </th>
+
+                        <th>
+                            @Html.DisplayName("Ação")
+
+                        </th>
+                    </tr>
+
+                    @foreach (var item in Model)
+            {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Cid.codigoCid)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Cid.descricao)
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.descricao)
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.dt_Pericia)
+                            </td>
+
+
+                            <td>
+                                <a href="@Url.Action("Edit","Pericia", new {id = item.periciaId })"><i class="fa fa-pencil" aria-hidden="true"></i></a> |
+                                <a href="@Url.Action("Details","Pericia", new {id = item.periciaId })"><i class="fa fa-bars" aria-hidden="true"></i></a> |
+
+                            </td>
+                        </tr>
+
+                    }
+
+
+                </table>
+                <div class="pull-right">
+                    <strong>  Pagina @Model.PageNumber de @Model.PageCount </strong>
+                    @Html.PagedListPager(Model, pagina => Url.Action("Index", new { pagina }))
+                </div>SS
+            </div>
+          
+        </div>
+    </div>
+
+
+
+
+
+

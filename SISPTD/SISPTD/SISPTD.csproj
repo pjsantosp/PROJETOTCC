@@ -204,9 +204,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201610030142235_Cria Banco.cs" />
-    <Compile Include="Migrations\201610030142235_Cria Banco.Designer.cs">
-      <DependentUpon>201610030142235_Cria Banco.cs</DependentUpon>
+    <Compile Include="Migrations\201610230430558_MeuMigrationInicial.cs" />
+    <Compile Include="Migrations\201610230430558_MeuMigrationInicial.Designer.cs">
+      <DependentUpon>201610230430558_MeuMigrationInicial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -427,6 +427,7 @@
     <Content Include="Views\Movimentacao\Index.cshtml" />
     <Content Include="Views\Pessoa\ListaDeMedico.cshtml" />
     <Content Include="Views\Movimentacao\ProcessoEmPericia.cshtml" />
+    <Content Include="Views\Movimentacao\ProcessoEmAgendamento.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -438,8 +439,8 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201610030142235_Cria Banco.resx">
-      <DependentUpon>201610030142235_Cria Banco.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201610230430558_MeuMigrationInicial.resx">
+      <DependentUpon>201610230430558_MeuMigrationInicial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

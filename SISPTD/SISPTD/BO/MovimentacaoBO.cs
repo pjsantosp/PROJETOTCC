@@ -53,7 +53,7 @@ namespace SISPTD.BO
 
 
         }
-        public IEnumerable<Movimentacao> ObterPericias()
+        public IEnumerable<Movimentacao> ObterPericias(int? pagina, int tamanhoPagina)
         {
             var ListaDePericias = from s in _contexto.Set<Setor>()
                                   join m in _contexto.Set<Movimentacao>() on s.setorId equals m.setorRecebeuId
@@ -64,12 +64,29 @@ namespace SISPTD.BO
 
 
                                   };
-            //return ListaDePericias;
             IEnumerable<Movimentacao> listaDePericia = _contexto.Set<Movimentacao>().Where(m => m.SetorRecebeu.descricao == "Pericia")
                 .Include(p => p.Processo);
-            return listaDePericia;
+            return listaDePericia.OrderByDescending(m=> m.dtEnvio).ToPagedList(pagina.Value, tamanhoPagina);
 
 
         }
+        public IEnumerable<Movimentacao> ObterAgendamento(int? pagina, int tamanhoPagina)
+        {
+            var ListaDePericias = from s in _contexto.Set<Setor>()
+                                  join m in _contexto.Set<Movimentacao>() on s.setorId equals m.setorRecebeuId
+                                  join p in _contexto.Set<Processo>() on m.ProcessoId equals p.processoId
+                                  select new
+                                  {
+                                      _processo = p.processoId
+
+
+                                  };
+            IEnumerable<Movimentacao> listaDePericia = _contexto.Set<Movimentacao>().Where(m => m.SetorRecebeu.descricao == "Agendamento")
+                .Include(p => p.Processo);
+            return listaDePericia.OrderByDescending(m => m.dtEnvio).ToPagedList(pagina.Value, tamanhoPagina);
+
+
+        }
+
     }
 }

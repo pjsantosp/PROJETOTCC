@@ -1,6 +1,7 @@
 ﻿@model PagedList.IPagedList<SISPTD.Models.Movimentacao>
 @using PagedList.Mvc
 
+
 @if (Model.Any() && Model != null)
 {
 
@@ -18,11 +19,11 @@
             <th>
                 @Html.DisplayName("Usuário Enviou")
             </th>
-           
+
             <th>
                 @Html.DisplayName("Envio em")
             </th>
-           
+
             <th>
                 @Html.DisplayName("Ação")
             </th>
@@ -43,22 +44,22 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.UsuarioEnviou.Pessoa.nome)
                 </td>
-               
+
                 <td>
                     @Html.DisplayFor(modelItem => item.dtEnvio)
                 </td>
-               
+
                 <td>
                     <a href="@Url.Action("Create","Pericia",new {pacienteId = item.ProcessoId })" aria-label="Skip to main navigation">
                         <i class="glyphicon glyphicon-ok" aria-hidden="true"></i>
                     </a>
                 </td>
-              
+
             </tr>
         }
 
     </table>
-    
+
     <div class="pull-right">
         <strong>  Pagina @Model.PageNumber de @Model.PageCount </strong>
         @Html.PagedListPager(Model, pagina => Url.Action("Index", new { pagina }))
@@ -73,8 +74,7 @@ else
         <small>
             NENHUM<br />
 
-            PROCESSO NO SETOR DE PERICIA
+            PROCESSO NO SETOR DE AGENDAMENTO
         </small>
     </h2>
 }
-

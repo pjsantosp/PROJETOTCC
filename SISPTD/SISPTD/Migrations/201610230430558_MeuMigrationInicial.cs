@@ -3,7 +3,7 @@ namespace SISPTD.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class CriaBanco : DbMigration
+    public partial class MeuMigrationInicial : DbMigration
     {
         public override void Up()
         {
@@ -141,19 +141,59 @@ namespace SISPTD.Migrations
                 c => new
                     {
                         processoId = c.Long(nullable: false, identity: true),
+                        dtCadastro = c.DateTime(nullable: false),
+                        Procedimento = c.String(),
+                        Clinica = c.String(),
+                        cidId = c.Long(),
+                        CaraterInternacao = c.String(),
                         observacoes = c.String(nullable: false),
                         movimentacaoId = c.Long(nullable: false),
                         agendamentoId = c.Long(),
-                        pessoaId = c.Long(nullable: false),
-                        periciaId = c.Long(nullable: false),
+                        setorId = c.Long(),
                         pacienteId = c.Long(),
                         medicoId = c.Long(),
                     })
                 .PrimaryKey(t => t.processoId)
+                .ForeignKey("dbo.Cid", t => t.cidId)
                 .ForeignKey("dbo.Pessoa", t => t.medicoId)
                 .ForeignKey("dbo.Pessoa", t => t.pacienteId)
+                .Index(t => t.cidId)
                 .Index(t => t.pacienteId)
                 .Index(t => t.medicoId);
+            
+            CreateTable(
+                "dbo.Cid",
+                c => new
+                    {
+                        cidId = c.Long(nullable: false, identity: true),
+                        codigoCid = c.String(maxLength: 5),
+                        descricao = c.String(maxLength: 150),
+                    })
+                .PrimaryKey(t => t.cidId);
+            
+            CreateTable(
+                "dbo.Pericia",
+                c => new
+                    {
+                        periciaId = c.Long(nullable: false, identity: true),
+                        processoId = c.Long(nullable: false),
+                        descricao = c.String(nullable: false),
+                        cidId = c.Long(),
+                        dt_Pericia = c.DateTime(nullable: false),
+                        medicoPessoaId = c.Long(nullable: false),
+                        TipoPericia = c.Int(nullable: false),
+                        Situacao = c.Int(nullable: false),
+                        Pessoa_pessoaId = c.Long(),
+                    })
+                .PrimaryKey(t => t.periciaId)
+                .ForeignKey("dbo.Cid", t => t.cidId)
+                .ForeignKey("dbo.Processo", t => t.periciaId)
+                .ForeignKey("dbo.Pessoa", t => t.medicoPessoaId, cascadeDelete: true)
+                .ForeignKey("dbo.Pessoa", t => t.Pessoa_pessoaId)
+                .Index(t => t.periciaId)
+                .Index(t => t.cidId)
+                .Index(t => t.medicoPessoaId)
+                .Index(t => t.Pessoa_pessoaId);
             
             CreateTable(
                 "dbo.Movimentacao",
@@ -166,7 +206,7 @@ namespace SISPTD.Migrations
                         setorRecebeuId = c.Long(),
                         ProcessoId = c.Long(),
                         dtEnvio = c.DateTime(nullable: false),
-                        dtRecebimento = c.DateTime(nullable: false),
+                        dtRecebimento = c.DateTime(),
                     })
                 .PrimaryKey(t => t.movimentacaoId)
                 .ForeignKey("dbo.Setor", t => t.setorEnviouId)
@@ -187,8 +227,12 @@ namespace SISPTD.Migrations
                         setorId = c.Long(nullable: false, identity: true),
                         usuarioId = c.Long(),
                         descricao = c.String(maxLength: 25),
+                        abreviacao = c.String(maxLength: 25),
+                        Processo_processoId = c.Long(),
                     })
-                .PrimaryKey(t => t.setorId);
+                .PrimaryKey(t => t.setorId)
+                .ForeignKey("dbo.Processo", t => t.Processo_processoId)
+                .Index(t => t.Processo_processoId);
             
             CreateTable(
                 "dbo.User",
@@ -206,39 +250,6 @@ namespace SISPTD.Migrations
                 .ForeignKey("dbo.Pessoa", t => t.pessoaId)
                 .Index(t => t.setorId)
                 .Index(t => t.pessoaId);
-            
-            CreateTable(
-                "dbo.Pericia",
-                c => new
-                    {
-                        periciaId = c.Long(nullable: false),
-                        descricao = c.String(nullable: false),
-                        cidId = c.Long(),
-                        dt_Pericia = c.DateTime(nullable: false),
-                        medicoPessoaId = c.Long(nullable: false),
-                        TipoPericia = c.Int(nullable: false),
-                        Situacao = c.Int(nullable: false),
-                        Pessoa_pessoaId = c.Long(),
-                    })
-                .PrimaryKey(t => t.periciaId)
-                .ForeignKey("dbo.Cid", t => t.cidId)
-                .ForeignKey("dbo.Processo", t => t.periciaId, cascadeDelete: true)
-                .ForeignKey("dbo.Pessoa", t => t.medicoPessoaId, cascadeDelete: true)
-                .ForeignKey("dbo.Pessoa", t => t.Pessoa_pessoaId)
-                .Index(t => t.periciaId)
-                .Index(t => t.cidId)
-                .Index(t => t.medicoPessoaId)
-                .Index(t => t.Pessoa_pessoaId);
-            
-            CreateTable(
-                "dbo.Cid",
-                c => new
-                    {
-                        cidId = c.Long(nullable: false, identity: true),
-                        codigoCid = c.String(maxLength: 5),
-                        descricao = c.String(maxLength: 150),
-                    })
-                .PrimaryKey(t => t.cidId);
             
             CreateTable(
                 "dbo.PessoaRequisicao",
@@ -297,8 +308,8 @@ namespace SISPTD.Migrations
             DropForeignKey("dbo.Pericia", "medicoPessoaId", "dbo.Pessoa");
             DropForeignKey("dbo.Processo", "pacienteId", "dbo.Pessoa");
             DropForeignKey("dbo.Processo", "medicoId", "dbo.Pessoa");
+            DropForeignKey("dbo.Setor", "Processo_processoId", "dbo.Processo");
             DropForeignKey("dbo.Pericia", "periciaId", "dbo.Processo");
-            DropForeignKey("dbo.Pericia", "cidId", "dbo.Cid");
             DropForeignKey("dbo.Movimentacao", "ProcessoId", "dbo.Processo");
             DropForeignKey("dbo.Movimentacao", "usuarioRecebeuId", "dbo.User");
             DropForeignKey("dbo.Movimentacao", "usuarioEnviouId", "dbo.User");
@@ -307,6 +318,8 @@ namespace SISPTD.Migrations
             DropForeignKey("dbo.Requisicao", "usuarioId", "dbo.User");
             DropForeignKey("dbo.Agendamento", "usuarioId", "dbo.User");
             DropForeignKey("dbo.Movimentacao", "setorEnviouId", "dbo.Setor");
+            DropForeignKey("dbo.Processo", "cidId", "dbo.Cid");
+            DropForeignKey("dbo.Pericia", "cidId", "dbo.Cid");
             DropForeignKey("dbo.Agendamento", "agendamentoId", "dbo.Processo");
             DropForeignKey("dbo.PessoaEspecialidade", "pessoaId", "dbo.Pessoa");
             DropForeignKey("dbo.PessoaEspecialidade", "EspecialidadeId", "dbo.Especialidade");
@@ -317,19 +330,21 @@ namespace SISPTD.Migrations
             DropIndex("dbo.PessoaEspecialidade", new[] { "EspecialidadeId" });
             DropIndex("dbo.PessoaRequisicao", new[] { "requisicaoId" });
             DropIndex("dbo.PessoaRequisicao", new[] { "pessoaId" });
-            DropIndex("dbo.Pericia", new[] { "Pessoa_pessoaId" });
-            DropIndex("dbo.Pericia", new[] { "medicoPessoaId" });
-            DropIndex("dbo.Pericia", new[] { "cidId" });
-            DropIndex("dbo.Pericia", new[] { "periciaId" });
             DropIndex("dbo.User", new[] { "pessoaId" });
             DropIndex("dbo.User", new[] { "setorId" });
+            DropIndex("dbo.Setor", new[] { "Processo_processoId" });
             DropIndex("dbo.Movimentacao", new[] { "ProcessoId" });
             DropIndex("dbo.Movimentacao", new[] { "setorRecebeuId" });
             DropIndex("dbo.Movimentacao", new[] { "setorEnviouId" });
             DropIndex("dbo.Movimentacao", new[] { "usuarioRecebeuId" });
             DropIndex("dbo.Movimentacao", new[] { "usuarioEnviouId" });
+            DropIndex("dbo.Pericia", new[] { "Pessoa_pessoaId" });
+            DropIndex("dbo.Pericia", new[] { "medicoPessoaId" });
+            DropIndex("dbo.Pericia", new[] { "cidId" });
+            DropIndex("dbo.Pericia", new[] { "periciaId" });
             DropIndex("dbo.Processo", new[] { "medicoId" });
             DropIndex("dbo.Processo", new[] { "pacienteId" });
+            DropIndex("dbo.Processo", new[] { "cidId" });
             DropIndex("dbo.Endereco", new[] { "IdCidade" });
             DropIndex("dbo.Pessoa", new[] { "Requisicao_requisicaoId" });
             DropIndex("dbo.Pessoa", new[] { "Endereco_enderecoId" });
@@ -347,11 +362,11 @@ namespace SISPTD.Migrations
             DropTable("dbo.PessoaEspecialidade");
             DropTable("dbo.Estado");
             DropTable("dbo.PessoaRequisicao");
-            DropTable("dbo.Cid");
-            DropTable("dbo.Pericia");
             DropTable("dbo.User");
             DropTable("dbo.Setor");
             DropTable("dbo.Movimentacao");
+            DropTable("dbo.Pericia");
+            DropTable("dbo.Cid");
             DropTable("dbo.Processo");
             DropTable("dbo.Especialidade");
             DropTable("dbo.Endereco");
