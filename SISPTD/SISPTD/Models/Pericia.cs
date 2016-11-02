@@ -8,7 +8,6 @@ namespace SISPTD.Models
     {
         [Key]
         public long periciaId { get; set; }
-        public long processoId { get; set; }
 
 
 
@@ -21,6 +20,8 @@ namespace SISPTD.Models
         public DateTime dt_Pericia { get; set; }
 
         public long? medicoPessoaId { get; set; }
+        public long processoId { get; set; }
+
         public virtual Cid Cid { get; set; }
 
         public virtual Pessoa Medico { get; set; }

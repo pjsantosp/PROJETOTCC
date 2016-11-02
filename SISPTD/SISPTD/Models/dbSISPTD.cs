@@ -29,18 +29,9 @@ namespace SISPTD.Models
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+            modelBuilder.Properties().Where(p => p.Name == p.ReflectedType.Name + "Id").Configure(p => p.IsKey());
 
-            #region Relacionamento da  Tb Cid
-            modelBuilder.Entity<Cid>()
-                .HasMany(e => e.ListaDePericia)
-                .WithOptional(e => e.Cid)
-                .HasForeignKey(e => e.cidId);
-
-            modelBuilder.Entity<Cid>()
-               .HasMany(e => e.ListaDeProcessos)
-               .WithOptional(e => e.Cid)
-               .HasForeignKey(e => e.cidId);
-            #endregion
+            
 
             #region Relacionamento da Tb Clinica
             modelBuilder.Entity<Clinica>()
@@ -83,10 +74,7 @@ namespace SISPTD.Models
 
             #region Relacionamento da Tb Pessoa
 
-            modelBuilder.Entity<Pessoa>()
-                .HasMany(e => e.Agendamento)
-                .WithOptional(e => e.Pessoa)
-                .HasForeignKey(e => e.pessoaId);
+
 
             modelBuilder.Entity<Pessoa>()
                .HasMany(e => e.Usuarios)
@@ -192,6 +180,7 @@ namespace SISPTD.Models
 
 
             #endregion
+
             #region Relacionamento da Tb Especialidade
             modelBuilder.Entity<Especialidade>()
                 .HasMany(e => e.Pessoa)
@@ -204,6 +193,7 @@ namespace SISPTD.Models
                    });
 
             #endregion
+
             #region Relacionamentoda Tb Processo
 
             modelBuilder.Entity<Processo>()
@@ -213,13 +203,15 @@ namespace SISPTD.Models
                .WillCascadeOnDelete(true);
 
             modelBuilder.Entity<Processo>()
-                .HasOptional(e => e.Agendamento)
-                .WithRequired(e => e.Processo)
-                .WillCascadeOnDelete(true);
+               .HasMany(e=> e.listaAgendamento)
+               .WithRequired(e=> e.Processo)
+               .HasForeignKey(e=> e.processoId)
+                .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Processo>()
-               .HasOptional(e => e.Pericia)
-               .WithOptionalPrincipal(e => e.Processo)
+               .HasMany(e => e.listaPericia)
+               .WithRequired(e => e.Processo)
+               .HasForeignKey(e=> e.processoId)
                .WillCascadeOnDelete(false);
 
 
@@ -257,9 +249,8 @@ namespace SISPTD.Models
 
             #endregion
 
-            
-
-            
+            //Agendamento com Processo ??????? //Vamos vê se funciona?roda o migration aí
+            //modelBuilder.Entity<Agendamento>().HasRequired(x => x.Processo).WithOptional(x => x.Agendamento).WillCascadeOnDelete(false);
 
         }
 

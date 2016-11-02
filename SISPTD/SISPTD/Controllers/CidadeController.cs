@@ -26,6 +26,18 @@ namespace SISPTD.Controllers
             }).ToList();
             return Json(cidades, JsonRequestBehavior.AllowGet);
         }
+
+        public ActionResult PesquisaCidadeClinica(string query)
+        {
+            var cidade = cidadeBO.Selecionar().Where(c => c.Cidade.Contains(query)).Select(c => new
+            {
+                text = c.Cidade,
+                value = c.IdCidade
+
+            }).ToList();
+            return Json(cidade, JsonRequestBehavior.AllowGet);
+        }
+        
     }
 
 }

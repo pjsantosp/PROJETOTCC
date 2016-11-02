@@ -82,7 +82,6 @@ namespace SISPTD.Models
         [DataType(DataType.PhoneNumber)]
         public string cel { get; set; }
 
-        public virtual ICollection<Agendamento> Agendamento { get; set; }
         public virtual ICollection<Processo> ListaDeProcessosPaciente { get; set; }
         public virtual ICollection<Processo> ListaDeProcessosMedico { get; set; }
 

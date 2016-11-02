@@ -17,13 +17,13 @@ namespace SISPTD.Controllers
         private UserBO usuarioBO = new UserBO(new dbSISPTD());
         private PessoaBO pessoaBO = new PessoaBO(new dbSISPTD());
         private AgendamentoBO agendamentoBO = new AgendamentoBO(new dbSISPTD());
+        private ProcessoBO processoBO = new ProcessoBO(new dbSISPTD());
 
         public ActionResult Index(int? pagina)
         {
             int nPorPagina = 10;
             int tamPagina = pagina ?? 1;
-            ViewBag.pessoaId = new SelectList(pessoaBO.Selecionar().Where(p => p.tipo == 0), "pessoaId", "cpf");
-            return View(agendamentoBO.Selecionar().OrderBy(a=> a.dt_Agendamento).ToPagedList(tamPagina, nPorPagina));
+            return View(agendamentoBO.ObterAgendamento(tamPagina, nPorPagina));
         }
 
         public ActionResult Details(long? id)
@@ -40,27 +40,47 @@ namespace SISPTD.Controllers
             return View(agendamento);
         }
 
-        public ActionResult Create()
+        public ActionResult Create(int? pacienteId)
         {
-            ViewBag.pessoaId = new SelectList(pessoaBO.Selecionar().Where(p => p.tipo == 0), "pessoaId", "cpf");
+            if (pacienteId != null)
+            {
+                Processo processo = processoBO.SelecionarPorId(pacienteId.Value);
+                ViewBag.processoId = processo.processoId;
+                Pessoa paciente = processo.Paciente;
+                ViewBag.pacienteId = pacienteId;
+                ViewBag.pacienteNome = paciente.nome;
+                ViewBag.pacienteCpf = paciente.cpf;
+
+
+            }
+            //ViewBag.pessoaId = new SelectList(pessoaBO.Selecionar().Where(p => p.tipo == 0), "pessoaId", "cpf");
             return View();
         }
 
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Agendamento agendamento)
+        public ActionResult Create(int? processoId, int? pacienteId, Agendamento agendamento)
         {
             try
             {
+
+                //if (agendamento.processoId== 0)
+                //{
+
+                //    agendamento.processoId = processoBO.SelecionarPorId(pacienteId.Value).processoId;
+                //}
+
                 var user = usuarioBO.userLogado(User.Identity.Name);
                 agendamento.usuarioId = user.usuarioId;
-                if (ModelState.IsValid)
-                {
-                    agendamento.dt_Marcacao = DateTime.Now;
-                    agendamentoBO.Inserir(agendamento);
-                    TempData["Sucesso"] = "Agendamento Realizado com Sucesso!";
-                }
+
+                agendamento.dt_Marcacao = DateTime.Now;
+                agendamentoBO.Inserir(agendamento);
+                
+                TempData["Sucesso"] = "Agendamento Realizado com Sucesso!";
+
+
+
                 return RedirectToAction("Index");
             }
             catch (Exception ex)
@@ -70,7 +90,6 @@ namespace SISPTD.Controllers
             }
 
 
-            ViewBag.pessoaId = new SelectList(pessoaBO.Selecionar(), "pessoaId", "cpf", agendamento.pessoaId);
             //ViewBag.usuarioId = new SelectList(db.User, "usuarioId", "login", agendamento.usuarioId);
             return View(agendamento);
         }
@@ -87,7 +106,6 @@ namespace SISPTD.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.pessoaId = new SelectList(pessoaBO.Selecionar(), "pessoaId", "cpf", agendamento.pessoaId);
             ViewBag.usuarioId = new SelectList(usuarioBO.Selecionar(), "usuarioId", "login", agendamento.usuarioId);
             return View(agendamento);
         }
@@ -102,7 +120,6 @@ namespace SISPTD.Controllers
                 agendamentoBO.Alterar(agendamento);
                 return RedirectToAction("Index");
             }
-            ViewBag.pessoaId = new SelectList(pessoaBO.Selecionar(), "pessoaId", "cpf", agendamento.pessoaId);
             ViewBag.usuarioId = new SelectList(usuarioBO.Selecionar(), "usuarioId", "login", agendamento.usuarioId);
             return View(agendamento);
         }

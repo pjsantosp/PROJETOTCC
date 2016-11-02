@@ -19,14 +19,14 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Pessoa.cpf)
+            @Html.DisplayNameFor(model => model.Paciente.nome)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Pessoa.cpf)
+            @Html.DisplayFor(model => model.Paciente.nome)
         </dd>
 
-        <dt>
+        @*<dt>
             @Html.DisplayNameFor(model => model.SetorDestino.descricao)
         </dt>
 
@@ -44,9 +44,9 @@
 
         <dt>
             @Html.DisplayNameFor(model => model.UserEnviou.login)
-        </dt>
+        </dt>*@
 
-        <dd>
+        @*<dd>
             @Html.DisplayFor(model => model.UserEnviou.login)
         </dd>
 
@@ -64,11 +64,11 @@
 
         <dd>
             @Html.DisplayFor(model => model.observacoes)
-        </dd>
+        </dd>*@
 
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.distrib_ProcessoId }) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.processoId }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

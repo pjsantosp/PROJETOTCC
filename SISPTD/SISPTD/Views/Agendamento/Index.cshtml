@@ -48,6 +48,7 @@
         <div role="tabpanel" class="tab-pane" id="profile">
             <table class="table table-striped">
                 <tr>
+                    
                     <th>
                         @Html.DisplayName("Nome")
                     </th>
@@ -60,14 +61,21 @@
                     <th>
                         @Html.DisplayName("Marcado")
                     </th>
+                    <th>
+                        @Html.DisplayName("Clinica")
+                    </th>
                     <th></th>
                 </tr>
 
                 @foreach (var item in Model)
                 {
                     <tr>
+                        
                         <td>
-                            @Html.DisplayFor(modelItem => item.Pessoa.nome)
+                            @Html.DisplayFor(modelItem => item.Processo.Paciente.nome)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Usuarios.Pessoa.nome)
                         </td>
                      
                         <td>
@@ -77,8 +85,11 @@
                             @Html.DisplayFor(modelItem => item.dt_Marcacao)
                         </td>
                         <td>
+                            @Html.DisplayFor(modelItem => item.Clinica.nome_Clinica)
+                        </td>
+                        <td>
                             <a href="@Url.Action("Edit", "Edit", new { id = item.agendamentoId })"> <i class="fa fa-pencil fa-fw"></i></a> |
-                            <a title="Imprimir" href="@Url.Action("Details", "Agendamento", new { id=item.agendamentoId })"> <i class="fa fa-bars fa-lg " aria-hidden="true"></i> </a> |
+                            <a title="" href="@Url.Action("Details", "Agendamento", new { id=item.agendamentoId })"> <i class="fa fa-bars fa-lg " aria-hidden="true"></i> </a> |
                             <a href="@Url.Action("Delete", "Delete", new { id = item.agendamentoId })"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
                         </td>
                     </tr>

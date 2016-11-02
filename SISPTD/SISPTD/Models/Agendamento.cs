@@ -5,12 +5,12 @@ namespace SISPTD.Models
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
-    [Table("Agendamento")]
+    //[Table("Agendamento")]
     public class Agendamento
     {
-        [Key]
+        //[Key]
         public long agendamentoId { get; set; }
-        public long? pessoaId { get; set; }
+       public long processoId { get; set; }
         public long? usuarioId { get; set; }
         public long? clinicaId { get; set; }
 
@@ -23,7 +23,6 @@ namespace SISPTD.Models
         public System.DateTime dt_Agendamento { get; set; }
           [Display(Name = "Marcado")]
         public DateTime  dt_Marcacao { get; set; }
-        public virtual Pessoa Pessoa { get; set; }
         public virtual User Usuarios { get; set; }
         public virtual Clinica Clinica { get; set; }
         public virtual Processo Processo { get; set; }

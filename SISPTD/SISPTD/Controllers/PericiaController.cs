@@ -18,17 +18,17 @@ namespace SISPTD.Controllers
         private PericiaBO periciaBO = new PericiaBO(new dbSISPTD());
         private PessoaBO pessoBO = new PessoaBO(new dbSISPTD());
         private MovimentacaoBO movimentacaoBO = new MovimentacaoBO(new dbSISPTD());
-       
+
 
         public ActionResult Index(int? pagina)
         {
             int tamanhoPagina = 10;
             int numeroPagina = pagina ?? 1;
-            
+
             return View(periciaBO.ObterPericia(numeroPagina, tamanhoPagina));
         }
 
-        
+
 
         public ActionResult Details(long? id)
         {
@@ -54,35 +54,31 @@ namespace SISPTD.Controllers
                 ViewBag.pacienteCpf = objPaciente.cpf;
                 ViewBag.pacienteNome = objPaciente.nome;
                 ViewBag.pacienteId = objPaciente.pessoaId;
-                
+
 
 
             }
-           
-           
-            ViewBag.cidId = new SelectList(db.Cid, "cidId", "codigoCid");
-            ViewBag.pacientePessoaId = new SelectList(pessoBO.Selecionar().Where(p=> p.tipo== 0), "pessoaId", "cpf");
+
+
+
             return View();
         }
 
-        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "medicoPessoaId,descricao,cidId,situacao,pacientepessoaId,processoId")]Pericia pericia)
+        public ActionResult Create(int? pacientepessoaId, Pericia pericia)
         {
 
             try
             {
-                
                 pericia.dt_Pericia = DateTime.Now;
-                if (ModelState.IsValid)
-                {
-                    periciaBO.Inserir(pericia);
-                    TempData["Sucesso"] = "Pericia Cadastrada com Sucesso";
-                    return RedirectToAction("Index");
-                }
-
+                periciaBO.Inserir(pericia);
                 
+                TempData["Sucesso"] = "Pericia Cadastrada com Sucesso";
+
+                return RedirectToAction("Index");
+
             }
             catch (Exception ex)
             {
@@ -109,7 +105,7 @@ namespace SISPTD.Controllers
             //ViewBag.pessoaId = new SelectList(db.Pessoa, "pessoaId", "cpf", pericia.Processo.Paciente.cpf);
             return View(pericia);
         }
-       
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "periciaId,descricao,cidId,dt_Pericia,medicoId,situacao,pessoaId")] Pericia pericia)

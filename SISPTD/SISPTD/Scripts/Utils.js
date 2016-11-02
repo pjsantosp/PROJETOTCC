@@ -51,6 +51,21 @@ null,
 });
 
 
+//chosen ajax busca Clinica
+$('#clinicaId').ajaxChosen({
+    type: 'GET',
+    url: $(this).data('url'),
+    jsonTermKey: "query",
+    dataType: 'json',
+},
+null,
+{
+    width: "100%",
+    placeholder_text_single: "Buscar o Serviço",
+});
+
+
+
 
 
 
@@ -221,6 +236,25 @@ $(document).ready(function () {
             }
         });
     });
+
+    //Localiza Paciente no Agendamento
+    $('#btnBuscaPacAgendamento').click(function () {
+        debugger
+        var cpf = $('#buscarPacienteAgendamento').val();
+        $.ajax({
+            method: 'GET',
+            url: "/Pessoa/Pesquisar/?cpf=" + cpf,
+            success: function (data) {
+                debugger;
+                $('#nomeDoPacienteAgendamento').val(data.Nome);
+                $('#idDoPacienteAgendamento').val(data.Id)
+                //top._pessoaId = data.Id;
+            },
+            error: function (data) {
+                alert("Algo está errado, não foi possível pesquisar o paciente!");
+            }
+        });
+    });
     //Localiza processo na Movimentação
     
     $('#btnBuscaProc').click(function () {
@@ -289,14 +323,20 @@ function RemoveAcompanhanteLista() {
 }
 
 
-$(".date").datepicker({
+$(".calendario").datepicker({
     language: "pt-BR",
     format: "dd/mm/yyyy",
     clearBtn: true,
     orientation: "bottom auto",
-    calendarWeeks: true,
+    calendarWeeks: false,
     toggleActive: true,
-    autoclose: true
+    autoclose: true,
+    todayHighlight: true
+
+
+   
+
+
 });
 //$("#calendario").datepicker();
 

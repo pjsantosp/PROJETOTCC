@@ -35,10 +35,10 @@ namespace SISPTD.BO
         {
             try
             {
-                if (String.IsNullOrEmpty(entidade.Medico.nome))
-                    throw new Exception("O Nome do Médico é obrigátorio!");
-                if (string.IsNullOrEmpty(entidade.Processo.Paciente.nome))
-                    throw new Exception("O processo contido na pericia não contém um paciente");
+                //if (String.IsNullOrEmpty(entidade.Medico.nome))
+                //    throw new Exception("O Nome do Médico é obrigátorio!");
+                //if (string.IsNullOrEmpty(entidade.Processo.Paciente.nome))
+                //    throw new Exception("O processo contido na pericia não contém um paciente");
                     base.Inserir(entidade);
             }
             catch (Exception ex)

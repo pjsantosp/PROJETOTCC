@@ -25,6 +25,9 @@
             <div role="tabpanel" class="tab-pane" id="profile">
                 <table class="table table-striped table-bordered table-responsive">
                     <tr>
+                       <th>
+                        @Html.DisplayName("Paciente")
+                        </th>
                         <th>
                             @Html.DisplayName("Código Cid")
                         </th>
@@ -49,11 +52,15 @@
             {
                         <tr>
                             <td>
+                                @Html.DisplayFor(modelItem => item.Processo.Paciente.nome)
+                            </td>
+                            <td>
                                 @Html.DisplayFor(modelItem => item.Cid.codigoCid)
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.Cid.descricao)
                             </td>
+                          
 
                             <td>
                                 @Html.DisplayFor(modelItem => item.descricao)
@@ -78,7 +85,7 @@
                 <div class="pull-right">
                     <strong>  Pagina @Model.PageNumber de @Model.PageCount </strong>
                     @Html.PagedListPager(Model, pagina => Url.Action("Index", new { pagina }))
-                </div>SS
+                </div>
             </div>
           
         </div>
