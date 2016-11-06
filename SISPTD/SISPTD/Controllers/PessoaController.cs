@@ -255,9 +255,11 @@ namespace SISPTD.Controllers
         {
             try
             {
+                pessoa.cns = Ultis.Util.RemoverMascara(pessoa.cns);
                 pessoa.cpf =  Ultis.Util.RemoverMascara(pessoa.cpf);
                 if (ModelState.IsValid)
                 {
+                    pessoa.tipo = (int)TipoPessoa.Paciente;
                     pessoaBO.Alterar(pessoa);
                     TempData["Sucesso"] = "Alteração feita com Sucesso!";
                 }

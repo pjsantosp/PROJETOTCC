@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -11,6 +12,7 @@ namespace SISPTD.Models
         public long usuarioEnviouId { get; set; }
         public long? usuarioRecebeuId { get; set; }
         public long setorEnviouId { get; set; }
+
         public long? setorRecebeuId { get; set; }
         public long? ProcessoId { get; set; }
         public DateTime dtEnvio { get; set; }

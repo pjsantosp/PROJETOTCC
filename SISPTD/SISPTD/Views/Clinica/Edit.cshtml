@@ -1,9 +1,6 @@
 ﻿@model SISPTD.Models.Clinica
 
 <h4>Cadastro de Clinica e Hospitais</h4>
-<hr />
-@using(Html.BeginForm()){
-    
-@Html.HiddenFor(p => p.clinicaId)
+<br /><br />
+@*@Html.HiddenFor(p => p.clinicaId)*@
 @Html.Partial("_formulario", Model)
-}

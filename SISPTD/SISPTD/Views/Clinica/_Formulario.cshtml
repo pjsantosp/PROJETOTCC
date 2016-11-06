@@ -39,7 +39,8 @@
     </div>
 
         <div class="well well-sm">
-            <input type="submit" name="name" class="btn btn-primary " value="Salvar " />
-            @Html.ActionLink("Voltar para lista", "Index", null, new { @class = "btn btn-link pull-right" })
+            <button type="submit" name="name" class="btn btn-primary "> <i class="fa fa-floppy-o fa-lg"></i>  Gravar</button>
+            <a class="btn btn-danger pull-right" href="@Url.Action("Index","Clinica")"> <i class="fa fa-arrow-left fa-lg"></i>  Voltar para lista</a>
+            @*@Html.ActionLink("", "Index", null, new { @class = "btn btn-link pull-right" })*@
         </div>
 }

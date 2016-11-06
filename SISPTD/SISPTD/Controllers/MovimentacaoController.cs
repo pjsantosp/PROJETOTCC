@@ -18,7 +18,6 @@ namespace SISPTD.Controllers
         private UserBO usuarioBO = new UserBO(new dbSISPTD());
         private ProcessoBO processoBO = new ProcessoBO(new dbSISPTD());
 
-        // GET: Movimentacao
         public ActionResult Index(int? pagina, string buscar="")
         {
             int tamanhoPagina = 10;
@@ -39,6 +38,15 @@ namespace SISPTD.Controllers
             return PartialView(movimentacaoBO.ObterAgendamento(numeroPagina, tamanhoPagina));
         }
 
+        public ActionResult DetalheDoMovProcesso(int? id)
+        {
+            if (id== null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            return View(movimentacaoBO.ObterDetalheDoProcesso(id.Value));
+        }
 
         public ActionResult Details(long? id)
         {
@@ -54,14 +62,21 @@ namespace SISPTD.Controllers
             return View(movimentacao);
         }
 
-        public ActionResult Create()
+        public ActionResult Create(long? id)
         {
-            ViewBag.processoId = 0;
+            if (id!= null && id != 0)
+            {
+                Processo objProcesso = processoBO.SelecionarPorId(id.Value);
+                ViewBag.processoId = objProcesso.processoId;
+                ViewBag.pacienteId = objProcesso.pacienteId;
+                ViewBag.processoPaciente = objProcesso.Paciente.nome;
+            }
+           
             ViewBag.setorEnviouId = new SelectList(db.Setor, "setorId", "descricao");
             ViewBag.setorRecebeuId = new SelectList(db.Setor, "setorId", "descricao");
             ViewBag.usuarioEnviouId = new SelectList(db.Usuario, "usuarioId", "login");
             ViewBag.usuarioRecebeuId = new SelectList(db.Usuario, "usuarioId", "login");
-            return View( );
+            return View();
         }
 
        
@@ -69,12 +84,16 @@ namespace SISPTD.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create( Movimentacao movimentacao)
         {
-            //[Bind(Include = "movimentacaoId,usuarioEnviouId,usuarioRecebeuId,setorEnviouId,setorRecebeuId,ProcessoId,dtEnvio,dtRecebimento")]
             try
             {
+                if (movimentacao.setorEnviouId == movimentacao.setorRecebeuId)
+                {
+                    ModelState.AddModelError("", "Setor de Destino não deve ser o Mesmo de Origem");
+                }
                 var user = usuarioBO.userLogado(User.Identity.Name);
                 movimentacao.usuarioEnviouId = user.usuarioId;
                 movimentacao.dtEnvio = DateTime.Now;
+                
                 if (ModelState.IsValid)
                 {
                     db.Movimentacaos.Add(movimentacao);

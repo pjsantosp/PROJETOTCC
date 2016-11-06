@@ -33,13 +33,13 @@ namespace SISPTD.BO
             {
                 IEnumerable<Processo> listaProcesso = _contexto.Set<Processo>()
                .Include(d => d.Paciente)
-               .Where(x => x.Paciente.cpf.Contains(busca));
+               .Where(x => x.Paciente.cpf.Contains(busca) || x.Paciente.cns.Contains(busca));
                 return listaProcesso.OrderByDescending(p=> p.dtCadastro).ToPagedList(pagina.Value, tamanhoPagina);
             }
             catch (Exception e)
             {
 
-                throw new Exception("Erro na busca na lista de pessoa", e);
+                throw new Exception("Erro na busca na lista de pessoa no Processo", e);
             }
 
         }

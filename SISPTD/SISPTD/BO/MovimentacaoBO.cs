@@ -87,6 +87,25 @@ namespace SISPTD.BO
 
 
         }
+        public IEnumerable<Movimentacao> ObterDetalheDoProcesso(int processoId)
+        {
+            try
+            {
+                IEnumerable<Movimentacao> listaDeMovimentacao = _contexto.Set<Movimentacao>()
+                    .Include(m => m.SetorEnviou)
+                    .Include(m => m.SetorRecebeu)
+                    .Include(m => m.UsuarioRecebeu)
+                    .Include(m => m.UsuarioEnviou)
+                    .Include(m => m.Processo).Where(p => p.ProcessoId.Value == processoId).ToList();
+                return listaDeMovimentacao;
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception("Erro na Busca do Processo", ex);
+            }
+
+        }
 
     }
 }

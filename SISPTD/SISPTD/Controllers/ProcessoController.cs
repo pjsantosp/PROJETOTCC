@@ -24,13 +24,15 @@ namespace SISPTD.Controllers
             return Json( new {pacienteCpf = processo.Paciente.cpf, pacienteNome = processo.Paciente.nome }, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult Index(int ? pagina, string busca= "")
+        public ActionResult Index(int ? pagina, string buscar= "")
         {
             int tamanhoPagina = 10;
             int numeroPagina = pagina ?? 1;
 
-            busca = Ultis.Util.RemoverMascara(busca);
-            return View(ProcessoBO.ObterProcesso(busca, numeroPagina, tamanhoPagina));
+            buscar = Ultis.Util.RemoverMascara(buscar);
+
+
+            return View(ProcessoBO.ObterProcesso(buscar, numeroPagina, tamanhoPagina));
         }
 
         public ActionResult Details(long? id)
@@ -66,6 +68,7 @@ namespace SISPTD.Controllers
                 processo.dtCadastro = DateTime.Now;
                 processo.pacienteId = pacienteProcessoId;
                 processo.medicoId = medicoProcessoId;
+                
               
                
                 if (ModelState.IsValid)

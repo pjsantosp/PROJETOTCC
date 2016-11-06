@@ -56,7 +56,6 @@ namespace SISPTD.Controllers
                 ViewBag.pacienteId = objPaciente.pessoaId;
 
 
-
             }
 
 
@@ -72,6 +71,7 @@ namespace SISPTD.Controllers
 
             try
             {
+                
                 pericia.dt_Pericia = DateTime.Now;
                 periciaBO.Inserir(pericia);
                 

@@ -3,7 +3,8 @@
 
 $('.chosen-select').chosen({
     width: "100%",
-    placeholder_text_single: chosen_placeholder
+    placeholder_text_single: chosen_placeholder,
+    allow_single_deselect: true
 });
 
 $('.chosen-select-deselect').chosen({
@@ -17,11 +18,13 @@ $('#cidId').ajaxChosen({
     url: $(this).data('url'),
     jsonTermKey: "query",
     dataType: 'json',
+    allow_single_deselect: true,
 },
 null,
 {
     width: "100%",
     placeholder_text_single: "Buscar o Serviço",
+   
 });
 
 //chosen ajax Setor
@@ -323,30 +326,42 @@ function RemoveAcompanhanteLista() {
 }
 
 
-$(".calendario").datepicker({
+
+//$(".date").datepicker({
+//    language: "pt-BR",
+//    format: "dd/mm/yyyy",
+//    clearBtn: true,
+//    orientation: "bottom left",
+//    calendarWeeks: false,
+//    toggleActive: true,
+//    autoclose: true,
+//    todayHighlight: true
+
+
+
+
+
+//});
+
+$(".date").datepicker({
     language: "pt-BR",
     format: "dd/mm/yyyy",
     clearBtn: true,
-    orientation: "bottom auto",
-    calendarWeeks: false,
+    orientation: "bottom ",
+    calendarWeeks: true,
     toggleActive: true,
-    autoclose: true,
-    todayHighlight: true
-
-
-   
-
-
+    autoclose: true
 });
+
 //$("#calendario").datepicker();
 
-$(function () {
-    $("#dt_Nascimento").datepicker({
-        showOn: "button",
-        buttonImage: "calendario.png",
-        buttonImageOnly: true
-    });
-});
+//$(function () {
+//    $("#dt_Nascimento").datepicker({
+//        showOn: "button",
+//        buttonImage: "calendario.png",
+//        buttonImageOnly: true
+//    });
+//});
 
 //Aplica mascara
 $(function () {

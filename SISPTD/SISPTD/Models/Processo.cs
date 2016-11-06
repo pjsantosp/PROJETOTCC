@@ -4,10 +4,8 @@ namespace SISPTD.Models
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
-    //[Table("Processo")]
     public  class Processo
     {
-       //[Key]
         public long processoId { get; set; }
         public System.DateTime dtCadastro { get; set; }
 

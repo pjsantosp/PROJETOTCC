@@ -1,5 +1,10 @@
 ﻿@model SISPTD.Models.Processo
 
+
+
+
+
+
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
@@ -27,14 +32,14 @@
                 <div class="col-md-3">
                     <div class="form-group">
                         @Html.Label("Procedimento")
-                        @Html.EditorFor(model => model.Procedimento, new { htmlAttributes = new {@class = "form-control" } })
+                        @Html.EditorFor(model => model.Procedimento, new { htmlAttributes = new {@class = "form-control " } })
                     </div>
                 </div>
 
-                <div class="col-md-3">
+                <div class="col-md-10">
                     <div class="form-group">
                         @Html.Label("Codigo CID")
-                        @Html.DropDownList("cidId", new List<SelectListItem>(), "Selecione...", new { @class = "form-control", data_url = @Url.Action("PesquisaCid", "Cid") })
+                        @Html.DropDownList("cidId", new List<SelectListItem>(), "Selecione...", new { @class = "form-control ", data_url = @Url.Action("PesquisaCid", "Cid") })
                     </div>
                 </div>
                 <div class="col-md-3">

@@ -1,26 +1,29 @@
-﻿@model PagedList.IPagedList<SISPTD.Models.Processo>
-@using PagedList.Mvc
+﻿
+@model PagedList.IPagedList<SISPTD.Models.Processo>
+@using PagedList.Mvc,
+   
 
 <div>
     <h3><i class="glyphicon glyphicon-transfer"></i> Processo</h3>
 </div>
 
 <div class="row">
-    <div class="col-md-4"></div>
+    <div class="col-md-4 ">
+    </div>
     <div class="col-md-4 col-md-offset-4">
 
-       @using (Html.BeginForm())
-       {
-        <div class="input-group">
-            <div class="input-group-btn">
-                <a href="@Url.Action("Create")" class="btn btn-success"><i class="glyphicon glyphicon-plus"></i> Novo</a>
+        @using (Html.BeginForm())
+        {
+            <div class="input-group">
+                <div class="input-group-btn">
+                    <a href="@Url.Action("Create")" class="btn btn-success"><i class="glyphicon glyphicon-plus"></i> Novo</a>
+                </div>
+                @Html.TextBox("buscar", Request.QueryString["buscar"], new { autofocus = "", @class = "  form-control", placeholder = "Procure por CPF ou CNS" })
+                <span class="input-group-btn">
+                    <button class="btn btn-primary" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                </span>
             </div>
-            @Html.TextBox("buscar", Request.QueryString["buscar"], new { autofocus = "", @class = " cpf form-control", placeholder = "Procure por CPF" })
-            <span class="input-group-btn">
-                <button class="btn btn-primary" type="submit"><i class="glyphicon glyphicon-search"></i></button>
-            </span>
-        </div>
-       }
+        }
 
     </div>
 </div>
@@ -28,46 +31,74 @@
 
 <br />
 
-<table class="table table-striped">
+<table class="table table-striped table-bordered">
     <tr>
         <th>
             @Html.DisplayName("Nº do Processo")
         </th>
-      
+
         <th>
             @Html.DisplayName("Paciente")
         </th>
-      
-      
+
+
         <th>
             @Html.DisplayName("Observações")
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.processoId)
-        </td>
-      
-        <td>
-            @Html.DisplayFor(modelItem => item.Paciente.nome)
-        </td>
-        
-        <td>
-            @Html.DisplayFor(modelItem => item.observacoes)
-        </td>
-        <td>
-            <a title="Recepcionar" href="@Url.Action("Edit", "Processo", new { id = item.processoId})"><i class="fa fa-check" aria-hidden="true"></i></a>
-            <a title="Detalhe" href="@Url.Action("Details", "Processo" ,new { id = item.processoId })"><i class="fa fa-bars" aria-hidden="true"></i></a>
-           @* @Html.ActionLink("Delete", "Delete", new { id=item.distrib_ProcessoId })*@
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.processoId)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Paciente.nome)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.observacoes)
+            </td>
+            <td>
+                <a title="Recepcionar" href="@Url.Action("Edit", "Processo", new { id = item.processoId })"><i class="fa fa-check" aria-hidden="true"></i></a>
+                <a title="Detalhe" href="@Url.Action("DetalheDoMovProcesso", "Movimentacao", new { id = item.processoId })"><i class="fa fa-bars" aria-hidden="true"></i></a>
+                <a title="Detalhe" href="@Url.Action("Create", "Movimentacao", new { id = item.processoId })"><i class="fa fa-exchange" aria-hidden="true"></i></a>
+              
+              
+
+
+                @* @Html.ActionLink("Delete", "Delete", new { id=item.distrib_ProcessoId })*@
+            </td>
+        </tr>
+    }
 
 </table><br />
 <div class="pull-right">
     <strong>Pagina @Model.PageNumber de @Model.PageCount</strong>
     @Html.PagedListPager(Model, pagina => Url.Action("Index", new { pagina }))
 </div>
+
+
+@section scripts{
+    <script>
+        $(function () {
+            $(".edit").click(function () {
+                debugger
+                var id = $(this).attr("data-id");
+                $("#modal").load("Movimentacao/Create?id=" + id, function () {
+                    $("#modal").modal();
+                })
+            });
+        })
+    </script>
+}
+
+
+
+
+
+
+
