@@ -1,15 +1,37 @@
 ﻿@model PagedList.IPagedList<SISPTD.Models.Movimentacao>
 @using PagedList.Mvc
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Movimentação";
 }
 
-<h2>Index</h2>
+<h2> <i class="fa fa-transfer" aria-hidden="true"></i> Movimentação de Processo</h2>
+<div class="row">
+    <div class="col-md-4 ">
+    </div>
+    <div class="col-md-4 col-md-offset-4">
 
-<p>
+        @using (Html.BeginForm())
+        {
+            <div class="input-group">
+                <div class="input-group-btn">
+                    <a href="@Url.Action("Create")" class="btn btn-success"><i class="glyphicon glyphicon-plus"></i> Novo</a>
+                </div>
+                @Html.TextBox("buscar", Request.QueryString["buscar"], new { autofocus = "", @class = "  form-control", placeholder = "Procure por CPF ou CNS" })
+                <span class="input-group-btn">
+                    <button class="btn btn-primary" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                </span>
+            </div>
+        }
+    </div>
+</div>
+<br />
+
+
+
+@*<p>
     @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
+</p>*@
+<table class="table table-striped table-bordered">
     <tr>
         <th>
             @Html.DisplayName("Paciente")
@@ -32,7 +54,9 @@
         <th>
             @Html.DisplayName("Recebido Em")
         </th>
-        <th></th>
+        <th>
+            @Html.DisplayName("Operações")
+        </th>
     </tr>
 
 @foreach (var item in Model) {
@@ -60,9 +84,12 @@
             @Html.DisplayFor(modelItem => item.dtRecebimento)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.movimentacaoId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.movimentacaoId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.movimentacaoId })
+            @*@Html.ActionLink("Edit", "Edit", new { id=item.movimentacaoId }) |
+            @Html.ActionLink("Detalhe", "DetalheDoMovProcesso", new { id=item.ProcessoId }) |*@
+            <a class="btn-group btn-sm btn-primary" href="@Url.Action("DetalheDoMovProcesso", "Movimentacao",new { id=item.ProcessoId })" aria-label="Skip to main navigation">
+                <i class="fa fa-bars fa-lg" aria-hidden="true"></i>
+            </a>
+          @*  @Html.ActionLink("Delete", "Delete", new { id=item.movimentacaoId })*@
         </td>
     </tr>
 }

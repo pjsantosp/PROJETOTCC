@@ -38,7 +38,8 @@ namespace SISPTD
                       "~/Content/sisptd.css",
                       "~/Content/chosen.css",
                       "~/Content/bootstrap-chosen.css",
-                      "~/Content/bootstrap-chosen.lesss"
+                      "~/Content/bootstrap-chosen.lesss",
+                      "~/Content/bootstrap-datepicker.css"
                       ));
             bundles.Add(new StyleBundle("~/Content/relatorio").Include(
              "~/Content/bootstrap.css",
