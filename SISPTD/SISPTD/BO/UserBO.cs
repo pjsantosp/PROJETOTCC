@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Data.Entity;
 using System.Web;
 using SISPTD.Models;
 using System.Security.Cryptography;
@@ -90,6 +91,19 @@ namespace SISPTD.BO
                 throw new Exception("Erro na busca na lista de Usuários", e);
             }
 
+        }
+
+        public IQueryable DropUsuarios()
+        {
+            var  listaDeUsuarios = from u in _contexto.Set<User>()
+                                  join p in _contexto.Set<Pessoa>() on u.pessoaId equals p.pessoaId
+                                  select new
+                                  {
+                                      nomeUsuario = p.nome,
+                                      usuarioId = u.usuarioId,
+                                  }; 
+            //IEnumerable<User> listaDeUsuarios = _contexto.Set<User>().Include(p => p.Pessoa).
+            return listaDeUsuarios;
         }
 
     }

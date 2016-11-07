@@ -97,11 +97,17 @@ namespace SISPTD.Controllers
                     pessoa.tipo = (int)TipoPessoa.Paciente;
                     pessoa.cpf = Util.RemoverMascara(pessoa.cpf);
                     pessoa.dt_Cadastro = DateTime.Now;
-                    pessoaBO.CalculoIdade(pessoa);
+                    if (pessoaBO.CalculoIdade(pessoa))
+                    {
+                        pessoaBO.Inserir(pessoa);
+                        TempData["Erro"] = "O Cadastro do Paciente requer um Acompanhante!";
+                        return RedirectToAction("CreateAcompanhante", new { acompanhanteId = pessoa.pessoaId });
+
+                    }
                     pessoaBO.Inserir(pessoa);
                     TempData["Sucesso"] = "Cadastrado Realizado com Sucesso!";
                     pessoaBO.SelecionarPorId(pessoa.pessoaId);
-                    return RedirectToAction("Edit", new { id = pessoa.pessoaId });
+                    return RedirectToAction("Index");
                 }
             }
             catch (Exception e)
@@ -114,17 +120,17 @@ namespace SISPTD.Controllers
             return View(pessoa);
         }
         //Cria Acompanhante
-        public ActionResult CreateAcompanhante(long? pessoaPai)
+        public ActionResult CreateAcompanhante(long? acompanhanteId)
         {
             try
             {
-                if (pessoaPai != null)
+                if (acompanhanteId != null)
                 {
                     if (ModelState.IsValid)
                     {
                         Pessoa acompanhante = new Pessoa();
-                        acompanhante.acompanhanteId = pessoaPai;
-                        ViewBag.pessoaId = pessoaPai;
+                        acompanhante.acompanhanteId = acompanhanteId;
+                        ViewBag.pessoaId = acompanhanteId;
                         return View(acompanhante);
                     }
                 }
@@ -141,20 +147,24 @@ namespace SISPTD.Controllers
         }
 
         [HttpPost, ValidateAntiForgeryToken]
-        public ActionResult CreateAcompanhante(Pessoa pessoa, long? pessoaPai)
+        public ActionResult CreateAcompanhante(Pessoa pessoa, long? acompanhanteId)
         {
             try
             {
                 pessoa.cpf = Ultis.Util.RemoverMascara(pessoa.cpf);
-                pessoa.acompanhanteId = pessoaPai;
+                pessoa.acompanhanteId = acompanhanteId;
 
                 if (ModelState.IsValid)
                 {
                     pessoa.tipo = (int)TipoPessoa.Acompanhante;
                     pessoa.dt_Cadastro = DateTime.Now;
-                    pessoaBO.CalculoIdade(pessoa);
+                    if (pessoaBO.CalculoIdade(pessoa) )
+                    {
+                        TempData["Erro"] = "Ops! O acompanhate não deve ser menor de 18 ou maior de 60 anos !";
+                        return View(pessoa);
+                    }
                     pessoaBO.Inserir(pessoa);
-                    TempData["Sucesso"] = "Acompanhante Cadastrado com Sucesso";
+                    TempData["Sucesso"] = "Acompanhante Cadastrado com Sucesso !";
                     return RedirectToAction("Edit", new { id = pessoa.acompanhanteId });
                 }
             }
@@ -232,7 +242,7 @@ namespace SISPTD.Controllers
         }
 
         // GET: Pessoa/Edit/5
-        [Authorize(Roles = "Funcionario, Gerente")]
+        [Authorize(Roles = "Funcionario, Gerente, Administrador")]
         public ActionResult Edit(long? id)
         {
             ViewBag.acompanhante = pessoaBO.Selecionar().Where(a => a.acompanhanteId == id.Value).Count();
@@ -249,7 +259,7 @@ namespace SISPTD.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Funcionario, Gerente")]
+        [Authorize(Roles = "Funcionario, Gerente, Administrador")]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Pessoa pessoa)
         {
@@ -260,6 +270,7 @@ namespace SISPTD.Controllers
                 if (ModelState.IsValid)
                 {
                     pessoa.tipo = (int)TipoPessoa.Paciente;
+                    pessoaBO.CalculoIdade(pessoa);
                     pessoaBO.Alterar(pessoa);
                     TempData["Sucesso"] = "Alteração feita com Sucesso!";
                 }

@@ -9,7 +9,7 @@
     @Styles.Render("~/Content/css")
     @RenderSection("Styles", required: false)
     @Scripts.Render("~/bundles/modernizr")
-    @* <link href="~/Content/bootstrap-datepicker3.min.css" rel="stylesheet" />*@
+     <link href="~/Content/bootstrap-datepicker3.min.css" rel="stylesheet" />
     <link href="~/Content/bootstrap-datepicker.min.css" rel="stylesheet" />
     <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
 
@@ -21,7 +21,9 @@
                 <a class="navbar-brand" href="#">
                     <span class="fa fa-align-justify botao-menu "></span>
                 </a>
+                    
             </div>
+
             <div class="">
                 <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown">
@@ -34,7 +36,7 @@
                             <li class="divider"></li>
                             <li><a href="@Url.Action("TrocaSenha", "User")"><i class="glyphicon glyphicon-user"></i> Trocar Senha</a></li>
                             <li class="divider"></li>
-                            <li><a title="Clique para sair do sistema" href="@Url.Action("Deslogar","Login")"><i class="glyphicon glyphicon-off"></i> Sair </a></li>
+                            <li><a title="Clique para sair do sistema" href="@Url.Action("Deslogar","Login")"><i class="fa fa-power-off"></i> Sair </a></li>
                         </ul>
                     </li>
                 </ul>
@@ -52,6 +54,9 @@
         @Html.Partial("_MenuAdm")
     }
     <div class="container-fluid principal">
+       
+        <br />
+   
         @Html.Partial("_ErrosSystem")
         @RenderBody()
     </div>

@@ -1,7 +1,7 @@
 ﻿@model SISPTD.Models.Pessoa
 <span class="text-danger pull-right"><i class="glyphicon glyphicon-info-sign "></i> Os campos em vermelho são de preenchimento obrigatório.</span>
 <br />
- <a class="btn btn-primary" href="@Url.Action("CreateAcompanhante","Pessoa", new {pessoaPai= Model.pessoaId })"><i class="fa fa-users" aria-hidden="true"></i> Acompanhante <span class="badge">@ViewBag.acompanhante</span> </a>
+ <a class="btn btn-primary" href="@Url.Action("CreateAcompanhante","Pessoa", new {acompanhanteId= Model.pessoaId })"><i class="fa fa-users" aria-hidden="true"></i> Acompanhante <span class="badge"> @ViewBag.acompanhante</span> </a>
 
 @using (Html.BeginForm())
 {

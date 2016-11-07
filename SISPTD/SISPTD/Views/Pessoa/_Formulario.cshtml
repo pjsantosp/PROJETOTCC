@@ -9,7 +9,7 @@
         <div class="panel-body ">
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             <div class="row">
-             
+
                 <div class="col-md-3">
                     <div class="form-group">
                         @Html.LabelFor(model => model.cpf, new { @class = "" })
@@ -140,8 +140,9 @@
 
 
     <div class="well well-sm">
-        <input type="submit" name="name" class="btn btn-primary " value="Salvar " />
-        @Html.ActionLink("Voltar para lista", "Index", null, new { @class = "btn btn-link pull-right" })
+        <button type="submit" name="name" class="btn btn-primary "> <i class="fa fa-floppy-o fa-lg"></i>  Gravar</button>
+        <a class="btn btn-danger pull-right" href="@Request.UrlReferrer"> <i class="fa fa-arrow-left fa-lg"></i>  Voltar para Lista </a>
+        @*<a href="@Request.UrlReferrer" class="btn btn-default"><i class="fa fa-arrow-left fa-lg"></i> Voltar </a>*@
     </div>
 
 }
