@@ -19,9 +19,18 @@ namespace SISPTD.Controllers
 
         public ActionResult BuscaProcesso(long nProcesso)
         {
-            var processo = ProcessoBO.SelecionarPorId(nProcesso);
+            if (nProcesso > 0)
+            {
+                var processo = ProcessoBO.SelecionarPorId(nProcesso);
 
-            return Json( new {pacienteCpf = processo.Paciente.cpf, pacienteNome = processo.Paciente.nome }, JsonRequestBehavior.AllowGet);
+                return Json(new { pacienteCpf = processo.Paciente.cpf, pacienteNome = processo.Paciente.nome }, JsonRequestBehavior.AllowGet);
+
+            }
+            else
+            {
+                TempData["Erro"] = "Verifique o valor no Campo de Busca!";
+            }
+            return Json(false );
         }
 
         public ActionResult Index(int ? pagina, string buscar= "")

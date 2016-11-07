@@ -258,11 +258,12 @@ $(document).ready(function () {
             }
         });
     });
+
     //Localiza processo na Movimentação
-    
     $('#btnBuscaProc').click(function () {
         debugger;
         var nProcesso = $('#nProcesso').val();
+        
         $.ajax({
             method: 'GET',
             url: "/Processo/BuscaProcesso/?nProcesso=" + nProcesso,
@@ -271,9 +272,11 @@ $(document).ready(function () {
                 $('#pacienteCpfProc').val(data.pacienteCpf)
             },
             error: function (data) {
-                alert("Algo está errado, não foi possível pesquisar o processo do paciente!");
+                alert("Ops!, Verifique o Valor no Campo de Busca!");
             }
         });
+
+       
     });
 
 
@@ -301,11 +304,7 @@ function AddPessoaLista() {
 
 }
 
-//$('#myModal').on('show.bs.modal', function (e) {
-//    var $botaoQueAbriu = $(e.relatedTarget);
-//    $('#nome_pessoa').text("");
-//    $('.procurarPessoa').empty();
-//});
+
 function Limpar() {
     debugger
     $('#btnLimpar').click(function () {
@@ -327,22 +326,6 @@ function RemoveAcompanhanteLista() {
 
 
 
-//$(".date").datepicker({
-//    language: "pt-BR",
-//    format: "dd/mm/yyyy",
-//    clearBtn: true,
-//    orientation: "bottom left",
-//    calendarWeeks: false,
-//    toggleActive: true,
-//    autoclose: true,
-//    todayHighlight: true
-
-
-
-
-
-//});
-
 $(".date").datepicker({
     language: "pt-BR",
     format: "dd/mm/yyyy",
@@ -353,15 +336,6 @@ $(".date").datepicker({
     autoclose: true
 });
 
-//$("#calendario").datepicker();
-
-//$(function () {
-//    $("#dt_Nascimento").datepicker({
-//        showOn: "button",
-//        buttonImage: "calendario.png",
-//        buttonImageOnly: true
-//    });
-//});
 
 //Aplica mascara
 $(function () {

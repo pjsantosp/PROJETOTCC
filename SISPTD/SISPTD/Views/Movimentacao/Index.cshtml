@@ -72,10 +72,10 @@
             @Html.DisplayFor(modelItem => item.SetorRecebeu.descricao)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.UsuarioEnviou.login)
+            @Html.DisplayFor(modelItem => item.UsuarioEnviou.Pessoa.nome)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.UsuarioRecebeu.login)
+            @Html.DisplayFor(modelItem => item.UsuarioRecebeu.Pessoa.nome)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.dtEnvio)

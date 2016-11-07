@@ -46,6 +46,19 @@ namespace SISPTD.Controllers
                         {
                             FormsAuthentication.SetAuthCookie(conta.login, false);
                             CreateAuthorizeTicket((int)conta.usuarioId, conta.login.ToString(), conta.Perfil.ToString());
+                            switch (conta.Perfil)
+                            {
+                                case Perfil.Gerente:
+                                    return RedirectToAction("Index", "Pessoa");
+                                case Perfil.Funcionario:
+                                    return RedirectToAction("Index", "Pessoa");
+                                case Perfil.Medico:
+                                    return RedirectToAction("Index", "Pericia");
+                                case Perfil.Administrador:
+                                    return RedirectToAction("Index", "User");
+                                default:
+                                    break;
+                            }
                             return RedirectToAction("Index", "Pessoa");
                         }
                     }

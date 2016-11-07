@@ -17,6 +17,7 @@ namespace SISPTD.Controllers
         private MovimentacaoBO movimentacaoBO = new MovimentacaoBO(new dbSISPTD());
         private UserBO usuarioBO = new UserBO(new dbSISPTD());
         private ProcessoBO processoBO = new ProcessoBO(new dbSISPTD());
+        private SetorBO setorBO = new SetorBO(new dbSISPTD());
 
         public ActionResult Index(int? pagina, string buscar="")
         {
@@ -69,13 +70,14 @@ namespace SISPTD.Controllers
                 Processo objProcesso = processoBO.SelecionarPorId(id.Value);
                 ViewBag.processoId = objProcesso.processoId;
                 ViewBag.pacienteId = objProcesso.pacienteId;
+                ViewBag.pacienteCpf = objProcesso.Paciente.cpf;
                 ViewBag.processoPaciente = objProcesso.Paciente.nome;
             }
-           
-            ViewBag.setorEnviouId = new SelectList(db.Setor, "setorId", "descricao");
-            ViewBag.setorRecebeuId = new SelectList(db.Setor, "setorId", "descricao");
-            ViewBag.usuarioEnviouId = new SelectList(db.Usuario, "usuarioId", "login");
-            ViewBag.usuarioRecebeuId = new SelectList(db.Usuario, "usuarioId", "login");
+
+            ViewBag.setorEnviouId = new SelectList(setorBO.Selecionar(), "setorId", "descricao");
+            ViewBag.setorRecebeuId = new SelectList(setorBO.Selecionar(), "setorId", "descricao");
+            ViewBag.usuarioEnviouId = new SelectList(usuarioBO.DropUsuarios(), "usuarioId", "nomeUsuario");
+            ViewBag.usuarioRecebeuId = new SelectList(usuarioBO.Selecionar(), "usuarioId",  "login");
             return View();
         }
 
