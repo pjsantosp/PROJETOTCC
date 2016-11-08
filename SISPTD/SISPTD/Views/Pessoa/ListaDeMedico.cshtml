@@ -98,7 +98,17 @@
                 </td>
                 <td></td>
                 <td>
-                    @Html.Partial("_Links", item)
+                    <a class="btn-group btn-sm btn-primary" title="Detalhe" href="@Url.Action("Details", "Pessoa",new { id= item.pessoaId })" aria-label="Skip to main navigation">
+                        <i class="fa fa-bars fa-lg" aria-hidden="true"></i>
+                    </a>
+
+                    @if (User.IsInRole("Gerente") || User.IsInRole("Administrador"))
+                    {
+                        <a class="btn-group btn-sm btn-primary" title="Editar" href="@Url.Action("EditMedico", "Pessoa",new { id= item.pessoaId })" aria-label="Skip to main navigation">
+                            <i class="fa fa-pencil fa-lg" aria-hidden="true"></i>
+                        </a>
+                    }
+
                 </td>
             </tr>
         }

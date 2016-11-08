@@ -70,22 +70,7 @@
                 </div>
 
             </div>
-            @*<div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.nome_Mae, new { @class = "text-danger" })
-                        @Html.EditorFor(model => model.nome_Mae, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.nome_Mae, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.nome_Pai, new { @class = "text-danger" })
-                        @Html.EditorFor(model => model.nome_Pai, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.nome_Pai, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-            </div>*@
+          
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
@@ -141,9 +126,10 @@
         </div>
     </div>
     <div class="well well-sm">
-        <input type="submit" name="name" class="btn btn-primary " value="Salvar " />
-        @Html.ActionLink("Voltar para lista", "Index", null, new { @class = "btn btn-link pull-right" })
+        <button type="submit" name="name" class="btn btn-primary "> <i class="fa fa-floppy-o fa-lg"></i>  Gravar</button>
+        <a class="btn btn-success pull-right" href="@Request.UrlReferrer"> <i class="fa fa-arrow-left fa-lg"></i>  Voltar para Lista </a>
     </div>
+
 
 }
 

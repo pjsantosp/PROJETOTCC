@@ -27,14 +27,6 @@ namespace SISPTD.Controllers
 
             return View(pessoaBO.ObterPessoa(busca, numeroPagina, tamanhoPagina ));
         }
-        public ActionResult ListaDeMedico(int? pagina, string buscaMedico = "")
-        {
-            int tamanhoPagina = 10;
-            int numeroPagina = pagina ?? 1;
-            buscaMedico = Util.RemoverMascara(buscaMedico);
-
-            return View(pessoaBO.ObterMedico(buscaMedico, numeroPagina, tamanhoPagina));
-        }
 
         /// <summary>
         /// Busca um Paciente quando passado um CPF
@@ -177,7 +169,7 @@ namespace SISPTD.Controllers
 
             return View();
         }
-        //Cria Usuario Get 
+        #region Crud Funcionario
         public ActionResult CreateFuncionario()
         {
             return View();
@@ -206,6 +198,59 @@ namespace SISPTD.Controllers
             return View(funcionario);
 
         }
+        public ActionResult EditFuncionario(long? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Pessoa pessoa = pessoaBO.SelecionarPorId(id.Value);
+            if (pessoa == null)
+            {
+                return HttpNotFound();
+            }
+            return View(pessoa);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Funcionario, Gerente, Administrador")]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditFuncionario(Pessoa pessoa)
+        {
+            try
+            {
+                pessoa.cns = Ultis.Util.RemoverMascara(pessoa.cns);
+                pessoa.cpf = Ultis.Util.RemoverMascara(pessoa.cpf);
+                if (ModelState.IsValid)
+                {
+                    pessoa.tipo = (int)TipoPessoa.Funcionario;
+                    pessoaBO.CalculoIdade(pessoa);
+                    pessoaBO.Alterar(pessoa);
+                    TempData["Sucesso"] = "Alteração Realizada com Sucesso!";
+                }
+                return RedirectToAction("ListaDeMedico");
+            }
+            catch (Exception ex)
+            {
+                TempData["Erro"] = "Ops! Ocorreu um erro!" + ex.Message;
+            }
+            return View(pessoa);
+        }
+
+        #endregion
+
+
+
+        #region Crud Medico
+        public ActionResult ListaDeMedico(int? pagina, string buscaMedico = "")
+        {
+            int tamanhoPagina = 10;
+            int numeroPagina = pagina ?? 1;
+            buscaMedico = Util.RemoverMascara(buscaMedico);
+
+            return View(pessoaBO.ObterMedico(buscaMedico, numeroPagina, tamanhoPagina));
+        }
+
         //Cria medico get
         public ActionResult CreateMedico()
         {
@@ -222,24 +267,66 @@ namespace SISPTD.Controllers
                 {
                     pessoa.tipo = (int)TipoPessoa.Medico;
                     pessoa.cpf = Util.RemoverMascara(pessoa.cpf);
+                    pessoa.cns = Util.RemoverMascara(pessoa.cns);
+
                     pessoa.dt_Cadastro = DateTime.Now;
                     pessoaBO.CalculoIdade(pessoa);
                     pessoaBO.Inserir(pessoa);
                     TempData["Sucesso"] = "Cadastrado Realizado com Sucesso!";
-                   // pessoaBO.SelecionarPorId(pessoa.pessoaId);
-                    return View(pessoa);
+                    return RedirectToAction("ListaDeMedico");
                 }
             }
             catch (Exception e)
             {
 
                 TempData["Erro"] = "Ops! " + e.Message;
-                
+
             }
 
 
             return View(pessoa);
         }
+
+        [Authorize(Roles = "Funcionario, Gerente, Administrador")]
+        public ActionResult EditMedico(long? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Pessoa pessoa = pessoaBO.SelecionarPorId(id.Value);
+            if (pessoa == null)
+            {
+                return HttpNotFound();
+            }
+            return View(pessoa);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Funcionario, Gerente, Administrador")]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditMedico(Pessoa pessoa)
+        {
+            try
+            {
+                pessoa.cns = Ultis.Util.RemoverMascara(pessoa.cns);
+                pessoa.cpf = Ultis.Util.RemoverMascara(pessoa.cpf);
+                if (ModelState.IsValid)
+                {
+                    pessoa.tipo = (int)TipoPessoa.Medico;
+                    pessoaBO.CalculoIdade(pessoa);
+                    pessoaBO.Alterar(pessoa);
+                    TempData["Sucesso"] = "Alteração Realizada com Sucesso!";
+                }
+                return RedirectToAction("ListaDeMedico");
+            }
+            catch (Exception ex)
+            {
+                TempData["Erro"] = "Ops! Ocorreu um erro!" + ex.Message;
+            }
+            return View(pessoa);
+        }
+        #endregion
 
         // GET: Pessoa/Edit/5
         [Authorize(Roles = "Funcionario, Gerente, Administrador")]
@@ -269,10 +356,27 @@ namespace SISPTD.Controllers
                 pessoa.cpf =  Ultis.Util.RemoverMascara(pessoa.cpf);
                 if (ModelState.IsValid)
                 {
-                    pessoa.tipo = (int)TipoPessoa.Paciente;
+                    if (pessoa.tipo == 0)
+                    {
+                        pessoa.tipo = (int)TipoPessoa.Paciente;
+                    }
+                    else if (pessoa.tipo == 1)
+                    {
+                        pessoa.tipo = (int)TipoPessoa.Acompanhante;
+                    }
+                    else if (pessoa.tipo == 2 )
+                    {
+                        pessoa.tipo = (int)TipoPessoa.Medico;
+
+                    }
+                    else
+                    {
+                        pessoa.tipo = (int)TipoPessoa.Funcionario;
+
+                    }
                     pessoaBO.CalculoIdade(pessoa);
                     pessoaBO.Alterar(pessoa);
-                    TempData["Sucesso"] = "Alteração feita com Sucesso!";
+                    TempData["Sucesso"] = "Alteração Realizada com Sucesso!";
                 }
                 return View(pessoa);
             }

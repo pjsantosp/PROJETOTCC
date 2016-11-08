@@ -136,8 +136,7 @@
     </div>
 
     <div class="well well-sm">
-        <button type="submit" class="btn btn-info"><i class="fa fa-floppy-o" aria-hidden="true"> </i>  Gravar</button>
-
-        @Html.ActionLink("Voltar para Lista", "Index", null, new { @class = "  btn btn-link pull-right" })
+        <button type="submit" name="name" class="btn btn-primary "> <i class="fa fa-floppy-o fa-lg"></i>  Gravar</button>
+        <a class="btn btn-success pull-right" href="@Request.UrlReferrer"> <i class="fa fa-arrow-left fa-lg"></i>  Voltar para Lista </a>
     </div>
 }

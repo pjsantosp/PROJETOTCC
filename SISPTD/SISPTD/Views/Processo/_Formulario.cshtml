@@ -1,10 +1,5 @@
 ﻿@model SISPTD.Models.Processo
 
-
-
-
-
-
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
@@ -114,12 +109,12 @@
                     </div>
                 </div>
             </div>
-    
 
-    <div class="well well-sm">
-        <input type="submit" name="name" value="Gravar " class="btn btn-primary" />
-        @Html.ActionLink(" Voltar Para Lista", "Index", null, new { @class = "fa fa-arrow-left fa-lg btn btn-link pull-right" })
-    </div>
+
+            <div class="well well-sm">
+                <button type="submit" name="name" class="btn btn-primary "> <i class="fa fa-floppy-o fa-lg"></i>  Gravar</button>
+                <a class="btn btn-success pull-right" href="@Request.UrlReferrer"> <i class="fa fa-arrow-left fa-lg"></i>  Voltar para Lista </a>
+            </div>
 }
 
 @section Scripts {
