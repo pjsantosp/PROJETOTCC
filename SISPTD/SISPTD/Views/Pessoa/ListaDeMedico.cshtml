@@ -4,7 +4,6 @@
     ViewBag.Title = "Lista de Medico";
 }
 <div>
-    <h3> <i class="fa fa-user-md "> </i> Lista de Medicos   </h3>
 
 </div>
 <div class="row">
@@ -25,95 +24,104 @@
         }
     </div>
 </div>
+<br />
+<div class="panel panel-default">
+    <!-- Default panel contents -->
+    <div class="panel-heading"><h5> <i class="fa fa-user-md fa-lg"> </i> <strong>Lista de Medicos </strong>   </h5></div>
 
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayName("CPF")
-            </th>
-            <th>
-                @Html.DisplayName("Nome")
-            </th>
+    <!-- Table -->
+    <div class="table-responsive">
+        <table class="table table-condensed table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayName("CPF")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Nome")
+                    </th>
 
-            <th>
-                @Html.DisplayName("Data de Nasciemnto")
-            </th>
+                    <th>
+                        @Html.DisplayName("Data de Nasciemnto")
+                    </th>
 
-            @*<th>
-                    @Html.DisplayName("RG")
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.orgaoemissor)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.dt_Emissao)
-                </th>*@
-            <th>
-                @Html.DisplayName("Cartão SUS")
-            </th>
-            <th>
-                @Html.DisplayName("Telefone")
-            </th>
-            <th>
-                @Html.DisplayName("Celular")
-            </th>
-            <th></th>
-            <th>
-                @Html.DisplayName("Operação")
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
+                    @*<th>
+                        @Html.DisplayName("RG")
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.orgaoemissor)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.dt_Emissao)
+                    </th>*@
+                    <th>
+                        @Html.DisplayName("Cartão SUS")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Telefone")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Celular")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Ação")
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
             {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.cpf)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.nome)
-                </td>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.cpf)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.nome)
+                        </td>
 
-                <td>
-                    @Html.DisplayFor(modelItem => item.dt_Nascimento)
-                </td>
-                @*<td>
-                        @Html.DisplayFor(modelItem => item.rg)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.orgaoemissor)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.dt_Emissao)
-                    </td>*@
-                <td>
-                    @Html.DisplayFor(modelItem => item.cns)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.tel)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.cel)
-                </td>
-                <td></td>
-                <td>
-                    <a class="btn-group btn-sm btn-primary" title="Detalhe" href="@Url.Action("Details", "Pessoa",new { id= item.pessoaId })" aria-label="Skip to main navigation">
-                        <i class="fa fa-bars fa-lg" aria-hidden="true"></i>
-                    </a>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.dt_Nascimento)
+                        </td>
+                        @*<td>
+                            @Html.DisplayFor(modelItem => item.rg)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.orgaoemissor)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.dt_Emissao)
+                        </td>*@
+                        <td>
+                            @Html.DisplayFor(modelItem => item.cns)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.tel)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.cel)
+                        </td>
+                        <td>
+                            <a class="btn-group btn-sm btn-primary" title="Detalhe" href="@Url.Action("Details", "Pessoa",new { id= item.pessoaId })" aria-label="Skip to main navigation">
+                                <i class="fa fa-bars fa-lg" aria-hidden="true"></i>
+                            </a>
 
-                    @if (User.IsInRole("Gerente") || User.IsInRole("Administrador"))
-                    {
-                        <a class="btn-group btn-sm btn-primary" title="Editar" href="@Url.Action("EditMedico", "Pessoa",new { id= item.pessoaId })" aria-label="Skip to main navigation">
-                            <i class="fa fa-pencil fa-lg" aria-hidden="true"></i>
-                        </a>
-                    }
+                            @if (User.IsInRole("Gerente") || User.IsInRole("Administrador"))
+                            {
+                                <a class="btn-group btn-sm btn-primary" title="Editar" href="@Url.Action("EditMedico", "Pessoa",new { id= item.pessoaId })" aria-label="Skip to main navigation">
+                                    <i class="fa fa-pencil fa-lg" aria-hidden="true"></i>
+                                </a>
+                            }
 
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+
 <div class="pull-right">
     <strong>  Pagina @Model.PageNumber de @Model.PageCount </strong>
     @Html.PagedListPager(Model, pagina => Url.Action("Index", new { pagina }))

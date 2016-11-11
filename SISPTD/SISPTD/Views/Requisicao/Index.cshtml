@@ -76,9 +76,7 @@
                     @Html.DisplayFor(modelItem => item.Trecho)
                 </td>
                 <td>
-                    @*@Html.ActionLink("Edit", "Edit", new { id=item.requisicaoId }) |
-                        @Html.ActionLink("Details", "Details", new { id = item.requisicaoId }) |
-                        @Html.ActionLink("Delete", "Delete", new { id=item.requisicaoId })*@
+                   
                     <a title="Imprimi" href="@Url.Action("Print", "Requisicao", new { id=item.requisicaoId })" target="_blank"> <span class="fa fa-print fa-lg"></span> </a>
                 </td>
             </tr>

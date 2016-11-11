@@ -12,6 +12,7 @@ namespace SISPTD.Models
         public long usuarioEnviouId { get; set; }
         public long? usuarioRecebeuId { get; set; }
         public long setorEnviouId { get; set; }
+        public string setorAtual { get; set; }
 
         public long? setorRecebeuId { get; set; }
         public long? ProcessoId { get; set; }

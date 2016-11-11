@@ -13,7 +13,7 @@ namespace SISPTD.Controllers
 {
     public class MovimentacaoController : Controller
     {
-        private dbSISPTD db = new dbSISPTD();
+       // private dbSISPTD db = new dbSISPTD();
         private MovimentacaoBO movimentacaoBO = new MovimentacaoBO(new dbSISPTD());
         private UserBO usuarioBO = new UserBO(new dbSISPTD());
         private ProcessoBO processoBO = new ProcessoBO(new dbSISPTD());
@@ -41,10 +41,13 @@ namespace SISPTD.Controllers
 
         public ActionResult DetalheDoMovProcesso(int? id)
         {
+            ViewBag.processoId = id.Value;
             if (id== null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            
+            
 
             return View(movimentacaoBO.ObterDetalheDoProcesso(id.Value));
         }
@@ -55,7 +58,7 @@ namespace SISPTD.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Movimentacao movimentacao = db.Movimentacaos.Find(id);
+            Movimentacao movimentacao = movimentacaoBO.SelecionarPorId(id.Value);
             if (movimentacao == null)
             {
                 return HttpNotFound();
@@ -63,15 +66,18 @@ namespace SISPTD.Controllers
             return View(movimentacao);
         }
 
-        public ActionResult Create(long? id)
+        public ActionResult Create(long? id, long? movId)
         {
             if (id!= null && id != 0)
             {
+                
                 Processo objProcesso = processoBO.SelecionarPorId(id.Value);
+               
                 ViewBag.processoId = objProcesso.processoId;
                 ViewBag.pacienteId = objProcesso.pacienteId;
                 ViewBag.pacienteCpf = objProcesso.Paciente.cpf;
                 ViewBag.processoPaciente = objProcesso.Paciente.nome;
+                ViewBag.movId = movId;
             }
 
             ViewBag.setorEnviouId = new SelectList(setorBO.Selecionar(), "setorId", "descricao");
@@ -88,6 +94,7 @@ namespace SISPTD.Controllers
         {
             try
             {
+                
                 if (movimentacao.setorEnviouId == movimentacao.setorRecebeuId)
                 {
                     ModelState.AddModelError("", "Setor de Destino não deve ser o Mesmo de Origem");
@@ -95,11 +102,18 @@ namespace SISPTD.Controllers
                 var user = usuarioBO.userLogado(User.Identity.Name);
                 movimentacao.usuarioEnviouId = user.usuarioId;
                 movimentacao.dtEnvio = DateTime.Now;
-                
+                Processo objProcesso = processoBO.SelecionarPorId(movimentacao.ProcessoId.Value);
                 if (ModelState.IsValid)
                 {
-                    db.Movimentacaos.Add(movimentacao);
-                    db.SaveChanges();
+                   //long processoAgenda = objProcesso.listaAgendamento.LastOrDefault(p=> p.processoId == movimentacao.ProcessoId).agendamentoId;
+                   // if ( movId > 0 && movId!= null )
+                   // {
+                   //     movimentacaoBO.AlteraSetorAtual(movId.Value, movimentacao.setorRecebeuId.Value);
+                   // }
+                    movimentacao.setorAtual = setorBO.SelecionarPorId(movimentacao.setorRecebeuId.Value).descricao;
+                    movimentacaoBO.Inserir(movimentacao);
+                    TempData["Sucesso"] = "Movimentação feita com Sucesso !";
+
                     return RedirectToAction("Index");
                 }
             }
@@ -108,13 +122,19 @@ namespace SISPTD.Controllers
 
                 throw;
             }
-           
 
-            ViewBag.ProcessoId = new SelectList(db.Processo, "processoId", "Procedimento", movimentacao.ProcessoId);
-            ViewBag.setorEnviouId = new SelectList(db.Setor, "setorId", "descricao", movimentacao.setorEnviouId);
-            ViewBag.setorRecebeuId = new SelectList(db.Setor, "setorId", "descricao", movimentacao.setorRecebeuId);
-            ViewBag.usuarioEnviouId = new SelectList(db.Usuario, "usuarioId", "login", movimentacao.usuarioEnviouId);
-            ViewBag.usuarioRecebeuId = new SelectList(db.Usuario, "usuarioId", "login", movimentacao.usuarioRecebeuId);
+            ViewBag.ProcessoId = new SelectList(processoBO.Selecionar(), "processoId", "Procedimento", movimentacao.ProcessoId);
+            ViewBag.setorEnviouId = new SelectList(setorBO.Selecionar(), "setorId", "descricao", movimentacao.setorEnviouId);
+            ViewBag.setorRecebeuId = new SelectList(setorBO.Selecionar(), "setorId", "descricao", movimentacao.setorRecebeuId);
+            ViewBag.usuarioEnviouId = new SelectList(usuarioBO.Selecionar(), "usuarioId", "login", movimentacao.usuarioEnviouId);
+            ViewBag.usuarioRecebeuId = new SelectList(usuarioBO.Selecionar(), "usuarioId", "login", movimentacao.usuarioRecebeuId);
+
+
+            //ViewBag.ProcessoId = new SelectList(db.Processo, "processoId", "Procedimento", movimentacao.ProcessoId);
+            //ViewBag.setorEnviouId = new SelectList(db.Setor, "setorId", "descricao", movimentacao.setorEnviouId);
+            //ViewBag.setorRecebeuId = new SelectList(db.Setor, "setorId", "descricao", movimentacao.setorRecebeuId);
+            //ViewBag.usuarioEnviouId = new SelectList(db.Usuario, "usuarioId", "login", movimentacao.usuarioEnviouId);
+            //ViewBag.usuarioRecebeuId = new SelectList(db.Usuario, "usuarioId", "login", movimentacao.usuarioRecebeuId);
             return View(movimentacao);
         }
 
@@ -124,16 +144,23 @@ namespace SISPTD.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Movimentacao movimentacao = db.Movimentacaos.Find(id);
+            Movimentacao movimentacao = movimentacaoBO.SelecionarPorId(id.Value);
             if (movimentacao == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.ProcessoId = new SelectList(db.Processo, "processoId", "Procedimento", movimentacao.ProcessoId);
-            ViewBag.setorEnviouId = new SelectList(db.Setor, "setorId", "descricao", movimentacao.setorEnviouId);
-            ViewBag.setorRecebeuId = new SelectList(db.Setor, "setorId", "descricao", movimentacao.setorRecebeuId);
-            ViewBag.usuarioEnviouId = new SelectList(db.Usuario, "usuarioId", "login", movimentacao.usuarioEnviouId);
-            ViewBag.usuarioRecebeuId = new SelectList(db.Usuario, "usuarioId", "login", movimentacao.usuarioRecebeuId);
+
+            ViewBag.ProcessoId = new SelectList(processoBO.Selecionar(), "processoId", "Procedimento", movimentacao.ProcessoId);
+            ViewBag.setorEnviouId = new SelectList(setorBO.Selecionar(), "setorId", "descricao", movimentacao.setorEnviouId);
+            ViewBag.setorRecebeuId = new SelectList(setorBO.Selecionar(), "setorId", "descricao", movimentacao.setorRecebeuId);
+            ViewBag.usuarioEnviouId = new SelectList(usuarioBO.Selecionar(), "usuarioId", "login", movimentacao.usuarioEnviouId);
+            ViewBag.usuarioRecebeuId = new SelectList(usuarioBO.Selecionar(), "usuarioId", "login", movimentacao.usuarioRecebeuId);
+
+            //ViewBag.ProcessoId = new SelectList(db.Processo, "processoId", "Procedimento", movimentacao.ProcessoId);
+            //ViewBag.setorEnviouId = new SelectList(db.Setor, "setorId", "descricao", movimentacao.setorEnviouId);
+            //ViewBag.setorRecebeuId = new SelectList(db.Setor, "setorId", "descricao", movimentacao.setorRecebeuId);
+            //ViewBag.usuarioEnviouId = new SelectList(db.Usuario, "usuarioId", "login", movimentacao.usuarioEnviouId);
+            //ViewBag.usuarioRecebeuId = new SelectList(db.Usuario, "usuarioId", "login", movimentacao.usuarioRecebeuId);
             return View(movimentacao);
         }
 
@@ -145,26 +172,24 @@ namespace SISPTD.Controllers
             if (ModelState.IsValid)
             {
                 movimentacao.dtEnvio = DateTime.Now;
-                db.Entry(movimentacao).State = EntityState.Modified;
-                db.SaveChanges();
+                movimentacaoBO.Alterar(movimentacao);
                 return RedirectToAction("Index");
             }
-            ViewBag.ProcessoId = new SelectList(db.Processo, "processoId", "Procedimento", movimentacao.ProcessoId);
-            ViewBag.setorEnviouId = new SelectList(db.Setor, "setorId", "descricao", movimentacao.setorEnviouId);
-            ViewBag.setorRecebeuId = new SelectList(db.Setor, "setorId", "descricao", movimentacao.setorRecebeuId);
-            ViewBag.usuarioEnviouId = new SelectList(db.Usuario, "usuarioId", "login", movimentacao.usuarioEnviouId);
-            ViewBag.usuarioRecebeuId = new SelectList(db.Usuario, "usuarioId", "login", movimentacao.usuarioRecebeuId);
+            ViewBag.ProcessoId = new SelectList(processoBO.Selecionar(), "processoId", "Procedimento", movimentacao.ProcessoId);
+            ViewBag.setorEnviouId = new SelectList(setorBO.Selecionar(), "setorId", "descricao", movimentacao.setorEnviouId);
+            ViewBag.setorRecebeuId = new SelectList(setorBO.Selecionar(), "setorId", "descricao", movimentacao.setorRecebeuId);
+            ViewBag.usuarioEnviouId = new SelectList(usuarioBO.Selecionar(), "usuarioId", "login", movimentacao.usuarioEnviouId);
+            ViewBag.usuarioRecebeuId = new SelectList(usuarioBO.Selecionar(), "usuarioId", "login", movimentacao.usuarioRecebeuId);
             return View(movimentacao);
         }
 
-        // GET: Movimentacao/Delete/5
         public ActionResult Delete(long? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Movimentacao movimentacao = db.Movimentacaos.Find(id);
+            Movimentacao movimentacao = movimentacaoBO.SelecionarPorId(id.Value);
             if (movimentacao == null)
             {
                 return HttpNotFound();
@@ -172,24 +197,14 @@ namespace SISPTD.Controllers
             return View(movimentacao);
         }
 
-        // POST: Movimentacao/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(long id)
         {
-            Movimentacao movimentacao = db.Movimentacaos.Find(id);
-            db.Movimentacaos.Remove(movimentacao);
-            db.SaveChanges();
+            movimentacaoBO.ExcluirPorId(id);
             return RedirectToAction("Index");
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+       
     }
 }

@@ -59,7 +59,22 @@ namespace SISPTD.BO
             }
 
         }
+        public IEnumerable<Pessoa> ObterFuncionarios(string busca, int? pagina, int tamanhoPagina)
+        {
+            try
+            {
+                IEnumerable<Pessoa> listapessoa = _contexto.Set<Pessoa>()
+               .Include(d => d.ListaDeProcessosPaciente)
+               .Where(x => x.cpf.Contains(busca)).Where(x => x.tipo == 3);
+                return listapessoa.OrderByDescending(p => p.dt_Cadastro).ToPagedList(pagina.Value, tamanhoPagina);
+            }
+            catch (Exception e)
+            {
 
+                throw new Exception("Erro na busca na lista de Funcionario", e);
+            }
+
+        }
 
 
         public bool ExistPessoa(Pessoa pessoa)

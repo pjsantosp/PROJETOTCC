@@ -170,6 +170,16 @@ namespace SISPTD.Controllers
             return View();
         }
         #region Crud Funcionario
+
+        public ActionResult ListaDeFuncionario(int? pagina, string buscaFuncionario = "")
+        {
+            int tamanhoPagina = 10;
+            int numeroPagina = pagina ?? 1;
+            buscaFuncionario= Util.RemoverMascara(buscaFuncionario);
+
+            return View(pessoaBO.ObterFuncionarios(buscaFuncionario, numeroPagina, tamanhoPagina));
+        }
+
         public ActionResult CreateFuncionario()
         {
             return View();

@@ -26,12 +26,12 @@
                 </div>
                 <div class="col-md-3">
                     <div class="input-group ">
-
-
                         @Html.Label("Data de Nascimento * ")
                         @Html.EditorFor(model => model.dt_Nascimento, new { htmlAttributes = new { @class = "form-control date " } })
+
                         @Html.ValidationMessageFor(model => model.dt_Nascimento, "", new { @class = "text-danger" })
                     </div>
+
                 </div>
             </div>
             <div class="row">
@@ -50,9 +50,11 @@
                     </div>
                 </div>
                 <div class="col-md-3">
-                    <div class="form-group">
+
+                    <div class="input-group">
                         @Html.LabelFor(model => model.dt_Emissao, new { @class = "" })
                         @Html.EditorFor(model => model.dt_Emissao, new { htmlAttributes = new { @class = "form-control date" } })
+
                         @Html.ValidationMessageFor(model => model.dt_Emissao, "", new { @class = "text-danger" })
                     </div>
                 </div>

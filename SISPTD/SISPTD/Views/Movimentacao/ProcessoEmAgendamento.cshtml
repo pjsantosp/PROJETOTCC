@@ -50,7 +50,7 @@
                 </td>
 
                 <td>
-                    <a href="@Url.Action("Create","Agendamento",new {pacienteId = item.ProcessoId })" aria-label="Skip to main navigation">
+                    <a  href="@Url.Action("Create","Agendamento", new {processoId = item.ProcessoId, pacienteId = item.Processo.pacienteId })" aria-label="Skip to main navigation">
                         <i class="glyphicon glyphicon-ok" aria-hidden="true"></i>
                     </a>
                 </td>

@@ -3,8 +3,8 @@ Login 83025308249
 Senha: 1234
 Perfil Administrador
 #############################
-Benício Pedro Freitas	
-Login 51894484959
+Kamilly Brenda Isadora Gomes
+Login 441.532.285-91
 Senha: 123
 Perfil Funcionario
 #############################

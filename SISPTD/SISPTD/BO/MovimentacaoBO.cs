@@ -14,6 +14,8 @@ namespace SISPTD.BO
         {
             
         }
+        private SetorBO setorBO = new SetorBO(new dbSISPTD());
+
         public override void Inserir(Movimentacao entidade)
         {
             base.Inserir(entidade); 
@@ -38,7 +40,8 @@ namespace SISPTD.BO
                .Include(m => m.SetorEnviou)
                .Include(m => m.SetorRecebeu)
                .Include(m => m.UsuarioEnviou)
-               .Include(m => m.UsuarioRecebeu);
+               .Include(m => m.UsuarioRecebeu)
+               .Where(b=> b.Processo.Paciente.cpf.Contains(busca) || b.Processo.Paciente.cns.Contains(busca) && b.Processo.Paciente.tipo == 0);
 
                 return listaDeMovimentacao.OrderByDescending(m=> m.movimentacaoId).ToPagedList(pagina.Value, tamanhoPagina);
 
@@ -72,16 +75,16 @@ namespace SISPTD.BO
         }
         public IEnumerable<Movimentacao> ObterAgendamento(int? pagina, int tamanhoPagina)
         {
-            var ListaDePericias = from s in _contexto.Set<Setor>()
-                                  join m in _contexto.Set<Movimentacao>() on s.setorId equals m.setorRecebeuId
-                                  join p in _contexto.Set<Processo>() on m.ProcessoId equals p.processoId
-                                  select new
-                                  {
-                                      _processo = p.processoId
+            //var ListaDePericias = from s in _contexto.Set<Setor>()
+            //                      join m in _contexto.Set<Movimentacao>() on s.setorId equals m.setorRecebeuId
+            //                      join p in _contexto.Set<Processo>() on m.ProcessoId equals p.processoId
+            //                      select new
+            //                      {
+            //                          _processo = p.processoId
 
 
-                                  };
-            IEnumerable<Movimentacao> listaDePericia = _contexto.Set<Movimentacao>().Where(m => m.SetorRecebeu.descricao == "Agendamento")
+            //                      };
+            IEnumerable<Movimentacao> listaDePericia = _contexto.Set<Movimentacao>().Where(m => m.setorAtual == "Agendamento" && m.SetorEnviou.descricao != "Agendamento")
                 .Include(p => p.Processo);
             return listaDePericia.OrderByDescending(m => m.dtEnvio).ToPagedList(pagina.Value, tamanhoPagina);
 
@@ -105,6 +108,36 @@ namespace SISPTD.BO
                 throw new Exception("Erro na Busca do Processo", ex);
             }
 
+        }
+        public void AlteraSetorAtual(int movId, long setorRecebeuId)
+        {
+            try
+            {
+
+                Movimentacao objMovimentacao = _contexto.Set<Movimentacao>()
+                   .Include(m => m.Processo)
+               .Include(m => m.SetorEnviou)
+               .Include(m => m.SetorRecebeu)
+               .Include(m => m.UsuarioEnviou)
+               .Include(m => m.UsuarioRecebeu).FirstOrDefault(m => m.movimentacaoId == movId);
+                objMovimentacao.setorAtual = setorBO.SelecionarPorId(setorRecebeuId).descricao;
+
+
+                if (objMovimentacao != null)
+                {
+                    base.Alterar(objMovimentacao);
+
+                }
+
+
+
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
     }

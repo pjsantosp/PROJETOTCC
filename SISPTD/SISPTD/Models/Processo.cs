@@ -18,7 +18,8 @@ namespace SISPTD.Models
         [DataType(DataType.MultilineText)]
         [Required(ErrorMessage = " Observações é Campo Obrigatorio! ")]
         public string observacoes { get; set; }
-       
+
+
         //public long pessoaId { get; set; }
         public long movimentacaoId { get; set; }
         public long? agendamentoId { get; set; }

@@ -326,15 +326,23 @@ function RemoveAcompanhanteLista() {
 
 
 
-$(".date").datepicker({
+$
+
+
+
+
+//Dates pickes
+$('.date').datepicker({
     language: "pt-BR",
     format: "dd/mm/yyyy",
     clearBtn: true,
-    orientation: "bottom ",
+    orientation: "bottom auto",
     calendarWeeks: true,
     toggleActive: true,
     autoclose: true
 });
+
+
 
 
 //Aplica mascara

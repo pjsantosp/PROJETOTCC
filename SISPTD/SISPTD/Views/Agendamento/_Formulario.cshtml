@@ -31,13 +31,17 @@
              
             </div>
             <div class="row">
-                <div class="col-md-3 ">
-                    <div class="input-group">
+                <div class="col-md-3 " >
+                    <div id="sandbox-container">
                         @Html.LabelFor(model => model.dt_Agendamento, htmlAttributes: new { @class = "control-label " })
-                        @Html.Editor("dt_Agendamento", new { htmlAttributes = new { @class = "form-control calendario" } })
-                        <span class="input-group-btn"><button type="button" id="btnBuscaPacAgendamento" class="btn btn-default"><i class="fa fa-calendar-plus-o"></i></button></span>
+                        <div class="input-group ">
+                           
+                            @Html.Editor("dt_Agendamento", new { htmlAttributes = new { @class = "form-control date " } })
+                           @* <input type="text" name="dt_Agendamento" class="form-control"><span class="input-group-addon "><i class="fa fa-calendar fa-lg" aria-hidden="true"></i></span>*@
+                            <span class="input-group-btn"><button type="button" id="" class="btn btn-default"><i class="fa fa-calendar fa-lg"></i></button></span>
+                            @Html.ValidationMessageFor(model => model.dt_Agendamento, "", new { @class = "text-danger" })
+                        </div>
 
-                        @Html.ValidationMessageFor(model => model.dt_Agendamento, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 <div class="col-md-5">

@@ -29,12 +29,12 @@ namespace SISPTD
                       "~/Scripts/respond.js",
                       "~/Scripts/bootstrap-datepicker.min.js",
                       "~/Scripts/bootstrap-datepicker.pt-BR.min.js"
-                      
+
                       ));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/site.css", 
+                      "~/Content/site.css",
                       "~/Content/sisptd.css",
                       "~/Content/chosen.css",
                       "~/Content/bootstrap-chosen.css",

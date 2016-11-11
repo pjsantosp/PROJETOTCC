@@ -4,72 +4,72 @@
     ViewBag.Title = "Detalhe da Movimentação do Processo";
 }
 
-<h2>Detalhe da Movimentação do Processo</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Processo.Paciente.nome)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Processo.Procedimento)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SetorEnviou.descricao)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SetorRecebeu.descricao)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UsuarioEnviou.login)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UsuarioRecebeu.login)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.dtEnvio)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.dtRecebimento)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Processo.Paciente.nome)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Processo.Procedimento)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SetorEnviou.descricao)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SetorRecebeu.descricao)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UsuarioEnviou.login)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UsuarioRecebeu.login)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.dtEnvio)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.dtRecebimento)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.movimentacaoId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.movimentacaoId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.movimentacaoId })
-        </td>
-    </tr>
-}
 
-</table>
+<div class="panel panel-default">
+    <!-- Default panel contents -->
+    <div class="panel-heading"><h5> <i class="fa fa-info fa-lg"> </i> <strong>Detalha da Movimentação Processo Nº </strong> <span class="label label-info">@ViewBag.processoId </span>  </h5> </div>
+    <!-- Table -->
+    <div class="table-responsive">
+        <table class="table table-hover table-bordered table-condensed">
+            <tr>
+                <th>
+                    @Html.DisplayName("Paciente")
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Processo.Procedimento)
+                </th>
+                <th>
+                    @Html.DisplayName("Origem")
+                </th>
+                <th>
+                    @Html.DisplayName("Destino")
+                </th>
+                <th>
+                    @Html.DisplayName("Usuário Enviou")
+                </th>
+                <th>
+                    @Html.DisplayName("Usuário Recebeu")
+                </th>
+                <th>
+                   @Html.DisplayName("Envio")
+                </th>
+               
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Processo.Paciente.nome)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Processo.Procedimento)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SetorEnviou.descricao)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SetorRecebeu.descricao)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UsuarioEnviou.Pessoa.nome)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UsuarioRecebeu.Pessoa.nome)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.dtEnvio)
+                    </td>
+                   
+                </tr>
+            }
+
+        </table>
+    </div>
+
+</div>
+
+    <a class="btn btn-success pull-right" href="@Request.UrlReferrer"> <i class="fa fa-arrow-left fa-lg"></i>  Voltar </a>
+

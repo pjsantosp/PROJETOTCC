@@ -40,14 +40,15 @@ namespace SISPTD.Controllers
             return View(agendamento);
         }
 
-        public ActionResult Create(int? pacienteId)
+        public ActionResult Create(int? processoId)
         {
-            if (pacienteId != null)
+            if (processoId != null)
             {
-                Processo processo = processoBO.SelecionarPorId(pacienteId.Value);
-                ViewBag.processoId = processo.processoId;
-                Pessoa paciente = processo.Paciente;
-                ViewBag.pacienteId = pacienteId;
+                Processo objProcesso = processoBO.SelecionarPorId(processoId.Value);
+               
+                ViewBag.processoId = objProcesso.processoId;
+                Pessoa paciente = objProcesso.Paciente;
+                ViewBag.pacienteId = processoId;
                 ViewBag.pacienteNome = paciente.nome;
                 ViewBag.pacienteCpf = paciente.cpf;
 
@@ -64,24 +65,22 @@ namespace SISPTD.Controllers
         {
             try
             {
-
-                //if (agendamento.processoId== 0)
-                //{
-
-                //    agendamento.processoId = processoBO.SelecionarPorId(pacienteId.Value).processoId;
-                //}
-
+                Processo objProcesso = agendamentoBO.ObterProcessoAgd(pacienteId.Value);
+                if (agendamento.processoId == 0)
+                {
+                    agendamento.processoId = objProcesso.processoId;
+                }
                 var user = usuarioBO.userLogado(User.Identity.Name);
                 agendamento.usuarioId = user.usuarioId;
 
                 agendamento.dt_Marcacao = DateTime.Now;
                 agendamentoBO.Inserir(agendamento);
+               
                 
+               
                 TempData["Sucesso"] = "Agendamento Realizado com Sucesso!";
 
-
-
-                return RedirectToAction("Index");
+                return RedirectToAction("Create","Movimentacao", new { id = agendamento.processoId });
             }
             catch (Exception ex)
             {
@@ -90,7 +89,6 @@ namespace SISPTD.Controllers
             }
 
 
-            //ViewBag.usuarioId = new SelectList(db.User, "usuarioId", "login", agendamento.usuarioId);
             return View(agendamento);
         }
 
