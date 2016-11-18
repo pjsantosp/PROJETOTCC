@@ -13,7 +13,6 @@ namespace SISPTD.BO
         public CrudComumEntity(DbContext contexto)
         {
             _contexto = contexto;
-
         }
         public IEnumerable<TEntidade> Selecionar()
         {
@@ -23,12 +22,10 @@ namespace SISPTD.BO
             }
             catch (Exception e)
             {
-
                 throw new Exception("Erro em CrudComum Selecionar ! "+ e.Message);
             }
            
         }
-
         public TEntidade SelecionarPorId(TChave id)
         {
             try
@@ -37,10 +34,8 @@ namespace SISPTD.BO
             }
             catch (Exception e)
             {
-
                 throw new Exception("Erro em CrudComum SelecionarPorId ! " +e.Message);
             }
-            
         }
 
         public virtual void Inserir(TEntidade entidade)
@@ -49,11 +44,9 @@ namespace SISPTD.BO
             {
                 _contexto.Set<TEntidade>().Add(entidade);
                 _contexto.SaveChanges();
-
             }
             catch (Exception e)
             {
-                
                 throw new Exception("Erro em CrudComum Inserir " + e.Message);
             }
             
@@ -74,12 +67,10 @@ namespace SISPTD.BO
             }
             catch (Exception e)
             {
-                
                 throw new Exception("Erro em CrudComum Alterar " + e.Message);
             }
            
         }
-
         public void Excluir(TEntidade entidade)
         {
             try
@@ -90,12 +81,10 @@ namespace SISPTD.BO
             }
             catch (Exception e)
             {
-                
                 throw new Exception("Erro em CrudComum Excluir ! " + e.Message);
             }
            
         }
-
         public void ExcluirPorId(TChave id)
         {
             try
@@ -105,10 +94,8 @@ namespace SISPTD.BO
             }
             catch (Exception e)
             {
-                
                 throw new Exception("Erro em CrudComum ExcluirPorId " + e.Message);
             }
-            
             
         }
     }

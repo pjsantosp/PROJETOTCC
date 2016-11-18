@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using SISPTD.Models;
 using System.Data.Entity;
-using PagedList.Mvc;
 using PagedList;
 
 namespace SISPTD.BO
@@ -22,8 +20,6 @@ namespace SISPTD.BO
                 throw new Exception("CPF Informado não é valido!");
             if (ExistPessoa(entidade))
                 throw new Exception("já existe esse CPF cadastrado para uma Pessoa !");
-            //if (CalculoIdade(entidade))
-            //    throw new Exception("É Necessário Acompanhante Para o Paciente!");
             base.Inserir(entidade);
         }
         public IEnumerable<Pessoa> ObterPessoa(string busca, int? pagina, int tamanhoPagina)
@@ -37,10 +33,8 @@ namespace SISPTD.BO
             }
             catch (Exception e)
             {
-
                 throw new Exception("Erro na busca na lista de pessoa", e);
             }
-
         }
 
         public IEnumerable<Pessoa> ObterMedico(string busca, int? pagina, int tamanhoPagina)
@@ -70,13 +64,9 @@ namespace SISPTD.BO
             }
             catch (Exception e)
             {
-
                 throw new Exception("Erro na busca na lista de Funcionario", e);
             }
-
         }
-
-
         public bool ExistPessoa(Pessoa pessoa)
         {
             try
@@ -109,8 +99,7 @@ namespace SISPTD.BO
             }
             catch (Exception e)
             {
-
-                throw new Exception("Erro durante a Verificação da Idade do Paciente", e);
+                throw new Exception("Erro durante a Verificação da Idade de Pessoa", e);
             }
         }
         public string ObterPessoaLogin(User login)
@@ -122,10 +111,8 @@ namespace SISPTD.BO
             }
             catch (Exception)
             {
-
                 throw;
             }
-
            
         }
 

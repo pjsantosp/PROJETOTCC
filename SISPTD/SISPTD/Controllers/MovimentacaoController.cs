@@ -13,7 +13,6 @@ namespace SISPTD.Controllers
 {
     public class MovimentacaoController : Controller
     {
-       // private dbSISPTD db = new dbSISPTD();
         private MovimentacaoBO movimentacaoBO = new MovimentacaoBO(new dbSISPTD());
         private UserBO usuarioBO = new UserBO(new dbSISPTD());
         private ProcessoBO processoBO = new ProcessoBO(new dbSISPTD());
@@ -105,11 +104,6 @@ namespace SISPTD.Controllers
                 Processo objProcesso = processoBO.SelecionarPorId(movimentacao.ProcessoId.Value);
                 if (ModelState.IsValid)
                 {
-                   //long processoAgenda = objProcesso.listaAgendamento.LastOrDefault(p=> p.processoId == movimentacao.ProcessoId).agendamentoId;
-                   // if ( movId > 0 && movId!= null )
-                   // {
-                   //     movimentacaoBO.AlteraSetorAtual(movId.Value, movimentacao.setorRecebeuId.Value);
-                   // }
                     movimentacao.setorAtual = setorBO.SelecionarPorId(movimentacao.setorRecebeuId.Value).descricao;
                     movimentacaoBO.Inserir(movimentacao);
                     TempData["Sucesso"] = "Movimentação feita com Sucesso !";
@@ -128,13 +122,7 @@ namespace SISPTD.Controllers
             ViewBag.setorRecebeuId = new SelectList(setorBO.Selecionar(), "setorId", "descricao", movimentacao.setorRecebeuId);
             ViewBag.usuarioEnviouId = new SelectList(usuarioBO.Selecionar(), "usuarioId", "login", movimentacao.usuarioEnviouId);
             ViewBag.usuarioRecebeuId = new SelectList(usuarioBO.Selecionar(), "usuarioId", "login", movimentacao.usuarioRecebeuId);
-
-
-            //ViewBag.ProcessoId = new SelectList(db.Processo, "processoId", "Procedimento", movimentacao.ProcessoId);
-            //ViewBag.setorEnviouId = new SelectList(db.Setor, "setorId", "descricao", movimentacao.setorEnviouId);
-            //ViewBag.setorRecebeuId = new SelectList(db.Setor, "setorId", "descricao", movimentacao.setorRecebeuId);
-            //ViewBag.usuarioEnviouId = new SelectList(db.Usuario, "usuarioId", "login", movimentacao.usuarioEnviouId);
-            //ViewBag.usuarioRecebeuId = new SelectList(db.Usuario, "usuarioId", "login", movimentacao.usuarioRecebeuId);
+        
             return View(movimentacao);
         }
 
@@ -156,11 +144,7 @@ namespace SISPTD.Controllers
             ViewBag.usuarioEnviouId = new SelectList(usuarioBO.Selecionar(), "usuarioId", "login", movimentacao.usuarioEnviouId);
             ViewBag.usuarioRecebeuId = new SelectList(usuarioBO.Selecionar(), "usuarioId", "login", movimentacao.usuarioRecebeuId);
 
-            //ViewBag.ProcessoId = new SelectList(db.Processo, "processoId", "Procedimento", movimentacao.ProcessoId);
-            //ViewBag.setorEnviouId = new SelectList(db.Setor, "setorId", "descricao", movimentacao.setorEnviouId);
-            //ViewBag.setorRecebeuId = new SelectList(db.Setor, "setorId", "descricao", movimentacao.setorRecebeuId);
-            //ViewBag.usuarioEnviouId = new SelectList(db.Usuario, "usuarioId", "login", movimentacao.usuarioEnviouId);
-            //ViewBag.usuarioRecebeuId = new SelectList(db.Usuario, "usuarioId", "login", movimentacao.usuarioRecebeuId);
+          
             return View(movimentacao);
         }
 

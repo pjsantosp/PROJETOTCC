@@ -17,7 +17,6 @@ namespace SISPTD.Controllers
         private UserBO userBO = new UserBO(new dbSISPTD());
         private PessoaBO pessoaBO = new PessoaBO(new dbSISPTD());
 
-        // GET: Login
         public ActionResult Login()
         {
             return View();
@@ -80,7 +79,7 @@ namespace SISPTD.Controllers
         public ActionResult Deslogar()
         {
             FormsAuthentication.SignOut();
-
+            Session.Abandon();
             return RedirectToAction("Login", "Login");
         }
 

@@ -11,7 +11,6 @@ namespace SISPTD.Controllers
     public class CidController : Controller
     {
         private CidBO cidBO = new CidBO(new dbSISPTD());
-        // GET: Cid
         public ActionResult PesquisaCid(string query)
         {
 

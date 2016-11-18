@@ -1,15 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using SISPTD.Models;
 using SISPTD.BO;
-
-using PagedList;
 
 namespace SISPTD.Controllers
 {
@@ -30,12 +25,17 @@ namespace SISPTD.Controllers
 
             return View(requisicaoBO.ObterRequisicao(numeroPagina, tamanhoPagina));
         }
-
+        /// <summary>
+        /// Adiciona acompanhate na requisição
+        /// </summary>
+        /// <param name="pacienteId"></param>
+        /// <param name="id"></param>
+        /// <param name="Pessoa"></param>
+        /// <returns></returns>
         public ActionResult AddAcompanhante(long? pacienteId, int id, List<Pessoa> Pessoa)
         {
             try
             {
-               
                 if (pacienteId != null)
                 {
                     Pessoa acompanhante = pessoaBO.SelecionarPorId(id);
@@ -68,7 +68,6 @@ namespace SISPTD.Controllers
             }
             catch (Exception ex)
             {
-
                 TempData["Erro"] = "Ops! " + ex.Message;
             }
 
@@ -95,13 +94,10 @@ namespace SISPTD.Controllers
             }
             return View(requisicao);
 
-
         }
-
 
         public ActionResult Create()
         {
-            
             ViewBag.Estado = new SelectList(ufBO.Selecionar(), "IdEstado", "Sigla");
             ViewBag.IdCidadesDestino = new SelectList("", "IdCidade", "Cidade");
             ViewBag.IdCidadesOrigem = new SelectList("", "IdCidade", "Cidade");
@@ -114,7 +110,6 @@ namespace SISPTD.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Requisicao requisicao, int? pessoaId, List<Pessoa> Pessoa)
         {
-
             try
             {
                 if ( pessoaId == null || pessoaId == 0 )
@@ -175,41 +170,7 @@ namespace SISPTD.Controllers
             ViewBag.usuarioId = new SelectList(usuarioBO.Selecionar(), "usuarioId", "login", requisicao.usuarioId);
             return View(requisicao);
         }
-        #region Editar
-        // GET: Requisicaos/Edit/5
-        //public ActionResult Edit(long? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    Requisicao requisicao = requisicaoBO.SelecionarPorId(id.Value);
-        //    if (requisicao == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    ViewBag.IdCidadesDestino = new SelectList(cidadeBO.Selecionar(), "IdCidade", "Cidade", requisicao.IdCidadesDestino);
-        //    ViewBag.IdCidadesOrigem = new SelectList(cidadeBO.Selecionar(), "IdCidade", "Cidade", requisicao.IdCidadesOrigem);
-        //    ViewBag.usuarioId = new SelectList(usuarioBO.Selecionar(), "usuarioId", "login", requisicao.usuarioId);
-        //    return View(requisicao);
-        //}
-
-
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Edit(Requisicao requisicao)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        requisicaoBO.Alterar(requisicaoBO);
-        //        return RedirectToAction("Index");
-        //    }
-        //    ViewBag.IdCidadesDestino = new SelectList(db.Cidades, "IdCidade", "Cidade", requisicao.IdCidadesDestino);
-        //    ViewBag.IdCidadesOrigem = new SelectList(db.Cidades, "IdCidade", "Cidade", requisicao.IdCidadesOrigem);
-        //    ViewBag.usuarioId = new SelectList(db.User, "usuarioId", "login", requisicao.usuarioId);
-        //    return View(requisicao);
-        //}
-        #endregion
+      
         public ActionResult Delete(long? id)
         {
             if (id == null)

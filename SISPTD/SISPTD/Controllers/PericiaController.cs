@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using SISPTD.Models;
 using SISPTD.BO;
@@ -13,7 +8,6 @@ namespace SISPTD.Controllers
 {
     public class PericiaController : Controller
     {
-       // private dbSISPTD db = new dbSISPTD();
         private ProcessoBO processoBO = new ProcessoBO(new dbSISPTD());
         private PericiaBO periciaBO = new PericiaBO(new dbSISPTD());
         private PessoaBO pessoBO = new PessoaBO(new dbSISPTD());
@@ -27,8 +21,6 @@ namespace SISPTD.Controllers
 
             return View(periciaBO.ObterPericia(numeroPagina, tamanhoPagina));
         }
-
-
 
         public ActionResult Details(long? id)
         {
@@ -54,38 +46,23 @@ namespace SISPTD.Controllers
                 ViewBag.pacienteCpf = objPaciente.cpf;
                 ViewBag.pacienteNome = objPaciente.nome;
                 ViewBag.pacienteId = objPaciente.pessoaId;
-
-
             }
-
-
-
             return View();
         }
-
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        [HttpPost, ValidateAntiForgeryToken]
         public ActionResult Create(int? pacientepessoaId, Pericia pericia)
         {
-
             try
             {
-                
                 pericia.dt_Pericia = DateTime.Now;
                 periciaBO.Inserir(pericia);
-                
                 TempData["Sucesso"] = "Pericia Cadastrada com Sucesso";
-
                 return RedirectToAction("Index");
-
             }
             catch (Exception ex)
             {
-
                 TempData["Erro"] = "Ops ! " + ex.Message;
             }
-           
             return View(pericia);
         }
 
@@ -100,7 +77,6 @@ namespace SISPTD.Controllers
             {
                 return HttpNotFound();
             }
-            //ViewBag.cidId = new SelectList(db.Cid, "cidId", "codigoCid", pericia.cidId);
             return View(pericia);
         }
 
@@ -111,12 +87,8 @@ namespace SISPTD.Controllers
             if (ModelState.IsValid)
             {
                 periciaBO.Alterar(pericia);
-                //db.Entry(pericia).State = EntityState.Modified;
-                //db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            //ViewBag.cidId = new SelectList(db.Cid, "cidId", "codigoCid", pericia.cidId);
-            //ViewBag.pessoaId = new SelectList(db.Pessoa, "pessoaId", "cpf", pericia.Processo.Paciente.cpf);
             return View(pericia);
         }
 
@@ -133,15 +105,11 @@ namespace SISPTD.Controllers
             }
             return View(pericia);
         }
-
-        // POST: Pericia/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(long id)
         {
             periciaBO.ExcluirPorId(id);
-            //db.Pericia.Remove(pericia);
-            //db.SaveChanges();
             return RedirectToAction("Index");
         }
 

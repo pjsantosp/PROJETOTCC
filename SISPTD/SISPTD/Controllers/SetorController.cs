@@ -59,7 +59,6 @@ namespace SISPTD.Controllers
                     TempData["Sucesso"] = "Setor Gravado Com Sucesso!";
                 }
                 return RedirectToAction("Index");
-
             }
             catch (Exception ex)
             {
@@ -70,7 +69,6 @@ namespace SISPTD.Controllers
             return View(setor);
         }
 
-        // GET: Setor/Edit/5
         public ActionResult Edit(long? id)
         {
             if (id == null)
@@ -84,7 +82,6 @@ namespace SISPTD.Controllers
             }
             return View(setor);
         }
-
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -109,8 +106,6 @@ namespace SISPTD.Controllers
             }
             return View(setor);
         }
-
-        // GET: Setor/Delete/5
         public ActionResult Delete(long? id)
         {
             if (id == null)
@@ -125,14 +120,11 @@ namespace SISPTD.Controllers
             return View(setor);
         }
 
-        // POST: Setor/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(long id)
         {
-
             setorBO.ExcluirPorId(id);
-            
             return RedirectToAction("Index");
         }
 

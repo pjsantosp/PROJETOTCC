@@ -3,9 +3,10 @@ namespace SISPTD.Models
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
 
-    [Table("Pessoa")]
+    /// <summary>
+    /// Classe responsável pelos dados de Pessoa 
+    /// </summary>
     public class Pessoa
     {
         public Pessoa()

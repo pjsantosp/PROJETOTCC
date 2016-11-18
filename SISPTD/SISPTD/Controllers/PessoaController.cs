@@ -2,12 +2,10 @@
 using SISPTD.Models;
 using SISPTD.Ultis;
 using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 
 namespace SISPTD.Controllers
@@ -19,19 +17,15 @@ namespace SISPTD.Controllers
 
         public ActionResult Index(int? pagina, string busca = "")
         {
-
             int tamanhoPagina = 10;
             int numeroPagina = pagina ?? 1;
-
             busca = Util.RemoverMascara(busca);
-
-            return View(pessoaBO.ObterPessoa(busca, numeroPagina, tamanhoPagina ));
+            return View(pessoaBO.ObterPessoa(busca, numeroPagina, tamanhoPagina));
         }
-
         /// <summary>
         /// Busca um Paciente quando passado um CPF
         /// </summary>
-        /// <param name="cpf"></param>
+        /// <param name="cpf">string cpf</param>
         /// <returns>Json</returns>
         public ActionResult Pesquisar(string cpf)
         {
@@ -45,21 +39,19 @@ namespace SISPTD.Controllers
             {
                 return Json(new { Nome = pessoa.nome, Id = pessoa.pessoaId, Cpf = pessoa.cpf }, JsonRequestBehavior.AllowGet);
             }
-
         }
         public ActionResult PesquisarMedico(string cpf)
         {
             cpf = Util.RemoverMascara(cpf);
-            var pessoa = pessoaBO.Selecionar().Where(p => p.cpf == cpf && p.tipo==2).FirstOrDefault();
+            var pessoa = pessoaBO.Selecionar().Where(p => p.cpf == cpf && p.tipo == 2).FirstOrDefault();
             if (pessoa == null)
             {
-                return Json(new { Nome = "", Id = 0, Cpf = "", Cns = "", Tel = "", Cel ="", Crm = ""}, JsonRequestBehavior.AllowGet);
+                return Json(new { Nome = "", Id = 0, Cpf = "", Cns = "", Tel = "", Cel = "", Crm = "" }, JsonRequestBehavior.AllowGet);
             }
             else
             {
-                return Json(new { Nome = pessoa.nome, Id = pessoa.pessoaId, Cpf = pessoa.cpf, Tel= pessoa.tel, Cel =pessoa.cel, Crm = pessoa.crm, Cns = pessoa.cns }, JsonRequestBehavior.AllowGet);
+                return Json(new { Nome = pessoa.nome, Id = pessoa.pessoaId, Cpf = pessoa.cpf, Tel = pessoa.tel, Cel = pessoa.cel, Crm = pessoa.crm, Cns = pessoa.cns }, JsonRequestBehavior.AllowGet);
             }
-
         }
 
         public ActionResult Details(long? id)
@@ -68,18 +60,20 @@ namespace SISPTD.Controllers
 
             return View(pessoaBO.SelecionarPorId(id.Value));
         }
-        //Cria Paciente Get
-        //[Authorize(Roles = "Funcionario, Gerente")]
+        [Authorize(Roles = "Funcionario, Gerente")]
         public ActionResult Create()
         {
             ViewBag.cidade = new SelectList(cidadeBO.Selecionar(), "IdCidade", "Cidade");
             return View();
         }
-
-        //Cria paciente Post
+        /// <summary>
+        /// Action que cria uma pessoa do tipo Paciente e retorna para Action Index 
+        /// </summary>
+        /// <param name="pessoa">pessoa</param>
+        /// <returns>Action</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        //[Authorize(Roles = "Funcionario, Gerente")]
+        [Authorize(Roles = "Funcionario, Gerente")]
         public ActionResult Create(Pessoa pessoa)
         {
             try
@@ -111,7 +105,6 @@ namespace SISPTD.Controllers
             ViewBag.pessoaPai = new SelectList(pessoaBO.Selecionar(), "pessoaId", "cpf", pessoa.acompanhanteId);
             return View(pessoa);
         }
-        //Cria Acompanhante
         public ActionResult CreateAcompanhante(long? acompanhanteId)
         {
             try
@@ -133,11 +126,14 @@ namespace SISPTD.Controllers
             }
 
             ViewBag.pessoaId = 0;
-
             return View();
-
         }
-
+        /// <summary>
+        /// Action Responsavel por criar Uma Pessoa do Tipo Acompanhante Retornando
+        /// </summary>
+        /// <param name="pessoa">pessoa</param>
+        /// <param name="acompanhanteId">id do acompanhante</param>
+        /// <returns></returns>
         [HttpPost, ValidateAntiForgeryToken]
         public ActionResult CreateAcompanhante(Pessoa pessoa, long? acompanhanteId)
         {
@@ -150,7 +146,7 @@ namespace SISPTD.Controllers
                 {
                     pessoa.tipo = (int)TipoPessoa.Acompanhante;
                     pessoa.dt_Cadastro = DateTime.Now;
-                    if (pessoaBO.CalculoIdade(pessoa) )
+                    if (pessoaBO.CalculoIdade(pessoa))
                     {
                         TempData["Erro"] = "Ops! O acompanhate não deve ser menor de 18 ou maior de 60 anos !";
                         return View(pessoa);
@@ -166,25 +162,29 @@ namespace SISPTD.Controllers
                 TempData["Erro"] = "Erro durante o Cadastro de Acompanhante " + ex.Message;
             }
 
-
             return View();
         }
         #region Crud Funcionario
-
+        [Authorize(Roles = "Gerente, Administrador")]
         public ActionResult ListaDeFuncionario(int? pagina, string buscaFuncionario = "")
         {
             int tamanhoPagina = 10;
             int numeroPagina = pagina ?? 1;
-            buscaFuncionario= Util.RemoverMascara(buscaFuncionario);
+            buscaFuncionario = Util.RemoverMascara(buscaFuncionario);
 
             return View(pessoaBO.ObterFuncionarios(buscaFuncionario, numeroPagina, tamanhoPagina));
         }
-
+        [Authorize(Roles = "Gerente, Administrador")]
         public ActionResult CreateFuncionario()
         {
             return View();
         }
-        //Cria Usuario Postx
+        /// <summary>
+        /// Action recebe um objPessoa para criar Pessoa do tipo Funcionario
+        /// </summary>
+        /// <param name="funcionario"> pessoa</param>
+        /// <returns>Action p controle Usuario</returns>
+        [Authorize(Roles = "Gerente, Administrador")]
         [HttpPost, ValidateAntiForgeryToken]
         public ActionResult CreateFuncionario(Pessoa funcionario)
         {
@@ -206,8 +206,13 @@ namespace SISPTD.Controllers
                 TempData["Erro"] = "Ops !" + e.Message;
             }
             return View(funcionario);
-
         }
+        /// <summary>
+        /// Action de Edição de um Funcionario
+        /// </summary>
+        /// <param name="id"> id </param>
+        /// <returns>Action</returns>
+        [Authorize(Roles = "Gerente, Administrador")]
         public ActionResult EditFuncionario(long? id)
         {
             if (id == null)
@@ -221,9 +226,8 @@ namespace SISPTD.Controllers
             }
             return View(pessoa);
         }
-
         [HttpPost]
-        [Authorize(Roles = "Funcionario, Gerente, Administrador")]
+        [Authorize(Roles = "Gerente, Administrador")]
         [ValidateAntiForgeryToken]
         public ActionResult EditFuncionario(Pessoa pessoa)
         {
@@ -246,12 +250,14 @@ namespace SISPTD.Controllers
             }
             return View(pessoa);
         }
-
         #endregion
-
-
-
         #region Crud Medico
+        /// <summary>
+        /// Action que retorna a lista de Medicos cadastro
+        /// </summary>
+        /// <param name="pagina">int</param>
+        /// <param name="buscaMedico">CPF</param>
+        /// <returns>Lista de Medicos</returns>
         public ActionResult ListaDeMedico(int? pagina, string buscaMedico = "")
         {
             int tamanhoPagina = 10;
@@ -261,13 +267,16 @@ namespace SISPTD.Controllers
             return View(pessoaBO.ObterMedico(buscaMedico, numeroPagina, tamanhoPagina));
         }
 
-        //Cria medico get
         public ActionResult CreateMedico()
         {
 
             return View();
         }
-        //Cria medico Post
+        /// <summary>
+        /// Action que cria uma pessoa do tipo Medico
+        /// </summary>
+        /// <param name="pessoa">pessoa</param>
+        /// <returns>View tipo Medico</returns>
         [HttpPost, ValidateAntiForgeryToken]
         public ActionResult CreateMedico(Pessoa pessoa)
         {
@@ -278,7 +287,6 @@ namespace SISPTD.Controllers
                     pessoa.tipo = (int)TipoPessoa.Medico;
                     pessoa.cpf = Util.RemoverMascara(pessoa.cpf);
                     pessoa.cns = Util.RemoverMascara(pessoa.cns);
-
                     pessoa.dt_Cadastro = DateTime.Now;
                     pessoaBO.CalculoIdade(pessoa);
                     pessoaBO.Inserir(pessoa);
@@ -290,13 +298,10 @@ namespace SISPTD.Controllers
             {
 
                 TempData["Erro"] = "Ops! " + e.Message;
-
             }
-
 
             return View(pessoa);
         }
-
         [Authorize(Roles = "Funcionario, Gerente, Administrador")]
         public ActionResult EditMedico(long? id)
         {
@@ -311,7 +316,11 @@ namespace SISPTD.Controllers
             }
             return View(pessoa);
         }
-
+        /// <summary>
+        /// Action responsável pela edição de um Médico
+        /// </summary>
+        /// <param name="pessoa">pessoa</param>
+        /// <returns>View tipo Medico</returns>
         [HttpPost]
         [Authorize(Roles = "Funcionario, Gerente, Administrador")]
         [ValidateAntiForgeryToken]
@@ -337,8 +346,6 @@ namespace SISPTD.Controllers
             return View(pessoa);
         }
         #endregion
-
-        // GET: Pessoa/Edit/5
         [Authorize(Roles = "Funcionario, Gerente, Administrador")]
         public ActionResult Edit(long? id)
         {
@@ -354,7 +361,6 @@ namespace SISPTD.Controllers
             }
             return View(pessoa);
         }
-
         [HttpPost]
         [Authorize(Roles = "Funcionario, Gerente, Administrador")]
         [ValidateAntiForgeryToken]
@@ -363,7 +369,7 @@ namespace SISPTD.Controllers
             try
             {
                 pessoa.cns = Ultis.Util.RemoverMascara(pessoa.cns);
-                pessoa.cpf =  Ultis.Util.RemoverMascara(pessoa.cpf);
+                pessoa.cpf = Ultis.Util.RemoverMascara(pessoa.cpf);
                 if (ModelState.IsValid)
                 {
                     if (pessoa.tipo == 0)
@@ -374,15 +380,13 @@ namespace SISPTD.Controllers
                     {
                         pessoa.tipo = (int)TipoPessoa.Acompanhante;
                     }
-                    else if (pessoa.tipo == 2 )
+                    else if (pessoa.tipo == 2)
                     {
                         pessoa.tipo = (int)TipoPessoa.Medico;
-
                     }
                     else
                     {
                         pessoa.tipo = (int)TipoPessoa.Funcionario;
-
                     }
                     pessoaBO.CalculoIdade(pessoa);
                     pessoaBO.Alterar(pessoa);
@@ -396,24 +400,17 @@ namespace SISPTD.Controllers
             }
             return View(pessoa);
         }
-
-        // GET: Pessoa/Delete/5
         public ActionResult Delete(long? id)
         {
             Pessoa pessoa = pessoaBO.SelecionarPorId(id.Value);
             return View(pessoa);
         }
-
-        // POST: Pessoa/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(long id)
         {
             pessoaBO.ExcluirPorId(id);
-
             return RedirectToAction("Index");
         }
-
-
     }
 }

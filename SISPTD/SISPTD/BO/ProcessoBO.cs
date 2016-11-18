@@ -1,13 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using SISPTD.Models;
 using System.Data.Entity;
 using PagedList;
-
-
-
 
 namespace SISPTD.BO
 {
@@ -38,7 +34,6 @@ namespace SISPTD.BO
             }
             catch (Exception e)
             {
-
                 throw new Exception("Erro na busca na lista de pessoa no Processo", e);
             }
 

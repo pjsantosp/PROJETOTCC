@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using SISPTD.Models;
 using SISPTD.BO;
@@ -23,7 +20,6 @@ namespace SISPTD.Controllers
             int numeroPagina = pagina ?? 1;
             return View(userBO.ObterUsuario(numeroPagina, tamanhoPagina));
         }
-
         public ActionResult Details(long? id)
         {
             if (id == null)
@@ -37,7 +33,6 @@ namespace SISPTD.Controllers
             }
             return View(user);
         }
-
         public ActionResult Create()
         {
             ViewBag.roles = new SelectList(Enum.GetValues(typeof(Perfil)));
@@ -65,8 +60,6 @@ namespace SISPTD.Controllers
 
                 if (userBO.VerificaUser(user) != false)
                 {
-                   // user.Perfil = (Perfil)Enum.Parse(typeof(Perfil), roles);
-
                     user.senha = Ultis.Util.Encrypt(user.senha);
 
                     if (ModelState.IsValid)
@@ -86,13 +79,11 @@ namespace SISPTD.Controllers
             }
             catch (Exception)
             {
-
                 TempData["Erro"] = "Ops! Houve um erro";
                 return View();
             }
 
         }
-
         public ActionResult TrocaSenha()
         {
             return View();
@@ -100,8 +91,6 @@ namespace SISPTD.Controllers
         [HttpPost]
         public ActionResult TrocaSenha(string login, string senha, string novaSenha, string confSenha)
         {
-            
-
             try
             {
                 login = Ultis.Util.RemoverMascara(login);
@@ -142,10 +131,6 @@ namespace SISPTD.Controllers
             return View();
 
         }
-
-
-
-        // GET: User/Edit/5
         public ActionResult Edit(long? id)
         {
             if (id == null)
@@ -160,8 +145,6 @@ namespace SISPTD.Controllers
             ViewBag.pessoaId = pessoaBO.SelecionarPorId(user.pessoaId);
             return View(user);
         }
-
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(User user)
@@ -175,7 +158,6 @@ namespace SISPTD.Controllers
             return View(user);
         }
 
-        // GET: User/Delete/5
         public ActionResult Delete(long? id)
         {
             if (id == null)
@@ -190,7 +172,6 @@ namespace SISPTD.Controllers
             return View(user);
         }
 
-        // POST: User/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(long id)

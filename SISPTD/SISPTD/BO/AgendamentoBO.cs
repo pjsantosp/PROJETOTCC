@@ -15,7 +15,6 @@ namespace SISPTD.BO
         {
 
         }
-
         
         public IEnumerable<Agendamento> ObterAgendamento(int? pagina, int tamahopagina)
         {
@@ -25,12 +24,15 @@ namespace SISPTD.BO
 
             return listaDeAgendamento.OrderByDescending(a => a.dt_Agendamento).ToPagedList(pagina.Value, tamahopagina);
         }
-
         public Processo ObterProcessoAgd(long? pacienteId)
         {
             try
             {
-                Processo objProcesso = _contexto.Set<Processo>().Include(p => p.Paciente).Include(p => p.ListaDeMovimentacao).Include(p => p.listaAgendamento).FirstOrDefault(p => p.pacienteId.Value == pacienteId);
+                Processo objProcesso = _contexto.Set<Processo>()
+                    .Include(p => p.Paciente)
+                    .Include(p => p.ListaDeMovimentacao)
+                    .Include(p => p.listaAgendamento)
+                    .FirstOrDefault(p => p.pacienteId.Value == pacienteId);
                 return objProcesso;
             }
             catch (Exception)

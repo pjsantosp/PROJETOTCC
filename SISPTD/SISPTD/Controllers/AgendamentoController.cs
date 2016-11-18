@@ -54,7 +54,6 @@ namespace SISPTD.Controllers
 
 
             }
-            //ViewBag.pessoaId = new SelectList(pessoaBO.Selecionar().Where(p => p.tipo == 0), "pessoaId", "cpf");
             return View();
         }
 
@@ -92,7 +91,6 @@ namespace SISPTD.Controllers
             return View(agendamento);
         }
 
-        // GET: Agendamento/Edit/5
         public ActionResult Edit(long? id)
         {
             if (id == null)
@@ -122,7 +120,6 @@ namespace SISPTD.Controllers
             return View(agendamento);
         }
 
-        // GET: Agendamento/Delete/5
         public ActionResult Delete(long? id)
         {
             if (id == null)
@@ -137,7 +134,6 @@ namespace SISPTD.Controllers
             return View(agendamento);
         }
 
-        // POST: Agendamento/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(long id)

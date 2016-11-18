@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using SISPTD.Models;
 using SISPTD.BO;
@@ -123,7 +120,6 @@ namespace SISPTD.Controllers
             return View(clinica);
         }
 
-        // GET: Clinica/Delete/5
         public ActionResult Delete(long? id)
         {
             if (id == null)
@@ -138,7 +134,6 @@ namespace SISPTD.Controllers
             return View(clinica);
         }
 
-        // POST: Clinica/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(long id)

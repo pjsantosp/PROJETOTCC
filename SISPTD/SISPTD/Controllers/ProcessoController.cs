@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using SISPTD.Models;
 using SISPTD.BO;
@@ -61,10 +56,7 @@ namespace SISPTD.Controllers
         public ActionResult Create()
         {
             ViewBag.pessoaId = 0;
-            //ViewBag.SetorDestinoId = new SelectList(setorBO.Selecionar(), "setorId", "descricao");
-            //ViewBag.SetorOrigemId = new SelectList(setorBO.Selecionar(), "setorId", "descricao");
-            //ViewBag.usuarioEnviouId = new SelectList(userBO.Selecionar(), "usuarioId", "login");
-            //ViewBag.usuarioRecebeuId = new SelectList(userBO.Selecionar(), "usuarioId", "login");
+           
             return View();
         }
         [HttpPost]
@@ -77,9 +69,6 @@ namespace SISPTD.Controllers
                 processo.dtCadastro = DateTime.Now;
                 processo.pacienteId = pacienteProcessoId;
                 processo.medicoId = medicoProcessoId;
-                
-              
-               
                 if (ModelState.IsValid)
                 {
                     ProcessoBO.Inserir(processo);
@@ -93,11 +82,7 @@ namespace SISPTD.Controllers
             }
 
             ViewBag.pessoaId = 0;
-            //ViewBag.SetorDestinoId = new SelectList(setorBO.Selecionar(), "setorId", "descricao", distribProcesso.SetorDestinoId);
-            //ViewBag.SetorOrigemId = new SelectList(setorBO.Selecionar(), "setorId", "descricao", distribProcesso.SetorOrigemId);
-            //ViewBag.usuarioEnviouId = new SelectList(userBO.Selecionar(), "usuarioId", "login", distribProcesso.usuarioEnviouId, pessoaBO.Selecionar());
-            ////ViewBag.usuarioRecebeuId = new SelectList(userBO.Selecionar(), "usuarioId", "login", distribProcesso.usuarioRecebeuId);
-            //ViewBag.usuarioRecebeuId = 0;
+         
             return View();
         }
 
@@ -115,11 +100,7 @@ namespace SISPTD.Controllers
 
             ViewBag.Paciente = pessoaBO.SelecionarPorId(processo.pacienteId.Value).nome;
             ViewBag.PessoaId = pessoaBO.SelecionarPorId(processo.pacienteId.Value).pessoaId;
-            //ViewBag.pessoaId = new SelectList(pessoaBO.Selecionar().Where(p => p.tipo == 0), "pessoaId", "nome", distribProcesso.pessoaId);
-            //ViewBag.SetorDestinoId = new SelectList(setorBO.Selecionar(), "setorId", "descricao", distribProcesso.SetorDestinoId);
-            //ViewBag.SetorOrigemId = new SelectList(setorBO.Selecionar(), "setorId", "descricao", distribProcesso.SetorOrigemId);
-            //ViewBag.usuarioEnviouId = new SelectList(userBO.Selecionar(), "usuarioId", "login", distribProcesso.usuarioEnviouId);
-            //ViewBag.usuarioRecebeuId = new SelectList(userBO.Selecionar(), "usuarioId", "login", distribProcesso.usuarioRecebeuId);
+        
 
             return View(processo);
         }
@@ -128,11 +109,8 @@ namespace SISPTD.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(long pessoaId, Processo processo)
         {
-            //[Bind(Include = "distribProcesso.usuarioEnviouId, distribProcesso.usuarioRecebeuId,pessoaId")]
 
-            //distribProcesso.pessoaId = pessoaId;
             var user = userBO.userLogado(User.Identity.Name);
-            //  processo.usuarioId = user.usuarioId;
             if (ModelState.IsValid)
             {
                 ProcessoBO.Alterar(processo);
@@ -140,15 +118,8 @@ namespace SISPTD.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.pessoaId = new SelectList(pessoaBO.Selecionar(), "pessoaId", "cpf", processo.pacienteId);
-            //ViewBag.SetorDestinoId = new SelectList(setorBO.Selecionar(), "setorId", "descricao", distribProcesso.SetorDestinoId);
-            //ViewBag.SetorOrigemId = new SelectList(setorBO.Selecionar(), "setorId", "descricao", distribProcesso.SetorOrigemId);
-            //ViewBag.usuarioEnviouId = new SelectList(userBO.Selecionar(), "usuarioId", "login", distribProcesso.usuarioEnviouId);
-            //ViewBag.usuarioRecebeuId = new SelectList(userBO.Selecionar(), "usuarioId", "login", distribProcesso.usuarioRecebeuId);
 
             return View(processo);
-
-
-
 
         }
 

@@ -18,7 +18,6 @@ namespace SISPTD.BO
         {
 
         }
-       
         public User Validar(User conta)
         {
             try
@@ -35,16 +34,12 @@ namespace SISPTD.BO
                 {
                     return null;
                 }
- 
             }
             catch (Exception ex)
             {
-                
                 throw new Exception( ex.Message);
             }
         }
-       
-
         public bool VerificaUser(User user)
         {
             try
@@ -54,7 +49,6 @@ namespace SISPTD.BO
                     return true;
                 else
                     return false;
-                
             }
             catch (Exception)
             {
@@ -67,7 +61,6 @@ namespace SISPTD.BO
             try
             {
                 return _contexto.Set<User>().Where(u => u.login.Contains(userLogado)).SingleOrDefault();
-
             }
             catch (Exception)
             {
@@ -79,10 +72,7 @@ namespace SISPTD.BO
         {
             try
             {
-
-
                 IEnumerable<User> listarequisicao = _contexto.Set<User>().ToList();
-
                 return listarequisicao.OrderByDescending(s => s.Pessoa.dt_Cadastro).ToPagedList(pagina.Value, numPagina);
             }
             catch (Exception e)
@@ -102,7 +92,6 @@ namespace SISPTD.BO
                                       nomeUsuario = p.nome,
                                       usuarioId = u.usuarioId,
                                   }; 
-            //IEnumerable<User> listaDeUsuarios = _contexto.Set<User>().Include(p => p.Pessoa).
             return listaDeUsuarios;
         }
 
