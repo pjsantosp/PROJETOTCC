@@ -1,0 +1,93 @@
+﻿@model IEnumerable<SISPTD.Models.Processo>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Cid.codigoCid)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Medico.cpf)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Paciente.cpf)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.dtCadastro)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Procedimento)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Clinica)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CaraterInternacao)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.observacoes)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.movimentacaoId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.agendamentoId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.periciaId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.setorId)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Cid.codigoCid)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Medico.cpf)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Paciente.cpf)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.dtCadastro)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Procedimento)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Clinica)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CaraterInternacao)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.observacoes)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.movimentacaoId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.agendamentoId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.periciaId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.setorId)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.processoId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.processoId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.processoId })
+        </td>
+    </tr>
+}
+
+</table>

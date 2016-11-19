@@ -49,18 +49,8 @@ namespace SISPTD.BO
                 throw new Exception("Ops! Não foi possível listar a Movimentação", e);
             }
         }
-        public IEnumerable<Movimentacao> ObterPericias(int? pagina, int tamanhoPagina)
-        {
-            IEnumerable<Movimentacao> listaDePericia = _contexto.Set<Movimentacao>().Where(m => m.SetorRecebeu.descricao == "Pericia")
-                .Include(p => p.Processo);
-            return listaDePericia.OrderByDescending(m => m.dtEnvio).ToPagedList(pagina.Value, tamanhoPagina);
-        }
-        public IEnumerable<Movimentacao> ObterAgendamento(int? pagina, int tamanhoPagina)
-        {
-            IEnumerable<Movimentacao> listaDePericia = _contexto.Set<Movimentacao>().Where(m => m.setorAtual == "Agendamento" && m.SetorEnviou.descricao != "Agendamento")
-                .Include(p => p.Processo);
-            return listaDePericia.OrderByDescending(m => m.dtEnvio).ToPagedList(pagina.Value, tamanhoPagina);
-        }
+       
+       
         public IEnumerable<Movimentacao> ObterDetalheDoProcesso(int processoId)
         {
             try

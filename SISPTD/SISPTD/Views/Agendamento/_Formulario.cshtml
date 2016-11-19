@@ -46,7 +46,7 @@
                 <div class="col-md-5">
                     <div class="form-group">
                         @Html.Label("Clinica / Hospital")
-                        @Html.DropDownList("clinicaId", new List<SelectListItem>(), "Digite e Selecione a Clinica.", new { @class = "form-control", data_url = @Url.Action("BuscaClinica", "Clinica") })
+                        @Html.DropDownList("clinicaId", new List<SelectListItem>(), "", new { @class = "form-control", data_url = @Url.Action("BuscaClinica", "Clinica") })
                     </div>
                 </div>
 

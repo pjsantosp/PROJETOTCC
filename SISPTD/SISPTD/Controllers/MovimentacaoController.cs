@@ -25,19 +25,8 @@ namespace SISPTD.Controllers
             return View(movimentacaoBO.ObterMovimentacao(buscar ,numeroPagina, tamanhoPagina));
         }
 
-        public ActionResult ProcessoEmPericia(int? pagina)
-        {
-            int tamanhoPagina = 10;
-            int numeroPagina = pagina ?? 1;
-            return PartialView(movimentacaoBO.ObterPericias(numeroPagina, tamanhoPagina));
-        }
-        public ActionResult ProcessoEmAgendamento(int? pagina)
-        {
-            int tamanhoPagina = 10;
-            int numeroPagina = pagina ?? 1;
-            return PartialView(movimentacaoBO.ObterAgendamento(numeroPagina, tamanhoPagina));
-        }
-
+ 
+      
         public ActionResult DetalheDoMovProcesso(int? id)
         {
             ViewBag.processoId = id.Value;
@@ -76,12 +65,12 @@ namespace SISPTD.Controllers
                 ViewBag.pacienteId = objProcesso.pacienteId;
                 ViewBag.pacienteCpf = objProcesso.Paciente.cpf;
                 ViewBag.processoPaciente = objProcesso.Paciente.nome;
+                ViewBag.origemProcesso = objProcesso.Setor.descricao;
                 ViewBag.movId = movId;
             }
-
+            var usuario = usuarioBO.userLogado(User.Identity.Name);
             ViewBag.setorEnviouId = new SelectList(setorBO.Selecionar(), "setorId", "descricao");
             ViewBag.setorRecebeuId = new SelectList(setorBO.Selecionar(), "setorId", "descricao");
-            ViewBag.usuarioEnviouId = new SelectList(usuarioBO.DropUsuarios(), "usuarioId", "nomeUsuario");
             ViewBag.usuarioRecebeuId = new SelectList(usuarioBO.Selecionar(), "usuarioId",  "login");
             return View();
         }
@@ -102,14 +91,15 @@ namespace SISPTD.Controllers
                 movimentacao.usuarioEnviouId = user.usuarioId;
                 movimentacao.dtEnvio = DateTime.Now;
                 Processo objProcesso = processoBO.SelecionarPorId(movimentacao.ProcessoId.Value);
-                if (ModelState.IsValid)
-                {
+                objProcesso.setorId = movimentacao.setorRecebeuId;
+                processoBO.Alterar(objProcesso);
+               
+                    
                     movimentacao.setorAtual = setorBO.SelecionarPorId(movimentacao.setorRecebeuId.Value).descricao;
                     movimentacaoBO.Inserir(movimentacao);
                     TempData["Sucesso"] = "Movimentação feita com Sucesso !";
 
                     return RedirectToAction("Index");
-                }
             }
             catch (Exception)
             {

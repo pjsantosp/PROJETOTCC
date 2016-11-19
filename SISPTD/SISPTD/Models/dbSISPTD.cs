@@ -1,5 +1,6 @@
 namespace SISPTD.Models
 {
+    using Migrations;
     using System.Data.Entity;
     using System.Data.Entity.ModelConfiguration.Conventions;
 
@@ -8,7 +9,9 @@ namespace SISPTD.Models
         public dbSISPTD()
             : base("dbSISPTD")
         {
+           
         }
+       
 
         public virtual DbSet<Agendamento> Agendamento { get; set; }
         public virtual DbSet<Cid> Cid { get; set; }
@@ -229,6 +232,10 @@ namespace SISPTD.Models
                .HasMany(e => e.ListaDeUsuarios)
                .WithRequired(e => e.Setor)
                .HasForeignKey(e => e.setorId);
+            //modelBuilder.Entity<Pessoa>()
+            //.HasMany(e => e.ListaDeProcessosPaciente)
+            //.WithOptional(e => e.Paciente)
+            //.HasForeignKey(e => e.pacienteId);
             #endregion
 
             #region Relacionamento Tb Usuario

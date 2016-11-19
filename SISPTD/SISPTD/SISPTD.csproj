@@ -431,14 +431,14 @@
     <Content Include="Views\Movimentacao\Edit.cshtml" />
     <Content Include="Views\Movimentacao\Index.cshtml" />
     <Content Include="Views\Pessoa\ListaDeMedico.cshtml" />
-    <Content Include="Views\Movimentacao\ProcessoEmPericia.cshtml" />
-    <Content Include="Views\Movimentacao\ProcessoEmAgendamento.cshtml" />
     <Content Include="Views\Movimentacao\DetalheDoMovProcesso.cshtml" />
     <Content Include="Views\Pessoa\_FormMedico.cshtml" />
     <Content Include="Views\Pessoa\EditMedico.cshtml" />
     <Content Include="Views\Pessoa\EditFuncionario.cshtml" />
     <Content Include="Views\Pessoa\_FormFuncionario.cshtml" />
     <Content Include="Views\Pessoa\ListaDeFuncionario.cshtml" />
+    <Content Include="Views\Processo\ProcessoEmAgendamento.cshtml" />
+    <Content Include="Views\Processo\ProcessoEmPericia.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

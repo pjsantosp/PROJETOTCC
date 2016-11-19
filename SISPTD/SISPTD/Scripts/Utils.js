@@ -12,20 +12,25 @@ $('.chosen-select-deselect').chosen({
     placeholder_text_single: chosen_placeholder
 });
 
+
 //chosen ajax cid
 $('#cidId').ajaxChosen({
+   
     type: 'GET',
     url: $(this).data('url'),
     jsonTermKey: "query",
     dataType: 'json',
-    allow_single_deselect: true,
 },
 null,
 {
     width: "100%",
-    placeholder_text_single: "Buscar o Serviço",
+    placeholder_text_single: "Digite e Selecione o CID",
+    allow_single_deselect: true,
    
 });
+
+
+
 
 //chosen ajax Setor
 $('#setorId').ajaxChosen({
@@ -34,10 +39,12 @@ $('#setorId').ajaxChosen({
     jsonTermKey: "query",
     dataType: 'json',
 },
+ 
 null,
 {
     width: "100%",
-    placeholder_text_single: "Buscar o Serviço",
+    placeholder_text_single: "Digite e Selecione o Setor",
+    allow_single_deselect: true,
 });
 
 //chosen ajax busca cidade
@@ -51,6 +58,8 @@ null,
 {
     width: "100%",
     placeholder_text_single: "Buscar o Serviço",
+    allow_single_deselect: true,
+
 });
 
 
@@ -64,7 +73,8 @@ $('#clinicaId').ajaxChosen({
 null,
 {
     width: "100%",
-    placeholder_text_single: "Buscar o Serviço",
+    placeholder_text_single: "Digite e Selecione a Clinica.",
+    allow_single_deselect: true,
 });
 
 
@@ -268,8 +278,9 @@ $(document).ready(function () {
             method: 'GET',
             url: "/Processo/BuscaProcesso/?nProcesso=" + nProcesso,
             success: function (data) {
-                $('#pacienteNomeProc').val(data.pacienteNome);
+                $('#pacienteNomeProc').val(data.pacienteNome)
                 $('#pacienteCpfProc').val(data.pacienteCpf)
+                $('#origemProcesso').val(data.origemProcesso)
             },
             error: function (data) {
                 alert("Ops!, Verifique o Valor no Campo de Busca!");
@@ -323,13 +334,6 @@ function RemoveAcompanhanteLista() {
             $("#divItens").html(data);
         });
 }
-
-
-
-$
-
-
-
 
 //Dates pickes
 $('.date').datepicker({

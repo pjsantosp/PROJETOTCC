@@ -2,27 +2,31 @@
 @{
     ViewBag.Title = "Pericia Medica";
 }
-<h4><i class="fa fa-list-alt" aria-hidden="true"></i> Pericia</h4>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
     <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title"> <i class="fa fa-list-alt fa-lg" aria-hidden="true"></i> Pericia</h3>
+
+        </div>
+
         <div class="panel-body">
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             <div class="row">
                 <div class="col-md-3">
                     @Html.Label("CPF", htmlAttributes: new { @class = "control-label" })
                     <div class="input-group">
-                        @Html.TextBox("buscarPacientePericia", (string)@ViewBag.pacienteCpf, Request.QueryString["CPF"],  new { autofocus = "", @class = " procuraPacientePericia cpf col-md-2 form-control ", placeholder = "Procure por CPF" })
+                        @Html.TextBox("buscarPacientePericia", (string)@ViewBag.pacienteCpf, Request.QueryString["CPF"], new { autofocus = "", @class = " procuraPacientePericia cpf col-md-2 form-control ", placeholder = "Procure por CPF" })
                         <span class="input-group-btn"><button type="button" id="btnBuscaPacPericia" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button></span>
                     </div>
                 </div>
                 <div class="col-md-9">
                     <div class="form-group">
                         @Html.Label("Paciente", htmlAttributes: new { @class = "control-labe" })
-                        <input type="text" readonly id="nomeDoPacientePericia" data-id="" class="form-control " name="Paciente" value="@ViewBag.pacienteNome"/>
+                        <input type="text" readonly id="nomeDoPacientePericia" data-id="" class="form-control " name="Paciente" value="@ViewBag.pacienteNome" />
                         <input type="hidden" id="idDoPacientePericia" name="pacientepessoaId" value="@ViewBag.pacienteId" />
                         <input type="hidden" name="processoId" value="@ViewBag.processoId" />
 
@@ -42,14 +46,14 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-3">
+                <div class="col-md-4 col-sm-6">
                     <div class="form-group">
                         @Html.LabelFor(model => model.Situacao, htmlAttributes: new { @class = "control-label" })
-                        @Html.EnumDropDownListFor(model => model.Situacao, "Selecione...", htmlAttributes: new { @class = "form-control chosen-select" })
+                        @Html.EnumDropDownListFor(model => model.Situacao, "", htmlAttributes: new { @class = "form-control chosen-select" })
                         @Html.ValidationMessageFor(model => model.Situacao, "", new { @class = "text-danger" })
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-4 col-sm-6">
                     <div class="form-group">
                         <div class="panel panel-default">
                             <div class="panel-body">
@@ -62,18 +66,18 @@
 
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-4 col-sm-6">
                     <div class="form-group">
                         @Html.Label("Codigo CID")
-                        @Html.DropDownList("cidId", new List<SelectListItem>(), " Digite e Selecione...", new { @class = "form-control", data_url = @Url.Action("PesquisaCid", "Cid") })
+                        @Html.DropDownList("cidId", new List<SelectListItem>(), " ", new { @class = "form-control", data_url = @Url.Action("PesquisaCid", "Cid") })
                     </div>
                 </div>
             </div>
 
             <div class="row">
                 <div class="col-md-5">
-                <h5><i class="fa fa-user-md" aria-hidden="true"></i> <strong> Dados do Medico Solicitante</strong></h5>
-                    
+                    <h5><i class="fa fa-user-md" aria-hidden="true"></i> <strong> Dados do Medico Solicitante</strong></h5>
+
                 </div>
                 <div id="btCriaMedico" style="display:none" class="alert alert-warning alert-dismissible" role="alert">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -109,14 +113,7 @@
                         <input type="text" readonly id="celDoMedico" data-id="" class="form-control " name="celDoMedico" />
                     </div>
                 </div>
-
-
-
             </div>
-
-
-
-
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
@@ -137,6 +134,6 @@
 
     <div class="well well-sm">
         <button type="submit" name="name" class="btn btn-primary "> <i class="fa fa-floppy-o fa-lg"></i>  Gravar</button>
-        <a class="btn btn-success pull-right" href="@Request.UrlReferrer"> <i class="fa fa-arrow-left fa-lg"></i>  Voltar para Lista </a>
+        <a class="btn btn-success pull-right" href="@Url.Action("Index","Pericia")"> <i class="fa fa-backward fa-lg"></i>  Voltar para Lista </a>
     </div>
 }

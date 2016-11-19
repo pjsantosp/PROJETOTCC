@@ -6,14 +6,16 @@
 
 
 <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title"> <i class="fa fa-arrows-alt fa-lg"> </i> Movimentação de  Processo</h3>
+
+    </div>
     <span id="msg"></span>
     <div class="panel-body">
         @using (Html.BeginForm())
         {
             @Html.AntiForgeryToken()
 
-            <h4>Movimentação de  Processo</h4>
-            <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             <div class="row">
                 <div class="col-md-2 col-xs-4">
@@ -49,18 +51,19 @@
                 <div class="col-md-6 col-xs-8">
                     <div class="form-group">
                         @Html.Label("Enviado Por")
-                        @Html.DropDownList("usuarioEnviouId", null, htmlAttributes: new { @class = "form-control chosen-select" })
-                        @Html.ValidationMessageFor(model => model.usuarioEnviouId, "", new { @class = "text-danger" })
+                        <input type="text" name="usuarioEnviouId" value="@ViewBag.usuarioEnviouId" readonly class="form-control" />
+                        @*@Html.DropDownList("usuarioEnviouId", null, htmlAttributes: new { @class = "form-control chosen-select"})
+                        @Html.ValidationMessageFor(model => model.usuarioEnviouId, "", new { @class = "text-danger" })*@
                     </div>
                 </div>
 
-                <div class="col-md-6 col-xs-8">
+                @*<div class="col-md-6 col-xs-8">
                     <div class="form-group">
                         @Html.Label("Recebido Por")
                         @Html.DropDownList("usuarioRecebeuId", null, htmlAttributes: new { @class = "form-control chosen-select" })
                         @Html.ValidationMessageFor(model => model.usuarioRecebeuId, "", new { @class = "text-danger" })
                     </div>
-                </div>
+                </div>*@
 
 
             </div>
@@ -69,6 +72,7 @@
                 <div class="col-md-6 col-xs-8">
                     <div class="form-group">
                         @Html.Label("Origem")
+                        <input type="text" id="origemProcesso" name="setorEnviouId" value="@ViewBag.origemProcesso" class="form-control" />
                         @Html.DropDownList("setorEnviouId", null, htmlAttributes: new { @class = "form-control chosen-select" })
                         @Html.ValidationMessageFor(model => model.setorEnviouId, "", new { @class = "text-danger" })
                     </div>

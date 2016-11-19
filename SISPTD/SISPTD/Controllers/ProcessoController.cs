@@ -7,7 +7,7 @@ namespace SISPTD.Controllers
 {
     public class ProcessoController : Controller
     {
-        private ProcessoBO ProcessoBO = new ProcessoBO(new dbSISPTD());
+        private ProcessoBO processoBO = new ProcessoBO(new dbSISPTD());
         private SetorBO setorBO = new SetorBO(new dbSISPTD());
         private UserBO userBO = new UserBO(new dbSISPTD());
         private PessoaBO pessoaBO = new PessoaBO(new dbSISPTD());
@@ -16,9 +16,9 @@ namespace SISPTD.Controllers
         {
             if (nProcesso > 0)
             {
-                var processo = ProcessoBO.SelecionarPorId(nProcesso);
+                var processo = processoBO.SelecionarPorId(nProcesso);
 
-                return Json(new { pacienteCpf = processo.Paciente.cpf, pacienteNome = processo.Paciente.nome }, JsonRequestBehavior.AllowGet);
+                return Json(new { pacienteCpf = processo.Paciente.cpf, pacienteNome = processo.Paciente.nome, origemProcesso = processo.Setor.descricao }, JsonRequestBehavior.AllowGet);
 
             }
             else
@@ -26,6 +26,18 @@ namespace SISPTD.Controllers
                 TempData["Erro"] = "Verifique o valor no Campo de Busca!";
             }
             return Json(false );
+        }
+        public ActionResult ProcessoEmAgendamento(int? pagina)
+        {
+            int tamanhoPagina = 10;
+            int numeroPagina = pagina ?? 1;
+            return PartialView(processoBO.ObterAgendamento(numeroPagina, tamanhoPagina));
+        }
+        public ActionResult ProcessoEmPericia(int? pagina)
+        {
+            int tamanhoPagina = 10;
+            int numeroPagina = pagina ?? 1;
+            return PartialView(processoBO.ObterPericias(numeroPagina, tamanhoPagina));
         }
 
         public ActionResult Index(int ? pagina, string buscar= "")
@@ -36,7 +48,7 @@ namespace SISPTD.Controllers
             buscar = Ultis.Util.RemoverMascara(buscar);
 
 
-            return View(ProcessoBO.ObterProcesso(buscar, numeroPagina, tamanhoPagina));
+            return View(processoBO.ObterProcesso(buscar, numeroPagina, tamanhoPagina));
         }
 
         public ActionResult Details(long? id)
@@ -45,7 +57,7 @@ namespace SISPTD.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Processo Processo = ProcessoBO.SelecionarPorId(id.Value);
+            Processo Processo = processoBO.SelecionarPorId(id.Value);
             if (Processo == null)
             {
                 return HttpNotFound();
@@ -71,7 +83,7 @@ namespace SISPTD.Controllers
                 processo.medicoId = medicoProcessoId;
                 if (ModelState.IsValid)
                 {
-                    ProcessoBO.Inserir(processo);
+                    processoBO.Inserir(processo);
                     TempData["Sucesso"] = "Cadastro Realizado com Sucesso! ";
                 }
                 return RedirectToAction("Index");
@@ -92,7 +104,7 @@ namespace SISPTD.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Processo processo = ProcessoBO.SelecionarPorId(id.Value);
+            Processo processo = processoBO.SelecionarPorId(id.Value);
             if (processo == null)
             {
                 return HttpNotFound();
@@ -113,7 +125,7 @@ namespace SISPTD.Controllers
             var user = userBO.userLogado(User.Identity.Name);
             if (ModelState.IsValid)
             {
-                ProcessoBO.Alterar(processo);
+                processoBO.Alterar(processo);
                 TempData["Sucesso"] = "Enviado com Sucesso!!";
                 return RedirectToAction("Index");
             }
@@ -129,7 +141,7 @@ namespace SISPTD.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Processo processo = ProcessoBO.SelecionarPorId(id.Value);
+            Processo processo = processoBO.SelecionarPorId(id.Value);
             if (processo == null)
             {
                 return HttpNotFound();
@@ -142,7 +154,7 @@ namespace SISPTD.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(long id)
         {
-            ProcessoBO.ExcluirPorId(id);
+            processoBO.ExcluirPorId(id);
             return RedirectToAction("Index");
         }
 
