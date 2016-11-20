@@ -18,24 +18,22 @@ namespace SISPTD.Controllers
         private ProcessoBO processoBO = new ProcessoBO(new dbSISPTD());
         private SetorBO setorBO = new SetorBO(new dbSISPTD());
 
-        public ActionResult Index(int? pagina, string buscar="")
+        public ActionResult Index(int? pagina, string buscar = "")
         {
             int tamanhoPagina = 10;
             int numeroPagina = pagina ?? 1;
-            return View(movimentacaoBO.ObterMovimentacao(buscar ,numeroPagina, tamanhoPagina));
+            return View(movimentacaoBO.ObterMovimentacao(buscar, numeroPagina, tamanhoPagina));
         }
 
- 
-      
         public ActionResult DetalheDoMovProcesso(int? id)
         {
             ViewBag.processoId = id.Value;
-            if (id== null)
+            if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            
-            
+
+
 
             return View(movimentacaoBO.ObterDetalheDoProcesso(id.Value));
         }
@@ -56,50 +54,60 @@ namespace SISPTD.Controllers
 
         public ActionResult Create(long? id, long? movId)
         {
-            if (id!= null && id != 0)
+            if (id != null && id != 0)
             {
-                
+
                 Processo objProcesso = processoBO.SelecionarPorId(id.Value);
-               
+
                 ViewBag.processoId = objProcesso.processoId;
                 ViewBag.pacienteId = objProcesso.pacienteId;
                 ViewBag.pacienteCpf = objProcesso.Paciente.cpf;
                 ViewBag.processoPaciente = objProcesso.Paciente.nome;
-                ViewBag.origemProcesso = objProcesso.Setor.descricao;
+                ViewBag.origemProcesso = objProcesso.Setor;
                 ViewBag.movId = movId;
             }
             var usuario = usuarioBO.userLogado(User.Identity.Name);
             ViewBag.setorEnviouId = new SelectList(setorBO.Selecionar(), "setorId", "descricao");
             ViewBag.setorRecebeuId = new SelectList(setorBO.Selecionar(), "setorId", "descricao");
-            ViewBag.usuarioRecebeuId = new SelectList(usuarioBO.Selecionar(), "usuarioId",  "login");
+            ViewBag.usuarioRecebeuId = new SelectList(usuarioBO.Selecionar(), "usuarioId", "login");
             return View();
         }
 
-       
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create( Movimentacao movimentacao)
+        public ActionResult Create(string origemProcesso, Movimentacao movimentacao)
         {
             try
             {
-                
-                if (movimentacao.setorEnviouId == movimentacao.setorRecebeuId)
+                if (movimentacao.ProcessoId != null)
                 {
-                    ModelState.AddModelError("", "Setor de Destino não deve ser o Mesmo de Origem");
-                }
-                var user = usuarioBO.userLogado(User.Identity.Name);
-                movimentacao.usuarioEnviouId = user.usuarioId;
-                movimentacao.dtEnvio = DateTime.Now;
-                Processo objProcesso = processoBO.SelecionarPorId(movimentacao.ProcessoId.Value);
-                objProcesso.setorId = movimentacao.setorRecebeuId;
-                processoBO.Alterar(objProcesso);
-               
-                    
+                                       
+                    var user = usuarioBO.userLogado(User.Identity.Name);
+                    movimentacao.usuarioEnviouId = user.usuarioId;
+                    movimentacao.dtEnvio = DateTime.Now;
+                    Processo objProcesso = processoBO.SelecionarPorId(movimentacao.ProcessoId.Value);
+                    objProcesso.Setor = setorBO.SelecionarPorId(movimentacao.setorRecebeuId.Value).descricao;
+                    movimentacao.setorEnviouId = movimentacaoBO.SetorOrigem(objProcesso.Setor);
+
+                    processoBO.Alterar(objProcesso);
+
+
                     movimentacao.setorAtual = setorBO.SelecionarPorId(movimentacao.setorRecebeuId.Value).descricao;
                     movimentacaoBO.Inserir(movimentacao);
                     TempData["Sucesso"] = "Movimentação feita com Sucesso !";
 
                     return RedirectToAction("Index");
+
+                }
+                else
+                {
+                    TempData["Erro"] = "A movimentação requer no Numéro do Processo!";
+                }
+                ViewBag.setorRecebeuId = new SelectList(setorBO.Selecionar(), "setorId", "descricao");
+                return View(movimentacao);
+
+
             }
             catch (Exception)
             {
@@ -112,7 +120,7 @@ namespace SISPTD.Controllers
             ViewBag.setorRecebeuId = new SelectList(setorBO.Selecionar(), "setorId", "descricao", movimentacao.setorRecebeuId);
             ViewBag.usuarioEnviouId = new SelectList(usuarioBO.Selecionar(), "usuarioId", "login", movimentacao.usuarioEnviouId);
             ViewBag.usuarioRecebeuId = new SelectList(usuarioBO.Selecionar(), "usuarioId", "login", movimentacao.usuarioRecebeuId);
-        
+
             return View(movimentacao);
         }
 
@@ -134,11 +142,11 @@ namespace SISPTD.Controllers
             ViewBag.usuarioEnviouId = new SelectList(usuarioBO.Selecionar(), "usuarioId", "login", movimentacao.usuarioEnviouId);
             ViewBag.usuarioRecebeuId = new SelectList(usuarioBO.Selecionar(), "usuarioId", "login", movimentacao.usuarioRecebeuId);
 
-          
+
             return View(movimentacao);
         }
 
-      
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "movimentacaoId,usuarioEnviouId,usuarioRecebeuId,setorEnviouId,setorRecebeuId,ProcessoId,dtEnvio,dtRecebimento")] Movimentacao movimentacao)
@@ -179,6 +187,6 @@ namespace SISPTD.Controllers
             return RedirectToAction("Index");
         }
 
-       
+
     }
 }

@@ -10,6 +10,8 @@ namespace SISPTD.Models
         public System.DateTime dtCadastro { get; set; }
 
         public string Procedimento { get; set; }
+        public string Setor { get; set; }
+        
         public string Clinica { get; set; }
         [Display(Name = "Cid")]
         public long? cidId { get; set; }
@@ -20,16 +22,13 @@ namespace SISPTD.Models
         public string observacoes { get; set; }
 
 
-        //public long pessoaId { get; set; }
         public long movimentacaoId { get; set; }
         public long? agendamentoId { get; set; }
         public long? periciaId { get; set; }
 
-        public long ?setorId { get; set; }
 
         public long? pacienteId { get; set; }
 
-       // public long periciaId { get; set; }
 
         public long ? medicoId { get; set; }
 
@@ -38,8 +37,6 @@ namespace SISPTD.Models
         public virtual Pessoa Paciente { get; set; }
         public virtual Pessoa Medico { get; set; }
         public virtual Cid Cid { get; set; }
-        public virtual Setor Setor { get; set; }
-
 
         public virtual ICollection<Movimentacao> ListaDeMovimentacao { get; set; }
 

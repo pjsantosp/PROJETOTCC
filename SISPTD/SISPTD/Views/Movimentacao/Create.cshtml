@@ -30,7 +30,6 @@
                     <div class="form-group">
                         @Html.Label("Cpf")
                         <input type="text" readonly id="pacienteCpfProc" data-id="" class="form-control" name="name" value="@ViewBag.pacienteCpf" />
-                        @*<input type="text" readonly id="pacienteNomeProc" data-id="" class="form-control " name="name" />*@
                     </div>
                 </div>
                 <input type="hidden" id="idDoPaciente" name="pessoaId" value="@ViewBag.pacienteId" />
@@ -48,33 +47,19 @@
 
             </div>
             <div class="row">
-                <div class="col-md-6 col-xs-8">
+                @*<div class="col-md-6 col-xs-8">
                     <div class="form-group">
                         @Html.Label("Enviado Por")
                         <input type="text" name="usuarioEnviouId" value="@ViewBag.usuarioEnviouId" readonly class="form-control" />
-                        @*@Html.DropDownList("usuarioEnviouId", null, htmlAttributes: new { @class = "form-control chosen-select"})
-                        @Html.ValidationMessageFor(model => model.usuarioEnviouId, "", new { @class = "text-danger" })*@
-                    </div>
-                </div>
-
-                @*<div class="col-md-6 col-xs-8">
-                    <div class="form-group">
-                        @Html.Label("Recebido Por")
-                        @Html.DropDownList("usuarioRecebeuId", null, htmlAttributes: new { @class = "form-control chosen-select" })
-                        @Html.ValidationMessageFor(model => model.usuarioRecebeuId, "", new { @class = "text-danger" })
                     </div>
                 </div>*@
-
-
             </div>
 
             <div class="row">
                 <div class="col-md-6 col-xs-8">
                     <div class="form-group">
                         @Html.Label("Origem")
-                        <input type="text" id="origemProcesso" name="setorEnviouId" value="@ViewBag.origemProcesso" class="form-control" />
-                        @Html.DropDownList("setorEnviouId", null, htmlAttributes: new { @class = "form-control chosen-select" })
-                        @Html.ValidationMessageFor(model => model.setorEnviouId, "", new { @class = "text-danger" })
+                        <input type="text" id="origemProcesso" name="origemProcesso" value="@ViewBag.origemProcesso" readonly class="form-control" />
                     </div>
                 </div>
 
@@ -86,10 +71,6 @@
                     </div>
                 </div>
             </div>
-
-
-
-
 
             <div class="well well-sm">
                 <button type="submit" name="name" class="btn btn-primary "> <i class="fa fa-floppy-o fa-lg"></i>  Gravar</button>

@@ -15,7 +15,7 @@ namespace SISPTD.BO
         {
 
         }
-        
+
         public IEnumerable<Agendamento> ObterAgendamento(int? pagina, int tamahopagina)
         {
 
@@ -34,6 +34,25 @@ namespace SISPTD.BO
                     .Include(p => p.listaAgendamento)
                     .FirstOrDefault(p => p.pacienteId.Value == pacienteId);
                 return objProcesso;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        public bool VerificaAgendamento(Agendamento agendamento)
+        {
+            try
+            {
+                var existe = _contexto.Set<Agendamento>().FirstOrDefault(a => a.dt_Agendamento == agendamento.dt_Agendamento && a.processoId == agendamento.processoId);
+                if (existe != null)
+                {
+                    return true;
+
+                }
+
+                return false;
             }
             catch (Exception)
             {

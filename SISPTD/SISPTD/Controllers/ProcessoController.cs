@@ -18,7 +18,7 @@ namespace SISPTD.Controllers
             {
                 var processo = processoBO.SelecionarPorId(nProcesso);
 
-                return Json(new { pacienteCpf = processo.Paciente.cpf, pacienteNome = processo.Paciente.nome, origemProcesso = processo.Setor.descricao }, JsonRequestBehavior.AllowGet);
+                return Json(new { pacienteCpf = processo.Paciente.cpf, pacienteNome = processo.Paciente.nome, origemProcesso = processo.Setor }, JsonRequestBehavior.AllowGet);
 
             }
             else
@@ -83,6 +83,7 @@ namespace SISPTD.Controllers
                 processo.medicoId = medicoProcessoId;
                 if (ModelState.IsValid)
                 {
+                    processo.Setor = "RECEPÇÃO";
                     processoBO.Inserir(processo);
                     TempData["Sucesso"] = "Cadastro Realizado com Sucesso! ";
                 }

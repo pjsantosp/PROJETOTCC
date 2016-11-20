@@ -12,7 +12,7 @@
 
                     <div class="form-group">
                         @Html.Label("Cidade")
-                        @Html.DropDownList("IdCidade", new List<SelectListItem>(), "Buscar Cidade", new { @class = "form-control", data_url = @Url.Action("PesquisaCidadeClinica", "Cidade") })
+                        @Html.DropDownList("IdCidade", new List<SelectListItem>(), "", new { @class = "form-control", data_url = @Url.Action("PesquisaCidadeClinica", "Cidade") })
                     </div>
 
                 </div>

@@ -64,22 +64,32 @@ namespace SISPTD.Controllers
         {
             try
             {
-                Processo objProcesso = agendamentoBO.ObterProcessoAgd(pacienteId.Value);
-                if (agendamento.processoId == 0)
+                if (!agendamentoBO.VerificaAgendamento(agendamento))
                 {
-                    agendamento.processoId = objProcesso.processoId;
+                    Processo objProcesso = agendamentoBO.ObterProcessoAgd(pacienteId.Value);
+                    if (agendamento.processoId == 0)
+                    {
+                        agendamento.processoId = objProcesso.processoId;
+                    }
+                    var user = usuarioBO.userLogado(User.Identity.Name);
+                    agendamento.usuarioId = user.usuarioId;
+
+                    agendamento.dt_Marcacao = DateTime.Now;
+                    agendamentoBO.Inserir(agendamento);
+
+
+
+                    TempData["Sucesso"] = "Agendamento Realizado com Sucesso!";
+
+                    return RedirectToAction("Create", "Movimentacao", new { id = agendamento.processoId });
                 }
-                var user = usuarioBO.userLogado(User.Identity.Name);
-                agendamento.usuarioId = user.usuarioId;
+                else
+                {
+                    TempData["Erro"] = "Ops! Já existe um Agendamento para este Paciente nesta  Data";
 
-                agendamento.dt_Marcacao = DateTime.Now;
-                agendamentoBO.Inserir(agendamento);
+                }
                
-                
-               
-                TempData["Sucesso"] = "Agendamento Realizado com Sucesso!";
-
-                return RedirectToAction("Create","Movimentacao", new { id = agendamento.processoId });
+                return RedirectToAction("Index");
             }
             catch (Exception ex)
             {
@@ -102,21 +112,33 @@ namespace SISPTD.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.usuarioId = new SelectList(usuarioBO.Selecionar(), "usuarioId", "login", agendamento.usuarioId);
+            ViewBag.processoId = agendamento.Processo.processoId;
+            ViewBag.pacienteNome = agendamento.Processo.Paciente.nome;
+            ViewBag.pacienteCpf = agendamento.Processo.Paciente.cpf;
+            ViewBag.clinica = agendamento.Clinica.nome_Clinica;
+            ViewBag.clinicaIdAtual = agendamento.clinicaId;
             return View(agendamento);
+
         }
 
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "pessoaId,observacoes,usuarioId,dt_Agendamento,dt_Marcacao,clinicaId,agendamentoId")]Agendamento agendamento)
+        public ActionResult Edit(int? processoId, int? clinicaIdAtual,  Agendamento agendamento)
         {
+            if (agendamento.clinicaId == null)
+            {
+                agendamento.clinicaId = clinicaIdAtual;
+            }
+            var user = usuarioBO.userLogado(User.Identity.Name);
+            agendamento.usuarioId = user.usuarioId;
+            agendamento.dt_Marcacao = DateTime.Now;
             if (ModelState.IsValid)
             {
                 agendamentoBO.Alterar(agendamento);
+                TempData["Sucesso"] = "Alteração Realizada com Sucesso!";
                 return RedirectToAction("Index");
             }
-            ViewBag.usuarioId = new SelectList(usuarioBO.Selecionar(), "usuarioId", "login", agendamento.usuarioId);
             return View(agendamento);
         }
 

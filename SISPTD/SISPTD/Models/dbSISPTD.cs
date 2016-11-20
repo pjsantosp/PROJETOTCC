@@ -217,13 +217,18 @@ namespace SISPTD.Models
                .HasForeignKey(e=> e.processoId)
                .WillCascadeOnDelete(false);
 
-
-
+            //modelBuilder.Entity<Setor>()
+            //  .HasOptional(proc => proc.Processo)
+            //  .WithOptionalPrincipal(s => s.Setor)
+            //  .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Processo>()
-               .HasOptional(proc => proc.Setor)
-               .WithOptionalPrincipal(s => s.Processo)
-               .WillCascadeOnDelete(false);
+               .HasMany(e => e.ListaDeMovimentacao)
+               .WithOptional(e => e.Processo)
+               .HasForeignKey(e => e.ProcessoId)
+               .WillCascadeOnDelete(true);
+
+
             #endregion
 
             #region Relacionamento Tb Setor
@@ -232,10 +237,7 @@ namespace SISPTD.Models
                .HasMany(e => e.ListaDeUsuarios)
                .WithRequired(e => e.Setor)
                .HasForeignKey(e => e.setorId);
-            //modelBuilder.Entity<Pessoa>()
-            //.HasMany(e => e.ListaDeProcessosPaciente)
-            //.WithOptional(e => e.Paciente)
-            //.HasForeignKey(e => e.pacienteId);
+            
             #endregion
 
             #region Relacionamento Tb Usuario

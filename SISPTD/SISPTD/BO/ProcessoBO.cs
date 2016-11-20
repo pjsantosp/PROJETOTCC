@@ -30,9 +30,8 @@ namespace SISPTD.BO
             {
                 IEnumerable<Processo> listaProcesso = _contexto.Set<Processo>()
                .Include(d => d.Paciente)
-               .Include(s=> s.Setor)
                .Where(x => x.Paciente.cpf.Contains(busca) || x.Paciente.cns.Contains(busca));
-                return listaProcesso.OrderByDescending(p=> p.dtCadastro).ToPagedList(pagina.Value, tamanhoPagina);
+                return listaProcesso.OrderByDescending(p => p.dtCadastro).ToPagedList(pagina.Value, tamanhoPagina);
             }
             catch (Exception e)
             {
@@ -42,20 +41,16 @@ namespace SISPTD.BO
         }
         public IEnumerable<Processo> ObterAgendamento(int? pagina, int tamanhoPagina)
         {
-           long _setorId = setorBO.Selecionar().Where(s => s.descricao == "PERICIA").FirstOrDefault().setorId;
             IEnumerable<Processo> listaDePericia = _contexto.Set<Processo>()
                 .Include(p => p.Paciente)
-                .Include(s=> s.Setor)
-                .Where(m => m.setorId == 2);
+                .Where(m => m.Setor =="AGENDAMENTO");
             return listaDePericia.OrderByDescending(m => m.dtCadastro).ToPagedList(pagina.Value, tamanhoPagina);
         }
         public IEnumerable<Processo> ObterPericias(int? pagina, int tamanhoPagina)
         {
-            long _setorId = setorBO.Selecionar().Where(s => s.descricao == "PERICIA").FirstOrDefault().setorId;
             IEnumerable<Processo> listaDePericia = _contexto.Set<Processo>()
                 .Include(p => p.Paciente)
-                .Include(s=> s.Setor)
-                .Where(m => m.setorId== _setorId);
+                .Where(m => m.Setor =="PERICIA");
             return listaDePericia.OrderByDescending(m => m.dtCadastro).ToPagedList(pagina.Value, tamanhoPagina);
         }
 

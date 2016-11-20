@@ -91,6 +91,19 @@ namespace SISPTD.BO
                 throw;
             }
         }
+        public long SetorOrigem(string setorOrigem)
+        {
+            try
+            {
+                long setorOrigemId = _contexto.Set<Setor>().FirstOrDefault(s => s.descricao == setorOrigem).setorId;
+                return setorOrigemId;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
 
     }
 }
