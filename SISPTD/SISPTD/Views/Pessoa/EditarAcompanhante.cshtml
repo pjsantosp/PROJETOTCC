@@ -5,13 +5,17 @@
     ViewBag.Title = "Editar Acompanhate";
 }
 
-<h3><i class="fa fa-users" aria-hidden="true"></i> Cadastro de Acompanhante</h3>
-<div>
+<h3><i class="fa fa-users fa-lg" aria-hidden="true"></i> Editar Acompanhante</h3>
+@using (Html.BeginForm())
+{
+    @Html.HiddenFor(p=>p.acompanhanteId)
+    @Html.HiddenFor(p => p.pessoaId)
+    @Html.HiddenFor(p => p.TipoPessoa)
+    @Html.Partial("_FormFuncionario", Model)
 
-</div>
-@Html.HiddenFor(model => model.acompanhanteId)
-@Html.Partial("_Formulario")
+}
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+

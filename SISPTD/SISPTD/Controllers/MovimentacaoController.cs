@@ -98,7 +98,7 @@ namespace SISPTD.Controllers
                         processoBO.Alterar(objProcesso);
 
 
-                        movimentacao.setorAtual = setorBO.SelecionarPorId(movimentacao.setorRecebeuId.Value).descricao;
+                        //movimentacao.setorAtual = setorBO.SelecionarPorId(movimentacao.setorRecebeuId.Value).descricao;
                         movimentacaoBO.Inserir(movimentacao);
                         TempData["Sucesso"] = "Movimentação feita com Sucesso !";
 

@@ -166,7 +166,6 @@ namespace SISPTD.Controllers
         }
         public ActionResult EditarAcompanhante(long? id)
         {
-            //ViewBag.acompanhante = pessoaBO.Selecionar().Where(a => a.acompanhanteId == id.Value).Count();
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -179,26 +178,26 @@ namespace SISPTD.Controllers
             return View(pessoa);
         }
         [HttpPost, ValidateAntiForgeryToken]
-        public ActionResult EditarAcompanhante(Pessoa objAcompanhante)
+        public ActionResult EditarAcompanhante(Pessoa pessoa)
         {
             try
             {
-                objAcompanhante.cns = Ultis.Util.RemoverMascara(objAcompanhante.cns);
-                objAcompanhante.cpf = Ultis.Util.RemoverMascara(objAcompanhante.cpf);
+                pessoa.cns = Ultis.Util.RemoverMascara(pessoa.cns);
+                pessoa.cpf = Ultis.Util.RemoverMascara(pessoa.cpf);
                 if (ModelState.IsValid)
                 {
-
-                    pessoaBO.CalculoIdade(objAcompanhante);
-                    pessoaBO.Alterar(objAcompanhante);
+                    pessoa.TipoPessoa = TipoPessoa.Acompanhante;
+                    pessoaBO.CalculoIdade(pessoa);
+                    pessoaBO.Alterar(pessoa);
                     TempData["Sucesso"] = "Alteração Realizada com Sucesso!";
                 }
-                return View(objAcompanhante);
+                return RedirectToAction("Details", new { id = pessoa.acompanhanteId });
             }
             catch (Exception ex)
             {
                 TempData["Erro"] = "Ops! Ocorreu um erro!" + ex.Message;
             }
-            return View(objAcompanhante);
+            return View(pessoa);
         }
 
 

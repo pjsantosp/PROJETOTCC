@@ -46,18 +46,7 @@
                     <th>
                         @Html.DisplayName("Destino")
                     </th>
-                    @*<th>
-                        @Html.DisplayName("Usuario Enviou")
-                    </th>
-                    <th>
-                        @Html.DisplayName("Usuario Recebeu")
-                    </th>
-                    <th>
-                        @Html.DisplayName("Enviado Em")
-                    </th>
-                    <th>
-                        @Html.DisplayName("Recebido Em")
-                    </th>*@
+                  
                     <th>
                         @Html.DisplayName("Detalhe")
                     </th>
@@ -79,25 +68,12 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.SetorRecebeu.descricao)
                         </td>
-                        @*<td>
-                            @Html.DisplayFor(modelItem => item.UsuarioEnviou.Pessoa.nome)
-                        </td>
+                      
                         <td>
-                            @Html.DisplayFor(modelItem => item.UsuarioRecebeu.Pessoa.nome)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.dtEnvio)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.dtRecebimento)
-                        </td>*@
-                        <td>
-                            @*@Html.ActionLink("Edit", "Edit", new { id=item.movimentacaoId }) |
-                                @Html.ActionLink("Detalhe", "DetalheDoMovProcesso", new { id=item.ProcessoId }) |*@
+                         
                             <a class="btn-group btn-sm btn-primary" href="@Url.Action("DetalheDoMovProcesso", "Movimentacao",new { id=item.ProcessoId })" aria-label="Skip to main navigation">
                                 <i class="fa fa-bars fa-lg" aria-hidden="true"></i>
                             </a>
-                            @*  @Html.ActionLink("Delete", "Delete", new { id=item.movimentacaoId })*@
                         </td>
                     </tr>
                 }
