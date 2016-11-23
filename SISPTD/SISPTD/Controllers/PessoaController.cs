@@ -489,7 +489,7 @@ namespace SISPTD.Controllers
                     else if (objPessoa.TipoPessoa == TipoPessoa.Medico)
                     {
                         TempData["Sucesso"] = "Alteração Realizada com Sucesso!";
-                        return RedirectToAction("ListaMedico");
+                        return RedirectToAction("ListaDeMedico");
                     }
                     
 

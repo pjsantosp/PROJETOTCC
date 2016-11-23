@@ -18,6 +18,8 @@ namespace SISPTD.Controllers
         private UserBO usuarioBO = new UserBO(new dbSISPTD());
         private PessoaBO pessoaBO = new PessoaBO(new dbSISPTD());
         private AgendamentoBO agendamentoBO = new AgendamentoBO(new dbSISPTD());
+        private ClinicaBO clinicaBO = new ClinicaBO(new dbSISPTD());
+
         private ProcessoBO processoBO = new ProcessoBO(new dbSISPTD());
 
         public ActionResult Index(int? pagina)
@@ -109,6 +111,13 @@ namespace SISPTD.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Agendamento agendamento = agendamentoBO.SelecionarPorId(id.Value);
+            
+            if (agendamento.clinicaId != null )
+            {
+                Clinica clinica = clinicaBO.SelecionarPorId(agendamento.clinicaId.Value);
+                ViewBag.clinica = clinica.nome_Clinica;
+                ViewBag.clinicaIdAtual = agendamento.clinicaId;
+            }
             if (agendamento == null)
             {
                 return HttpNotFound();
@@ -116,8 +125,7 @@ namespace SISPTD.Controllers
             ViewBag.processoId = agendamento.Processo.processoId;
             ViewBag.pacienteNome = agendamento.Processo.Paciente.nome;
             ViewBag.pacienteCpf = agendamento.Processo.Paciente.cpf;
-            ViewBag.clinica = agendamento.Clinica.nome_Clinica;
-            ViewBag.clinicaIdAtual = agendamento.clinicaId;
+           
             return View(agendamento);
 
         }
@@ -138,7 +146,7 @@ namespace SISPTD.Controllers
             {
                 agendamentoBO.Alterar(agendamento);
                 TempData["Sucesso"] = "Alteração Realizada com Sucesso!";
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { tab ="profile" });
             }
             return View(agendamento);
         }

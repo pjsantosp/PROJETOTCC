@@ -70,7 +70,9 @@
                             <th>
                                 @Html.DisplayName("Clinica")
                             </th>
-                            <th></th>
+                            <th>
+                                @Html.DisplayName("Ação")
+                            </th>
                         </tr>
 
                         @foreach (var item in Model)
@@ -97,8 +99,6 @@
                                     <a class="btn-group btn-sm btn-primary" title="Editar" href="@Url.Action("Edit", "Agendamento",new { id= item.agendamentoId })" aria-label="Skip to main navigation">
                                         <i class="fa fa-pencil fa-lg" aria-hidden="true"></i>
                                     </a>
-                                    @*<a href="@Url.Action("Edit", "Edit", new { id = item.agendamentoId })"> <i class="fa fa-pencil fa-fw"></i></a> |*@
-                                    <a title="" href="@Url.Action("Details", "Agendamento", new { id=item.agendamentoId })"> <i class="fa fa-bars fa-lg " aria-hidden="true"></i> </a> |
                                     <a class="btn-group btn-sm btn-danger"  href="@Url.Action("Delete", "Agendamento", new { id = item.agendamentoId })"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
                                 </td>
                             </tr>

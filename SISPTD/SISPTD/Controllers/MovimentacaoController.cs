@@ -92,8 +92,9 @@ namespace SISPTD.Controllers
                         movimentacao.usuarioEnviouId = user.usuarioId;
                         movimentacao.dtEnvio = DateTime.Now;
                         Processo objProcesso = processoBO.SelecionarPorId(movimentacao.ProcessoId.Value);
-                        objProcesso.Setor = setorBO.SelecionarPorId(movimentacao.setorRecebeuId.Value).descricao;
                         movimentacao.setorEnviouId = movimentacaoBO.SetorOrigem(objProcesso.Setor);
+                        objProcesso.Setor = setorBO.SelecionarPorId(movimentacao.setorRecebeuId.Value).descricao;
+                      
 
                         processoBO.Alterar(objProcesso);
 
