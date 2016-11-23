@@ -172,6 +172,40 @@ $(document).ready(function () {
         });
     });
 
+    //Localiza Pessoa p/ Manutenção
+    $('.buscarPessoaManutencao').click(function () {
+        debugger;
+        var cpf = $('#buscarPessoaManutencao').val();
+        $.ajax({
+            method: 'GET',
+            url: "/Pessoa/ManutencaoDeCadastroBusca/?cpf=" + cpf,
+            
+            success: function (data) {
+                $('#idPessoaManutencao').val(data.Id)
+                $('.cpf').val(data.Cpf)
+                $('#nome').val(data.Nome);
+                $('#dt_Nascimento').val(data.DtNascimento);
+                $('#rg').val(data.Rg);
+                $('#orgao_emissor').val(data.OrgaoEmissor);
+                $('#cns').val(data.Cns);
+                $('#crm').val(data.Crm);
+                $('#nome_Mae').val(data.Mae);
+                $('#nome_Pai').val(data.Pai);
+                $('#tel').val(data.Tel);
+                $('#cel').val(data.Cel);
+                $('#email').val(data.Email);
+                $('#Endereco_cep').val(data.Cep);
+                $('#Endereco_rua').val(data.Rua);
+                $('#Endereco_numero').val(data.Numero);
+                $('#Endereco_bairro').val(data.Bairro);
+                console.log();
+            },
+            error: function (data) {
+                alert("Ops ! não foi possível realizar a pesquisar da Pessoa!");
+            }
+        });
+    });
+
     //Localiza Pessoa p cadastrar usuario
     $('.buscarPessoaUser').change(function () {
 

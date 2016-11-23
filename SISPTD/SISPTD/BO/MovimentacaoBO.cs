@@ -38,7 +38,7 @@ namespace SISPTD.BO
                .Include(m => m.SetorRecebeu)
                .Include(m => m.UsuarioEnviou)
                .Include(m => m.UsuarioRecebeu)
-               .Where(b => b.Processo.Paciente.cpf.Contains(busca) || b.Processo.Paciente.cns.Contains(busca) && b.Processo.Paciente.tipo == 0);
+               .Where(b => b.Processo.Paciente.cpf.Contains(busca) || b.Processo.Paciente.cns.Contains(busca) && b.Processo.Paciente.TipoPessoa == TipoPessoa.Paciente);
 
                 return listaDeMovimentacao.OrderByDescending(m => m.movimentacaoId).ToPagedList(pagina.Value, tamanhoPagina);
 

@@ -10,7 +10,6 @@ namespace SISPTD.Models
     {
         public Requisicao()
         {
-            //this.PessoaAcompanhante = new HashSet<Pessoa>();
             this.PessoaAcompanhante = new List<Pessoa>();
 
         }

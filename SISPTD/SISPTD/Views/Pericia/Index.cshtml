@@ -7,7 +7,9 @@
 <h3><i class="fa fa-list-alt"></i> Pericia Medica</h3>
 
 <div>
-    @Html.ActionLink("Nova Pericia", "Create", null, new { @class = "btn btn-primary" })
+    <a class="btn  btn-primary" title="Criar Nova Pericia" href="@Url.Action("Create", "Pericia")" aria-label="Skip to main navigation">
+        <i class="fa fa-plus fa-lg" aria-hidden="true"></i> Nova Pericia
+    </a>
 </div>
 <br />
 
@@ -15,14 +17,14 @@
         <!-- Nav tabs -->
         <ul class="nav nav-tabs" role="tablist">
             <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Processos Para Pericia</a></li>
-            <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Lista de Percias</a></li>
+            <li role="presentation"><a href="#profile"  role="tab" data-toggle="tab">Lista de Percias</a></li>
         </ul>
         <!-- Tab panes -->
         <div class="tab-content">
             <div role="tabpanel" class="tab-pane active" id="home">
                 @Html.Action("ProcessoEmPericia", "Processo")
             </div>
-            <div role="tabpanel" class="tab-pane" id="profile">
+            <div  class="tab-pane" id="profile">
 
                 <div class="panel panel-default">
                     <!-- Default panel contents -->
@@ -33,6 +35,9 @@
                         <table class="table table-hover table-bordered table-condensed">
                             <tr>
                                 <th>
+                                    @Html.DisplayName("N° Processo")
+                                </th>
+                                <th>
                                     @Html.DisplayName("CPF")
                                 </th>
                                 <th>
@@ -41,13 +46,6 @@
                                 <th>
                                     @Html.DisplayName("Código Cid")
                                 </th>
-                                <th>
-                                    @Html.DisplayName("Cid")
-                                </th>
-                                <th>
-                                    @Html.DisplayName("Descrição")
-                                </th>
-
                                 <th>
                                     @Html.DisplayName("Data da Pericia")
                                 </th>
@@ -62,6 +60,9 @@
             {
                                 <tr>
                                     <td>
+                                        @Html.DisplayFor(modelItem => item.Processo.processoId)
+                                    </td>
+                                    <td>
                                         @Html.DisplayFor(modelItem => item.Processo.Paciente.cpf)
                                     </td>
                                     <td>
@@ -70,29 +71,22 @@
                                     <td>
                                         @Html.DisplayFor(modelItem => item.Cid.codigoCid)
                                     </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Cid.descricao)
-                                    </td>
-
-
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.descricao)
-                                    </td>
 
                                     <td>
                                         @Html.DisplayFor(modelItem => item.dt_Pericia)
                                     </td>
 
-
                                     <td>
                                         <a class="btn-group btn-sm btn-success" title="Editar" href="@Url.Action("Edit", "Pericia",new { id= item.periciaId })" aria-label="Skip to main navigation">
                                             <i class="fa fa-pencil fa-lg" aria-hidden="true"></i>
                                         </a>
-                                        <a class="btn-group btn-sm btn-primary" title="Detalhe" href="@Url.Action("Details", "Pericia",new { id= item.periciaId })" aria-label="Skip to main navigation">
-                                            <i class="fa fa-align-justify fa-lg" aria-hidden="true"></i>
+                                        <a class="btn-group btn-sm btn-primary" title="Imprimir" href="@Url.Action("Details", "Pericia",new { id= item.periciaId })", target="_blank" aria-label="Skip to main navigation">
+                                            <i class="fa fa-print fa-lg" aria-hidden="true"></i>
+                                        </a>
+                                        <a class="btn-group btn-sm btn-primary" title="Distribuir" href="@Url.Action("Create","Movimentacao", new {id = item.processoId })" aria-label="Skip to main navigation">
+                                            <i class="fa fa-exchange fa-lg" aria-hidden="true"></i>
                                         </a>
                                        
-
                                     </td>
                                 </tr>
 
@@ -108,7 +102,7 @@
                 
                 <div class="pull-right">
                     <strong>  Pagina @Model.PageNumber de @Model.PageCount </strong>
-                    @Html.PagedListPager(Model, pagina => Url.Action("Index", new { pagina }))
+                    @Html.PagedListPager(Model, pagina => Url.Action("Index", new { pagina, tab="profile" }))
                 </div>
             </div>
           
@@ -116,6 +110,27 @@
     </div>
 
 
+
+@section Scripts{
+    <script>
+
+        function qs(name) {
+            name = name.replace(/[\[]/, "\\[").replace(/[\]]/,"\\]");
+            var regex = new RegExp("[\\?&]" + name +"=([^&#]*)"),
+            results = regex.exec(location.search);
+            return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g,""));
+        }
+
+        var tab = qs("tab");
+
+        if (tab == "profile") 
+        {
+            $('.nav-tabs li:eq(1) a').tab('show')
+        }
+
+        console.log(qs("tab"))
+    </script>
+}
 
 
 

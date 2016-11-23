@@ -3,7 +3,7 @@
     <i class="fa fa-bars fa-lg" aria-hidden="true"></i>
 </a>
 
-@if (User.IsInRole("Gerente") || User.IsInRole("Administrador"))
+@if (User.IsInRole("Gerente") || User.IsInRole("Administrador") || User.IsInRole("Funcionario"))
 {
     <a class="btn-group btn-sm btn-primary" title="Editar" href="@Url.Action("Edit", "Pessoa",new { id= Model.pessoaId })" aria-label="Skip to main navigation">
         <i class="fa fa-pencil fa-lg" aria-hidden="true"></i>

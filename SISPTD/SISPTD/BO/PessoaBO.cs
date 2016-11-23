@@ -28,7 +28,7 @@ namespace SISPTD.BO
             {
                 IEnumerable<Pessoa> listapessoa = _contexto.Set<Pessoa>()
                .Include(d => d.ListaDeProcessosPaciente)
-               .Where(x => x.cpf.Contains(busca) || x.cns.Contains(busca)).Where(x => x.tipo == 0);
+               .Where(x => x.cpf.Contains(busca) || x.cns.Contains(busca)).Where(x => x.TipoPessoa == TipoPessoa.Paciente);
                 return listapessoa.OrderByDescending(p => p.dt_Cadastro).ToPagedList(pagina.Value, tamanhoPagina);
             }
             catch (Exception e)
@@ -43,7 +43,7 @@ namespace SISPTD.BO
             {
                 IEnumerable<Pessoa> listapessoa = _contexto.Set<Pessoa>()
                .Include(d => d.ListaDeProcessosPaciente)
-               .Where(x => x.cpf.Contains(busca)).Where(x => x.tipo == 2);
+               .Where(x => x.cpf.Contains(busca) && x.TipoPessoa == TipoPessoa.Medico);
                 return listapessoa.OrderByDescending(p => p.dt_Cadastro).ToPagedList(pagina.Value, tamanhoPagina);
             }
             catch (Exception e)
@@ -59,7 +59,7 @@ namespace SISPTD.BO
             {
                 IEnumerable<Pessoa> listapessoa = _contexto.Set<Pessoa>()
                .Include(d => d.ListaDeProcessosPaciente)
-               .Where(x => x.cpf.Contains(busca)).Where(x => x.tipo == 3);
+               .Where(x => x.cpf.Contains(busca) && x.TipoPessoa == TipoPessoa.Funcionario);
                 return listapessoa.OrderByDescending(p => p.dt_Cadastro).ToPagedList(pagina.Value, tamanhoPagina);
             }
             catch (Exception e)

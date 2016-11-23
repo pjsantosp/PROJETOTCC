@@ -1,0 +1,17 @@
+﻿@model SISPTD.Models.Pessoa
+<span class="text-danger pull-right"><i class="glyphicon glyphicon-info-sign "></i> Os campos com (*) são de preenchimento obrigatório.</span>
+
+@{
+    ViewBag.Title = "Editar Acompanhate";
+}
+
+<h3><i class="fa fa-users" aria-hidden="true"></i> Cadastro de Acompanhante</h3>
+<div>
+
+</div>
+@Html.HiddenFor(model => model.acompanhanteId)
+@Html.Partial("_Formulario")
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

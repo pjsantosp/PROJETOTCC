@@ -19,7 +19,10 @@
         <div class="container-fluid">
             <div class="navbar-header">
                 <a class="navbar-brand" href="#">
-                    <span class="fa fa-align-justify botao-menu "></span>
+                    <i class="fa fa-outdent  botao-menu" aria-hidden="true"></i>
+                    <div class="" style=" color: #f7f7f7; margin-left:30px;" >
+                        @Html.ActionLink("Tratamento Fora Domicilio", "", "", new { area = "" }, new { @class = "navbar-brand navbar-menu" })
+                    </div>
                 </a>
 
             </div>
@@ -27,15 +30,15 @@
                 <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle text-branco" data-toggle="dropdown">
-                            <i class="fa fa-user fa-fw"></i> <span>@Session["NomeLogin"]</span> <b class="caret"></b>
+                            <i class="fa fa-user fa-fw fa-lg"></i> <span>@Session["NomeLogin"]</span> <i class="fa fa-caret-down fa-lg" aria-hidden="true"></i>
                             <span hidden>@User.Identity.Name </span>
                         </a>
                         <ul class="dropdown-menu">
                             <li><a href="#"></a></li>
                             <li class="divider"></li>
-                            <li><a href="@Url.Action("TrocaSenha", "User")"><i class="glyphicon glyphicon-user"></i> Trocar Senha</a></li>
+                            <li><a href="@Url.Action("TrocaSenha", "User")"><i class="glyphicon glyphicon-user" aria-hidden="true"></i> Trocar Senha</a></li>
                             <li class="divider"></li>
-                            <li><a title="Clique para sair do sistema" href="@Url.Action("Deslogar","Login")"><i class="fa fa-power-off"></i> Sair </a></li>
+                            <li><a title="Clique para sair do sistema" href="@Url.Action("Deslogar","Login")"><i class="fa fa-power-off fa-lg"></i> Sair </a></li>
                         </ul>
                     </li>
                 </ul>
@@ -46,10 +49,16 @@
         {
             @Html.Partial("_MenuMedico")
         }
+        else if(User.IsInRole("Funcionario"))
+        {
+            @Html.Partial("_MenuFuncionario")
+        }
         else
         {
             @Html.Partial("_MenuAdm")
+
         }
+
 
 
         <br /><br /><br /><br />

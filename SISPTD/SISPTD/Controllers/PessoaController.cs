@@ -43,7 +43,7 @@ namespace SISPTD.Controllers
         public ActionResult PesquisarMedico(string cpf)
         {
             cpf = Util.RemoverMascara(cpf);
-            var pessoa = pessoaBO.Selecionar().Where(p => p.cpf == cpf && p.tipo == 2).FirstOrDefault();
+            var pessoa = pessoaBO.Selecionar().Where(p => p.cpf == cpf && p.TipoPessoa == TipoPessoa.Medico).FirstOrDefault();
             if (pessoa == null)
             {
                 return Json(new { Nome = "", Id = 0, Cpf = "", Cns = "", Tel = "", Cel = "", Crm = "" }, JsonRequestBehavior.AllowGet);
@@ -80,7 +80,7 @@ namespace SISPTD.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    pessoa.tipo = (int)TipoPessoa.Paciente;
+                    pessoa.TipoPessoa = TipoPessoa.Paciente;
                     pessoa.cpf = Util.RemoverMascara(pessoa.cpf);
                     pessoa.dt_Cadastro = DateTime.Now;
                     if (pessoaBO.CalculoIdade(pessoa))
@@ -144,7 +144,7 @@ namespace SISPTD.Controllers
 
                 if (ModelState.IsValid)
                 {
-                    pessoa.tipo = (int)TipoPessoa.Acompanhante;
+                    pessoa.TipoPessoa = TipoPessoa.Acompanhante;
                     pessoa.dt_Cadastro = DateTime.Now;
                     if (pessoaBO.CalculoIdade(pessoa))
                     {
@@ -164,6 +164,44 @@ namespace SISPTD.Controllers
 
             return View();
         }
+        public ActionResult EditarAcompanhante(long? id)
+        {
+            //ViewBag.acompanhante = pessoaBO.Selecionar().Where(a => a.acompanhanteId == id.Value).Count();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Pessoa pessoa = pessoaBO.SelecionarPorId(id.Value);
+            if (pessoa == null)
+            {
+                return HttpNotFound();
+            }
+            return View(pessoa);
+        }
+        [HttpPost, ValidateAntiForgeryToken]
+        public ActionResult EditarAcompanhante(Pessoa objAcompanhante)
+        {
+            try
+            {
+                objAcompanhante.cns = Ultis.Util.RemoverMascara(objAcompanhante.cns);
+                objAcompanhante.cpf = Ultis.Util.RemoverMascara(objAcompanhante.cpf);
+                if (ModelState.IsValid)
+                {
+
+                    pessoaBO.CalculoIdade(objAcompanhante);
+                    pessoaBO.Alterar(objAcompanhante);
+                    TempData["Sucesso"] = "Alteração Realizada com Sucesso!";
+                }
+                return View(objAcompanhante);
+            }
+            catch (Exception ex)
+            {
+                TempData["Erro"] = "Ops! Ocorreu um erro!" + ex.Message;
+            }
+            return View(objAcompanhante);
+        }
+
+
         #region Crud Funcionario
         [Authorize(Roles = "Gerente, Administrador")]
         public ActionResult ListaDeFuncionario(int? pagina, string buscaFuncionario = "")
@@ -191,9 +229,10 @@ namespace SISPTD.Controllers
             try
             {
                 funcionario.cpf = Ultis.Util.RemoverMascara(funcionario.cpf);
+                funcionario.cpf = Ultis.Util.RemoverMascara(funcionario.cns);
                 if (ModelState.IsValid)
                 {
-                    funcionario.tipo = (int)TipoPessoa.Funcionario;
+                    funcionario.TipoPessoa = TipoPessoa.Funcionario;
                     funcionario.dt_Cadastro = DateTime.Now;
                     pessoaBO.Inserir(funcionario);
                     TempData["Sucesso"] = "Cadastro Realizado com Sucesso !";
@@ -237,12 +276,12 @@ namespace SISPTD.Controllers
                 pessoa.cpf = Ultis.Util.RemoverMascara(pessoa.cpf);
                 if (ModelState.IsValid)
                 {
-                    pessoa.tipo = (int)TipoPessoa.Funcionario;
+                    pessoa.TipoPessoa = TipoPessoa.Funcionario;
                     pessoaBO.CalculoIdade(pessoa);
                     pessoaBO.Alterar(pessoa);
                     TempData["Sucesso"] = "Alteração Realizada com Sucesso!";
                 }
-                return RedirectToAction("ListaDeMedico");
+                return RedirectToAction("ListaDeFuncionario");
             }
             catch (Exception ex)
             {
@@ -284,7 +323,7 @@ namespace SISPTD.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    pessoa.tipo = (int)TipoPessoa.Medico;
+                    pessoa.TipoPessoa = TipoPessoa.Medico;
                     pessoa.cpf = Util.RemoverMascara(pessoa.cpf);
                     pessoa.cns = Util.RemoverMascara(pessoa.cns);
                     pessoa.dt_Cadastro = DateTime.Now;
@@ -332,7 +371,7 @@ namespace SISPTD.Controllers
                 pessoa.cpf = Ultis.Util.RemoverMascara(pessoa.cpf);
                 if (ModelState.IsValid)
                 {
-                    pessoa.tipo = (int)TipoPessoa.Medico;
+                    pessoa.TipoPessoa = TipoPessoa.Medico;
                     pessoaBO.CalculoIdade(pessoa);
                     pessoaBO.Alterar(pessoa);
                     TempData["Sucesso"] = "Alteração Realizada com Sucesso!";
@@ -372,22 +411,7 @@ namespace SISPTD.Controllers
                 pessoa.cpf = Ultis.Util.RemoverMascara(pessoa.cpf);
                 if (ModelState.IsValid)
                 {
-                    if (pessoa.tipo == 0)
-                    {
-                        pessoa.tipo = (int)TipoPessoa.Paciente;
-                    }
-                    else if (pessoa.tipo == 1)
-                    {
-                        pessoa.tipo = (int)TipoPessoa.Acompanhante;
-                    }
-                    else if (pessoa.tipo == 2)
-                    {
-                        pessoa.tipo = (int)TipoPessoa.Medico;
-                    }
-                    else
-                    {
-                        pessoa.tipo = (int)TipoPessoa.Funcionario;
-                    }
+                    
                     pessoaBO.CalculoIdade(pessoa);
                     pessoaBO.Alterar(pessoa);
                     TempData["Sucesso"] = "Alteração Realizada com Sucesso!";
@@ -400,6 +424,95 @@ namespace SISPTD.Controllers
             }
             return View(pessoa);
         }
+        [Authorize(Roles ="Administrador, Gerente")]
+        public ActionResult ManutencaoDeCadastroBusca(string cpf )
+        {
+            cpf = Util.RemoverMascara(cpf);
+            var pessoa = pessoaBO.Selecionar().Where(p => p.cpf == cpf).FirstOrDefault();
+            if (pessoa == null || pessoa.idade < 18)
+            {
+                return Json(new { Nome = "", Id = 0 }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(new
+                {
+                    Id = pessoa.pessoaId,
+                    Cpf = pessoa.cpf,
+                    Nome = pessoa.nome,
+                    DtNascimento = pessoa.dt_Nascimento.ToShortDateString(),
+                    Rg = pessoa.rg,
+                    OrgaoEmissor = pessoa.orgaoemissor,
+                    Cns = pessoa.cns,
+                    Crm = pessoa.crm,
+                    Mae = pessoa.nome_Mae,
+                    Pai = pessoa.nome_Pai,
+                    Tel = pessoa.tel,
+                    Cel = pessoa.cel,
+                    Email = pessoa.email,
+                    Cep = pessoa.Endereco.cep,
+                    Rua = pessoa.Endereco.rua,
+                    Numero = pessoa.Endereco.numero,
+                    Bairro = pessoa.Endereco.bairro
+                },
+                JsonRequestBehavior.AllowGet);
+            }
+        }
+        public ActionResult ManutencaoDeCadastro()
+        {
+            return View();
+        }
+        [HttpPost, ValidateAntiForgeryToken]
+        public ActionResult ManutencaoDeCadastro(int idPessoaManutencao, Pessoa pessoa)
+        {
+            try
+            {
+                pessoa.cns = Ultis.Util.RemoverMascara(pessoa.cns);
+                pessoa.cpf = Ultis.Util.RemoverMascara(pessoa.cpf);
+                if (ModelState.IsValid)
+                {
+                    Pessoa objPessoa = pessoaBO.SelecionarPorId(idPessoaManutencao);
+                    pessoaBO.CalculoIdade(objPessoa);
+                    objPessoa.TipoPessoa = pessoa.TipoPessoa;
+                    pessoaBO.Alterar(objPessoa);
+                    if (objPessoa.TipoPessoa== TipoPessoa.Paciente)
+                    {
+                        TempData["Sucesso"] = "Alteração Realizada com Sucesso!";
+                        return RedirectToAction("Index");
+
+                    }
+                    else if(objPessoa.TipoPessoa == TipoPessoa.Funcionario)
+                    {
+                        TempData["Sucesso"] = "Alteração Realizada com Sucesso!";
+                        return RedirectToAction("ListaDeFuncionario");
+
+                    }
+                    else if (objPessoa.TipoPessoa == TipoPessoa.Medico)
+                    {
+                        TempData["Sucesso"] = "Alteração Realizada com Sucesso!";
+                        return RedirectToAction("ListaMedico");
+                    }
+                    
+
+                    TempData["Sucesso"] = "Alteração Realizada com Sucesso!";
+                    return View(objPessoa);
+                }
+                else
+                {
+                    TempData["Errro"] = "Não possível Alterar o Cadastro !";
+                }
+               
+            }
+            catch (Exception ex)
+            {
+                TempData["Erro"] = "Ops! Ocorreu um erro!" + ex.Message;
+            }
+            return View(pessoa);
+      
+
+           
+        }
+
         public ActionResult Delete(long? id)
         {
             Pessoa pessoa = pessoaBO.SelecionarPorId(id.Value);

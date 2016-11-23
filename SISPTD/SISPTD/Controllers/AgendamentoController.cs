@@ -12,6 +12,7 @@ using PagedList;
 
 namespace SISPTD.Controllers
 {
+    [Authorize(Roles = "Administrador, Gerente, Funcionario")]
     public class AgendamentoController : Controller
     {
         private UserBO usuarioBO = new UserBO(new dbSISPTD());

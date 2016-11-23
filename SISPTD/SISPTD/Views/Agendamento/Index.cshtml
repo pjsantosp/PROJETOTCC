@@ -113,13 +113,42 @@
             
             <div class="pull-right">
                 <strong>Pagina @Model.PageNumber de @Model.PageCount</strong>
-                @Html.PagedListPager(Model, pagina => Url.Action("Index", new { pagina }))
+                @Html.PagedListPager(Model, pagina => Url.Action("Index", new { pagina, tab ="profile" }))
             </div>
 
         </div>
 
     </div>
 </div>
+@section Scripts{
+    <script>
+
+        function qs(name) {
+            name = name.replace(/[\[]/, "\\[").replace(/[\]]/,"\\]");
+            var regex = new RegExp("[\\?&]" + name +"=([^&#]*)"),
+            results = regex.exec(location.search);
+            return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g,""));
+        }
+
+        var tab = qs("tab");
+
+        if (tab == "profile")
+        {
+            $('.nav-tabs li:eq(1) a').tab('show')
+        }
+
+        console.log(qs("tab"))
+    </script>
+}
+
+
+
+
+
+
+
+
+
 
 
 

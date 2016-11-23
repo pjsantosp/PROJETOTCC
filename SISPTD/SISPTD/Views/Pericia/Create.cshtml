@@ -9,7 +9,7 @@
 
     <div class="panel panel-default">
         <div class="panel-heading">
-            <h3 class="panel-title"> <i class="fa fa-list-alt fa-lg" aria-hidden="true"></i> Pericia</h3>
+            <h5 class="panel-title"> <i class="fa fa-list-alt fa-lg" aria-hidden="true"></i> <strong>Pericia</strong></h5>
 
         </div>
 
@@ -46,15 +46,17 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-4 col-sm-6">
+                <div class="col-md-3 col-sm-6">
                     <div class="form-group">
                         @Html.LabelFor(model => model.Situacao, htmlAttributes: new { @class = "control-label" })
                         @Html.EnumDropDownListFor(model => model.Situacao, "", htmlAttributes: new { @class = "form-control chosen-select" })
                         @Html.ValidationMessageFor(model => model.Situacao, "", new { @class = "text-danger" })
                     </div>
                 </div>
-                <div class="col-md-4 col-sm-6">
+                <div class="col-md-3 col-sm-6">
                     <div class="form-group">
+                        @Html.Label("Selecione", htmlAttributes: new { @class = "control-label" })
+                          
                         <div class="panel panel-default">
                             <div class="panel-body">
                                 @Html.Label("Primeira Vez", htmlAttributes: new { @class = "control-label" })
@@ -66,7 +68,7 @@
 
                     </div>
                 </div>
-                <div class="col-md-4 col-sm-6">
+                <div class="col-md-6 col-sm-8">
                     <div class="form-group">
                         @Html.Label("Codigo CID")
                         @Html.DropDownList("cidId", new List<SelectListItem>(), " ", new { @class = "form-control", data_url = @Url.Action("PesquisaCid", "Cid") })
@@ -74,61 +76,72 @@
                 </div>
             </div>
 
-            <div class="row">
-                <div class="col-md-5">
-                    <h5><i class="fa fa-user-md" aria-hidden="true"></i> <strong> Dados do Medico Solicitante</strong></h5>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h5><i class="panel-title fa fa-user-md fa-lg" aria-hidden="true"></i> <strong> Dados do Medico da Pericia</strong></h5>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-5">
+                           
+
+                        </div>
+                        <div id="btCriaMedico" style="display:none" class="alert alert-warning alert-dismissible" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <strong>Ops!</strong> Não foi Possivel localizar o  Medico Deseja Cadastra-lo:.
+                        </div>
+                    </div>
+
+
+
+
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            @Html.Label("CPF", htmlAttributes: new { @class = "control-label" })
+                            <div class="input-group">
+                                @Html.TextBox("buscarMedico", Request.QueryString["CPF"], new { @class = " procurarMedico cpf col-md-2 form-control ", placeholder = "Procure por CPF" })
+                                <span class="input-group-btn"><button type="button" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button></span>
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                @Html.Label("Nome", htmlAttributes: new { @class = "control-labe" })
+                                <input type="text" readonly id="nomeDoMedico" data-id="" class="form-control " name="name" />
+                                <input type="hidden" id="idDoMedico" name="medicoPessoaId" />
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                @Html.Label("Telefone", htmlAttributes: new { @class = "control-label" })
+                                <input type="text" readonly id="telDoMedico" data-id="" class="form-control " name="telDoMedico" />
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                @Html.Label("Celular", htmlAttributes: new { @class = "control-label" })
+                                <input type="text" readonly id="celDoMedico" data-id="" class="form-control " name="celDoMedico" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                @Html.Label("Cartão do SUS", htmlAttributes: new { @class = "control-label" })
+                                <input type="text" readonly id="cnsDoMedico" data-id="" class="form-control cns " name="cnsDoMedico" />
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                @Html.Label("CRM", htmlAttributes: new { @class = "control-labe" })
+                                <input type="text" readonly id="crmDoMedico" data-id="" class="form-control " name="crmDoMedico" />
+                            </div>
+                        </div>
+                    </div>
 
                 </div>
-                <div id="btCriaMedico" style="display:none" class="alert alert-warning alert-dismissible" role="alert">
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <strong>Ops!</strong> Não foi Possivel localizar o  Medico Deseja Cadastra-lo:.
-                </div>
             </div>
-
-            <hr />
-            <div class="row">
-                <div class="col-md-3">
-                    @Html.Label("CPF", htmlAttributes: new { @class = "control-label" })
-                    <div class="input-group">
-                        @Html.TextBox("buscarMedico", Request.QueryString["CPF"], new { @class = " procurarMedico cpf col-md-2 form-control ", placeholder = "Procure por CPF" })
-                        <span class="input-group-btn"><button type="button" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button></span>
-                    </div>
-                </div>
-                <div class="col-md-5">
-                    <div class="form-group">
-                        @Html.Label("Nome", htmlAttributes: new { @class = "control-labe" })
-                        <input type="text" readonly id="nomeDoMedico" data-id="" class="form-control " name="name" />
-                        <input type="hidden" id="idDoMedico" name="medicoPessoaId" />
-                    </div>
-                </div>
-                <div class="col-md-2">
-                    <div class="form-group">
-                        @Html.Label("Telefone", htmlAttributes: new { @class = "control-label" })
-                        <input type="text" readonly id="telDoMedico" data-id="" class="form-control " name="telDoMedico" />
-                    </div>
-                </div>
-                <div class="col-md-2">
-                    <div class="form-group">
-                        @Html.Label("Celular", htmlAttributes: new { @class = "control-label" })
-                        <input type="text" readonly id="celDoMedico" data-id="" class="form-control " name="celDoMedico" />
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="form-group">
-                        @Html.Label("Cartão do SUS", htmlAttributes: new { @class = "control-label" })
-                        <input type="text" readonly id="cnsDoMedico" data-id="" class="form-control cns " name="cnsDoMedico" />
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="form-group">
-                        @Html.Label("CRM", htmlAttributes: new { @class = "control-labe" })
-                        <input type="text" readonly id="crmDoMedico" data-id="" class="form-control " name="crmDoMedico" />
-                    </div>
-                </div>
-            </div>
-
+           
         </div>
     </div>
 

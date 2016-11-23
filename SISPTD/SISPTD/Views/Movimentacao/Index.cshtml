@@ -46,7 +46,7 @@
                     <th>
                         @Html.DisplayName("Destino")
                     </th>
-                    <th>
+                    @*<th>
                         @Html.DisplayName("Usuario Enviou")
                     </th>
                     <th>
@@ -57,9 +57,9 @@
                     </th>
                     <th>
                         @Html.DisplayName("Recebido Em")
-                    </th>
+                    </th>*@
                     <th>
-                        @Html.DisplayName("Ação")
+                        @Html.DisplayName("Detalhe")
                     </th>
                 </tr>
 
@@ -79,7 +79,7 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.SetorRecebeu.descricao)
                         </td>
-                        <td>
+                        @*<td>
                             @Html.DisplayFor(modelItem => item.UsuarioEnviou.Pessoa.nome)
                         </td>
                         <td>
@@ -90,7 +90,7 @@
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.dtRecebimento)
-                        </td>
+                        </td>*@
                         <td>
                             @*@Html.ActionLink("Edit", "Edit", new { id=item.movimentacaoId }) |
                                 @Html.ActionLink("Detalhe", "DetalheDoMovProcesso", new { id=item.ProcessoId }) |*@

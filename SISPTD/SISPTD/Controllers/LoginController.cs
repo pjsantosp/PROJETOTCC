@@ -25,9 +25,13 @@ namespace SISPTD.Controllers
         public ActionResult Login(User conta)
         {
             conta.login = Util.RemoverMascara(conta.login);
-
+            
             try
             {
+                if (String.IsNullOrWhiteSpace(conta.senha))
+                {
+                    ModelState.AddModelError("","Verifique o Campo Senha!");
+                }
                 if (conta.login == conta.senha)
                 {
                     TempData["Erro"] = "Deve trocar sua senha!";

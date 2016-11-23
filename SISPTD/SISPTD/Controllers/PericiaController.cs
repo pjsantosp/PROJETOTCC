@@ -36,11 +36,11 @@ namespace SISPTD.Controllers
             return View(pericia);
         }
 
-        public ActionResult Create(int? pacienteId)
+        public ActionResult Create(int? processoId)
         {
-            if (pacienteId != null)
+            if (processoId != null)
             {
-                Processo objProcesso = processoBO.SelecionarPorId(pacienteId.Value);
+                Processo objProcesso = processoBO.SelecionarPorId(processoId.Value);
                 Pessoa objPaciente = objProcesso.Paciente;
                 ViewBag.processoId = objProcesso.processoId;
                 ViewBag.pacienteCpf = objPaciente.cpf;
@@ -54,10 +54,20 @@ namespace SISPTD.Controllers
         {
             try
             {
-                pericia.dt_Pericia = DateTime.Now;
-                periciaBO.Inserir(pericia);
-                TempData["Sucesso"] = "Pericia Cadastrada com Sucesso";
-                return RedirectToAction("Index");
+                if (!periciaBO.VerificaPericia(pericia))
+                {
+                    pericia.dt_Pericia = DateTime.Now;
+                    periciaBO.Inserir(pericia);
+                    TempData["Sucesso"] = "Pericia Cadastrada com Sucesso";
+                    return RedirectToAction("Index", new { tab = "profile" });
+                }
+                else
+                {
+                    TempData["Erro"] = "Esse Processo já foi Periciado";
+                  return  RedirectToAction("Index");
+                }
+               
+               
             }
             catch (Exception ex)
             {

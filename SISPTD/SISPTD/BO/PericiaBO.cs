@@ -43,6 +43,24 @@ namespace SISPTD.BO
             }
             
         }
+        public bool VerificaPericia(Pericia pericia)
+        {
+            try
+            {
+                var existe = _contexto.Set<Pericia>().FirstOrDefault(a => a.processoId == pericia.processoId);
+                if (existe != null)
+                {
+                    return true;
 
+                }
+
+                return false;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }

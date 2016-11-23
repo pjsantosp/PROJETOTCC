@@ -412,7 +412,6 @@
     <Content Include="Views\Agendamento\Edit.cshtml" />
     <Content Include="Views\Agendamento\Index.cshtml" />
     <Content Include="Views\Requisicao\_ListaPessoa.cshtml" />
-    <Content Include="Views\Pessoa\_CreateAcompanhante.cshtml" />
     <Content Include="Views\Pessoa\CreateAcompanhante.cshtml" />
     <Content Include="Views\Clinica\_Formulario.cshtml" />
     <Content Include="Views\Agendamento\_Formulario.cshtml" />
@@ -439,6 +438,11 @@
     <Content Include="Views\Pessoa\ListaDeFuncionario.cshtml" />
     <Content Include="Views\Processo\ProcessoEmAgendamento.cshtml" />
     <Content Include="Views\Processo\ProcessoEmPericia.cshtml" />
+    <Content Include="Views\Shared\_MenuFuncionario.cshtml" />
+    <Content Include="Views\Pericia\_Relatorio.cshtml" />
+    <Content Include="Views\Pessoa\ManutencaoDeCadastro.cshtml" />
+    <Content Include="Views\Pessoa\_FormManutencao.cshtml" />
+    <Content Include="Views\Pessoa\EditarAcompanhante.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -15,7 +15,7 @@ namespace SISPTD.Models
         [Key]
         public long pessoaId { get; set; }
         public long? acompanhanteId { get; set; }
-        public int? tipo { get; set; }
+        //public int? tipo { get; set; }
 
         [Display(Name = "Data Cadastro")]
         public DateTime? dt_Cadastro { get; set; }
@@ -83,7 +83,7 @@ namespace SISPTD.Models
         [DataType(DataType.PhoneNumber)]
         public string cel { get; set; }
 
-
+        public virtual TipoPessoa TipoPessoa { get; set; }
         public virtual ICollection<Processo> ListaDeProcessosPaciente { get; set; }
         public virtual ICollection<Processo> ListaDeProcessosMedico { get; set; }
 
