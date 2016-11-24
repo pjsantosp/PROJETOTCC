@@ -110,29 +110,36 @@ namespace SISPTD.Controllers
             {
                 return HttpNotFound();
             }
+            Pessoa objPessoa = pessoaBO.SelecionarPorId(processo.pacienteId.Value);
+            ViewBag.Paciente = objPessoa.nome;
+            ViewBag.PessoaId = objPessoa.pessoaId;
 
-            ViewBag.Paciente = pessoaBO.SelecionarPorId(processo.pacienteId.Value).nome;
-            ViewBag.PessoaId = pessoaBO.SelecionarPorId(processo.pacienteId.Value).pessoaId;
-        
 
             return View(processo);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(long pessoaId, Processo processo)
+        public ActionResult Edit( Processo processo)
         {
 
-            var user = userBO.userLogado(User.Identity.Name);
-            if (ModelState.IsValid)
+            try
             {
+                processo.Paciente = pessoaBO.SelecionarPorId(processo.pacienteId.Value);
                 processoBO.Alterar(processo);
                 TempData["Sucesso"] = "Enviado com Sucesso!!";
                 return RedirectToAction("Index");
             }
-            ViewBag.pessoaId = new SelectList(pessoaBO.Selecionar(), "pessoaId", "cpf", processo.pacienteId);
+            catch (Exception)
+            {
 
-            return View(processo);
+                throw;
+            }
+
+
+            //ViewBag.pessoaId = new SelectList(pessoaBO.Selecionar(), "pessoaId", "cpf", processo.pacienteId);
+
+            //return View(processo);
 
         }
 

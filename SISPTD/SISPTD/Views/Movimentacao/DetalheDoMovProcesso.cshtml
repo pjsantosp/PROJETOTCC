@@ -24,14 +24,15 @@
                     @Html.DisplayName("Origem")
                 </th>
                 <th>
+                    @Html.DisplayName("Usuário Recebeu")
+                </th>
+                <th>
                     @Html.DisplayName("Destino")
                 </th>
                 <th>
                     @Html.DisplayName("Usuário Enviou")
                 </th>
-                <th>
-                    @Html.DisplayName("Usuário Recebeu")
-                </th>
+                
                 <th>
                    @Html.DisplayName("Envio")
                 </th>
@@ -51,13 +52,16 @@
                         @Html.DisplayFor(modelItem => item.SetorEnviou.descricao)
                     </td>
                     <td>
+                        @Html.DisplayFor(modelItem => item.UsuarioRecebeu.Pessoa.nome)
+                    </td>
+                    <td>
                         @Html.DisplayFor(modelItem => item.SetorRecebeu.descricao)
                     </td>
+                    
+                   
+                   
                     <td>
                         @Html.DisplayFor(modelItem => item.UsuarioEnviou.Pessoa.nome)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.UsuarioRecebeu.Pessoa.nome)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.dtEnvio)

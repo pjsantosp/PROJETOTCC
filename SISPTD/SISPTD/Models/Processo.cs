@@ -11,7 +11,9 @@ namespace SISPTD.Models
 
         public string Procedimento { get; set; }
         public string Setor { get; set; }
-        
+        public long ? Usuario { get; set; }
+
+
         public string Clinica { get; set; }
         [Display(Name = "Cid")]
         public long? cidId { get; set; }

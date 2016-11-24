@@ -38,6 +38,9 @@
                         @Html.DisplayName("N° Processo")
                     </th>
                     <th>
+                        @Html.DisplayName("cpf")
+                    </th>
+                    <th>
                         @Html.DisplayName("Paciente")
                     </th>
                     <th>
@@ -57,6 +60,9 @@
                     <tr>
                         <td>
                             @Html.DisplayFor(modelItem => item.Processo.processoId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Processo.Paciente.cpf)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Processo.Paciente.nome)

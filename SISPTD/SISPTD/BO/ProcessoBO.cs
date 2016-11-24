@@ -24,6 +24,20 @@ namespace SISPTD.BO
             base.Inserir(entidade);
 
         }
+        public void AlteraUsuarioDoProcesso(long usuario, long processoId)
+        {
+            try
+            {
+                Processo objProcesso = _contexto.Set<Processo>().Find(processoId);
+                objProcesso.Usuario = usuario;
+                base.Alterar(objProcesso);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
         public IEnumerable<Processo> ObterProcesso(string busca, int? pagina, int tamanhoPagina)
         {
             try

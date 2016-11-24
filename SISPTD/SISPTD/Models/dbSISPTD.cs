@@ -258,8 +258,7 @@ namespace SISPTD.Models
 
             #endregion
 
-            //Agendamento com Processo ??????? //Vamos vê se funciona?roda o migration aí
-            //modelBuilder.Entity<Agendamento>().HasRequired(x => x.Processo).WithOptional(x => x.Agendamento).WillCascadeOnDelete(false);
+           
 
         }
 

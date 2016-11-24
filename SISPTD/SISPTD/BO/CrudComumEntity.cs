@@ -85,7 +85,7 @@ namespace SISPTD.BO
             }
            
         }
-        public void ExcluirPorId(TChave id)
+        public virtual void ExcluirPorId(TChave id)
         {
             try
             {

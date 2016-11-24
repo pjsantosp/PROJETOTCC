@@ -10,21 +10,21 @@
     Agendamento <a class="btn btn-success" role="button" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
         <i class="fa fa-plus" aria-hidden="true"></i>
     </a>
-    <span class="col-md-4 pull-right">
+    @*<span class="col-md-4 pull-right">
 
         @using (Html.BeginForm(FormMethod.Get))
             {
 
             <span class="input-group ">
                
-                @Html.TextBox("busca", Request.QueryString["busca"], new { autofocus = "", @class = " form-control", placeholder = "Procure por CPF" })
+                @Html.TextBox("busca", Request.QueryString["busca"],  new { autofocus = "", @class = " form-control", placeholder = "Procure por CPF ou CNS" })
                 <span class="input-group-btn">
                     <button class="btn btn-primary" type="submit"><i class="glyphicon glyphicon-search"></i></button>
                 </span>
             </span>
         }
 
-    </span>
+    </span>*@
 </h3>
 
 <div class="collapse" id="collapseExample">
@@ -37,7 +37,7 @@
     <!-- Nav tabs -->
     <ul class="nav nav-tabs" role="tablist">
         <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Processos Para Agendamento</a></li>
-        <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab"> <i class="fa fa-calendar fa-lg"> </i>  Lista de Agendamento</a></li>
+        <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">   Lista de Agendamento</a></li>
     </ul>
     <!-- Tab panes -->
     <div class="tab-content">
@@ -48,7 +48,7 @@
         <div role="tabpanel" class="tab-pane" id="profile">
             <div class="panel panel-default">
                 <!-- Default panel contents -->
-                <div class="panel-heading"><h5> <i class="fa fa-calendar fa-lg"> </i> <strong>Lista de Agendamentos</strong>   </h5></div>
+                <div class="panel-heading "><h5> <i class="fa fa-calendar fa-lg"> </i> <strong>Lista de Agendamentos</strong>   </h5></div>
 
                 <!-- Table -->
                 <div class="table-responsive">

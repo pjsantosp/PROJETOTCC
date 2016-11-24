@@ -319,15 +319,10 @@ D:\PROJETOTCC\SISPTD\SISPTD\bin\System.Web.WebPages.Deployment.xml
 D:\PROJETOTCC\SISPTD\SISPTD\bin\System.Web.WebPages.Razor.xml
 D:\PROJETOTCC\SISPTD\SISPTD\bin\Antlr3.Runtime.pdb
 D:\PROJETOTCC\SISPTD\SISPTD\bin\Newtonsoft.Json.xml
-D:\PROJETOTCC\SISPTD\SISPTD\bin\Microsoft.AspNet.Identity.Core.xml
-D:\PROJETOTCC\SISPTD\SISPTD\bin\Microsoft.AspNet.Identity.Owin.xml
-D:\PROJETOTCC\SISPTD\SISPTD\bin\Microsoft.AspNet.Identity.EntityFramework.xml
 D:\PROJETOTCC\SISPTD\SISPTD\bin\Microsoft.Owin.xml
 D:\PROJETOTCC\SISPTD\SISPTD\bin\Microsoft.Owin.Host.SystemWeb.xml
 D:\PROJETOTCC\SISPTD\SISPTD\bin\Microsoft.Owin.Security.xml
 D:\PROJETOTCC\SISPTD\SISPTD\bin\Microsoft.Owin.Security.Facebook.xml
-D:\PROJETOTCC\SISPTD\SISPTD\bin\Microsoft.Owin.Security.Cookies.xml
-D:\PROJETOTCC\SISPTD\SISPTD\bin\Microsoft.Owin.Security.OAuth.xml
 D:\PROJETOTCC\SISPTD\SISPTD\bin\Microsoft.Owin.Security.Google.xml
 D:\PROJETOTCC\SISPTD\SISPTD\bin\Microsoft.Owin.Security.Twitter.xml
 D:\PROJETOTCC\SISPTD\SISPTD\bin\Microsoft.Owin.Security.MicrosoftAccount.xml

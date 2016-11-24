@@ -16,11 +16,12 @@ namespace SISPTD.BO
 
         }
 
-        public IEnumerable<Agendamento> ObterAgendamento(int? pagina, int tamahopagina)
+        public IEnumerable<Agendamento> ObterAgendamento(int? pagina, int tamahopagina )
         {
 
             IEnumerable<Agendamento> listaDeAgendamento = _contexto.Set<Agendamento>()
-             .Include(a => a.Processo);
+             .Include(a => a.Processo)
+             .Where(a=> a.Processo.Paciente.TipoPessoa == TipoPessoa.Paciente);
 
             return listaDeAgendamento.OrderByDescending(a => a.dt_Agendamento).ToPagedList(pagina.Value, tamahopagina);
         }

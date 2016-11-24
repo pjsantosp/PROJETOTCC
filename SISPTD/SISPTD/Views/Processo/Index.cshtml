@@ -40,7 +40,9 @@
                 <th>
                     @Html.DisplayName("Nº do Processo")
                 </th>
-
+                <th>
+                    @Html.DisplayName("Cpf")
+                </th>
                 <th>
                     @Html.DisplayName("Paciente")
                 </th>
@@ -53,14 +55,16 @@
                     @Html.DisplayName("Ação")
                 </th>
             </tr>
-
+            
             @foreach (var item in Model)
             {
                 <tr>
                     <td>
                         @Html.DisplayFor(modelItem => item.processoId)
                     </td>
-
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Paciente.cpf)
+                    </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Paciente.nome)
                     </td>
@@ -69,9 +73,6 @@
                         @Html.DisplayFor(modelItem => item.observacoes)
                     </td>
                     <td>
-                        <a class="btn-group btn-sm btn-primary" title="Editar" href="@Url.Action("Edit", "Processo",new { id=item.processoId })" aria-label="Skip to main navigation">
-                            <i class="fa fa-pencil fa-lg" aria-hidden="true"></i>
-                        </a>
 
                         <a class="btn-group btn-sm btn-primary" title="Detalhe" href="@Url.Action("DetalheDoMovProcesso", "Movimentacao",new { id=item.processoId })" aria-label="Skip to main navigation">
                             <i class="fa fa-bars fa-lg" aria-hidden="true"></i>
@@ -80,7 +81,6 @@
                             <i class="fa fa-exchange fa-lg" aria-hidden="true"></i>
                         </a>
 
-                        @* @Html.ActionLink("Delete", "Delete", new { id=item.distrib_ProcessoId })*@
                     </td>
                 </tr>
             }

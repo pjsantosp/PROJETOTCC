@@ -92,6 +92,7 @@ namespace SISPTD.Controllers
                         movimentacao.usuarioEnviouId = user.usuarioId;
                         movimentacao.dtEnvio = DateTime.Now;
                         Processo objProcesso = processoBO.SelecionarPorId(movimentacao.ProcessoId.Value);
+                        movimentacao.usuarioRecebeuId = objProcesso.Usuario;
                         movimentacao.setorEnviouId = movimentacaoBO.SetorOrigem(objProcesso.Setor);
                         objProcesso.Setor = setorBO.SelecionarPorId(movimentacao.setorRecebeuId.Value).descricao;
                       
@@ -99,7 +100,6 @@ namespace SISPTD.Controllers
                         processoBO.Alterar(objProcesso);
 
 
-                        //movimentacao.setorAtual = setorBO.SelecionarPorId(movimentacao.setorRecebeuId.Value).descricao;
                         movimentacaoBO.Inserir(movimentacao);
                         TempData["Sucesso"] = "Movimentação feita com Sucesso !";
 

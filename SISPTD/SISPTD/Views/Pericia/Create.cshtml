@@ -5,7 +5,6 @@
 
 @using (Html.BeginForm())
 {
-    <input type="hidden"  name="usuarioId" value="@ViewBag.usuarioRecebeuId" />
     @Html.AntiForgeryToken()
 
     <div class="panel panel-default">
@@ -30,6 +29,8 @@
                         <input type="text" readonly id="nomeDoPacientePericia" data-id="" class="form-control " name="Paciente" value="@ViewBag.pacienteNome" />
                         <input type="hidden" id="idDoPacientePericia" name="pacientepessoaId" value="@ViewBag.pacienteId" />
                         <input type="hidden" name="processoId" value="@ViewBag.processoId" />
+                        <input type="hidden" name="usuarioRecebeuId" value="@ViewBag.usuarioRecebuId" />
+
 
                     </div>
                 </div>

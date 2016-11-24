@@ -40,27 +40,31 @@ namespace SISPTD.Controllers
 
         public ActionResult Create(int? processoId)
         {
-            User objUsuario = usuarioBO.userLogado(User.Identity.Name);
-            ViewBag.usuarioRecebuId = objUsuario.usuarioId;
+            var usuario = usuarioBO.userLogado(User.Identity.Name);
+            ViewBag.usuarioRecebuId = usuario.usuarioId;
+            processoBO.AlteraUsuarioDoProcesso(usuario.usuarioId, processoId.Value);
             if (processoId != null)
             {
                 Processo objProcesso = processoBO.SelecionarPorId(processoId.Value);
+               
                 Pessoa objPaciente = objProcesso.Paciente;
                 ViewBag.processoId = objProcesso.processoId;
                 ViewBag.pacienteCpf = objPaciente.cpf;
                 ViewBag.pacienteNome = objPaciente.nome;
                 ViewBag.pacienteId = objPaciente.pessoaId;
+
             }
             return View();
         }
         [HttpPost, ValidateAntiForgeryToken]
-        public ActionResult Create(int ? usuarioId, int? pacientepessoaId, Pericia pericia)
+        public ActionResult Create(int ? usuarioRecebeuId, int? pacientepessoaId, Pericia pericia)
         {
             try
             {
 
                 if (!periciaBO.VerificaPericia(pericia))
                 {
+                    processoBO.AlteraUsuarioDoProcesso(usuarioRecebeuId.Value, pericia.processoId);
                     pericia.dt_Pericia = DateTime.Now;
                     periciaBO.Inserir(pericia);
                     TempData["Sucesso"] = "Pericia Cadastrada com Sucesso";

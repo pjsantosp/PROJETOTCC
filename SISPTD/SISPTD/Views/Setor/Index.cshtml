@@ -56,12 +56,7 @@
                             @Html.DisplayFor(modelItem => item.descricao)
                         </td>
                         <td>
-                            @if (!User.IsInRole("Funcionario"))
-                            {
-                                <a class="btn-group btn-sm btn-primary" title="Excluir Setor" href="@Url.Action("Delete", "Setor",new { id= item.setorId })" aria-label="Skip to main navigation">
-                                    <i class="fa fa-trash fa-lg" aria-hidden="true"></i>
-                                </a>
-                            }
+                           
                             <a class="btn-group btn-sm btn-primary" title="Editar Setor" href="@Url.Action("Edit", "Setor",new { id= item.setorId })" aria-label="Skip to main navigation">
                                 <i class="fa fa-pencil fa-lg" aria-hidden="true"></i>
                             </a>

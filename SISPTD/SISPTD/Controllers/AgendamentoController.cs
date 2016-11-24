@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using SISPTD.Models;
 using SISPTD.BO;
 using PagedList;
+using SISPTD.Ultis;
 
 namespace SISPTD.Controllers
 {
@@ -22,10 +23,13 @@ namespace SISPTD.Controllers
 
         private ProcessoBO processoBO = new ProcessoBO(new dbSISPTD());
 
+       
         public ActionResult Index(int? pagina)
         {
+       
             int nPorPagina = 10;
             int tamPagina = pagina ?? 1;
+           
             return View(agendamentoBO.ObterAgendamento(tamPagina, nPorPagina));
         }
 
@@ -45,6 +49,8 @@ namespace SISPTD.Controllers
 
         public ActionResult Create(int? processoId)
         {
+            var usuario = usuarioBO.userLogado(User.Identity.Name);
+            ViewBag.usuarioRecebeuId = usuario.usuarioId;
             if (processoId != null)
             {
                 Processo objProcesso = processoBO.SelecionarPorId(processoId.Value);
@@ -63,19 +69,23 @@ namespace SISPTD.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(int? processoId, int? pacienteId, Agendamento agendamento)
+        public ActionResult Create(int ? usuarioRecebeuId, int? processoId, int? pacienteId, Agendamento agendamento)
         {
             try
             {
+                
+               
                 if (!agendamentoBO.VerificaAgendamento(agendamento))
                 {
+
                     Processo objProcesso = agendamentoBO.ObterProcessoAgd(pacienteId.Value);
-                    if (agendamento.processoId == 0)
+                    if (objProcesso != null)
                     {
                         agendamento.processoId = objProcesso.processoId;
                     }
-                    var user = usuarioBO.userLogado(User.Identity.Name);
-                    agendamento.usuarioId = user.usuarioId;
+                    processoBO.AlteraUsuarioDoProcesso(usuarioRecebeuId.Value, processoId.Value);
+
+                    agendamento.usuarioId = usuarioRecebeuId;
 
                     agendamento.dt_Marcacao = DateTime.Now;
                     agendamentoBO.Inserir(agendamento);

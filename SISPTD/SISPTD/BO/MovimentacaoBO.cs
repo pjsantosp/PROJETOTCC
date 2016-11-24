@@ -61,7 +61,7 @@ namespace SISPTD.BO
                     .Include(m => m.UsuarioRecebeu)
                     .Include(m => m.UsuarioEnviou)
                     .Include(m => m.Processo).Where(p => p.ProcessoId.Value == processoId).ToList();
-                return listaDeMovimentacao;
+                return listaDeMovimentacao.OrderByDescending(m=> m.dtEnvio);
             }
             catch (Exception ex)
             {
