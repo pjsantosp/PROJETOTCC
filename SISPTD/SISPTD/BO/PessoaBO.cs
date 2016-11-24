@@ -16,11 +16,21 @@ namespace SISPTD.BO
         }
         public override void Inserir(Pessoa entidade)
         {
-            if (!Ultis.Util.ValidarCPF(entidade.cpf))
-                throw new Exception("CPF Informado não é valido!");
-            if (ExistPessoa(entidade))
-                throw new Exception("já existe esse CPF cadastrado para uma Pessoa !");
-            base.Inserir(entidade);
+            if (entidade.cpf != null && entidade.cpf != string.Empty)
+            {
+                if (!Ultis.Util.ValidarCPF(entidade.cpf))
+                    throw new Exception("CPF Informado não é valido!");
+                if (ExistPessoa(entidade))
+                    throw new Exception("já existe esse CPF cadastrado para uma Pessoa !");
+                base.Inserir(entidade);
+            }
+            else if (entidade.cpf == string.Empty || entidade.idade < 18)
+            {
+                base.Inserir(entidade);
+            }
+           
+
+
         }
         public IEnumerable<Pessoa> ObterPessoa(string busca, int? pagina, int tamanhoPagina)
         {
@@ -106,14 +116,14 @@ namespace SISPTD.BO
         {
             try
             {
-                var  loginNome = Selecionar().FirstOrDefault(p => p.cpf == login.login).ToString();
+                var loginNome = Selecionar().FirstOrDefault(p => p.cpf == login.login).ToString();
                 return loginNome;
             }
             catch (Exception)
             {
                 throw;
             }
-           
+
         }
 
     }

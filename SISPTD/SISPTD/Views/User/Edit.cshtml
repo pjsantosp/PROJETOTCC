@@ -14,6 +14,7 @@
 
         @using (Html.BeginForm())
         {
+
             <div class="panel panel-default">
                 <div class="panel-body">
 
@@ -34,6 +35,8 @@
                             <div class="form-group">
                                 @Html.LabelFor(model => model.Pessoa.nome, new { @class = "" })
                                 @Html.EditorFor(model => model.Pessoa.nome, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                              @Html.HiddenFor(u=> u.usuarioId)
+                                @Html.HiddenFor(u => u.pessoaId)
                                 @Html.ValidationMessageFor(model => model.Pessoa.nome, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -53,6 +56,15 @@
                             <div class="form-group">
                                 @Html.Label("Perfil Usuário", htmlAttributes: new { @class = "control-label" })
                                 @Html.EnumDropDownListFor(model => model.Perfil, " ", htmlAttributes: new { @class = "form-control chosen-select" })
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                @Html.Label("Setor do  Usuário", htmlAttributes: new { @class = "control-label" })
+                                @Html.DropDownList("setorId", null, "", htmlAttributes: new { @class = "form-control" })
 
                             </div>
                         </div>

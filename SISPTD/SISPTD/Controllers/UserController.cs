@@ -142,6 +142,8 @@ namespace SISPTD.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.setorId = new SelectList(setorBO.Selecionar(), "setorId", "descricao", user.setorId);
+
             ViewBag.pessoaId = pessoaBO.SelecionarPorId(user.pessoaId);
             return View(user);
         }
@@ -149,12 +151,23 @@ namespace SISPTD.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(User user)
         {
-            if (ModelState.IsValid)
+            try
             {
-                userBO.Alterar(user);
+                User objUsuario = userBO.SelecionarPorId(user.usuarioId);
+                objUsuario.setorId = user.setorId;
+                objUsuario.Perfil = user.Perfil;
+                userBO.Alterar(objUsuario);
+                TempData["Sucesso"] = "Usuário Alterado com Sucesso!";
                 return RedirectToAction("Index");
             }
-            ViewBag.pessoaId = new SelectList(pessoaBO.Selecionar(), "pessoaId", "cpf", user.pessoaId);
+            catch (Exception)
+            {
+
+                throw;
+            }
+           
+            ViewBag.setorId = new SelectList(setorBO.Selecionar(), "setorId", "descricao", user.setorId);
+            //  ViewBag.pessoaId = new SelectList(pessoaBO.Selecionar(), "pessoaId", "cpf", user.pessoaId);
             return View(user);
         }
 

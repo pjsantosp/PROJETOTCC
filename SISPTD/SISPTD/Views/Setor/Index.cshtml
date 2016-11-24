@@ -17,7 +17,7 @@
             @*<div class="col-md-3">
                 <label> Lista de Setores </label>
             </div>*@
-            <div class="col-md-8 col-md-offset-4">
+            @*<div class="col-md-8 col-md-offset-4">
                 <div>
 
                     @using (Html.BeginForm(FormMethod.Get))
@@ -34,35 +34,48 @@
                     <br />
                 </div>
 
-            </div>
+            </div>*@
+        </div>
+        <div class="panel panel-default">
+            <!-- Default panel contents -->
+            <div class="panel-heading"><h3 class="panel-title"><i class="glyphicon glyphicon-th-large"></i> <strong> Lista de Setores</strong></h3></div>
+            <!-- Table -->
+            <table class="table table-condensed table-bordered">
+                <tr>
+                    <th>
+                        @Html.DisplayName("Descricao")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Operação")
+                    </th>
+                </tr>
+                @foreach (var item in Model)
+            {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.descricao)
+                        </td>
+                        <td>
+                            @if (!User.IsInRole("Funcionario"))
+                            {
+                                <a class="btn-group btn-sm btn-primary" title="Excluir Setor" href="@Url.Action("Delete", "Setor",new { id= item.setorId })" aria-label="Skip to main navigation">
+                                    <i class="fa fa-trash fa-lg" aria-hidden="true"></i>
+                                </a>
+                            }
+                            <a class="btn-group btn-sm btn-primary" title="Editar Setor" href="@Url.Action("Edit", "Setor",new { id= item.setorId })" aria-label="Skip to main navigation">
+                                <i class="fa fa-pencil fa-lg" aria-hidden="true"></i>
+                            </a>
+   
+
+                            
+                        </td>
+                    </tr>
+                }
+            </table>
         </div>
 
 
-
-        <table class="table table-condensed">
-            <tr>
-                <th>
-                    @Html.DisplayName("Descricao")
-                </th>
-                <th>
-                    @Html.DisplayName("Operação")
-                </th>
-
-            </tr>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.descricao)
-                    </td>
-                    <td>
-                        <a title="Editar" href="@Url.Action("Edit", "Setor", new { id = item.setorId})"><i class="fa fa-pencil fa-fw"></i></a>
-                        <a title="Delete"  href="@Url.Action("Delete", "Setor" ,new { id = item.setorId })"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
-
-                    </td>
-                </tr>
-            }
-        </table>
+        
         <div class="pull-right">
             <strong>Pagina @Model.PageNumber  de @Model.PageCount</strong>
             @Html.PagedListPager(Model, pagina => Url.Action("Index", new { pagina }))

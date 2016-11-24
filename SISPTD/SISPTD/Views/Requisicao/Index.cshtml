@@ -49,7 +49,9 @@
                         <th>
                             @Html.DisplayName("Trecho")
                         </th>
-                        <th></th>
+                        <th>
+                            @Html.DisplayName("Ação")
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -76,8 +78,10 @@
                                 @Html.DisplayFor(modelItem => item.Trecho)
                             </td>
                             <td>
-
-                                <a title="Imprimi" href="@Url.Action("Print", "Requisicao", new { id=item.requisicaoId })" target="_blank"> <span class="fa fa-print fa-lg"></span> </a>
+                                <a class="btn-group btn-sm btn-primary" title="Imprimir" href="@Url.Action("Print", "Requisição",new { id=item.requisicaoId })" target="_blank" aria-label="Skip to main navigation">
+                                    <i class="fa fa-print fa-lg" aria-hidden="true"></i>
+                                </a>
+                                <a title="Imprimir" href="@Url.Action("Print", "Requisicao", new { id=item.requisicaoId })" target="_blank"> <span class="fa fa-print fa-lg"></span> </a>
                             </td>
                         </tr>
 

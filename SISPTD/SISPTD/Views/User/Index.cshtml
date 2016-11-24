@@ -12,58 +12,73 @@
     </div>
     <div class="col-xs-6">
 
-        <div class="row">
+        @*<div class="row">
 
-            <div class="col-md-8 col-md-offset-4">
-                <div>
-                    @using (Html.BeginForm(FormMethod.Get))
-            {
+                <div class="col-md-8 col-md-offset-4">
+                    <div>
+                        @using (Html.BeginForm(FormMethod.Get))
+                {
 
-                        <div class="input-group ">
-                            @Html.TextBox("busca", Request.QueryString["busca"], new { autofocus = "", @class = " form-control", placeholder = "Procure pelo nome" })
-                            <span class="input-group-btn">
-                                <button class="btn btn-primary" type="submit"><i class="glyphicon glyphicon-search"></i></button>
-                            </span>
-                        </div>
-                    }
-                    <br />
+                            <div class="input-group ">
+                                @Html.TextBox("busca", Request.QueryString["busca"], new { autofocus = "", @class = " form-control", placeholder = "Procure pelo nome" })
+                                <span class="input-group-btn">
+                                    <button class="btn btn-primary" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                                </span>
+                            </div>
+                        }
+                        <br />
+                    </div>
                 </div>
+            </div>*@
+        <div class="panel panel-default">
+            <!-- Default panel contents -->
+            <div class="panel-heading">
+                <h3 class="panel-title"><i class="fa fa-user"></i> <strong> Lista de Usuário</strong></h3>
             </div>
+            <!-- Table -->
+            <table class="table table-condensed table-bordered">
+                <tr>
+                    <th>
+                        @Html.DisplayName("Nome")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Login")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Perfil")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Setor")
+                    </th>
+                </tr>
+                @foreach (var item in Model)
+            {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Pessoa.nome)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.login)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Perfil)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Setor.descricao)
+                        </td>
+                        <td>
+                            <a class="btn-group btn-sm btn-primary" title="Editar Setor" href="@Url.Action("Edit", "User",new { id= item.usuarioId })" aria-label="Skip to main navigation">
+                                <i class="fa fa-pencil fa-lg" aria-hidden="true"></i>
+                            </a>
+                            @*<a title="Delete" href="@Url.Action("Delete", "Setor" ,new { id = item.setorId })"><i class="fa fa-trash-o" aria-hidden="true"></i></a>*@
+                        </td>
+                    </tr>
+
+                }
+
+            </table>
         </div>
 
-        <table class="table table-condensed">
-            <tr>
-                <th>
-                    @Html.DisplayName("Nome")
-                </th>
-                <th>
-                    @Html.DisplayName("Login")
-                </th>
-                <th>
-                    @Html.DisplayName("Setor")
-                </th>
-            </tr>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Pessoa.nome)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.login)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Setor.descricao)
-                    </td>
-                    <td>
-                        <a title="Editar" href="@Url.Action("Edit", "User", new { id = item.usuarioId})"><i class="fa fa-pencil fa-fw"></i></a>
-                        @*<a title="Delete" href="@Url.Action("Delete", "Setor" ,new { id = item.setorId })"><i class="fa fa-trash-o" aria-hidden="true"></i></a>*@
-                    </td>
-                </tr>
-
-            }
-
-        </table>
 
         <div class="pull-right">
             <strong>Pagina @Model.PageNumber  de @Model.PageCount</strong>

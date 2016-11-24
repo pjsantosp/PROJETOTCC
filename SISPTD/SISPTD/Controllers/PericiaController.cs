@@ -12,6 +12,8 @@ namespace SISPTD.Controllers
         private PericiaBO periciaBO = new PericiaBO(new dbSISPTD());
         private PessoaBO pessoBO = new PessoaBO(new dbSISPTD());
         private MovimentacaoBO movimentacaoBO = new MovimentacaoBO(new dbSISPTD());
+        private UserBO usuarioBO = new UserBO(new dbSISPTD());
+
 
 
         public ActionResult Index(int? pagina)
@@ -38,6 +40,8 @@ namespace SISPTD.Controllers
 
         public ActionResult Create(int? processoId)
         {
+            User objUsuario = usuarioBO.userLogado(User.Identity.Name);
+            ViewBag.usuarioRecebuId = objUsuario.usuarioId;
             if (processoId != null)
             {
                 Processo objProcesso = processoBO.SelecionarPorId(processoId.Value);
@@ -50,10 +54,11 @@ namespace SISPTD.Controllers
             return View();
         }
         [HttpPost, ValidateAntiForgeryToken]
-        public ActionResult Create(int? pacientepessoaId, Pericia pericia)
+        public ActionResult Create(int ? usuarioId, int? pacientepessoaId, Pericia pericia)
         {
             try
             {
+
                 if (!periciaBO.VerificaPericia(pericia))
                 {
                     pericia.dt_Pericia = DateTime.Now;

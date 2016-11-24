@@ -2,16 +2,15 @@
 <span class="text-danger pull-right"><i class="glyphicon glyphicon-info-sign "></i> Os campos com (*) são de preenchimento obrigatório.</span>
 
 @{
-    ViewBag.Title = "CreateAcompanhate";
+    ViewBag.Title = "Cad Acompanhante";
 }
 
 <h3><i class="fa fa-users" aria-hidden="true"></i> Cadastro de Acompanhante</h3>
 <div>
     
 </div>
-@*@{ <input type="hidden" id="pessoaPai" name="pessoaPai" value="@Model.pessoaPai" />}*@
 @Html.HiddenFor(model=> model.acompanhanteId)
-@Html.Partial("_Formulario")
+@Html.Partial("_FormAcompanhante", Model)
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

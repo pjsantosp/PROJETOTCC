@@ -14,6 +14,8 @@ namespace SISPTD.Controllers
     {
         private PessoaBO pessoaBO = new PessoaBO(new dbSISPTD());
         private CidadeBO cidadeBO = new CidadeBO(new dbSISPTD());
+        private EnderecoBO enderecoBO = new EnderecoBO(new dbSISPTD());
+
 
         public ActionResult Index(int? pagina, string busca = "")
         {
@@ -186,9 +188,15 @@ namespace SISPTD.Controllers
                 pessoa.cpf = Ultis.Util.RemoverMascara(pessoa.cpf);
                 if (ModelState.IsValid)
                 {
+                    Endereco objEndereco = enderecoBO.SelecionarPorId(pessoa.Endereco.enderecoId);
+                    objEndereco.cep = pessoa.Endereco.cep;
+                    objEndereco.rua = pessoa.Endereco.rua;
+                    objEndereco.numero = pessoa.Endereco.numero;
+                    objEndereco.bairro = pessoa.Endereco.bairro;
                     pessoa.TipoPessoa = TipoPessoa.Acompanhante;
                     pessoaBO.CalculoIdade(pessoa);
                     pessoaBO.Alterar(pessoa);
+                    enderecoBO.Alterar(objEndereco);
                     TempData["Sucesso"] = "Alteração Realizada com Sucesso!";
                 }
                 return RedirectToAction("Details", new { id = pessoa.acompanhanteId });
@@ -275,9 +283,15 @@ namespace SISPTD.Controllers
                 pessoa.cpf = Ultis.Util.RemoverMascara(pessoa.cpf);
                 if (ModelState.IsValid)
                 {
+                    Endereco objEndereco = enderecoBO.SelecionarPorId(pessoa.Endereco.enderecoId);
+                    objEndereco.cep = pessoa.Endereco.cep;
+                    objEndereco.rua = pessoa.Endereco.rua;
+                    objEndereco.numero = pessoa.Endereco.numero;
+                    objEndereco.bairro = pessoa.Endereco.bairro;
                     pessoa.TipoPessoa = TipoPessoa.Funcionario;
                     pessoaBO.CalculoIdade(pessoa);
                     pessoaBO.Alterar(pessoa);
+                    enderecoBO.Alterar(objEndereco);
                     TempData["Sucesso"] = "Alteração Realizada com Sucesso!";
                 }
                 return RedirectToAction("ListaDeFuncionario");
@@ -370,9 +384,16 @@ namespace SISPTD.Controllers
                 pessoa.cpf = Ultis.Util.RemoverMascara(pessoa.cpf);
                 if (ModelState.IsValid)
                 {
-                    pessoa.TipoPessoa = TipoPessoa.Medico;
+                    Endereco objEndereco = enderecoBO.SelecionarPorId(pessoa.Endereco.enderecoId);
+                    objEndereco.cep = pessoa.Endereco.cep;
+                    objEndereco.rua = pessoa.Endereco.rua;
+                    objEndereco.numero = pessoa.Endereco.numero;
+                    objEndereco.bairro = pessoa.Endereco.bairro;
                     pessoaBO.CalculoIdade(pessoa);
+                    pessoa.TipoPessoa = TipoPessoa.Medico;
                     pessoaBO.Alterar(pessoa);
+                    enderecoBO.Alterar(objEndereco);
+                  
                     TempData["Sucesso"] = "Alteração Realizada com Sucesso!";
                 }
                 return RedirectToAction("ListaDeMedico");
@@ -393,6 +414,7 @@ namespace SISPTD.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Pessoa pessoa = pessoaBO.SelecionarPorId(id.Value);
+            ViewBag.enderecoId = pessoa.Endereco.enderecoId;
             if (pessoa == null)
             {
                 return HttpNotFound();
@@ -410,21 +432,29 @@ namespace SISPTD.Controllers
                 pessoa.cpf = Ultis.Util.RemoverMascara(pessoa.cpf);
                 if (ModelState.IsValid)
                 {
-                    
+                    Endereco objEndereco = enderecoBO.SelecionarPorId(pessoa.Endereco.enderecoId);
+                    objEndereco.cep = pessoa.Endereco.cep;
+                    objEndereco.rua = pessoa.Endereco.rua;
+                    objEndereco.numero = pessoa.Endereco.numero;
+                    objEndereco.bairro = pessoa.Endereco.bairro;
+
                     pessoaBO.CalculoIdade(pessoa);
                     pessoaBO.Alterar(pessoa);
+                    enderecoBO.Alterar(objEndereco);
                     TempData["Sucesso"] = "Alteração Realizada com Sucesso!";
                 }
-                return View(pessoa);
+               
+                return RedirectToAction("Edit");
             }
             catch (Exception ex)
             {
                 TempData["Erro"] = "Ops! Ocorreu um erro!" + ex.Message;
             }
+            ViewBag.acompanhante = pessoaBO.Selecionar().Where(a => a.acompanhanteId == pessoa.acompanhanteId).Count();
             return View(pessoa);
         }
-        [Authorize(Roles ="Administrador, Gerente")]
-        public ActionResult ManutencaoDeCadastroBusca(string cpf )
+        [Authorize(Roles = "Administrador, Gerente")]
+        public ActionResult ManutencaoDeCadastroBusca(string cpf)
         {
             cpf = Util.RemoverMascara(cpf);
             var pessoa = pessoaBO.Selecionar().Where(p => p.cpf == cpf).FirstOrDefault();
@@ -474,13 +504,13 @@ namespace SISPTD.Controllers
                     pessoaBO.CalculoIdade(objPessoa);
                     objPessoa.TipoPessoa = pessoa.TipoPessoa;
                     pessoaBO.Alterar(objPessoa);
-                    if (objPessoa.TipoPessoa== TipoPessoa.Paciente)
+                    if (objPessoa.TipoPessoa == TipoPessoa.Paciente)
                     {
                         TempData["Sucesso"] = "Alteração Realizada com Sucesso!";
                         return RedirectToAction("Index");
 
                     }
-                    else if(objPessoa.TipoPessoa == TipoPessoa.Funcionario)
+                    else if (objPessoa.TipoPessoa == TipoPessoa.Funcionario)
                     {
                         TempData["Sucesso"] = "Alteração Realizada com Sucesso!";
                         return RedirectToAction("ListaDeFuncionario");
@@ -491,7 +521,7 @@ namespace SISPTD.Controllers
                         TempData["Sucesso"] = "Alteração Realizada com Sucesso!";
                         return RedirectToAction("ListaDeMedico");
                     }
-                    
+
 
                     TempData["Sucesso"] = "Alteração Realizada com Sucesso!";
                     return View(objPessoa);
@@ -500,16 +530,16 @@ namespace SISPTD.Controllers
                 {
                     TempData["Errro"] = "Não possível Alterar o Cadastro !";
                 }
-               
+
             }
             catch (Exception ex)
             {
                 TempData["Erro"] = "Ops! Ocorreu um erro!" + ex.Message;
             }
             return View(pessoa);
-      
 
-           
+
+
         }
 
         public ActionResult Delete(long? id)
