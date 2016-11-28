@@ -1,0 +1,106 @@
+﻿@model SISPTD.Models.Processo
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+@*<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+            <h4 class="modal-title">Detalhes do produto</h4>
+        </div>
+        <div class="modal-body">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.observacoes)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.observacoes)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Paciente.nome)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Paciente.nome)
+                </dd>
+            </dl>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+        </div>
+    </div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->*@
+
+
+@Html.Action("Details","")
+@*<div>
+    <h4>DistribProcesso</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.observacoes)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.observacoes)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Paciente.nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Paciente.nome)
+        </dd>
+
+        @*<dt>
+            @Html.DisplayNameFor(model => model.SetorDestino.descricao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SetorDestino.descricao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SetorOrigem.descricao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SetorOrigem.descricao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserEnviou.login)
+        </dt>*@
+
+        @*<dd>
+            @Html.DisplayFor(model => model.UserEnviou.login)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserRecebeu.login)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserRecebeu.login)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.observacoes)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.observacoes)
+        </dd>*@
+
+    </dl>
+</div>*@
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.processoId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

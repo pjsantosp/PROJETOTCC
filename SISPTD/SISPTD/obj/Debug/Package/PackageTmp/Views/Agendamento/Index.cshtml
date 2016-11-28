@@ -1,0 +1,158 @@
+﻿@model PagedList.IPagedList<SISPTD.Models.Agendamento>
+@using PagedList.Mvc
+
+@{
+    ViewBag.Title = "Agendamento";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3>
+    Agendamento <a class="btn btn-success" role="button" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+        <i class="fa fa-plus" aria-hidden="true"></i>
+    </a>
+    @*<span class="col-md-4 pull-right">
+
+        @using (Html.BeginForm(FormMethod.Get))
+            {
+
+            <span class="input-group ">
+               
+                @Html.TextBox("busca", Request.QueryString["busca"],  new { autofocus = "", @class = " form-control", placeholder = "Procure por CPF ou CNS" })
+                <span class="input-group-btn">
+                    <button class="btn btn-primary" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                </span>
+            </span>
+        }
+
+    </span>*@
+</h3>
+
+<div class="collapse" id="collapseExample">
+
+    @Html.Partial("_Formulario", new SISPTD.Models.Agendamento() { dt_Agendamento = DateTime.Now })
+
+</div>
+
+<div>
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Processos Para Agendamento</a></li>
+        <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">   Lista de Agendamento</a></li>
+    </ul>
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="home">
+           @Html.Action("ProcessoEmAgendamento", "Processo")
+
+        </div>
+        <div role="tabpanel" class="tab-pane" id="profile">
+            <div class="panel panel-default">
+                <!-- Default panel contents -->
+                <div class="panel-heading "><h5> <i class="fa fa-calendar fa-lg"> </i> <strong>Lista de Agendamentos</strong>   </h5></div>
+
+                <!-- Table -->
+                <div class="table-responsive">
+                    <table class="table table-hover table-condensed table-bordered">
+                        <tr>
+
+                            <th>
+                                @Html.DisplayName("Nome")
+                            </th>
+                            <th>
+                                @Html.DisplayName("Usuário")
+                            </th>
+                            <th>
+                                @Html.DisplayName("Data do Agendamento")
+                            </th>
+                            <th>
+                                @Html.DisplayName("Marcado")
+                            </th>
+                            <th>
+                                @Html.DisplayName("Clinica")
+                            </th>
+                            <th>
+                                @Html.DisplayName("Ação")
+                            </th>
+                        </tr>
+
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Processo.Paciente.nome)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Usuarios.Pessoa.nome)
+                                </td>
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.dt_Agendamento)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.dt_Marcacao)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Clinica.nome_Clinica)
+                                </td>
+                                <td>
+                                    <a class="btn-group btn-sm btn-primary" title="Editar" href="@Url.Action("Edit", "Agendamento",new { id= item.agendamentoId })" aria-label="Skip to main navigation">
+                                        <i class="fa fa-pencil fa-lg" aria-hidden="true"></i>
+                                    </a>
+                                    <a class="btn-group btn-sm btn-danger"  href="@Url.Action("Delete", "Agendamento", new { id = item.agendamentoId })"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                                </td>
+                            </tr>
+                        }
+
+                    </table>
+                </div>
+
+            </div>
+
+
+            
+            <div class="pull-right">
+                <strong>Pagina @Model.PageNumber de @Model.PageCount</strong>
+                @Html.PagedListPager(Model, pagina => Url.Action("Index", new { pagina, tab ="profile" }))
+            </div>
+
+        </div>
+
+    </div>
+</div>
+@section Scripts{
+    <script>
+
+        function qs(name) {
+            name = name.replace(/[\[]/, "\\[").replace(/[\]]/,"\\]");
+            var regex = new RegExp("[\\?&]" + name +"=([^&#]*)"),
+            results = regex.exec(location.search);
+            return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g,""));
+        }
+
+        var tab = qs("tab");
+
+        if (tab == "profile")
+        {
+            $('.nav-tabs li:eq(1) a').tab('show')
+        }
+
+        console.log(qs("tab"))
+    </script>
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

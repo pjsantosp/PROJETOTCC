@@ -42,7 +42,11 @@ namespace SISPTD.Controllers
         {
             var usuario = usuarioBO.userLogado(User.Identity.Name);
             ViewBag.usuarioRecebuId = usuario.usuarioId;
-            processoBO.AlteraUsuarioDoProcesso(usuario.usuarioId, processoId.Value);
+            if (processoId != null )
+            {
+                processoBO.AlteraUsuarioDoProcesso(usuario.usuarioId, processoId.Value);
+
+            }
             if (processoId != null)
             {
                 Processo objProcesso = processoBO.SelecionarPorId(processoId.Value);
@@ -64,6 +68,7 @@ namespace SISPTD.Controllers
 
                 if (!periciaBO.VerificaPericia(pericia))
                 {
+                    
                     processoBO.AlteraUsuarioDoProcesso(usuarioRecebeuId.Value, pericia.processoId);
                     pericia.dt_Pericia = DateTime.Now;
                     periciaBO.Inserir(pericia);

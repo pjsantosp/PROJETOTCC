@@ -1,0 +1,13 @@
+﻿@model SISPTD.Models.Setor
+
+<h2>Cadastro de Setor</h2>
+<hr />
+
+<div>
+    @using (Html.BeginForm())
+    {
+    @Html.HiddenFor(s=> s.setorId)
+    @Html.Partial("_Formulario", Model)
+        
+    }
+</div>

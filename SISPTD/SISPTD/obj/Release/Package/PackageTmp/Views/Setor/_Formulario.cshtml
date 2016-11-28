@@ -1,0 +1,60 @@
+﻿@model  SISPTD.Models.Setor
+
+@using (Html.BeginForm("Create", "Setor", FormMethod.Post))
+{
+    <div class="panel panel-default">
+        <div class="panel-body">
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.descricao, htmlAttributes: new { @class = " control-label" })
+                        @Html.EditorFor(model => model.descricao, new { htmlAttributes = new { @class = "uperText form-control" } })
+                        @Html.ValidationMessageFor(model => model.descricao, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.abreviacao, htmlAttributes: new { @class = " control-label" })
+                        @Html.EditorFor(model => model.abreviacao, new { htmlAttributes = new { @class = "uperText form-control" } })
+                        @Html.ValidationMessageFor(model => model.abreviacao, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <div class="well well-sm">
+                            <input type="submit" name="name" class="pull-right btn btn-primary btn-confirm" value="Gravar" />
+                            <br /><br />
+                           @* @Html.ActionLink("Voltar para lista", "Index", null, new { @class = "btn btn-link pull-right" })*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+            @*<div class="well well-sm">
+                <input type="submit" name="name" class="btn btn-primary btn-confirm" value="Gravar" />
+                @Html.ActionLink("Voltar para lista", "Index", null, new { @class = "btn btn-link pull-right" })
+            </div>*@
+
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

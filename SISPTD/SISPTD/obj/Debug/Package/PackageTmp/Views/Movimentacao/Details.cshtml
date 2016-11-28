@@ -1,0 +1,74 @@
+﻿@model SISPTD.Models.Movimentacao
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Movimentacao</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Processo.Procedimento)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Processo.Procedimento)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SetorEnviou.descricao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SetorEnviou.descricao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SetorRecebeu.descricao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SetorRecebeu.descricao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UsuarioEnviou.login)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UsuarioEnviou.login)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UsuarioRecebeu.login)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UsuarioRecebeu.login)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dtEnvio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dtEnvio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dtRecebimento)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dtRecebimento)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.movimentacaoId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

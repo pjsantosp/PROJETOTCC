@@ -1,0 +1,80 @@
+﻿@model PagedList.IPagedList<SISPTD.Models.Setor>
+    @using PagedList.Mvc
+@{
+    ViewBag.Title = "Cadastro de Setor";
+}
+<h3><i class="glyphicon glyphicon-th-large"></i> Cadastro de Setor</h3>
+<div class="row">
+    <div class="col-xs-6">
+        <div>
+            @Html.Partial("_Formulario", new SISPTD.Models.Setor())
+        </div>
+    </div>
+
+
+    <div class="col-xs-6">
+        <div class="row">
+            @*<div class="col-md-3">
+                <label> Lista de Setores </label>
+            </div>*@
+            @*<div class="col-md-8 col-md-offset-4">
+                <div>
+
+                    @using (Html.BeginForm(FormMethod.Get))
+            {
+
+                        <div class="input-group ">
+
+                            @Html.TextBox("busca", Request.QueryString["busca"], new { autofocus = "", @class = " form-control", placeholder = "Procure pelo nome do Setor" })
+                            <span class="input-group-btn">
+                                <button class="btn btn-primary" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                            </span>
+                        </div>
+                    }
+                    <br />
+                </div>
+
+            </div>*@
+        </div>
+        <div class="panel panel-default">
+            <!-- Default panel contents -->
+            <div class="panel-heading"><h3 class="panel-title"><i class="glyphicon glyphicon-th-large"></i> <strong> Lista de Setores</strong></h3></div>
+            <!-- Table -->
+            <table class="table table-condensed table-bordered">
+                <tr>
+                    <th>
+                        @Html.DisplayName("Descricao")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Operação")
+                    </th>
+                </tr>
+                @foreach (var item in Model)
+            {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.descricao)
+                        </td>
+                        <td>
+                           
+                            <a class="btn-group btn-sm btn-primary" title="Editar Setor" href="@Url.Action("Edit", "Setor",new { id= item.setorId })" aria-label="Skip to main navigation">
+                                <i class="fa fa-pencil fa-lg" aria-hidden="true"></i>
+                            </a>
+   
+
+                            
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+
+
+        
+        <div class="pull-right">
+            <strong>Pagina @Model.PageNumber  de @Model.PageCount</strong>
+            @Html.PagedListPager(Model, pagina => Url.Action("Index", new { pagina }))
+        </div>
+    </div>
+</div>
+                                                            

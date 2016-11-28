@@ -13,12 +13,12 @@ namespace SISPTD.BO
             : base(contexto)
         {
         }
-        public IEnumerable<Requisicao> ObterRequisicao(int? pagina, int numPagina)
+        public IEnumerable<Requisicao> ObterRequisicao(int? pagina, int numPagina, string busca)
         {
             try
             {
                 IEnumerable<Requisicao> listarequisicao = _contexto.Set<Requisicao>()
-               .Include(d => d.Paciente)
+               .Include(d => d.Paciente).Where(d=> d.Paciente.cpf.Contains(busca) || d.Paciente.cns.Contains(busca))
                .ToList();
                 return listarequisicao.OrderByDescending(s=>s.dtRequisicao).ToPagedList(pagina.Value, numPagina);
             }

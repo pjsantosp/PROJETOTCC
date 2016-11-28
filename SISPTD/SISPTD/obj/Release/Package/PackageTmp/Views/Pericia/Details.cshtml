@@ -1,0 +1,222 @@
+﻿@model SISPTD.Models.Pericia
+@{
+    Layout = "~/Views/Shared/_LayoutPrint.cshtml";
+    ViewBag.Title = "Pericia";
+}
+
+
+<h2 class="text-center"><i class="fa fa-stethoscope" aria-hidden="true"></i> Tratamento fora Domicilio</h2>
+<div>
+    <h2> Processo Nº @Html.DisplayFor(model => model.Processo.processoId) </h2>
+    <div class="panel panel-default">
+        <div class="panel-heading"><h3 class="panel-title">@Html.DisplayFor(model => model.Processo.Paciente.nome)</h3></div>
+        <div class="panel-body">
+        </div>
+        <table class="table table-striped">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Processo.Paciente.cpf)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Processo.Paciente.rg)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Processo.Paciente.orgaoemissor)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Processo.Paciente.dt_Emissao)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Processo.Paciente.cns)
+                </th>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(model => model.Processo.Paciente.cpf)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.Processo.Paciente.rg)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.Processo.Paciente.orgaoemissor)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.Processo.Paciente.dt_Emissao)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.Processo.Paciente.cns)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Processo.Paciente.nome_Mae)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Processo.Paciente.nome_Pai)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Processo.Paciente.tel)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Processo.Paciente.cel)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Processo.Paciente.email)
+                </th>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(model => model.Processo.Paciente.nome_Mae)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.Processo.Paciente.nome_Pai)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.Processo.Paciente.tel)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.Processo.Paciente.cel)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.Processo.Paciente.email)
+                </td>
+            </tr>
+            <tr></tr>
+        </table>
+    </div>
+   
+    <div class="panel panel-default">
+        <div class="panel-body">
+        </div>
+        <table class="table table-striped table-bordered">
+            <tr>
+                <th colspan="5">
+                    <h3 class="panel-title"><i class="fa fa-user-md fa-lg" aria-hidden="true"></i>  Médico</h3>
+                </th>
+            </tr>
+            <tr>
+              
+               
+                <th>
+                    @Html.DisplayNameFor(model => model.Processo.Medico.cpf)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Processo.Medico.nome)
+                </th>
+
+                @*<th>
+                    @Html.DisplayNameFor(model => model.Processo.Medico.rg)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Processo.Medico.orgaoemissor)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Processo.Medico.dt_Emissao)
+                </th>*@
+                <th>
+                    @Html.DisplayNameFor(model => model.Processo.Medico.cns)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Processo.Medico.crm)
+                </th>
+            </tr>
+            <tr>
+              
+                <td>
+                    @Html.DisplayFor(model => model.Processo.Medico.cpf)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.Processo.Medico.nome)
+                </td>
+
+               
+                <td>
+                    @Html.DisplayFor(model => model.Processo.Medico.cns)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.Processo.Medico.crm)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Processo.Medico.tel)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Processo.Medico.cel)
+                </th>
+                <th >
+                    @Html.DisplayNameFor(model => model.Processo.Medico.email)
+                </th>
+
+            </tr>
+            <tr>
+               
+                <td>
+                    @Html.DisplayFor(model => model.Processo.Medico.tel)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.Processo.Medico.cel)
+                </td>
+                <td colspan="5">
+                    @Html.DisplayFor(model => model.Processo.Medico.email)
+                </td>
+            </tr>
+
+        </table>
+    </div>
+    <div class="row">
+        <div class="panel panel-default">
+            <div class="panel-heading"><h3 class="panel-title">Dados da Pericia</h3> </div>
+            <div class="panel-body">
+                <table class="table table-striped table-bordered">
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Cid.codigoCid)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Cid.descricao)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.TipoPericia)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Situacao)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.dt_Pericia)
+                        </th>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(model => model.Cid.codigoCid)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.Cid.descricao)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.TipoPericia)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.Situacao)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.dt_Pericia)
+                        </td>
+                    </tr>
+                    <tr>
+                        <th colspan="5">
+                            @Html.DisplayNameFor(model => model.descricao)
+                        </th>
+                    </tr>
+                    <tr>
+                        <td colspan="5">
+                            @Html.DisplayFor(model => model.descricao)
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+</div>

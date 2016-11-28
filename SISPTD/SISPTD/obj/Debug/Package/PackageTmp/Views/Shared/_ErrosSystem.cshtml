@@ -1,0 +1,31 @@
+﻿<div class="container">
+    @if (TempData["Sucesso"] != null)
+    {
+        @*<div class="alert alert-success" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <strong>@Html.Raw(TempData["Sucesso"]) </strong>
+        </div>*@
+        <div class="alert alert-success alert-dismissible r0 text-center col-sm-5" role="alert" style="position:absolute; margin-left:20%">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4>@TempData["Sucesso"]</h4>
+        </div>
+    }
+   @if (TempData["Erro"] != null)
+   {
+    @*<div class="alert alert-warning alert-danger" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <strong>ATENÇÃO!</strong><br />
+        <stron>@TempData["Erro"]</stron>
+    </div>*@
+
+    <div class="alert alert-danger alert-dismissible r0 text-center col-sm-5" role="alert" style="position:absolute; margin-left:7%">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4>@TempData["Erro"]</h4>
+    </div>
+   } 
+</div>
+
+
+
+
+

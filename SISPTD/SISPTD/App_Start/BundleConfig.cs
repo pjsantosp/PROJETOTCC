@@ -12,8 +12,8 @@ namespace SISPTD
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js",
                         "~/Scripts/chosen.jquery.js",
-                        "~/Scripts/chosen-ajax.jquery.js",
-                        "~/Scripts/Utils.js"
+                        "~/Scripts/chosen-ajax.jquery.js"
+                        
                         ));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
@@ -28,7 +28,8 @@ namespace SISPTD
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js",
                       "~/Scripts/bootstrap-datepicker.min.js",
-                      "~/Scripts/bootstrap-datepicker.pt-BR.min.js"
+                      "~/Scripts/bootstrap-datepicker.pt-BR.min.js",
+                      "~/Scripts/Utils.js"
 
                       ));
 

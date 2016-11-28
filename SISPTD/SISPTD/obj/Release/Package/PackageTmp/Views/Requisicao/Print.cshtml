@@ -1,0 +1,229 @@
+﻿@model SISPTD.Models.Requisicao
+@{ 
+   Layout = "~/Views/Shared/_LayoutPrint.cshtml";
+    ViewBag.Title = "Requisição";
+}
+
+<div class="page">
+    <h2 class="" style="text-align:center"><i class="fa fa-plane" aria-hidden="true"></i> Requisição de Passagem Tratamento fora Domicilio</h2>
+    <div>
+        <h2> Requisição Nº @Html.DisplayFor(model => model.requisicaoId) </h2>
+        <hr />
+
+        <div class="col-sm-offset-2">
+            <i class="fa fa-exclamation-circle" aria-hidden="true"></i> De acordo com a portaria SAS/MS n° 055 de fevereiro de 1999, requisitamos o fornecimento
+            da(s) passagem(ns) abaixo relacionada(s).
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <strong>@Html.DisplayName("Via:")</strong>
+                        @Html.DisplayFor(model => model.Via)<br /><hr />
+                        <strong>@Html.DisplayName("Trecho:")</strong> 
+                        @Html.DisplayFor(model => model.Trecho)
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-4 col-md-offset-4">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <strong>@Html.DisplayName("Origem:")</strong>
+                        @Html.DisplayFor(model => model.CidadeOrigem.Cidade)<br /><hr />
+                        <strong>@Html.DisplayName("Destino:")</strong>
+                        @Html.DisplayFor(model => model.CidadeDestino.Cidade)
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr />
+        <h3><i class="fa fa-info" aria-hidden="true"></i> Informações do Paciente</h3>
+        <div class="panel panel-default">
+            <div class="panel-heading"><strong>@Html.DisplayFor(model => model.Paciente.nome)</strong></div>
+            <div class="panel-body">
+            </div>
+            <table class="table table-striped">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Paciente.cpf)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Paciente.rg)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Paciente.orgaoemissor)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Paciente.dt_Emissao)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Paciente.cns)
+                    </th>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(model => model.Paciente.cpf)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.Paciente.rg)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.Paciente.orgaoemissor)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.Paciente.dt_Emissao)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.Paciente.cns)
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Paciente.nome_Mae)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Paciente.nome_Pai)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Paciente.tel)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Paciente.cel)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Paciente.email)
+                    </th>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(model => model.Paciente.nome_Mae)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.Paciente.nome_Pai)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.Paciente.tel)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.Paciente.cel)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.Paciente.email)
+                    </td>
+                </tr>
+                <tr></tr>
+            </table>
+        </div>
+    </div>
+
+    <hr />
+    <h3><i class="fa fa-info" aria-hidden="true"></i> Informações dos Acompanhantes</h3>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title"><strong>Acompanhantes</strong></h3>
+        </div>
+        <div class="panel-body">
+        </div>
+        <table class="table table-striped ">
+            <tr>
+                <th>
+                    @Html.Label("CPF", new { @class = "control-label" })
+                </th>
+                <th>
+                    @Html.Label("Nome", new { @class = "control-label" })
+                </th>
+                <th>
+                    @Html.Label("Data de Nascimento", new { @class = "control-label" })
+                </th>
+                <th>
+                    @Html.Label("Idade", new { @class = "control-label" })
+                </th>
+                <th>
+                    @Html.Label("Telefone", new { @class = "control-label" })
+                </th>
+                <th>
+                    @Html.Label("Celular", new { @class = "control-label" })
+                </th>
+                <th>
+                    @Html.Label("Cartão do SUS", new { @class = "control-label" })
+                </th>
+            </tr>
+            @foreach (var item in Model.PessoaRequisicao)
+            {
+                <tr>
+                    <td>
+                        @item.Pessoa.cpf
+                    </td>
+                    <td>
+                        @item.Pessoa.nome
+                    </td>
+                    <td>
+                        @item.Pessoa.dt_Nascimento.ToShortDateString()
+                    </td>
+                    <td>
+                        @item.Pessoa.idade
+                    </td>
+                    <td>
+                        @item.Pessoa.tel
+                    </td>
+                    <td>
+                        @item.Pessoa.cel
+                    </td>
+                    <td>
+                        @item.Pessoa.cns
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+    <hr />
+
+    <div class="row">
+        <div class="col-sm-offset-9">
+
+            <br />
+            <i class="fa fa-thumbs-up" aria-hidden="true">
+            </i>
+            Autorizado :
+            <br /><br />
+            _______________________________
+            <br />
+            Jair José da Rocha
+            <br />
+            Gerente/TFD/SESAU
+        </div>
+
+    </div>
+    <p></p>
+
+
+    <div class="row">
+        <div class="col-sm-offset-1">
+            <h4>
+                Recebi o(s) bilhete(s) de passagem(ns) n°(s) ______________________________________________de acordo com a presente requisição.
+            </h4>
+            <br />
+        </div>
+        <div class="col-sm-offset-1">
+            <p>
+                Assinatura Paciente ou Responsável<br />
+                RG:_____________________________________________
+            </p>
+        </div>
+
+    </div>
+    <hr />
+   
+</div>
+<footer>
+    <div>
+            @User.Identity.Name
+    </div>
+    <div>
+        @DateTime.Now
+    </div>
+</footer>

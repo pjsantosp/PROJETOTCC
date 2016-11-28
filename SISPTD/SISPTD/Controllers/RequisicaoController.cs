@@ -5,6 +5,7 @@ using System.Net;
 using System.Web.Mvc;
 using SISPTD.Models;
 using SISPTD.BO;
+using SISPTD.Ultis;
 
 namespace SISPTD.Controllers
 {
@@ -18,12 +19,12 @@ namespace SISPTD.Controllers
         private PessoaRequisicaoBO pessoaRequisicaoBO = new PessoaRequisicaoBO(new dbSISPTD());
         private EstadoBO ufBO = new EstadoBO(new dbSISPTD());
 
-        public ActionResult Index(int? pagina)
+        public ActionResult Index(int? pagina, string busca="")
         {
             int tamanhoPagina = 10;
             int numeroPagina = pagina ?? 1;
-
-            return View(requisicaoBO.ObterRequisicao(numeroPagina, tamanhoPagina));
+            busca = Util.RemoverMascara(busca);
+            return View(requisicaoBO.ObterRequisicao(numeroPagina, tamanhoPagina, busca));
         }
         /// <summary>
         /// Adiciona acompanhate na requisição

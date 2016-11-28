@@ -1,0 +1,86 @@
+﻿@model SISPTD.Models.User
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-4">
+        <div style="display:none" id="btnCriaPessoa" class="alert alert-warning alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <strong>Ops!</strong> Não ha uma pessoa para esse CPF, Deseja Cadastra?
+        </div>
+
+        @using (Html.BeginForm())
+        {
+
+            <div class="panel panel-default">
+                <div class="panel-body">
+
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.login, new { @class = "" })
+                                @Html.EditorFor(model => model.login, new { htmlAttributes = new { @class = "form-control cpf ", @readonly="readonly" } })
+                                @Html.ValidationMessageFor(model => model.login, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Pessoa.nome, new { @class = "" })
+                                @Html.EditorFor(model => model.Pessoa.nome, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                              @Html.HiddenFor(u=> u.usuarioId)
+                                @Html.HiddenFor(u => u.pessoaId)
+                                @Html.ValidationMessageFor(model => model.Pessoa.nome, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            @*<div class="form-group">
+                                    @Html.LabelFor(model => model.senha, htmlAttributes: new { @class = "control-label" })
+                                    @Html.EditorFor(model => model.senha, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.senha, "", new { @class = "text-danger" })
+
+                                </div>*@
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                @Html.Label("Perfil Usuário", htmlAttributes: new { @class = "control-label" })
+                                @Html.EnumDropDownListFor(model => model.Perfil, " ", htmlAttributes: new { @class = "form-control chosen-select" })
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                @Html.Label("Setor do  Usuário", htmlAttributes: new { @class = "control-label" })
+                                @Html.DropDownList("setorId", null, "", htmlAttributes: new { @class = "form-control" })
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="well well-sm">
+                <input type="submit" name="name" class="btn btn-primary btn-confirm" value="Gravar" />
+                @Html.ActionLink("Voltar para lista", "Index", null, new { @class = "btn btn-link pull-right" })
+            </div>
+
+            <div>
+            </div>
+        }
+    </div>
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,89 @@
+﻿@model SISPTD.Models.Movimentacao
+
+@{
+    ViewBag.Title = "Movimentação";
+}
+
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title"> <i class="fa fa-arrows-alt fa-lg"> </i> Movimentação de  Processo</h3>
+
+    </div>
+    <span id="msg"></span>
+    <div class="panel-body">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <strong >
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            </strong>
+            <div class="row">
+                <div class="col-md-2 col-xs-4">
+                    @Html.Label("Nº Processo")
+                    <div class="input-group">
+
+                        <input type="number" id="nProcesso" name="processoId" class="form-control" value="@ViewBag.processoId" />
+                        <span class="input-group-btn"><button type="button" id="btnBuscaProc" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button></span>
+                    </div>
+                </div>
+                <div class="col-md-3 col-xs-5">
+                    <div class="form-group">
+                        @Html.Label("Cpf")
+                        <input type="text" readonly id="pacienteCpfProc" data-id="" class="form-control" name="name" value="@ViewBag.pacienteCpf" />
+                    </div>
+                </div>
+                <input type="hidden" id="idDoPaciente" name="pessoaId" value="@ViewBag.pacienteId" />
+                <input type="hidden" id="movId" name="movId" value="@ViewBag.movId" />
+
+
+                <div class="col-md-7 col-xs-9">
+                    <div class="form-group">
+                        @Html.Label("Paciente")
+                        <input type="text" readonly id="pacienteNomeProc" data-id="" class="form-control " name="name" value="@ViewBag.processoPaciente" />
+                    </div>
+                </div>
+
+
+
+            </div>
+            <div class="row">
+              
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 col-xs-8">
+                    <div class="form-group">
+                        @Html.Label("Origem")
+                        <input type="text" id="origemProcesso" name="origemProcesso" value="@ViewBag.origemProcesso" readonly class="form-control" />
+                        <input type="hidden" id="origemProcessoId" name="origemProcessoId" value="@ViewBag.origemProcessoId" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-6 col-xs-8">
+                        @Html.Label("Destino")
+                        @Html.DropDownList("setorRecebeuId", null, htmlAttributes: new { @class = "form-control chosen-select" })
+                        @Html.ValidationMessageFor(model => model.setorRecebeuId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="well well-sm">
+                <button type="submit" name="name" class="btn btn-primary "> <i class="fa fa-floppy-o fa-lg"></i>  Gravar</button>
+                <a class="btn btn-danger pull-right" href="@Url.Action("Index","Movimentacao")"> <i class="fa fa-fast-backward fa-lg"></i>  Lista de Movimentação</a>
+            </div>
+
+        }
+
+    </div>
+</div>
+
+
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

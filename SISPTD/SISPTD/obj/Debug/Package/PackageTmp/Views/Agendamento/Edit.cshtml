@@ -1,0 +1,76 @@
+﻿@model SISPTD.Models.Agendamento
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model=> model.agendamentoId)
+    <div class="panel panel-default">
+        <div class="panel-body">
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        @Html.Label("CPF")
+                        <div class="input-group">
+                            @Html.TextBox("buscarPacienteAgendamento", (string)ViewBag.pacienteCpf, Request.QueryString["CPF"], htmlAttributes: new { @class = "form-control cpf readonly" , @readonly = "readonly" })
+                            <span class="input-group-btn"><button type="button" id="btnBuscaPacAgendamento" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button></span>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-md-9">
+                    <div class="form-group">
+                        @Html.Label("Paciente")
+                        <input type="text" readonly id="nomeDoPacienteAgendamento" data-id="" class="form-control" name="Paciente" value="@ViewBag.pacienteNome" />
+                        <input type="hidden" id="idDoPacienteAgendamento" name="pacienteId" value="@ViewBag.pacienteId" />
+                        <input type="hidden" name="processoId" value="@ViewBag.processoId" />
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="row">
+                <div class="col-md-2 ">
+                    <div id="sandbox-container">
+                        @Html.LabelFor(model => model.dt_Agendamento, htmlAttributes: new { @class = "control-label " })
+                        <div class="input-group ">
+
+                            @Html.Editor("dt_Agendamento", new { htmlAttributes = new { @class = "form-control date " } })
+                            @Html.ValidationMessageFor(model => model.dt_Agendamento, "", new { @class = "text-danger" })
+                        </div>
+
+                    </div>
+                </div>
+               
+                <div class="col-md-5">
+                    <div class="form-group">
+                        @Html.Label("Local do Agendamento")
+                        <input type="text"  readonly value="@ViewBag.clinica" class="form-control" />
+                        <input type="hidden" name="clinicaIdAtual" value="@ViewBag.clinicaIdAtual" />
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group">
+                        @Html.Label("Clinica / Hospital")
+                        @Html.DropDownList("clinicaId", new List<SelectListItem>(), "", new { @class = "form-control", data_url = @Url.Action("BuscaClinica", "Clinica") })
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.observacoes, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.TextAreaFor(model => model.observacoes, 5, 150, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.observacoes, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="well well-sm">
+        <button type="submit" name="name" class="btn btn-primary "> <i class="fa fa-floppy-o fa-lg"></i>  Gravar</button>
+        <a class="btn btn-success pull-right" href="@Request.UrlReferrer"> <i class="fa fa-arrow-left fa-lg"></i>  Voltar para Lista </a>
+    </div>
+}
+

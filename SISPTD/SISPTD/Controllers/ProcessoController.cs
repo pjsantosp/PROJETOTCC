@@ -18,14 +18,22 @@ namespace SISPTD.Controllers
             {
                 var processo = processoBO.SelecionarPorId(nProcesso);
 
-                return Json(new { pacienteCpf = processo.Paciente.cpf, pacienteNome = processo.Paciente.nome, origemProcesso = processo.Setor }, JsonRequestBehavior.AllowGet);
+                return Json(new
+                {
+                    ProcessoId = processo.processoId,
+                    pacienteCpf = processo.Paciente.cpf,
+                    pacienteNome = processo.Paciente.nome,
+                    PacienteId = processo.pacienteId,
+                    origemProcesso = processo.Setor
+                },
+                JsonRequestBehavior.AllowGet);
 
             }
             else
             {
                 TempData["Erro"] = "Verifique o valor no Campo de Busca!";
             }
-            return Json(false );
+            return Json(false);
         }
         public ActionResult ProcessoEmAgendamento(int? pagina)
         {
@@ -40,7 +48,7 @@ namespace SISPTD.Controllers
             return PartialView(processoBO.ObterPericias(numeroPagina, tamanhoPagina));
         }
 
-        public ActionResult Index(int ? pagina, string buscar= "")
+        public ActionResult Index(int? pagina, string buscar = "")
         {
             int tamanhoPagina = 10;
             int numeroPagina = pagina ?? 1;
@@ -68,26 +76,33 @@ namespace SISPTD.Controllers
         public ActionResult Create()
         {
             ViewBag.pessoaId = 0;
-           
+
             return View();
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(long pacienteProcessoId, long medicoProcessoId, Processo processo)
+        public ActionResult Create(long? pacienteProcessoId, long? medicoProcessoId, Processo processo)
 
         {
             try
             {
-                processo.dtCadastro = DateTime.Now;
-                processo.pacienteId = pacienteProcessoId;
-                processo.medicoId = medicoProcessoId;
+                var usuario = userBO.userLogado(User.Identity.Name);
+
                 if (ModelState.IsValid)
                 {
+                    processo.dtCadastro = DateTime.Now;
+                    processo.pacienteId = pacienteProcessoId;
+                    processo.medicoId = medicoProcessoId;
                     processo.Setor = "RECEPÇÃO";
+                    processo.Usuario = usuario.usuarioId;
                     processoBO.Inserir(processo);
                     TempData["Sucesso"] = "Cadastro Realizado com Sucesso! ";
+                    return RedirectToAction("Index");
+
                 }
-                return RedirectToAction("Index");
+
+
+
             }
             catch (Exception e)
             {
@@ -95,8 +110,8 @@ namespace SISPTD.Controllers
             }
 
             ViewBag.pessoaId = 0;
-         
-            return View();
+
+            return View(processo);
         }
 
         public ActionResult Edit(long? id)
@@ -120,7 +135,7 @@ namespace SISPTD.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit( Processo processo)
+        public ActionResult Edit(Processo processo)
         {
 
             try

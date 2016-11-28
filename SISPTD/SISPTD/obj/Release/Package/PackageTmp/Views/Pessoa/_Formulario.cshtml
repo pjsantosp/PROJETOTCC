@@ -1,0 +1,150 @@
+﻿@model SISPTD.Models.Pessoa
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="panel panel-default">
+        <div class="panel-body ">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="row">
+
+                <div class="col-md-3">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.cpf, new { @class = "" })
+                        @Html.EditorFor(model => model.cpf, new { htmlAttributes = new { @class = "form-control cpf " } })
+                        @Html.ValidationMessageFor(model => model.cpf, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-md-6 ">
+                    <div class="form-group ">
+                        @Html.Label("Nome *", new { @class = "" })
+                        @Html.EditorFor(model => model.nome, new { htmlAttributes = new { @class = " uperText form-control" } })
+                        @Html.ValidationMessageFor(model => model.nome, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="input-group ">
+                        @Html.Label("Data de Nascimento * ")
+                        @Html.EditorFor(model => model.dt_Nascimento, new { htmlAttributes = new { @class = "form-control date " } })
+
+                        @Html.ValidationMessageFor(model => model.dt_Nascimento, "", new { @class = "text-danger" })
+                    </div>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.rg, new { @class = "" })
+                        @Html.EditorFor(model => model.rg, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.rg, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        @Html.Label("Orgão Emissor")
+                        @Html.EditorFor(model => model.orgaoemissor, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.orgaoemissor, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-md-3">
+
+                    <div class="input-group">
+                        @Html.LabelFor(model => model.dt_Emissao, new { @class = "" })
+                        @Html.EditorFor(model => model.dt_Emissao, new { htmlAttributes = new { @class = "form-control date" } })
+
+                        @Html.ValidationMessageFor(model => model.dt_Emissao, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        @Html.Label("Cartão SUS *", new { @class = " " })
+                        @Html.EditorFor(model => model.cns, new { htmlAttributes = new { @class = "form-control cns" } })
+                        @Html.ValidationMessageFor(model => model.cns, "", new { @class = "text-danger" })
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.Label("Mãe *", new { @class = " " })
+                        @Html.EditorFor(model => model.nome_Mae, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.nome_Mae, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.Label("Pai *", new { @class = "" })
+                        @Html.EditorFor(model => model.nome_Pai, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.nome_Pai, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.Label("Telefone *", new { @class = "" })
+                        @Html.EditorFor(model => model.tel, new { htmlAttributes = new { @class = "form-control telefone" } })
+                        @Html.ValidationMessageFor(model => model.tel, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.cel)
+                        @Html.EditorFor(model => model.cel, new { htmlAttributes = new { @class = "form-control telefone" } })
+                        @Html.ValidationMessageFor(model => model.cel, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.email)
+                        @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+                    </div>
+
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Endereco.cep)
+                        @Html.EditorFor(model => model.Endereco.cep, new { htmlAttributes = new { @class = "form-control cep" } })
+                        @Html.ValidationMessageFor(model => model.Endereco.cep, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.Label("Rua *")
+                        @Html.EditorFor(model => model.Endereco.rua, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Endereco.rua, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        @Html.Label("Numero *")
+                        @Html.EditorFor(model => model.Endereco.numero, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Endereco.numero, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.Label("Bairro *")
+                        @Html.EditorFor(model => model.Endereco.bairro, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Endereco.bairro, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <div class="well well-sm">
+        <button type="submit" name="name" class="btn btn-primary "> <i class="fa fa-floppy-o fa-lg"></i>  Gravar</button>
+        <a class="btn btn-danger pull-right" href="@Url.Action("Index","Pessoa")"> <i class="fa fa-backward fa-lg"></i>  Voltar  </a>
+    </div>
+
+}
+

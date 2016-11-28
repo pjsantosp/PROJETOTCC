@@ -1,0 +1,159 @@
+﻿@model SISPTD.Models.Pessoa
+
+
+<h3><i class="fa fa-info" aria-hidden="true"></i> Informações do Paciente</h3>
+<div class="panel panel-default">
+    <div class="panel-heading"><strong>@Html.DisplayFor(model => model.nome)</strong></div>
+    <div class="panel-body">
+
+    </div>
+    <table class="table table-striped">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.cpf)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.rg)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.orgaoemissor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.dt_Emissao)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.cns)
+            </th>
+        </tr>
+
+        <tr>
+            <td>
+                @Html.DisplayFor(model => model.cpf)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.rg)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.orgaoemissor)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.dt_Emissao)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.cns)
+            </td>
+        </tr>
+
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.nome_Mae)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.nome_Pai)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.tel)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.cel)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.email)
+            </th>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(model => model.nome_Mae)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.nome_Pai)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.tel)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.cel)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.email)
+            </td>
+        </tr>
+      
+        <tr></tr>
+    </table>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title"><strong>Acompanhantes</strong></h3>
+    </div>
+    <div class="panel-body">
+      
+    </div>
+    <table class="table table-striped ">
+        <tr>
+            <th>
+                @Html.LabelFor(model => model.cpf, new { @class = "control-label" })
+            </th>
+            <th>
+                @Html.LabelFor(model => model.nome, new { @class = "control-label" })
+            </th>
+            <th>
+                @Html.LabelFor(model => model.rg, new { @class = "control-label" })
+            </th>
+            <th>
+                @Html.LabelFor(model => model.orgaoemissor, new { @class = "control-label" })
+            </th>
+            <th>
+                @Html.LabelFor(model => model.dt_Emissao, new { @class = "control-label" })
+            </th>
+            <th>
+                @Html.LabelFor(model => model.cns, new { @class = "control-label" })
+            </th>
+        </tr>
+        @foreach (var item in @ViewBag.acompanhante)
+        {
+            <tr>
+                <td>
+                    @item.cpf
+                </td>
+                <td>
+                    @if (User.IsInRole("Medico"))
+                    {
+                        @Html.Raw("<p>"+item.nome+"</p>");
+                    }
+                    else
+                    {
+                        @item.nome
+                        <a class="btn-group btn-sm btn-primary" title="Editar Acompanhante" href="@Url.Action("EditarAcompanhante", "Pessoa",new { id= item.pessoaId })" aria-label="Skip to main navigation">
+                            <i class="fa fa-pencil fa-lg" aria-hidden="true"></i>
+                        </a>
+                    }
+                </td>
+                <td>
+                    @item.rg
+                </td>
+                <td>
+                    @item.orgaoemissor
+                </td>
+                <td>
+                    @item.dt_Emissao
+                </td>
+                <td>
+                    @item.cns
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+<div class="well well-sm  " style=" height:50px">
+    @if (!User.IsInRole("Medico"))
+    {
+        <a class="btn btn-primary" href="@Url.Action("Edit",  new { id = Model.pessoaId })">Editar</a>
+
+    }
+
+    @*@Html.ActionLink("Voltar para lista", "Index", null, new { @class = "btn btn-link pull-right" })*@
+    <a class="btn btn-success pull-right" href="#" onclick="history.back()">Voltar</a>
+</div>
+

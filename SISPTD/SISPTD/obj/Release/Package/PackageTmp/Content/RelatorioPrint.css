@@ -1,0 +1,65 @@
+﻿@page {
+    margin: 2px;
+}
+
+body {
+    margin: 0 auto;
+    margin-top: 0 !important;
+}
+.header {
+    
+}
+
+.hidden-print {
+    display: none;
+}
+
+input.print-form {
+    border: 1px solid #FFF !important;
+    box-shadow: none !important;
+    border-radius: 0px !important;
+    -webkit-box-shadow: 0px !important;
+}
+
+::-webkit-input-placeholder { /* WebKit browsers */
+    color: transparent;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color: transparent;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color: transparent;
+}
+:-ms-input-placeholder { /* Internet Explorer 10+ */
+    color: transparent;
+}
+
+.pagebreak {
+    page-break-before: always;
+}
+
+
+h3.title {
+    font-size: 16px;
+}
+h4 {
+    font-size: 14px;
+}
+
+.table {
+    font-size: 10px;
+}
+
+.table-condensed > thead > tr > th,
+.table-condensed > tbody > tr > th,
+.table-condensed > tfoot > tr > th,
+.table-condensed > thead > tr > td,
+.table-condensed > tbody > tr > td,
+.table-condensed > tfoot > tr > td {
+  padding: 1px;
+}
+
+.table-striped > tbody > tr:nth-child(odd) > td
+{
+    background-color: #f9f9f9 !important;
+}

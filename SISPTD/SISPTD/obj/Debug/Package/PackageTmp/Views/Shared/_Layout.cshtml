@@ -1,0 +1,100 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="shortcut icon" href="~/Imagens/favicon.ico">
+    <title>@ViewBag.Title - SPTD</title>
+    @Styles.Render("~/Content/css")
+    @RenderSection("Styles", required: false)
+    @Scripts.Render("~/bundles/modernizr")
+    <link href="~/Content/bootstrap-datepicker3.min.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-datepicker.min.css" rel="stylesheet" />
+    <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
+
+</head>
+<body>
+    <nav class="navbar  navbar-menu  navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">
+                    <i class="fa fa-outdent  botao-menu" aria-hidden="true"></i>
+                    <div class="" style=" color: #f7f7f7; margin-left:30px;" >
+                        @Html.ActionLink("Tratamento Fora Domicilio", "", "", new { area = "" }, new { @class = "navbar-brand navbar-menu" })
+                    </div>
+                </a>
+
+            </div>
+
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle text-branco" data-toggle="dropdown">
+                            <i class="fa fa-user fa-fw fa-lg"></i> <span>@Session["NomeLogin"]</span> <i class="fa fa-caret-down fa-lg" aria-hidden="true"></i>
+                            <span hidden>@User.Identity.Name </span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#"></a></li>
+                            <li class="divider"></li>
+                            <li><a href="@Url.Action("TrocaSenha", "User")"><i class="glyphicon glyphicon-user" aria-hidden="true"></i> Trocar Senha</a></li>
+                            <li class="divider"></li>
+                            <li> <a href="~/Manuais/manual.pdf" target="_blank"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> Manual do Usuário</a> </li>
+                            <li class="divider"></li>
+                            <li> <a href="~/Manuais/VSdoc/index.html" target="_blank"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> Manual do Desenvolvedor</a> </li>
+                            <li class="divider"></li>
+                            
+                            <li><a title="Clique para sair do sistema" href="@Url.Action("Deslogar","Login")"><i class="fa fa-power-off fa-lg"></i> Sair </a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+        </div>
+    </nav>
+        @if (User.IsInRole("Medico"))
+        {
+            @Html.Partial("_MenuMedico")
+        }
+        else if(User.IsInRole("Funcionario"))
+        {
+            @Html.Partial("_MenuFuncionario")
+        }
+        else
+        {
+            @Html.Partial("_MenuAdm")
+
+        }
+
+
+
+        <br /><br /><br /><br />
+
+        @Html.Partial("_ErrosSystem")
+    <div class="container-fluid principal">
+
+        @RenderBody()
+    </div>
+
+
+    <script src="~/Scripts/jquery-2.1.4.js"></script>
+    <script src="~/scripts/bootstrap.js"></script>
+    <script src="~/Scripts/jquery.maskedinput.min.js"></script>
+    <script src="~/Scripts/chosen.jquery.min.js"></script>
+    <script src="~/Scripts/chosen-ajax.jquery.js"></script>
+    <script src="~/Scripts/bootstrap-datepicker.min.js"></script>
+    <script src="~/Scripts/bootstrap-datepicker.pt-BR.min.js"></script>
+    <script src="~/Scripts/Utils.js"></script>
+
+    @RenderSection("scripts", required: false)
+
+    <script>
+        $('.botao-menu').click(function () {
+            $('.menu-lateral').toggleClass('active');
+            $(this).toggleClass('botao-menu-ativo');
+            $('.principal').toggleClass('ativo');
+
+        })
+        var urlBuscaProcesso = '@Url.Action("BuscaProcesso", "Processo")';
+
+    </script>
+</body>
+</html>

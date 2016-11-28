@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-wi, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="shortcut icon" href="~/Imagens/favicon.ico">
+
+    <title>@ViewBag.Title - Autenticação -</title>
+    @Styles.Render("~/Content/css")
+    @RenderSection("Styles", required: false)
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body  class="container-fluid body-content">
+    <div class="navbar navbar-menu navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+
+                @Html.ActionLink("Tratamento Fora Domicilio", "", "", new { area = "" }, new { @class = "navbar-brand navbar-menu" })
+            </div>
+          
+        </div>
+
+    </div>
+   
+    <div>
+       
+        <br /><br /><br /><br /><br /><br />
+        @Html.Partial("_ErrosSystem")
+        <br /><br /><br />
+        @RenderBody()
+       
+      
+        <hr />
+       
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/jquery-2.1.4.js"></script>
+    <script src="~/scripts/bootstrap.js"></script>
+    <script src="~/Scripts/jquery.maskedinput.min.js"></script>
+    @RenderSection("scripts", required: false)
+    <footer>
+        <p>&copy; Projeto de Conclusão de Curso @DateTime.Now.Year</p>
+    </footer>
+</body>
+</html>

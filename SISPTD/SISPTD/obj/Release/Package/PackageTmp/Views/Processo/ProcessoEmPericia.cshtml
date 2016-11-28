@@ -1,0 +1,110 @@
+﻿@model PagedList.IPagedList<SISPTD.Models.Processo>
+@using PagedList.Mvc
+@if (Model.Any() && Model != null)
+{
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered">
+            <tr>
+                <th>
+                    @Html.DisplayName("N° Processso")
+                </th>
+
+                <th>
+                    @Html.DisplayName("Cid")
+                </th>
+                <th>
+                    @Html.DisplayName("CPF")
+                </th>
+                <th>
+                    @Html.DisplayName("Paciente")
+                </th>
+                <th>
+                    @Html.DisplayName("Procedimento")
+                </th>
+                <th>
+                    @Html.DisplayName("Clinica")
+                </th>
+
+                <th>
+                    @Html.DisplayName("Realizar Pericia")
+                </th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.processoId)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Cid.codigoCid)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Paciente.cpf)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Paciente.nome)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Procedimento)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Clinica)
+                    </td>
+
+                    <td>
+                        <a class="btn-group btn-sm btn-primary " title="Periciar" href="@Url.Action("Create","Pericia", new {processoId = item.processoId })" aria-label="Skip to main navigation">
+                            <i class="fa fa-check fa-lg" aria-hidden="true"></i>
+                        </a>
+                    </td>
+                </tr>
+            }
+
+        </table>
+
+        <div class="pull-right">
+            <strong>  Pagina @Model.PageNumber de @Model.PageCount </strong>
+            @Html.PagedListPager(Model, pagina => Url.Action("Index", new { pagina, tab = "home" }))
+        </div>
+    </div>
+    
+}
+else
+{
+
+    <br />
+    <h2 class="text-center text-muted">
+
+        <small>
+            NENHUM<br />
+
+            PROCESSO NO SETOR DE PERICIA!
+        </small>
+    </h2>
+}
+@section Scripts{
+    <script>
+
+        function qs(name) {
+            name = name.replace(/[\[]/, "\\[").replace(/[\]]/,"\\]");
+            var regex = new RegExp("[\\?&]" + name +"=([^&#]*)"),
+            results = regex.exec(location.search);
+            return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g,""));
+        }
+
+        var tab = qs("tab");
+
+        if (tab == "home")
+        {
+            $('.nav-tabs li:eq(1) a').tab('show')
+        }
+
+        console.log(qs("tab"))
+    </script>
+}
+
+
+
+
