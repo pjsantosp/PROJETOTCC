@@ -93,6 +93,7 @@ namespace SISPTD.Controllers
                 {
                     pessoa.TipoPessoa = TipoPessoa.Paciente;
                     pessoa.cpf = Util.RemoverMascara(pessoa.cpf);
+                    pessoa.cns = Util.RemoverMascara(pessoa.cns);
                     pessoa.dt_Cadastro = DateTime.Now;
                     if (pessoaBO.CalculoIdade(pessoa))
                     {
