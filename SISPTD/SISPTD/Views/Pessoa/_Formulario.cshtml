@@ -147,4 +147,23 @@
     </div>
 
 }
+@*<script>
+    $.validator.addMethod('date',
+        function (value, element, params) {
+            if (this.optional(element)) {
+                return true;
+            }
+
+            var result = true;
+            try {
+                $.datepicker.parseDate('dd/mm/yy', value);
+            } catch (e) {
+                result = false;
+            }
+
+            return result;
+        }
+)
+
+</script>*@
 

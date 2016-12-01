@@ -27,13 +27,14 @@
 <br />
 @if (Model.Any() && Model != null)
 {
-    <div class="panel panel-default">
-        <!-- Default panel contents -->
-        <div class="panel-heading"><h5> <i class="fa fa-user-md fa-lg"> </i> <strong>Lista de Medicos </strong>   </h5></div>
+    <div class="table table-responsive">
 
-        <!-- Table -->
-        <div class="table-responsive">
-            <table class="table table-condensed table-bordered table-hover">
+        <div class="panel panel-default">
+            <!-- Default panel contents -->
+            <div class="panel-heading"><h5> <i class="fa fa-user-md fa-lg"> </i> <strong>Lista de Medicos </strong>   </h5></div>
+
+            <!-- Table -->
+            <table class="table table-condensed table-bordered">
                 <thead>
                     <tr>
                         <th>
@@ -91,9 +92,11 @@
 
                                 @if (User.IsInRole("Gerente") || User.IsInRole("Administrador"))
                                 {
-                                    <a class="btn-group btn-sm btn-primary" title="Editar" href="@Url.Action("EditMedico", "Pessoa",new { id= item.pessoaId })" aria-label="Skip to main navigation">
-                                        <i class="fa fa-pencil fa-lg" aria-hidden="true"></i>
-                                    </a>
+                                    <div class="btn-group-sm">
+                                        <a class="btn-group btn-sm btn-primary" title="Editar" href="@Url.Action("EditMedico", "Pessoa",new { id= item.pessoaId })" aria-label="Skip to main navigation">
+                                            <i class="fa fa-pencil " aria-hidden="true"></i>
+                                        </a>
+                                    </div>
                                 }
 
                             </td>

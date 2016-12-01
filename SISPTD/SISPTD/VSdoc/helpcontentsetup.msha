@@ -1,0 +1,25 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>SISPTD Reference</title>
+</head>
+<body class="vendor-book">
+  <div class="details">
+  	<!-- You can place your vendor name here. But don't use underscore character (_)!!!
+  	     There is a bug in MS Help Viewer 2.0 and higher (VS 2012, 2013 and 2015).
+  	     When there's an _ character, registration will execute OK but you will not
+  	     be able to see any contents in the help.	-->
+    <span class="vendor">VendorName</span>
+    <span class="locale">en-us</span>
+    <span class="product">SISPTD Reference</span>
+    <span class="name">SISPTD Reference</span>
+  </div>
+  <div class="package-list">
+    <div class="package">
+      <span class="name">SISPTD</span>
+      <a class="current-link"
+        href="SISPTD.mshc">SISPTD.mshc</a>
+    </div>
+  </div>
+</body>
+</html>
+

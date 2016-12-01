@@ -68,11 +68,13 @@ namespace SISPTD.BO
                 throw;
             }
         }
-        public IEnumerable<User> ObterUsuario(int? pagina, int numPagina)
+        public IEnumerable<User> ObterUsuario( string buscar, int? pagina, int numPagina)
         {
             try
             {
-                IEnumerable<User> listarequisicao = _contexto.Set<User>().ToList();
+                IEnumerable<User> listarequisicao = _contexto.Set<User>()
+                    .Include(p => p.Pessoa)
+                    .Where(u => u.Pessoa.nome.Contains(buscar) || u.login.Contains(buscar));
                 return listarequisicao.OrderByDescending(s => s.Pessoa.dt_Cadastro).ToPagedList(pagina.Value, numPagina);
             }
             catch (Exception e)

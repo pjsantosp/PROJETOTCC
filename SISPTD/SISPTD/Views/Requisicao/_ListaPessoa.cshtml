@@ -4,57 +4,57 @@
     <div class="panel panel-default">
         <div class="panel panel-heading"><strong> <i class="fa fa-users" aria-hidden="true"></i> Acompanhantes</strong></div>
         <div class="panel-body">
-            <table class="table table-striped">
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.cpf)
-                    </th>
-                    <th>
-                        @Html.DisplayName("Acompanhante")
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.dt_Nascimento)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.idade)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.cns)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.tel)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.cel)
-                    </th>
-                    <th></th>
-                    <th>
-                        @Html.DisplayName("Remover")
-                    </th>
-                    <th></th>
-                </tr>
-               
-                @{var pos = 0;}
-                @foreach (var item in Model)
-                {
-                    
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered">
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.cpf)
+                        </th>
+                        <th>
+                            @Html.DisplayName("Acompanhante")
+                        </th>
+                        @*<th>
+                            @Html.DisplayNameFor(model => model.dt_Nascimento)
+                        </th>*@
+                        <th>
+                            @Html.DisplayNameFor(model => model.idade)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.cns)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.tel)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.cel)
+                        </th>
+                        <th></th>
+                        <th>
+                            @Html.DisplayName("Remover")
+                        </th>
+                        <th></th>
+                    </tr>
+
+                    @{var pos = 0;}
+                    @foreach (var item in Model)
+                    {
+
                         <tr>
                             <td>
                                 @Html.DisplayFor(modelItem => item.cpf)
                                 <input type="hidden" class="removeAcompanhante" value="@item.pessoaId" name="Pessoa[@pos].pessoaId" />
-                                <input type="hidden" class="cpfAcompanhante"  value="@item.cpf" name="Pessoa[@pos].cpf" />
+                                <input type="hidden" class="cpfAcompanhante" value="@item.cpf" name="Pessoa[@pos].cpf" />
                                 <input type="hidden" value="@item.nome_Pai" name="Pessoa[@pos].nome_Pai" />
                                 <input type="hidden" value="@item.nome_Mae" name="Pessoa[@pos].nome_Mae" />
-
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.nome)
                                 <input type="hidden" value="@item.nome" name="Pessoa[@pos].nome" />
                             </td>
-                            <td>
+                            @*<td>
                                 @Html.DisplayFor(modelItem => item.dt_Nascimento)
                                 <input type="hidden" value="@item.dt_Nascimento" name="Pessoa[@pos].dt_Nascimento" />
-                            </td>
+                            </td>*@
                             <td>
                                 @Html.DisplayFor(modelItem => item.idade)
                                 <input type="hidden" value="@item.idade" name="Pessoa[@pos].idade" />
@@ -76,11 +76,13 @@
                                 <a href="#" onclick="RemoveAcompanhanteLista();" data-dismiss="modal" data-id="@pos" data-url="@Url.Action("RemoveAcompanhante", "Requisicao") " id="RemoveItens" class="acompId "> <i class="glyphicon glyphicon-remove"></i> </a>
                             </td>
                         </tr>
-                   
 
-                    pos++;
-                }
-            </table>
+
+                        pos++;
+                    }
+                </table>
+            </div>
+
         </div>
     </div>
                     }

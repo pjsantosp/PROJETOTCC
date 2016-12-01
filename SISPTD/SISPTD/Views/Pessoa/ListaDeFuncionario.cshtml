@@ -91,9 +91,14 @@
 
                                 @if (User.IsInRole("Gerente") || User.IsInRole("Administrador"))
                                 {
-                                    <a class="btn-group btn-sm btn-primary" title="Editar" href="@Url.Action("EditFuncionario", "Pessoa",new { id= item.pessoaId })" aria-label="Skip to main navigation">
-                                        <i class="fa fa-pencil fa-lg" aria-hidden="true"></i>
-                                    </a>
+                                    <div class="btn-group">
+                                        <a class="btn-group btn-sm btn-primary" title="Editar" href="@Url.Action("EditFuncionario", "Pessoa",new { id= item.pessoaId })" aria-label="Skip to main navigation">
+                                            <i class="fa fa-pencil" aria-hidden="true"></i>
+                                        </a>
+                                        <a class="btn-group btn-sm btn-primary" title="Criar Usuário" href="@Url.Action("Index", "User",new { id= item.pessoaId })" aria-label="Skip to main navigation">
+                                            <i class="fa fa-user-plus" aria-hidden="true"></i>
+                                        </a>
+                                    </div>
                                 }
 
                             </td>

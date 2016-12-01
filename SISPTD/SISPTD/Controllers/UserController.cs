@@ -5,6 +5,7 @@ using System.Net;
 using System.Web.Mvc;
 using SISPTD.Models;
 using SISPTD.BO;
+using SISPTD.Ultis;
 
 namespace SISPTD.Controllers
 {
@@ -14,11 +15,12 @@ namespace SISPTD.Controllers
         private PessoaBO pessoaBO = new PessoaBO(new dbSISPTD());
         private SetorBO setorBO = new SetorBO(new dbSISPTD());
 
-        public ActionResult Index(int? pagina)
+        public ActionResult Index(int? pagina, string buscar="")
         {
             int tamanhoPagina = 10;
             int numeroPagina = pagina ?? 1;
-            return View(userBO.ObterUsuario(numeroPagina, tamanhoPagina));
+            buscar = Util.RemoverMascara(buscar);
+            return View(userBO.ObterUsuario(buscar,numeroPagina, tamanhoPagina));
         }
         public ActionResult Details(long? id)
         {

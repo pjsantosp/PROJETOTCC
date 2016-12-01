@@ -179,44 +179,44 @@ $(document).ready(function () {
     $('.buscarPessoaManutencao').click(function () {
         debugger;
         var cpf = $('#buscarPessoaManutencao').val();
-        $.ajax({
-            method: 'GET',
-            url: "/Pessoa/ManutencaoDeCadastroBusca/?cpf=" + cpf,
+        var data = {
+            cpf: cpf
+        }
+        $.get(urlManutencao, data).success(function (data) {
+            $('#idPessoaManutencao').val(data.Id)
+            $('.cpf').val(data.Cpf)
+            $('#nome').val(data.Nome);
+            $('#dt_Nascimento').val(data.DtNascimento);
+            $('#rg').val(data.Rg);
+            $('#orgao_emissor').val(data.OrgaoEmissor);
+            $('#cns').val(data.Cns);
+            $('#crm').val(data.Crm);
+            $('#nome_Mae').val(data.Mae);
+            $('#nome_Pai').val(data.Pai);
+            $('#tel').val(data.Tel);
+            $('#cel').val(data.Cel);
+            $('#email').val(data.Email);
+            $('#Endereco_cep').val(data.Cep);
+            $('#Endereco_rua').val(data.Rua);
+            $('#Endereco_numero').val(data.Numero);
+            $('#Endereco_bairro').val(data.Bairro);
+        })
+        .error(function (data) {
+            alert("Ops ! não foi possível realizar a pesquisar da Pessoa!");
+        })
 
-            success: function (data) {
-                $('#idPessoaManutencao').val(data.Id)
-                $('.cpf').val(data.Cpf)
-                $('#nome').val(data.Nome);
-                $('#dt_Nascimento').val(data.DtNascimento);
-                $('#rg').val(data.Rg);
-                $('#orgao_emissor').val(data.OrgaoEmissor);
-                $('#cns').val(data.Cns);
-                $('#crm').val(data.Crm);
-                $('#nome_Mae').val(data.Mae);
-                $('#nome_Pai').val(data.Pai);
-                $('#tel').val(data.Tel);
-                $('#cel').val(data.Cel);
-                $('#email').val(data.Email);
-                $('#Endereco_cep').val(data.Cep);
-                $('#Endereco_rua').val(data.Rua);
-                $('#Endereco_numero').val(data.Numero);
-                $('#Endereco_bairro').val(data.Bairro);
-                console.log();
-            },
-            error: function (data) {
-                alert("Ops ! não foi possível realizar a pesquisar da Pessoa!");
-            }
-        });
     });
 
     //Localiza Pessoa p cadastrar usuario
-    $('.buscarPessoaUser').change(function () {
-
+    $('#btnBuscarPessoaUser').click(function () {
+        debugger
         var cpf = $('#login').val();
-        $.ajax({
-            method: 'GET',
-            url: "/Pessoa/Pesquisar/?cpf=" + cpf,
-            success: function (data) {
+        var data = {
+            cpf: cpf
+        }
+
+        $.get(urlUsuario, data)
+            .success(function (data) {
                 if (data.Id > 0) {
                     $('#nomePessoaUser').val(data.Nome);
                     $('#idPessoaUser').val(data.Id)
@@ -224,19 +224,17 @@ $(document).ready(function () {
                 else {
                     var btCriaPessoa = $('#btnCriaPessoa');
                     btCriaPessoa.show();
-                    $('<a href="/Pessoa/CreateFuncionario/" title="Cadastra Pessoa" class="btn btn-primary">Cadastra Funcionario</a>').appendTo('#btnCriaPessoa');
-
                 }
-            },
-            error: function (data) {
-                alert("Algo está errado, não foi possível pesquisar o paciente!");
-            }
-        });
+            })
+        .error(function (data) {
+            alert("Algo está errado, não foi possível pesquisar o Usuário!");
+
+        })
     });
 
     //Localiza Medico na Solicitação de pericia
     $('.procurarMedico').change(function () {
-
+       
         var cpf = $('#buscarMedico').val();
         var data = {
             cpf: cpf
@@ -255,39 +253,12 @@ $(document).ready(function () {
                 else {
                     var btCriaMedico = $('#btCriaMedico');
                     btCriaMedico.show();
-                    $('<a href="/Pessoa/CreateMedico/" title="Cadastra Novo Medico" class="btn btn-primary" >Cadastrar Medico</a>').appendTo('#btCriaMedico');
+                    //$('<a href="/Pessoa/CreateMedico/" title="Cadastra Novo Medico" class="btn btn-primary" >Cadastrar Medico</a>').appendTo('#btCriaMedico');
                 }
             })
             .error(function (data) {
                 alert("Algo está errado, não foi possível pesquisar o paciente!");
-            });
-
-        //$.ajax({
-        //    method: 'GET',
-        //    url: "/Pessoa/PesquisarMedico?cpf=" + cpf,
-        //    success: function (data) {
-        //        if (data.Id > 0) {
-        //            $('#nomeDoMedico').val(data.Nome);
-        //            $('#idDoMedico').val(data.Id);
-        //            $('#cnsDoMedico').val(data.Cns);
-        //            $('#telDoMedico').val(data.Tel);
-        //            $('#crmDoMedico').val(data.Crm);
-        //            $('#celDoMedico').val(data.Cel);
-
-        //        }
-        //        else {
-        //            debugger;
-        //            var btCriaMedico = $('#btCriaMedico');
-        //            btCriaMedico.show();
-        //            $('<a href="/Pessoa/CreateMedico/" title="Cadastra Novo Medico" class="btn btn-primary" >Cadastrar Medico</a>').appendTo('#btCriaMedico');
-        //        }
-
-        //        //top._pessoaId = data.Id;
-        //    },
-        //    error: function (data) {
-        //        alert("Algo está errado, não foi possível pesquisar o paciente!");
-        //    }
-        //});
+            })
     });
 
     //Localiza Paciente na Solicitaçõa de pericia
@@ -297,7 +268,6 @@ $(document).ready(function () {
         var data = {
             nProcesso: nProcesso
         }
-        debugger
         $.get(urlBuscaPacPericia, data)
             .success(function (data) {
                 $('#nomeDoPacientePericia').val(data.pacienteNome);
@@ -424,8 +394,6 @@ $(function () {
 
 });
 
-//$('.nav > li > a[href="' + location.pathname + '"]').parent().addClass('active').siblings().removeClass('active');
-// time do alert 
 $(function () {
     if ($(".alert").length) {
         window.setTimeout(function () {
@@ -462,10 +430,4 @@ $('.uf-change').on('change', function () {
         $targetSelect.prop("disabled", false).trigger("chosen:updated");
     });
 });
-
-
-
-
-
-
 

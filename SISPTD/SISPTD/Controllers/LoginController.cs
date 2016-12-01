@@ -54,6 +54,16 @@ namespace SISPTD.Controllers
                                 case Perfil.Gerente:
                                     return RedirectToAction("Index", "Pessoa");
                                 case Perfil.Funcionario:
+                                    if (conta.Setor.descricao == "AGENDAMENTO")
+                                    {
+                                        return RedirectToAction("Index", "Agendamento");
+
+                                    }
+                                    else if (conta.Setor.descricao == "PASSAGEM")
+                                    {
+                                        return RedirectToAction("Index", "Requisicao");
+
+                                    }
                                     return RedirectToAction("Index", "Pessoa");
                                 case Perfil.Medico:
                                     return RedirectToAction("Index", "Pericia");

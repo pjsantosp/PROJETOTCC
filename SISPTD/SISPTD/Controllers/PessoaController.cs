@@ -253,8 +253,9 @@ namespace SISPTD.Controllers
                     funcionario.dt_Cadastro = DateTime.Now;
                     pessoaBO.Inserir(funcionario);
                     TempData["Sucesso"] = "Cadastro Realizado com Sucesso !";
+                    return RedirectToAction("Index", "User");
                 }
-                return RedirectToAction("Index", "User");
+               
             }
             catch (Exception e)
             {
@@ -341,7 +342,6 @@ namespace SISPTD.Controllers
         /// <returns>View tipo Medico</returns>
         [HttpPost, ValidateAntiForgeryToken]
         [Authorize(Roles ="Gerente, Administrador")]
-
         public ActionResult CreateMedico(Pessoa pessoa)
         {
             try

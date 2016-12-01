@@ -1,0 +1,3453 @@
+<?xml version="1.0" encoding="utf-8"?><html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+    <title>HomeController Métodos</title>
+    <meta name="Microsoft.Help.TopicVersion" content="10" />
+    <meta name="Microsoft.Help.Id" content="Methods.T:SISPTD.Controllers.HomeController" />
+    <meta name="SelfBranded" content="false" />
+    <meta name="Title" content="HomeController Métodos" />
+    <meta name="Microsoft.Help.ContentType" content="Reference" />
+    <meta name="Microsoft.Help.Category" content="TargetOS:Windows" />
+    <meta name="Microsoft.Help.Category" content="DevLang:VB" />
+    <meta name="Microsoft.Help.Category" content="DevLang:CSharp" />
+    <meta name="Microsoft.Help.Category" content="DevLang:FSharp" />
+    <meta name="Microsoft.Help.Keywords" content="HomeController Classe" />
+    <meta name="Microsoft.Help.Keywords" content="HomeController Classe, methods" />
+    <meta name="Microsoft.Help.Keywords" content="SISPTD.Controllers.HomeController Classe" />
+    <meta name="Description" content="HomeController Métodos" />
+    <meta name="Microsoft.Help.TOCParentTopicVersion" content="10" />
+    <meta name="Microsoft.Help.TocParent" content="T:SISPTD.Controllers.HomeController" />
+    <meta name="Microsoft.Help.TocOrder" content="6" />
+    <meta name="Microsoft.Help.Product" content="SISPTD Reference" />
+    <style type="text/css">.class-diagram img {border: none;}</style>
+    <script src="mshv2.js"></script>
+  </head>
+    <body class="primary-mtps-offline-document" 
+	onload="try{onLoad(); var nod=document.getElementById('vsdocman_init_script');var newNod=document.createElement('script');newNod.type= 'text/javascript';nod.parentNode.replaceChild(newNod,nod);newNod.text=nod.innerHTML;vsdocman_topic_init();}catch(ex){}">
+  
+<div id="vsdocman_init_script" style="display:none;">
+// <!-- the script cannot contain the following text (without dots): -.-.> or -.-
+function vsdocman_topic_init() {
+	try {
+		extractCode();
+	} catch (ex) {
+	}
+	
+	try {
+		var divs = document.documentElement.getElementsByTagName("div");
+		var i;
+		var footerRemoved = false;
+		for (i=divs.length-1; i>=0; i=i-1) {
+			var div = divs[i];
+	
+			// remove VS branding footer
+			if (!footerRemoved) {
+				if (div.className == "OH_footer") {
+					div.style.display = "none";
+					footerRemoved = true;
+				}
+			}
+			
+			// remove VS branding feedback link
+			if (div.className == "OH_feedbacklink") {
+				div.style.display = "none";
+			}
+		}
+
+		var tds = document.documentElement.getElementsByTagName("td");
+		for (i=0; i<tds.length; i++) {
+			var td = tds[i];
+	
+			// remove VS branding logo
+			if (td.className == "OH_tdLogoColumn") {
+				td.style.display = "none";
+			}
+		}
+	} catch (ex) {
+	}
+	
+	hideImageMapAreaLinks();
+	fixLinks();
+	fixNewlinesInSyntax();
+}
+
+
+/**
+ * Fixes <br />\n sequences in syntax declarations. Only <br/> 
+ * is needed.
+ */  
+function fixNewlinesInSyntax() {
+	try {
+		var i;
+		var snippets = document.documentElement.getElementsByTagName("CodeSnippet");
+		for (i=0; i<snippets.length; i++) {
+			var containsMarkup = snippets[i].getAttribute("ContainsMarkup");
+			if (containsMarkup == "true") {
+				// it is syntax section
+				// surround fixed text with <pre> tag, otherwise IE normalizes all whitespaces during setting innerHTML
+				snippets[i].parentNode.innerHTML = "<pre>" + snippets[i].parentNode.innerHTML.replace(/<br>\r?\n/gi, "<br>") + "</pre>";
+			}
+		}
+	} catch (ex) {
+	}
+}
+
+
+/**
+ * MS Help Viewer (at least version 1) removes style="display:none;". 
+ * Set it back.
+ */  
+function hideImageMapAreaLinks() {
+	try {
+		var i;
+		var maps = document.documentElement.getElementsByTagName("map");
+		for (i=0; i<maps.length; i++) {
+			var mapId = maps[i].getAttribute("name");
+			var invisibleLinks = document.getElementById("invisible_imagemap_links_" + mapId);
+			invisibleLinks.style.display="none";
+		}
+	} catch (ex) {
+	}
+}
+
+
+// Escapes id query variables in internal links and corrects external links. 
+function fixLinks() {
+	try {
+		var i;
+		var links = document.documentElement.getElementsByTagName("a");
+		var urlParameters = getUrlParameters();
+		for (i=0; i<links.length; i++) {
+			var hrf = links[i].getAttribute("hr" + "ef");
+			var escaped = escapeIdQueryVariable(hrf);
+			
+			var idValue = escaped[1];
+			if (idValue != "") {
+				var isExternal = (idValue.toLowerCase().indexOf("http://", 0) >= 0);
+				isExternal = isExternal || (idValue.toLowerCase().indexOf("https://", 0) >= 0);
+				var isHttp = isExternal;
+				isExternal = isExternal || (idValue.toLowerCase().indexOf("mailto:", 0) >= 0);
+				if (isExternal) {
+					// external link
+					//  Help3 system converts each Id to uppercase, so convert it to lowercase.
+					//  It's bigger chance the URL will be correct.
+					hrf = idValue.toLowerCase();
+					if (isHttp) {
+						links[i].className = "mtps-external-link";
+					}
+				} else {
+					// help3 link
+					hrf = escaped[0];
+					// some links (e.g. in syntax section) don't have complete parameters generated by Help3 system
+					if (hrf.indexOf("method=page", 0) < 0) {
+						hrf = hrf + "&" + urlParameters;
+					}
+				}
+	
+				links[i].setAttribute("hr" + "ef", hrf);
+			}
+		}
+	} catch (ex) {
+	}
+}
+
+
+var idQueryVariablePattern = /(\&|\?|^)(id\=)(.*?)(\&|$)/i;
+
+// Returns array with 2 items. The first one is resulting complete queryString with
+// escaped id variable. The second one is original value of id variable. 
+function escapeIdQueryVariable(input) {
+	var match = input.match(idQueryVariablePattern);
+	var idValue = "";
+	if (match) {
+		idValue = input.match(idQueryVariablePattern)[3];
+		input = input.replace(idQueryVariablePattern, "$1$2" + escape(idValue) + "$4");
+	}
+	var res = new Array();
+	res[0] = input;
+	res[1] = idValue;
+	return res;
+} 
+
+
+function getUrlParameters() {
+	var res;
+	res = "product=" + getQueryVariable("product") + "&";
+	res = res + "productversion=" + getQueryVariable("productversion") + "&";
+	res = res + "method=page&";
+	return res;
+}
+
+
+function getQueryVariable(variable) {
+  var query = window.location.search.substring(1);
+  var vars = query.split("&");
+  for (var i=0; i<vars.length; i++) {
+    var pair = vars[i].split("=");
+    if (pair[0].toLowerCase() == variable.toLowerCase()) {
+      return pair[1];
+    }
+  }
+  return "";
+} 
+
+
+function extractCode(parentNode) {
+	var comments = getAllComments(parentNode);
+
+	var comment;
+  for(var i=0; i<comments.length; i++){
+    comment = comments[i];
+  	var matches = comment.nodeValue.match(/(?:^\s*VSDOCMAN SCRIPT)((.|\r\n)*)$/);
+		// Match returns array. Index 0 is complete match. Index 1 is the first captured group.
+		// The group is defined by (). The ?: means that the group is not captured. 
+  	if (matches != null) {
+	    //res.push(matches[1]);
+	    createElement("div", matches[1], comment);
+    }
+  }
+}
+
+
+function getAllComments(parentNode) {
+	if (parentNode == null) {
+		parentNode = document.documentElement;
+	}
+	var children = parentNode.childNodes;
+	var res = new Array();
+  if(parentNode.nodeType == 8){
+  	// 8 = comment
+    res.push(parentNode);
+  }
+	    
+  for(var i=0; i<children.length; i++){
+      res = res.concat(getAllComments(children[i]));
+  }
+  return (res);
+}
+
+
+// Create new element and replace existing one with it
+function createElement(name, innerHtml, oldElm) {
+	// setting innerHTML containing script tags doesn't work in IE
+	var scriptBodies = new Array();
+	var scriptMatch;
+	var i = 0;
+	var scriptPattern = /(<script.*?>)((.|\r\n)*?)(<\/script>)/i;
+	do {
+		scriptMatch = innerHtml.match(scriptPattern);
+		if (scriptMatch != null) {
+			// found the script tag
+			//  get its innerHtml
+			scriptBodies[i] = scriptMatch[2];
+			// replace this script tag with span tag
+			innerHtml = innerHtml.replace(scriptPattern, "<span script_index=\"" + i + "\"></span>");
+		}
+		i++;
+	} while(scriptMatch != null && i < 100);
+	
+	var elm = document.createElement(name);
+	elm.innerHTML = innerHtml;
+	oldElm.parentNode.replaceChild(elm,oldElm);
+	
+	// now create script tags and replace corresponding span tags
+	var allSpans = elm.getElementsByTagName('span');
+	var scriptSpans = new Array();
+	for (i=0; i<allSpans.length; i++) {
+		if (allSpans[i].getAttribute("script_index")) {
+			var index = allSpans[i].getAttribute("script_index");
+			scriptSpans[index] = allSpans[i];
+		}
+	}
+	for (i=0; i<scriptBodies.length; i++) {
+		insertScriptElement(scriptBodies[i], scriptSpans[i], getUniqueIndex());
+	}
+}
+
+var uniqueIndex = 0;
+function getUniqueIndex() {
+	return uniqueIndex++;
+}
+
+function insertScriptElement(innerHtml, oldNode, scriptIndex) {
+	var newNod=document.createElement('script');
+	newNod.type = 'text/javascript';
+	newNod.setAttribute("defer", "defer");
+	oldNode.parentNode.replaceChild(newNod, oldNode);
+	// add a test whether the script was evaluated
+	var newInnerHtml = "\nvar vsdocmanScript" + scriptIndex + "executed = true;\n" + innerHtml;
+	newNod.text=newInnerHtml;
+	//run the script if necessary
+	try {
+		eval("vsdocmanScript" + scriptIndex + "executed");
+	} catch (ex) {
+		// not evaluated yet
+		eval(innerHtml);
+	}
+}
+
+// *** CLASS DIAGRAM CLICKING ***
+// To navigate any kind of link, we need to call click() method on the element.
+// It's because of <MSHelp:link links in Help2 format (only used in IE). 
+// Default click event in FF doesn't trigger the link (in IE it does).
+// Fix it. 
+function performClick(element) {
+	if (document.createEventObject){
+		// IE
+		return element.click();
+	}
+	else{
+		// dispatch for firefox + others
+		var evt = element.ownerDocument.createEvent('MouseEvents');
+		evt.initMouseEvent('click', true, true, element.ownerDocument.defaultView, 1, 0, 0, 0, 0, false, false, false, false, 0, null);
+		element.dispatchEvent(evt);
+	}
+	
+	while (element) {
+		if (element.tagName == "A" && element.href != "") {
+			if (element.target != "") {
+				window.open(element.href, element.target);
+			} else {
+				document.location = element.href;
+			}
+			element = null;
+		}	else {
+			element = element.parentElement;
+		}
+	}
+}
+
+function clickElement(callerElement) {
+	try {
+		var elementHTML;
+		var tagName;
+		var innerCode;
+		var attributes;
+		var clickActionGuid;
+		
+		// get HTML source code of element to be clicked 
+		clickActionGuid = callerElement.getAttribute("click-cref-guid");
+		elementHTML = document.getElementById(clickActionGuid).innerHTML;
+		
+		// parse HTML element code
+		var elementPattern = /<(.+?)\s+(.*)>(.*)<.+?>/igm;
+		elementPattern.lastIndex = 0;
+		var match = elementPattern.exec(elementHTML);
+		tagName = match[1];
+		attributes = match[2];
+		innerCode = match[3];
+		
+		//get array of "attr=value" strings 	
+		attributes = unescapeHTML(attributes);
+		attributes = attributes.match(/\s*(.*?)\s*=\s*(["'])(.*?)\2/igm);
+		
+		// create element with attributes
+		var el = document.createElement(tagName);
+		//el.innerHTML = innerCode;
+		var i;
+		var attrPattern = /\s*(.*?)\s*=\s*(["'])(.*?)\2/igm;
+		for (i=0; i<attributes.length; i++) {
+			attrPattern.lastIndex = 0;
+			match = attrPattern.exec(attributes[i]);
+			el.setAttribute(match[1], match[3]);
+		}
+
+		document.body.appendChild(el);
+		performClick(el);
+	} catch (ex) {
+	}
+	return false;
+}
+
+function unescapeHTML (str) {
+	return str.replace(/&amp;/g,"&").
+		replace(/>/g,"&gt;").
+		replace(/</g,"&lt;");//. 
+		//the following doesn't work for some reason: replace(/"/g,"&quot;");                                         
+}
+
+// -->		
+</div>
+    <div class="topic">
+      <div class="majorTitle">SISPTD Reference
+      </div>
+      <div class="title">HomeController Métodos
+      </div>
+      <div>
+        <MrefMemberlistFilter runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+          <div id="memberOptionsMenu" xmlns="http://www.w3.org/1999/xhtml">
+            <input id="ProtectedCheckbox" type="checkbox" data="Protected" value="on" onclick="SetMemberOptions(this, 'vis')" />
+            <label class="checkboxLabel" for="ProtectedCheckbox">Inclui membros protegidos</label>
+            <br />
+            <input id="InheritedCheckbox" type="checkbox" data="Inherited" value="on" onclick="SetMemberOptions(this, 'decl')" />
+            <label class="checkboxLabel" for="InheritedCheckbox">Inclui membros herdados</label>
+            <br />
+          </div>
+        </MrefMemberlistFilter>
+        <MrefMemberlistFilter runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+          <div id="memberFrameworksMenu" xmlns="http://www.w3.org/1999/xhtml">
+            <input id="netfwCheckbox" type="checkbox" data="netfw,'persist'" value="on" onclick="SetMemberFrameworks(this)" />
+            <label class="checkboxLabel" for="netfwCheckbox">Include .NET Framework Members</label>
+            <br />
+            <input id="xnafwCheckbox" type="checkbox" data="xnafw,'persist'" value="on" onclick="SetMemberFrameworks(this)" />
+            <label class="checkboxLabel" for="xnafwCheckbox">Include XNA Framework Members</label>
+            <br /> 
+          </div>
+        </MrefMemberlistFilter>
+      </div>
+      <div id="mainSection">
+        <div id="mainBody">
+          <p>
+          </p>
+          <p>A lista seguinte tem os membros expostos por 
+              <a href="ms-xhelp:///?Id=T:SISPTD.Controllers.HomeController">HomeController</a>
+             tipo.
+          </p>
+
+
+
+
+
+	
+
+
+	
+
+
+	
+
+
+	
+
+
+	
+
+
+	
+
+
+	
+
+
+	
+
+
+	
+
+
+	
+
+
+	
+
+
+	
+
+
+	
+
+
+	
+
+
+	
+
+
+	
+
+
+	
+
+
+	
+
+
+	
+
+
+	
+
+
+	
+
+
+	
+
+
+	
+
+
+	
+
+
+	
+
+
+	
+
+
+	
+
+
+	
+
+
+	
+
+
+	
+
+
+	
+
+
+	
+
+
+	
+
+
+	
+
+
+	
+
+
+	
+
+
+	
+
+
+	
+
+
+	
+
+
+	
+
+
+	
+
+
+	
+
+
+	
+
+
+
+<CollapsibleArea runat="server" Expanded="1" Title="Métodos" xmlns="http://msdn2.microsoft.com/mtps">
+  <a id="methodTableToggle" xmlns="http://www.w3.org/1999/xhtml"><!---->
+  </a>
+  <table id="memberList1" class="members" xmlns="http://www.w3.org/1999/xhtml">
+    <tr>
+      <th class="iconColumn">
+     
+  </th>
+      <th class="nameColumn">Nome</th>
+      <th class="descriptionColumn">Descrição</th>
+    </tr>
+    
+
+ 
+      <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Protected;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+           <img class="mtps-img-src" alt="Protected method" src="msdn2/protmethod.gif" />
+
+
+
+
+        </td>
+        <td>
+
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=M:System.Web.Mvc.Controller.BeginExecute(System.Web.Routing.RequestContext,System.AsyncCallback,System.Object)">BeginExecute</a>
+	
+
+        </td>
+        <td>
+          <span>
+Begins execution of the specified request context
+(herdado de <a href="ms-xhelp:///?Id=T:System.Web.Mvc.Controller">Controller</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+ 
+
+
+ 
+      <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Protected;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+           <img class="mtps-img-src" alt="Protected method" src="msdn2/protmethod.gif" />
+
+
+
+
+        </td>
+        <td>
+
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=M:System.Web.Mvc.Controller.BeginExecuteCore(System.AsyncCallback,System.Object)">BeginExecuteCore</a>
+	
+
+        </td>
+        <td>
+          <span>
+Begins to invoke the action in the current controller context.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Web.Mvc.Controller">Controller</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+ 
+
+
+   	     <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Protected Friend;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+             <img class="mtps-img-src" alt="Internal protected (Protected Friend) method" src="msdn2/protmethod.gif" />
+
+
+
+
+
+
+        </td>
+        <td>
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=M:System.Web.Mvc.Controller.Content(System.String,System.String)">Content(String,String)</a>
+	
+
+        </td>
+        <td>
+          <span>
+Creates a content result object by using a string and the content type.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Web.Mvc.Controller">Controller</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+		     <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Protected Friend;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+             <img class="mtps-img-src" alt="Internal protected (Protected Friend) method" src="msdn2/protmethod.gif" />
+
+
+
+
+
+
+        </td>
+        <td>
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=M:System.Web.Mvc.Controller.Content(System.String,System.String,System.Text.Encoding)">Content(String,String,Encoding)</a>
+	
+
+        </td>
+        <td>
+          <span>
+Creates a content result object by using a string, the content type, and content encoding.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Web.Mvc.Controller">Controller</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+		     <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Protected Friend;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+             <img class="mtps-img-src" alt="Internal protected (Protected Friend) method" src="msdn2/protmethod.gif" />
+
+
+
+
+
+
+        </td>
+        <td>
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=Overload:System.Web.Mvc.Controller.Content">Content(String)</a>
+	
+
+        </td>
+        <td>
+          <span>
+Creates a content result object by using a string.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Web.Mvc.Controller">Controller</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+		
+ 
+
+
+ 
+      <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Protected;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+           <img class="mtps-img-src" alt="Protected method" src="msdn2/protmethod.gif" />
+
+
+
+
+        </td>
+        <td>
+
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=M:System.Web.Mvc.Controller.CreateActionInvoker">CreateActionInvoker</a>
+	
+
+        </td>
+        <td>
+          <span>
+Creates an action invoker.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Web.Mvc.Controller">Controller</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+ 
+
+
+ 
+      <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Protected;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+           <img class="mtps-img-src" alt="Protected method" src="msdn2/protmethod.gif" />
+
+
+
+
+        </td>
+        <td>
+
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=M:System.Web.Mvc.Controller.CreateTempDataProvider">CreateTempDataProvider</a>
+	
+
+        </td>
+        <td>
+          <span>
+Creates a temporary data provider.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Web.Mvc.Controller">Controller</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+ 
+
+
+   	     <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Protected;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+           <img class="mtps-img-src" alt="Protected method" src="msdn2/protmethod.gif" />
+
+
+
+
+        </td>
+        <td>
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=M:System.Web.Mvc.Controller.Dispose(System.Boolean)">Dispose(Boolean)</a>
+	
+
+        </td>
+        <td>
+          <span>
+Releases unmanaged resources and optionally releases managed resources.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Web.Mvc.Controller">Controller</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+		     <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Public;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+          <img class="mtps-img-src" alt="Public method" src="msdn2/pubmethod.gif" />
+
+
+
+        </td>
+        <td>
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=Overload:System.Web.Mvc.Controller.Dispose">Dispose</a>
+	
+
+        </td>
+        <td>
+          <span>
+Releases all resources that are used by the current instance of the <a href="ms-xhelp:///?Id=T:System.Web.Mvc.Controller">Controller</a> class.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Web.Mvc.Controller">Controller</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+		
+ 
+
+
+ 
+      <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Protected;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+           <img class="mtps-img-src" alt="Protected method" src="msdn2/protmethod.gif" />
+
+
+
+
+        </td>
+        <td>
+
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=M:System.Web.Mvc.Controller.EndExecute(System.IAsyncResult)">EndExecute</a>
+	
+
+        </td>
+        <td>
+          <span>
+Ends the invocation of the action in the current controller context.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Web.Mvc.Controller">Controller</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+ 
+
+
+ 
+      <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Protected;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+           <img class="mtps-img-src" alt="Protected method" src="msdn2/protmethod.gif" />
+
+
+
+
+        </td>
+        <td>
+
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=M:System.Web.Mvc.Controller.EndExecuteCore(System.IAsyncResult)">EndExecuteCore</a>
+	
+
+        </td>
+        <td>
+          <span>
+Ends the execute core.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Web.Mvc.Controller">Controller</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+ 
+
+
+   	     <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Public;static;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+          <img class="mtps-img-src" alt="Public method" src="msdn2/pubmethod.gif" />
+
+
+          <img class="mtps-img-src" alt="Static member" src="msdn2/static.gif" />
+
+        </td>
+        <td>
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=M:System.Object.Equals(System.Object,System.Object)">Equals(Object,Object)</a>
+	
+
+        </td>
+        <td>
+          <span>
+Determines whether the specified object instances are considered equal.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Object">Object</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+		     <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Public;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+          <img class="mtps-img-src" alt="Public method" src="msdn2/pubmethod.gif" />
+
+
+
+        </td>
+        <td>
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=Overload:System.Object.Equals">Equals(Object)</a>
+	
+
+        </td>
+        <td>
+          <span>
+Determines whether the specified object is equal to the current object.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Object">Object</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+		
+ 
+
+
+ 
+      <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Protected;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+           <img class="mtps-img-src" alt="Protected method" src="msdn2/protmethod.gif" />
+
+
+
+
+        </td>
+        <td>
+
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=M:System.Web.Mvc.ControllerBase.Execute(System.Web.Routing.RequestContext)">Execute</a>
+	
+
+        </td>
+        <td>
+          <span>
+Executes the specified request context.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Web.Mvc.ControllerBase">ControllerBase</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+ 
+
+
+ 
+      <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Protected;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+           <img class="mtps-img-src" alt="Protected method" src="msdn2/protmethod.gif" />
+
+
+
+
+        </td>
+        <td>
+
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=M:System.Web.Mvc.Controller.ExecuteCore">ExecuteCore</a>
+	
+
+        </td>
+        <td>
+          <span>
+Invokes the action in the current controller context.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Web.Mvc.Controller">Controller</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+ 
+
+
+   	     <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Protected Friend;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+             <img class="mtps-img-src" alt="Internal protected (Protected Friend) method" src="msdn2/protmethod.gif" />
+
+
+
+
+
+
+        </td>
+        <td>
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=M:System.Web.Mvc.Controller.File(System.Byte[],System.String,System.String)">File(Byte[],String,String)</a>
+	
+
+        </td>
+        <td>
+          <span>
+Creates a FileContentResult object by using the file contents, content type, and the destination file name.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Web.Mvc.Controller">Controller</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+		     <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Protected Friend;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+             <img class="mtps-img-src" alt="Internal protected (Protected Friend) method" src="msdn2/protmethod.gif" />
+
+
+
+
+
+
+        </td>
+        <td>
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=M:System.Web.Mvc.Controller.File(System.IO.Stream,System.String)">File(Stream,String)</a>
+	
+
+        </td>
+        <td>
+          <span>
+Creates a FileStreamResult object by using the Stream object and content type.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Web.Mvc.Controller">Controller</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+		     <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Protected Friend;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+             <img class="mtps-img-src" alt="Internal protected (Protected Friend) method" src="msdn2/protmethod.gif" />
+
+
+
+
+
+
+        </td>
+        <td>
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=M:System.Web.Mvc.Controller.File(System.IO.Stream,System.String,System.String)">File(Stream,String,String)</a>
+	
+
+        </td>
+        <td>
+          <span>
+Creates a FileStreamResult object using the Stream object, the content type, and the target file name.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Web.Mvc.Controller">Controller</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+		     <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Protected Friend;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+             <img class="mtps-img-src" alt="Internal protected (Protected Friend) method" src="msdn2/protmethod.gif" />
+
+
+
+
+
+
+        </td>
+        <td>
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=M:System.Web.Mvc.Controller.File(System.String,System.String)">File(String,String)</a>
+	
+
+        </td>
+        <td>
+          <span>
+Creates a FilePathResult object by using the file name and the content type.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Web.Mvc.Controller">Controller</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+		     <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Protected Friend;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+             <img class="mtps-img-src" alt="Internal protected (Protected Friend) method" src="msdn2/protmethod.gif" />
+
+
+
+
+
+
+        </td>
+        <td>
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=M:System.Web.Mvc.Controller.File(System.String,System.String,System.String)">File(String,String,String)</a>
+	
+
+        </td>
+        <td>
+          <span>
+Creates a FilePathResult object by using the file name, the content type, and the file download name.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Web.Mvc.Controller">Controller</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+		     <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Protected Friend;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+             <img class="mtps-img-src" alt="Internal protected (Protected Friend) method" src="msdn2/protmethod.gif" />
+
+
+
+
+
+
+        </td>
+        <td>
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=Overload:System.Web.Mvc.Controller.File">File(Byte[],String)</a>
+	
+
+        </td>
+        <td>
+          <span>
+Creates a FileContentResult object by using the file contents and file type.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Web.Mvc.Controller">Controller</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+		
+ 
+
+
+ 
+      <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Protected;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+           <img class="mtps-img-src" alt="Protected method" src="msdn2/protmethod.gif" />
+
+
+
+
+        </td>
+        <td>
+
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=M:System.Object.Finalize">Finalize</a>
+	
+
+        </td>
+        <td>
+          <span>
+Allows an object to try to free resources and perform other cleanup operations before it is reclaimed by garbage collection.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Object">Object</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+ 
+
+
+ 
+      <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Public;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+          <img class="mtps-img-src" alt="Public method" src="msdn2/pubmethod.gif" />
+
+
+
+        </td>
+        <td>
+
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=M:System.Object.GetHashCode">GetHashCode</a>
+	
+
+        </td>
+        <td>
+          <span>
+Serves as the default hash function.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Object">Object</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+ 
+
+
+   	     <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Public;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+          <img class="mtps-img-src" alt="Public method" src="msdn2/pubmethod.gif" />
+
+
+
+        </td>
+        <td>
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=Overload:System.Data.Entity.DbContext.GetType">GetType</a>
+	
+
+        </td>
+        <td>
+          <span>
+
+(herdado de <a href="ms-xhelp:///?Id=T:System.Data.Entity.DbContext">DbContext</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+		     <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Public;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+          <img class="mtps-img-src" alt="Public method" src="msdn2/pubmethod.gif" />
+
+
+
+        </td>
+        <td>
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=M:System.Object.GetType">GetType</a>
+	
+
+        </td>
+        <td>
+          <span>
+Gets the <a href="ms-xhelp:///?Id=T:System.Type">Type</a> of the current instance.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Object">Object</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+		
+ 
+
+
+ 
+      <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Protected;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+           <img class="mtps-img-src" alt="Protected method" src="msdn2/protmethod.gif" />
+
+
+
+
+        </td>
+        <td>
+
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=M:System.Web.Mvc.Controller.HandleUnknownAction(System.String)">HandleUnknownAction</a>
+	
+
+        </td>
+        <td>
+          <span>
+Called when a request matches this controller, but no method with the specified action name is found in the controller.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Web.Mvc.Controller">Controller</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+ 
+
+
+   	     <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Protected Friend;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+             <img class="mtps-img-src" alt="Internal protected (Protected Friend) method" src="msdn2/protmethod.gif" />
+
+
+
+
+
+
+        </td>
+        <td>
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=M:System.Web.Mvc.Controller.HttpNotFound(System.String)">HttpNotFound(String)</a>
+	
+
+        </td>
+        <td>
+          <span>
+Returns an instance of the <a href="ms-xhelp:///?Id=T:System.Web.Mvc.HttpNotFoundResult">HttpNotFoundResult</a> class.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Web.Mvc.Controller">Controller</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+		     <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Protected Friend;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+             <img class="mtps-img-src" alt="Internal protected (Protected Friend) method" src="msdn2/protmethod.gif" />
+
+
+
+
+
+
+        </td>
+        <td>
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=Overload:System.Web.Mvc.Controller.HttpNotFound">HttpNotFound</a>
+	
+
+        </td>
+        <td>
+          <span>
+Returns an instance of the <a href="ms-xhelp:///?Id=T:System.Web.Mvc.HttpNotFoundResult">HttpNotFoundResult</a> class.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Web.Mvc.Controller">Controller</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+		
+ 
+
+
+ 
+      <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Protected;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+           <img class="mtps-img-src" alt="Protected method" src="msdn2/protmethod.gif" />
+
+
+
+
+        </td>
+        <td>
+
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=M:System.Web.Mvc.Controller.Initialize(System.Web.Routing.RequestContext)">Initialize</a>
+	
+
+        </td>
+        <td>
+          <span>
+Initializes data that might not be available when the constructor is called.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Web.Mvc.Controller">Controller</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+ 
+
+
+ 
+      <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Protected Friend;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+             <img class="mtps-img-src" alt="Internal protected (Protected Friend) method" src="msdn2/protmethod.gif" />
+
+
+
+
+
+
+        </td>
+        <td>
+
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=M:System.Web.Mvc.Controller.JavaScript(System.String)">JavaScript</a>
+	
+
+        </td>
+        <td>
+          <span>
+Creates a <a href="ms-xhelp:///?Id=T:System.Web.Mvc.JavaScriptResult">JavaScriptResult</a> object.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Web.Mvc.Controller">Controller</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+ 
+
+
+   	     <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Protected Friend;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+             <img class="mtps-img-src" alt="Internal protected (Protected Friend) method" src="msdn2/protmethod.gif" />
+
+
+
+
+
+
+        </td>
+        <td>
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=M:System.Web.Mvc.Controller.Json(System.Object,System.String)">Json(Object,String)</a>
+	
+
+        </td>
+        <td>
+          <span>
+Creates a <a href="ms-xhelp:///?Id=T:System.Web.Mvc.JsonResult">JsonResult</a> object that serializes the specified object to JavaScript Object Notation (JSON) format.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Web.Mvc.Controller">Controller</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+		     <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Protected Friend;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+             <img class="mtps-img-src" alt="Internal protected (Protected Friend) method" src="msdn2/protmethod.gif" />
+
+
+
+
+
+
+        </td>
+        <td>
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=M:System.Web.Mvc.Controller.Json(System.Object,System.String,System.Text.Encoding)">Json(Object,String,Encoding)</a>
+	
+
+        </td>
+        <td>
+          <span>
+Creates a <a href="ms-xhelp:///?Id=T:System.Web.Mvc.JsonResult">JsonResult</a> object that serializes the specified object to JavaScript Object Notation (JSON) format.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Web.Mvc.Controller">Controller</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+		     <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Protected Friend;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+             <img class="mtps-img-src" alt="Internal protected (Protected Friend) method" src="msdn2/protmethod.gif" />
+
+
+
+
+
+
+        </td>
+        <td>
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=M:System.Web.Mvc.Controller.Json(System.Object,System.Web.Mvc.JsonRequestBehavior)">Json(Object,JsonRequestBehavior)</a>
+	
+
+        </td>
+        <td>
+          <span>
+Creates a JsonResult object that serializes the specified object to JavaScript Object Notation (JSON) format using the specified JSON request behavior.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Web.Mvc.Controller">Controller</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+		     <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Protected Friend;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+             <img class="mtps-img-src" alt="Internal protected (Protected Friend) method" src="msdn2/protmethod.gif" />
+
+
+
+
+
+
+        </td>
+        <td>
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=M:System.Web.Mvc.Controller.Json(System.Object,System.String,System.Web.Mvc.JsonRequestBehavior)">Json(Object,String,JsonRequestBehavior)</a>
+	
+
+        </td>
+        <td>
+          <span>
+Creates a <a href="ms-xhelp:///?Id=T:System.Web.Mvc.JsonResult">JsonResult</a> object that serializes the specified object to JavaScript Object Notation (JSON) format using the specified content type and JSON request behavior.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Web.Mvc.Controller">Controller</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+		     <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Protected Friend;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+             <img class="mtps-img-src" alt="Internal protected (Protected Friend) method" src="msdn2/protmethod.gif" />
+
+
+
+
+
+
+        </td>
+        <td>
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=M:System.Web.Mvc.Controller.Json(System.Object,System.String,System.Text.Encoding,System.Web.Mvc.JsonRequestBehavior)">Json(Object,String,Encoding,JsonRequestBehavior)</a>
+	
+
+        </td>
+        <td>
+          <span>
+Creates a <a href="ms-xhelp:///?Id=T:System.Web.Mvc.JsonResult">JsonResult</a> object that serializes the specified object to JavaScript Object Notation (JSON) format using the content type, content encoding, and the JSON request behavior.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Web.Mvc.Controller">Controller</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+		     <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Protected Friend;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+             <img class="mtps-img-src" alt="Internal protected (Protected Friend) method" src="msdn2/protmethod.gif" />
+
+
+
+
+
+
+        </td>
+        <td>
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=Overload:System.Web.Mvc.Controller.Json">Json(Object)</a>
+	
+
+        </td>
+        <td>
+          <span>
+Creates a <a href="ms-xhelp:///?Id=T:System.Web.Mvc.JsonResult">JsonResult</a> object that serializes the specified object to JavaScript Object Notation (JSON).
+(herdado de <a href="ms-xhelp:///?Id=T:System.Web.Mvc.Controller">Controller</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+		
+ 
+
+
+ 
+      <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Protected;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+           <img class="mtps-img-src" alt="Protected method" src="msdn2/protmethod.gif" />
+
+
+
+
+        </td>
+        <td>
+
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=M:System.Object.MemberwiseClone">MemberwiseClone</a>
+	
+
+        </td>
+        <td>
+          <span>
+Creates a shallow copy of the current <a href="ms-xhelp:///?Id=T:System.Object">Object</a>.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Object">Object</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+ 
+
+
+ 
+      <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Protected;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+           <img class="mtps-img-src" alt="Protected method" src="msdn2/protmethod.gif" />
+
+
+
+
+        </td>
+        <td>
+
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=M:System.Web.Mvc.Controller.OnActionExecuted(System.Web.Mvc.ActionExecutedContext)">OnActionExecuted</a>
+	
+
+        </td>
+        <td>
+          <span>
+Called after the action method is invoked.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Web.Mvc.Controller">Controller</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+ 
+
+
+ 
+      <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Protected;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+           <img class="mtps-img-src" alt="Protected method" src="msdn2/protmethod.gif" />
+
+
+
+
+        </td>
+        <td>
+
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=M:System.Web.Mvc.Controller.OnActionExecuting(System.Web.Mvc.ActionExecutingContext)">OnActionExecuting</a>
+	
+
+        </td>
+        <td>
+          <span>
+Called before the action method is invoked.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Web.Mvc.Controller">Controller</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+ 
+
+
+ 
+      <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Protected;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+           <img class="mtps-img-src" alt="Protected method" src="msdn2/protmethod.gif" />
+
+
+
+
+        </td>
+        <td>
+
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=M:System.Web.Mvc.Controller.OnAuthentication(System.Web.Mvc.Filters.AuthenticationContext)">OnAuthentication</a>
+	
+
+        </td>
+        <td>
+          <span>
+Called when authorization occurs.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Web.Mvc.Controller">Controller</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+ 
+
+
+ 
+      <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Protected;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+           <img class="mtps-img-src" alt="Protected method" src="msdn2/protmethod.gif" />
+
+
+
+
+        </td>
+        <td>
+
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=M:System.Web.Mvc.Controller.OnAuthenticationChallenge(System.Web.Mvc.Filters.AuthenticationChallengeContext)">OnAuthenticationChallenge</a>
+	
+
+        </td>
+        <td>
+          <span>
+Called when authorization challenge occurs.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Web.Mvc.Controller">Controller</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+ 
+
+
+ 
+      <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Protected;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+           <img class="mtps-img-src" alt="Protected method" src="msdn2/protmethod.gif" />
+
+
+
+
+        </td>
+        <td>
+
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=M:System.Web.Mvc.Controller.OnAuthorization(System.Web.Mvc.AuthorizationContext)">OnAuthorization</a>
+	
+
+        </td>
+        <td>
+          <span>
+Called when authorization occurs.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Web.Mvc.Controller">Controller</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+ 
+
+
+ 
+      <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Protected;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+           <img class="mtps-img-src" alt="Protected method" src="msdn2/protmethod.gif" />
+
+
+
+
+        </td>
+        <td>
+
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=M:System.Web.Mvc.Controller.OnException(System.Web.Mvc.ExceptionContext)">OnException</a>
+	
+
+        </td>
+        <td>
+          <span>
+Called when an unhandled exception occurs in the action.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Web.Mvc.Controller">Controller</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+ 
+
+
+ 
+      <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Protected;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+           <img class="mtps-img-src" alt="Protected method" src="msdn2/protmethod.gif" />
+
+
+
+
+        </td>
+        <td>
+
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=M:System.Web.Mvc.Controller.OnResultExecuted(System.Web.Mvc.ResultExecutedContext)">OnResultExecuted</a>
+	
+
+        </td>
+        <td>
+          <span>
+Called after the action result that is returned by an action method is executed.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Web.Mvc.Controller">Controller</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+ 
+
+
+ 
+      <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Protected;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+           <img class="mtps-img-src" alt="Protected method" src="msdn2/protmethod.gif" />
+
+
+
+
+        </td>
+        <td>
+
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=M:System.Web.Mvc.Controller.OnResultExecuting(System.Web.Mvc.ResultExecutingContext)">OnResultExecuting</a>
+	
+
+        </td>
+        <td>
+          <span>
+Called before the action result that is returned by an action method is executed.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Web.Mvc.Controller">Controller</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+ 
+
+
+   	     <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Protected Friend;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+             <img class="mtps-img-src" alt="Internal protected (Protected Friend) method" src="msdn2/protmethod.gif" />
+
+
+
+
+
+
+        </td>
+        <td>
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=M:System.Web.Mvc.Controller.PartialView(System.Object)">PartialView(Object)</a>
+	
+
+        </td>
+        <td>
+          <span>
+Creates a <a href="ms-xhelp:///?Id=T:System.Web.Mvc.PartialViewResult">PartialViewResult</a> object that renders a partial view, by using the specified model.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Web.Mvc.Controller">Controller</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+		     <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Protected Friend;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+             <img class="mtps-img-src" alt="Internal protected (Protected Friend) method" src="msdn2/protmethod.gif" />
+
+
+
+
+
+
+        </td>
+        <td>
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=M:System.Web.Mvc.Controller.PartialView(System.String)">PartialView(String)</a>
+	
+
+        </td>
+        <td>
+          <span>
+Creates a <a href="ms-xhelp:///?Id=T:System.Web.Mvc.PartialViewResult">PartialViewResult</a> object that renders a partial view, by using the specified view name.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Web.Mvc.Controller">Controller</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+		     <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Protected Friend;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+             <img class="mtps-img-src" alt="Internal protected (Protected Friend) method" src="msdn2/protmethod.gif" />
+
+
+
+
+
+
+        </td>
+        <td>
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=M:System.Web.Mvc.Controller.PartialView(System.String,System.Object)">PartialView(String,Object)</a>
+	
+
+        </td>
+        <td>
+          <span>
+Creates a <a href="ms-xhelp:///?Id=T:System.Web.Mvc.PartialViewResult">PartialViewResult</a> object that renders a partial view, by using the specified view name and model.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Web.Mvc.Controller">Controller</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+		     <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Protected Friend;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+             <img class="mtps-img-src" alt="Internal protected (Protected Friend) method" src="msdn2/protmethod.gif" />
+
+
+
+
+
+
+        </td>
+        <td>
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=Overload:System.Web.Mvc.Controller.PartialView">PartialView</a>
+	
+
+        </td>
+        <td>
+          <span>
+Creates a <a href="ms-xhelp:///?Id=T:System.Web.Mvc.PartialViewResult">PartialViewResult</a> object that renders a partial view.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Web.Mvc.Controller">Controller</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+		
+ 
+
+
+ 
+      <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Protected Friend;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+             <img class="mtps-img-src" alt="Internal protected (Protected Friend) method" src="msdn2/protmethod.gif" />
+
+
+
+
+
+
+        </td>
+        <td>
+
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=M:System.Web.Mvc.Controller.Redirect(System.String)">Redirect</a>
+	
+
+        </td>
+        <td>
+          <span>
+Creates a <a href="ms-xhelp:///?Id=T:System.Web.Mvc.RedirectResult">RedirectResult</a> object that redirects to the specified URL.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Web.Mvc.Controller">Controller</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+ 
+
+
+ 
+      <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Protected Friend;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+             <img class="mtps-img-src" alt="Internal protected (Protected Friend) method" src="msdn2/protmethod.gif" />
+
+
+
+
+
+
+        </td>
+        <td>
+
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=M:System.Web.Mvc.Controller.RedirectPermanent(System.String)">RedirectPermanent</a>
+	
+
+        </td>
+        <td>
+          <span>
+Returns an instance of the <a href="ms-xhelp:///?Id=T:System.Web.Mvc.RedirectResult">RedirectResult</a> class with the Permanent property set to true.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Web.Mvc.Controller">Controller</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+ 
+
+
+   	     <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Protected Friend;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+             <img class="mtps-img-src" alt="Internal protected (Protected Friend) method" src="msdn2/protmethod.gif" />
+
+
+
+
+
+
+        </td>
+        <td>
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=M:System.Web.Mvc.Controller.RedirectToAction(System.String,System.Object)">RedirectToAction(String,Object)</a>
+	
+
+        </td>
+        <td>
+          <span>
+Redirects to the specified action using the action name and route values.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Web.Mvc.Controller">Controller</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+		     <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Protected Friend;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+             <img class="mtps-img-src" alt="Internal protected (Protected Friend) method" src="msdn2/protmethod.gif" />
+
+
+
+
+
+
+        </td>
+        <td>
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=M:System.Web.Mvc.Controller.RedirectToAction(System.String,System.Web.Routing.RouteValueDictionary)">RedirectToAction(String,RouteValueDictionary)</a>
+	
+
+        </td>
+        <td>
+          <span>
+Redirects to the specified action using the action name and route dictionary.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Web.Mvc.Controller">Controller</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+		     <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Protected Friend;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+             <img class="mtps-img-src" alt="Internal protected (Protected Friend) method" src="msdn2/protmethod.gif" />
+
+
+
+
+
+
+        </td>
+        <td>
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=M:System.Web.Mvc.Controller.RedirectToAction(System.String,System.String)">RedirectToAction(String,String)</a>
+	
+
+        </td>
+        <td>
+          <span>
+Redirects to the specified action using the action name and controller name.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Web.Mvc.Controller">Controller</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+		     <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Protected Friend;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+             <img class="mtps-img-src" alt="Internal protected (Protected Friend) method" src="msdn2/protmethod.gif" />
+
+
+
+
+
+
+        </td>
+        <td>
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=M:System.Web.Mvc.Controller.RedirectToAction(System.String,System.String,System.Object)">RedirectToAction(String,String,Object)</a>
+	
+
+        </td>
+        <td>
+          <span>
+Redirects to the specified action using the action name, controller name, and route dictionary.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Web.Mvc.Controller">Controller</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+		     <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Protected Friend;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+             <img class="mtps-img-src" alt="Internal protected (Protected Friend) method" src="msdn2/protmethod.gif" />
+
+
+
+
+
+
+        </td>
+        <td>
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=M:System.Web.Mvc.Controller.RedirectToAction(System.String,System.String,System.Web.Routing.RouteValueDictionary)">RedirectToAction(String,String,RouteValueDictionary)</a>
+	
+
+        </td>
+        <td>
+          <span>
+Redirects to the specified action using the action name, controller name, and route values.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Web.Mvc.Controller">Controller</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+		     <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Protected Friend;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+             <img class="mtps-img-src" alt="Internal protected (Protected Friend) method" src="msdn2/protmethod.gif" />
+
+
+
+
+
+
+        </td>
+        <td>
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=Overload:System.Web.Mvc.Controller.RedirectToAction">RedirectToAction(String)</a>
+	
+
+        </td>
+        <td>
+          <span>
+Redirects to the specified action using the action name.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Web.Mvc.Controller">Controller</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+		
+ 
+
+
+   	     <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Protected Friend;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+             <img class="mtps-img-src" alt="Internal protected (Protected Friend) method" src="msdn2/protmethod.gif" />
+
+
+
+
+
+
+        </td>
+        <td>
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=M:System.Web.Mvc.Controller.RedirectToActionPermanent(System.String,System.Object)">RedirectToActionPermanent(String,Object)</a>
+	
+
+        </td>
+        <td>
+          <span>
+Returns an instance of the <a href="ms-xhelp:///?Id=T:System.Web.Mvc.RedirectResult">RedirectResult</a> class with the Permanent property set to true using the specified action name, and route values.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Web.Mvc.Controller">Controller</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+		     <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Protected Friend;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+             <img class="mtps-img-src" alt="Internal protected (Protected Friend) method" src="msdn2/protmethod.gif" />
+
+
+
+
+
+
+        </td>
+        <td>
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=M:System.Web.Mvc.Controller.RedirectToActionPermanent(System.String,System.Web.Routing.RouteValueDictionary)">RedirectToActionPermanent(String,RouteValueDictionary)</a>
+	
+
+        </td>
+        <td>
+          <span>
+Returns an instance of the <a href="ms-xhelp:///?Id=T:System.Web.Mvc.RedirectResult">RedirectResult</a> class with the Permanent property set to true using the specified action name, and route values.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Web.Mvc.Controller">Controller</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+		     <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Protected Friend;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+             <img class="mtps-img-src" alt="Internal protected (Protected Friend) method" src="msdn2/protmethod.gif" />
+
+
+
+
+
+
+        </td>
+        <td>
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=M:System.Web.Mvc.Controller.RedirectToActionPermanent(System.String,System.String)">RedirectToActionPermanent(String,String)</a>
+	
+
+        </td>
+        <td>
+          <span>
+Returns an instance of the <a href="ms-xhelp:///?Id=T:System.Web.Mvc.RedirectResult">RedirectResult</a> class with the Permanent property set to true using the specified action name, and controller name.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Web.Mvc.Controller">Controller</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+		     <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Protected Friend;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+             <img class="mtps-img-src" alt="Internal protected (Protected Friend) method" src="msdn2/protmethod.gif" />
+
+
+
+
+
+
+        </td>
+        <td>
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=M:System.Web.Mvc.Controller.RedirectToActionPermanent(System.String,System.String,System.Object)">RedirectToActionPermanent(String,String,Object)</a>
+	
+
+        </td>
+        <td>
+          <span>
+Returns an instance of the <a href="ms-xhelp:///?Id=T:System.Web.Mvc.RedirectResult">RedirectResult</a> class with the Permanent property set to true using the specified action name, controller name, and route values.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Web.Mvc.Controller">Controller</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+		     <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Protected Friend;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+             <img class="mtps-img-src" alt="Internal protected (Protected Friend) method" src="msdn2/protmethod.gif" />
+
+
+
+
+
+
+        </td>
+        <td>
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=M:System.Web.Mvc.Controller.RedirectToActionPermanent(System.String,System.String,System.Web.Routing.RouteValueDictionary)">RedirectToActionPermanent(String,String,RouteValueDictionary)</a>
+	
+
+        </td>
+        <td>
+          <span>
+Returns an instance of the <a href="ms-xhelp:///?Id=T:System.Web.Mvc.RedirectResult">RedirectResult</a> class with the Permanent property set to true using the specified action name, controller name, and route values.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Web.Mvc.Controller">Controller</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+		     <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Protected Friend;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+             <img class="mtps-img-src" alt="Internal protected (Protected Friend) method" src="msdn2/protmethod.gif" />
+
+
+
+
+
+
+        </td>
+        <td>
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=Overload:System.Web.Mvc.Controller.RedirectToActionPermanent">RedirectToActionPermanent(String)</a>
+	
+
+        </td>
+        <td>
+          <span>
+Returns an instance of the <a href="ms-xhelp:///?Id=T:System.Web.Mvc.RedirectResult">RedirectResult</a> class with the Permanent property set to true using the specified action name.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Web.Mvc.Controller">Controller</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+		
+ 
+
+
+   	     <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Protected Friend;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+             <img class="mtps-img-src" alt="Internal protected (Protected Friend) method" src="msdn2/protmethod.gif" />
+
+
+
+
+
+
+        </td>
+        <td>
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=M:System.Web.Mvc.Controller.RedirectToRoute(System.Web.Routing.RouteValueDictionary)">RedirectToRoute(RouteValueDictionary)</a>
+	
+
+        </td>
+        <td>
+          <span>
+Redirects to the specified route using the route dictionary.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Web.Mvc.Controller">Controller</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+		     <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Protected Friend;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+             <img class="mtps-img-src" alt="Internal protected (Protected Friend) method" src="msdn2/protmethod.gif" />
+
+
+
+
+
+
+        </td>
+        <td>
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=M:System.Web.Mvc.Controller.RedirectToRoute(System.String)">RedirectToRoute(String)</a>
+	
+
+        </td>
+        <td>
+          <span>
+Redirects to the specified route using the route name.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Web.Mvc.Controller">Controller</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+		     <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Protected Friend;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+             <img class="mtps-img-src" alt="Internal protected (Protected Friend) method" src="msdn2/protmethod.gif" />
+
+
+
+
+
+
+        </td>
+        <td>
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=M:System.Web.Mvc.Controller.RedirectToRoute(System.String,System.Object)">RedirectToRoute(String,Object)</a>
+	
+
+        </td>
+        <td>
+          <span>
+Redirects to the specified route using the route name and route values.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Web.Mvc.Controller">Controller</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+		     <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Protected Friend;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+             <img class="mtps-img-src" alt="Internal protected (Protected Friend) method" src="msdn2/protmethod.gif" />
+
+
+
+
+
+
+        </td>
+        <td>
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=M:System.Web.Mvc.Controller.RedirectToRoute(System.String,System.Web.Routing.RouteValueDictionary)">RedirectToRoute(String,RouteValueDictionary)</a>
+	
+
+        </td>
+        <td>
+          <span>
+Redirects to the specified route using the route name and route dictionary.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Web.Mvc.Controller">Controller</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+		     <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Protected Friend;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+             <img class="mtps-img-src" alt="Internal protected (Protected Friend) method" src="msdn2/protmethod.gif" />
+
+
+
+
+
+
+        </td>
+        <td>
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=Overload:System.Web.Mvc.Controller.RedirectToRoute">RedirectToRoute(Object)</a>
+	
+
+        </td>
+        <td>
+          <span>
+Redirects to the specified route using the specified route values.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Web.Mvc.Controller">Controller</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+		
+ 
+
+
+   	     <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Protected Friend;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+             <img class="mtps-img-src" alt="Internal protected (Protected Friend) method" src="msdn2/protmethod.gif" />
+
+
+
+
+
+
+        </td>
+        <td>
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=M:System.Web.Mvc.Controller.RedirectToRoutePermanent(System.Web.Routing.RouteValueDictionary)">RedirectToRoutePermanent(RouteValueDictionary)</a>
+	
+
+        </td>
+        <td>
+          <span>
+Returns an instance of the RedirectResult class with the Permanent property set to true using the specified route values.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Web.Mvc.Controller">Controller</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+		     <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Protected Friend;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+             <img class="mtps-img-src" alt="Internal protected (Protected Friend) method" src="msdn2/protmethod.gif" />
+
+
+
+
+
+
+        </td>
+        <td>
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=M:System.Web.Mvc.Controller.RedirectToRoutePermanent(System.String)">RedirectToRoutePermanent(String)</a>
+	
+
+        </td>
+        <td>
+          <span>
+Returns an instance of the RedirectResult class with the Permanent property set to true using the specified route name.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Web.Mvc.Controller">Controller</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+		     <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Protected Friend;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+             <img class="mtps-img-src" alt="Internal protected (Protected Friend) method" src="msdn2/protmethod.gif" />
+
+
+
+
+
+
+        </td>
+        <td>
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=M:System.Web.Mvc.Controller.RedirectToRoutePermanent(System.String,System.Object)">RedirectToRoutePermanent(String,Object)</a>
+	
+
+        </td>
+        <td>
+          <span>
+Returns an instance of the RedirectResult class with the Permanent property set to true using the specified route name and route values.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Web.Mvc.Controller">Controller</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+		     <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Protected Friend;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+             <img class="mtps-img-src" alt="Internal protected (Protected Friend) method" src="msdn2/protmethod.gif" />
+
+
+
+
+
+
+        </td>
+        <td>
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=M:System.Web.Mvc.Controller.RedirectToRoutePermanent(System.String,System.Web.Routing.RouteValueDictionary)">RedirectToRoutePermanent(String,RouteValueDictionary)</a>
+	
+
+        </td>
+        <td>
+          <span>
+Returns an instance of the RedirectResult class with the Permanent property set to true using the specified route name and route values.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Web.Mvc.Controller">Controller</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+		     <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Protected Friend;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+             <img class="mtps-img-src" alt="Internal protected (Protected Friend) method" src="msdn2/protmethod.gif" />
+
+
+
+
+
+
+        </td>
+        <td>
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=Overload:System.Web.Mvc.Controller.RedirectToRoutePermanent">RedirectToRoutePermanent(Object)</a>
+	
+
+        </td>
+        <td>
+          <span>
+Returns an instance of the RedirectResult class with the Permanent property set to true using the specified route values.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Web.Mvc.Controller">Controller</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+		
+ 
+
+
+ 
+      <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Public;static;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+          <img class="mtps-img-src" alt="Public method" src="msdn2/pubmethod.gif" />
+
+
+          <img class="mtps-img-src" alt="Static member" src="msdn2/static.gif" />
+
+        </td>
+        <td>
+
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=M:System.Object.ReferenceEquals(System.Object,System.Object)">ReferenceEquals</a>
+	
+
+        </td>
+        <td>
+          <span>
+Determines whether the specified <a href="ms-xhelp:///?Id=T:System.Object">Object</a> instances are the same instance.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Object">Object</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+ 
+
+
+ 
+      <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Public;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+          <img class="mtps-img-src" alt="Public method" src="msdn2/pubmethod.gif" />
+
+
+
+        </td>
+        <td>
+
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=M:System.Object.ToString">ToString</a>
+	
+
+        </td>
+        <td>
+          <span>
+Returns a string that represents the current object.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Object">Object</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+ 
+
+
+   	     <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Protected Friend;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+             <img class="mtps-img-src" alt="Internal protected (Protected Friend) method" src="msdn2/protmethod.gif" />
+
+
+
+
+
+
+        </td>
+        <td>
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=M:System.Web.Mvc.Controller.TryUpdateModel``1(``0,System.Web.Mvc.IValueProvider)">TryUpdateModel``1(``0,IValueProvider)</a>
+	
+
+        </td>
+        <td>
+          <span>
+Updates the specified model instance using values from the value provider.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Web.Mvc.Controller">Controller</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+		     <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Protected Friend;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+             <img class="mtps-img-src" alt="Internal protected (Protected Friend) method" src="msdn2/protmethod.gif" />
+
+
+
+
+
+
+        </td>
+        <td>
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=M:System.Web.Mvc.Controller.TryUpdateModel``1(``0,System.String,System.Web.Mvc.IValueProvider)">TryUpdateModel``1(``0,String,IValueProvider)</a>
+	
+
+        </td>
+        <td>
+          <span>
+Updates the specified model instance using values from the value provider and a list of properties to include.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Web.Mvc.Controller">Controller</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+		     <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Protected Friend;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+             <img class="mtps-img-src" alt="Internal protected (Protected Friend) method" src="msdn2/protmethod.gif" />
+
+
+
+
+
+
+        </td>
+        <td>
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=M:System.Web.Mvc.Controller.TryUpdateModel``1(``0,System.String[],System.Web.Mvc.IValueProvider)">TryUpdateModel``1(``0,String[],IValueProvider)</a>
+	
+
+        </td>
+        <td>
+          <span>
+Updates the specified model instance using values from the value provider and a list of properties to include.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Web.Mvc.Controller">Controller</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+		     <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Protected Friend;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+             <img class="mtps-img-src" alt="Internal protected (Protected Friend) method" src="msdn2/protmethod.gif" />
+
+
+
+
+
+
+        </td>
+        <td>
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=M:System.Web.Mvc.Controller.TryUpdateModel``1(``0,System.String,System.String[],System.Web.Mvc.IValueProvider)">TryUpdateModel``1(``0,String,String[],IValueProvider)</a>
+	
+
+        </td>
+        <td>
+          <span>
+Updates the specified model instance using values from the value provider, a prefix, and included properties.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Web.Mvc.Controller">Controller</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+		     <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Protected Friend;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+             <img class="mtps-img-src" alt="Internal protected (Protected Friend) method" src="msdn2/protmethod.gif" />
+
+
+
+
+
+
+        </td>
+        <td>
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=M:System.Web.Mvc.Controller.TryUpdateModel``1(``0,System.String,System.String[],System.String[],System.Web.Mvc.IValueProvider)">TryUpdateModel``1(``0,String,String[],String[],IValueProvider)</a>
+	
+
+        </td>
+        <td>
+          <span>
+Updates the specified model instance using values from the value provider, a prefix, a list of properties to exclude , and a list of properties to include.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Web.Mvc.Controller">Controller</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+		     <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Protected Friend;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+             <img class="mtps-img-src" alt="Internal protected (Protected Friend) method" src="msdn2/protmethod.gif" />
+
+
+
+
+
+
+        </td>
+        <td>
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=M:System.Web.Mvc.Controller.TryUpdateModel``1(``0)">TryUpdateModel``1(``0)</a>
+	
+
+        </td>
+        <td>
+          <span>
+Updates the specified model instance using values from the controller&#39;s current value provider.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Web.Mvc.Controller">Controller</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+		     <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Protected Friend;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+             <img class="mtps-img-src" alt="Internal protected (Protected Friend) method" src="msdn2/protmethod.gif" />
+
+
+
+
+
+
+        </td>
+        <td>
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=M:System.Web.Mvc.Controller.TryUpdateModel``1(``0,System.String)">TryUpdateModel``1(``0,String)</a>
+	
+
+        </td>
+        <td>
+          <span>
+Updates the specified model instance using values from the controller&#39;s current value provider and a prefix.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Web.Mvc.Controller">Controller</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+		     <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Protected Friend;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+             <img class="mtps-img-src" alt="Internal protected (Protected Friend) method" src="msdn2/protmethod.gif" />
+
+
+
+
+
+
+        </td>
+        <td>
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=M:System.Web.Mvc.Controller.TryUpdateModel``1(``0,System.String[])">TryUpdateModel``1(``0,String[])</a>
+	
+
+        </td>
+        <td>
+          <span>
+Updates the specified model instance using values from the controller&#39;s current value provider and included properties.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Web.Mvc.Controller">Controller</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+		     <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Protected Friend;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+             <img class="mtps-img-src" alt="Internal protected (Protected Friend) method" src="msdn2/protmethod.gif" />
+
+
+
+
+
+
+        </td>
+        <td>
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=M:System.Web.Mvc.Controller.TryUpdateModel``1(``0,System.String,System.String[])">TryUpdateModel``1(``0,String,String[])</a>
+	
+
+        </td>
+        <td>
+          <span>
+Updates the specified model instance using values from the controller&#39;s current value provider, a prefix, and included properties.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Web.Mvc.Controller">Controller</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+		     <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Protected Friend;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+             <img class="mtps-img-src" alt="Internal protected (Protected Friend) method" src="msdn2/protmethod.gif" />
+
+
+
+
+
+
+        </td>
+        <td>
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=Overload:System.Web.Mvc.Controller.TryUpdateModel">TryUpdateModel``1(``0,String,String[],String[])</a>
+	
+
+        </td>
+        <td>
+          <span>
+Updates the specified model instance using values from the controller&#39;s current value provider, a prefix, a list of properties to exclude, and a list of properties to include.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Web.Mvc.Controller">Controller</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+		
+ 
+
+
+   	     <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Protected Friend;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+             <img class="mtps-img-src" alt="Internal protected (Protected Friend) method" src="msdn2/protmethod.gif" />
+
+
+
+
+
+
+        </td>
+        <td>
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=M:System.Web.Mvc.Controller.TryValidateModel(System.Object,System.String)">TryValidateModel(Object,String)</a>
+	
+
+        </td>
+        <td>
+          <span>
+Validates the specified model instance using an HTML prefix.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Web.Mvc.Controller">Controller</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+		     <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Protected Friend;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+             <img class="mtps-img-src" alt="Internal protected (Protected Friend) method" src="msdn2/protmethod.gif" />
+
+
+
+
+
+
+        </td>
+        <td>
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=Overload:System.Web.Mvc.Controller.TryValidateModel">TryValidateModel(Object)</a>
+	
+
+        </td>
+        <td>
+          <span>
+Validates the specified model instance.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Web.Mvc.Controller">Controller</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+		
+ 
+
+
+   	     <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Protected Friend;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+             <img class="mtps-img-src" alt="Internal protected (Protected Friend) method" src="msdn2/protmethod.gif" />
+
+
+
+
+
+
+        </td>
+        <td>
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=M:System.Web.Mvc.Controller.UpdateModel``1(``0,System.String)">UpdateModel``1(``0,String)</a>
+	
+
+        </td>
+        <td>
+          <span>
+Updates the specified model instance using values from the controller&#39;s current value provider and a prefix.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Web.Mvc.Controller">Controller</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+		     <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Protected Friend;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+             <img class="mtps-img-src" alt="Internal protected (Protected Friend) method" src="msdn2/protmethod.gif" />
+
+
+
+
+
+
+        </td>
+        <td>
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=M:System.Web.Mvc.Controller.UpdateModel``1(``0,System.String[])">UpdateModel``1(``0,String[])</a>
+	
+
+        </td>
+        <td>
+          <span>
+Updates the specified model instance using values from the controller object&#39;s current value provider.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Web.Mvc.Controller">Controller</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+		     <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Protected Friend;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+             <img class="mtps-img-src" alt="Internal protected (Protected Friend) method" src="msdn2/protmethod.gif" />
+
+
+
+
+
+
+        </td>
+        <td>
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=M:System.Web.Mvc.Controller.UpdateModel``1(``0,System.String,System.String[])">UpdateModel``1(``0,String,String[])</a>
+	
+
+        </td>
+        <td>
+          <span>
+Updates the specified model instance using values from the controller&#39;s current value provider, a prefix, and included properties.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Web.Mvc.Controller">Controller</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+		     <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Protected Friend;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+             <img class="mtps-img-src" alt="Internal protected (Protected Friend) method" src="msdn2/protmethod.gif" />
+
+
+
+
+
+
+        </td>
+        <td>
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=M:System.Web.Mvc.Controller.UpdateModel``1(``0,System.String,System.String[],System.String[])">UpdateModel``1(``0,String,String[],String[])</a>
+	
+
+        </td>
+        <td>
+          <span>
+Updates the specified model instance using values from the controller&#39;s current value provider, a prefix, a list of properties to exclude, and a list of properties to include.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Web.Mvc.Controller">Controller</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+		     <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Protected Friend;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+             <img class="mtps-img-src" alt="Internal protected (Protected Friend) method" src="msdn2/protmethod.gif" />
+
+
+
+
+
+
+        </td>
+        <td>
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=M:System.Web.Mvc.Controller.UpdateModel``1(``0,System.Web.Mvc.IValueProvider)">UpdateModel``1(``0,IValueProvider)</a>
+	
+
+        </td>
+        <td>
+          <span>
+Updates the specified model instance using values from the value provider.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Web.Mvc.Controller">Controller</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+		     <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Protected Friend;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+             <img class="mtps-img-src" alt="Internal protected (Protected Friend) method" src="msdn2/protmethod.gif" />
+
+
+
+
+
+
+        </td>
+        <td>
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=M:System.Web.Mvc.Controller.UpdateModel``1(``0,System.String,System.Web.Mvc.IValueProvider)">UpdateModel``1(``0,String,IValueProvider)</a>
+	
+
+        </td>
+        <td>
+          <span>
+Updates the specified model instance using values from the value provider, a prefix, and a list of properties to include.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Web.Mvc.Controller">Controller</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+		     <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Protected Friend;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+             <img class="mtps-img-src" alt="Internal protected (Protected Friend) method" src="msdn2/protmethod.gif" />
+
+
+
+
+
+
+        </td>
+        <td>
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=M:System.Web.Mvc.Controller.UpdateModel``1(``0,System.String[],System.Web.Mvc.IValueProvider)">UpdateModel``1(``0,String[],IValueProvider)</a>
+	
+
+        </td>
+        <td>
+          <span>
+Updates the specified model instance using values from the value provider, a prefix, and a list of properties to include.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Web.Mvc.Controller">Controller</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+		     <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Protected Friend;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+             <img class="mtps-img-src" alt="Internal protected (Protected Friend) method" src="msdn2/protmethod.gif" />
+
+
+
+
+
+
+        </td>
+        <td>
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=M:System.Web.Mvc.Controller.UpdateModel``1(``0,System.String,System.String[],System.Web.Mvc.IValueProvider)">UpdateModel``1(``0,String,String[],IValueProvider)</a>
+	
+
+        </td>
+        <td>
+          <span>
+Updates the specified model instance using values from the value provider, a prefix, and a list of properties to include.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Web.Mvc.Controller">Controller</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+		     <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Protected Friend;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+             <img class="mtps-img-src" alt="Internal protected (Protected Friend) method" src="msdn2/protmethod.gif" />
+
+
+
+
+
+
+        </td>
+        <td>
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=M:System.Web.Mvc.Controller.UpdateModel``1(``0,System.String,System.String[],System.String[],System.Web.Mvc.IValueProvider)">UpdateModel``1(``0,String,String[],String[],IValueProvider)</a>
+	
+
+        </td>
+        <td>
+          <span>
+Updates the specified model instance using values from the value provider, a prefix, a list of properties to exclude, and a list of properties to include.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Web.Mvc.Controller">Controller</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+		     <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Protected Friend;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+             <img class="mtps-img-src" alt="Internal protected (Protected Friend) method" src="msdn2/protmethod.gif" />
+
+
+
+
+
+
+        </td>
+        <td>
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=Overload:System.Web.Mvc.Controller.UpdateModel">UpdateModel``1(``0)</a>
+	
+
+        </td>
+        <td>
+          <span>
+Updates the specified model instance using values from the controller&#39;s current value provider.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Web.Mvc.Controller">Controller</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+		
+ 
+
+
+   	     <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Protected Friend;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+             <img class="mtps-img-src" alt="Internal protected (Protected Friend) method" src="msdn2/protmethod.gif" />
+
+
+
+
+
+
+        </td>
+        <td>
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=M:System.Web.Mvc.Controller.ValidateModel(System.Object,System.String)">ValidateModel(Object,String)</a>
+	
+
+        </td>
+        <td>
+          <span>
+Validates the specified model instance using an HTML prefix.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Web.Mvc.Controller">Controller</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+		     <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Protected Friend;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+             <img class="mtps-img-src" alt="Internal protected (Protected Friend) method" src="msdn2/protmethod.gif" />
+
+
+
+
+
+
+        </td>
+        <td>
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=Overload:System.Web.Mvc.Controller.ValidateModel">ValidateModel(Object)</a>
+	
+
+        </td>
+        <td>
+          <span>
+Validates the specified model instance.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Web.Mvc.Controller">Controller</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+		
+ 
+
+
+   	     <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Protected Friend;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+             <img class="mtps-img-src" alt="Internal protected (Protected Friend) method" src="msdn2/protmethod.gif" />
+
+
+
+
+
+
+        </td>
+        <td>
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=M:System.Web.Mvc.Controller.View(System.Object)">View(Object)</a>
+	
+
+        </td>
+        <td>
+          <span>
+Creates a <a href="ms-xhelp:///?Id=T:System.Web.Mvc.ViewResult">ViewResult</a> object by using the model that renders a view to the response.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Web.Mvc.Controller">Controller</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+		     <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Protected Friend;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+             <img class="mtps-img-src" alt="Internal protected (Protected Friend) method" src="msdn2/protmethod.gif" />
+
+
+
+
+
+
+        </td>
+        <td>
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=M:System.Web.Mvc.Controller.View(System.String)">View(String)</a>
+	
+
+        </td>
+        <td>
+          <span>
+Creates a <a href="ms-xhelp:///?Id=T:System.Web.Mvc.ViewResult">ViewResult</a> object by using the view name that renders a view.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Web.Mvc.Controller">Controller</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+		     <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Protected Friend;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+             <img class="mtps-img-src" alt="Internal protected (Protected Friend) method" src="msdn2/protmethod.gif" />
+
+
+
+
+
+
+        </td>
+        <td>
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=M:System.Web.Mvc.Controller.View(System.String,System.String)">View(String,String)</a>
+	
+
+        </td>
+        <td>
+          <span>
+Creates a <a href="ms-xhelp:///?Id=T:System.Web.Mvc.ViewResult">ViewResult</a> object using the view name and master-page name that renders a view to the response.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Web.Mvc.Controller">Controller</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+		     <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Protected Friend;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+             <img class="mtps-img-src" alt="Internal protected (Protected Friend) method" src="msdn2/protmethod.gif" />
+
+
+
+
+
+
+        </td>
+        <td>
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=M:System.Web.Mvc.Controller.View(System.String,System.Object)">View(String,Object)</a>
+	
+
+        </td>
+        <td>
+          <span>
+Creates a <a href="ms-xhelp:///?Id=T:System.Web.Mvc.ViewResult">ViewResult</a> object that renders the specified IView object.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Web.Mvc.Controller">Controller</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+		     <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Protected Friend;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+             <img class="mtps-img-src" alt="Internal protected (Protected Friend) method" src="msdn2/protmethod.gif" />
+
+
+
+
+
+
+        </td>
+        <td>
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=M:System.Web.Mvc.Controller.View(System.String,System.String,System.Object)">View(String,String,Object)</a>
+	
+
+        </td>
+        <td>
+          <span>
+Creates a <a href="ms-xhelp:///?Id=T:System.Web.Mvc.ViewResult">ViewResult</a> object using the view name, master-page name, and model that renders a view.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Web.Mvc.Controller">Controller</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+		     <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Protected Friend;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+             <img class="mtps-img-src" alt="Internal protected (Protected Friend) method" src="msdn2/protmethod.gif" />
+
+
+
+
+
+
+        </td>
+        <td>
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=M:System.Web.Mvc.Controller.View(System.Web.Mvc.IView)">View(IView)</a>
+	
+
+        </td>
+        <td>
+          <span>
+Creates a <a href="ms-xhelp:///?Id=T:System.Web.Mvc.ViewResult">ViewResult</a> object that renders the specified IView object.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Web.Mvc.Controller">Controller</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+		     <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Protected Friend;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+             <img class="mtps-img-src" alt="Internal protected (Protected Friend) method" src="msdn2/protmethod.gif" />
+
+
+
+
+
+
+        </td>
+        <td>
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=M:System.Web.Mvc.Controller.View(System.Web.Mvc.IView,System.Object)">View(IView,Object)</a>
+	
+
+        </td>
+        <td>
+          <span>
+Creates a <a href="ms-xhelp:///?Id=T:System.Web.Mvc.ViewResult">ViewResult</a> object that renders the specified <a href="ms-xhelp:///?Id=T:System.Web.Mvc.IView">IView</a> object.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Web.Mvc.Controller">Controller</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+		     <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Protected Friend;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+             <img class="mtps-img-src" alt="Internal protected (Protected Friend) method" src="msdn2/protmethod.gif" />
+
+
+
+
+
+
+        </td>
+        <td>
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=Overload:System.Web.Mvc.Controller.View">View</a>
+	
+
+        </td>
+        <td>
+          <span>
+Creates a <a href="ms-xhelp:///?Id=T:System.Web.Mvc.ViewResult">ViewResult</a> object that renders a view to the response.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Web.Mvc.Controller">Controller</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+		
+ 
+
+    
+    
+  </table>
+  <a href="#mainBody" xmlns="http://www.w3.org/1999/xhtml">Topo</a>
+</CollapsibleArea>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<CollapsibleArea runat="server" Expanded="1" Title="Veja também" xmlns="http://msdn2.microsoft.com/mtps">
+  <a id="seeAlsoToggle" xmlns="http://www.w3.org/1999/xhtml"><!---->
+  </a>
+  <h4 class="subHeading" xmlns="http://www.w3.org/1999/xhtml">Referência</h4>
+	  <div class="seeAlsoStyle" xmlns="http://www.w3.org/1999/xhtml">
+	    <a class="mtps-internal-link" href="ms-xhelp:///?id=T:SISPTD.Controllers.HomeController">HomeController Classe</a>
+	  </div>
+	  <div class="seeAlsoStyle" xmlns="http://www.w3.org/1999/xhtml">
+	    <a class="mtps-internal-link" href="ms-xhelp:///?Id=N:SISPTD.Controllers">SISPTD.Controllers Namespace</a>
+	  </div>
+
+
+		
+
+</CollapsibleArea>
+        </div>
+      </div>
+      
+			<div class="OH_footer">
+				<p><span style="color:#FF0000;">Generated with unregistered version of <a href="ms-xhelp:///?Id=http://www.helixoft.com/vsdocman/overview.html">VSdocman</a></span>&#32;<br />
+Your own footer text will only be shown in registered version.
+				</p>
+			</div>
+      
+    </div>
+  </body>
+</html>
+
+
+
+
+

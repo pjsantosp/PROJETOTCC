@@ -34,7 +34,7 @@
     <div class="panel-heading"><h5> <i class="fa fa-exchange fa-lg"> </i> <strong>Lista de Processos</strong>   </h5></div>
 
     <!-- Table -->
-    <div class="table-responsive">
+    <div class="table table-responsive">
         <table class="table table-condensed table-bordered table-hover">
             <tr>
                 <th>
@@ -73,14 +73,14 @@
                         @Html.DisplayFor(modelItem => item.observacoes)
                     </td>
                     <td>
-
-                        <a class="btn-group btn-sm btn-primary" title="Detalhe" href="@Url.Action("DetalheDoMovProcesso", "Movimentacao",new { id=item.processoId })" aria-label="Skip to main navigation">
-                            <i class="fa fa-bars fa-lg" aria-hidden="true"></i>
-                        </a>
-                        <a class="btn-group btn-sm btn-primary" title="Distribuir" href="@Url.Action("Create", "Movimentacao",new { id=item.processoId })" aria-label="Skip to main navigation">
-                            <i class="fa fa-exchange fa-lg" aria-hidden="true"></i>
-                        </a>
-
+                        <div class="btn-group-sm">
+                            <a class="btn-group btn-sm btn-primary" title="Detalhe" href="@Url.Action("DetalheDoMovProcesso", "Movimentacao",new { id=item.processoId })" aria-label="Skip to main navigation">
+                                <i class="fa fa-bars" aria-hidden="true"></i>
+                            </a>
+                            <a class="btn-group btn-sm btn-primary" title="Distribuir" href="@Url.Action("Create", "Movimentacao",new { id=item.processoId })" aria-label="Skip to main navigation">
+                                <i class="fa fa-exchange" aria-hidden="true"></i>
+                            </a>
+                        </div>
                     </td>
                 </tr>
             }

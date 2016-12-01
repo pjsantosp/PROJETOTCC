@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="/Images/favicon.ico">
     <link rel="icon" type="image/gif" href="/Images/favicon.gif">
-
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     @RenderSection("Styles", required: false)
     @Scripts.Render("~/bundles/modernizr")
-        @Styles.Render("~/Content/relatorio")
-        <link href="~/Content/Relatorio.css" rel="stylesheet" />
+    @Styles.Render("~/Content/relatorio")
+    <link href="~/Content/Relatorio.css" rel="stylesheet" />
     <link href="~/Content/RelatorioPrint.css" rel="stylesheet" media="print" />
+
     @RenderSection("styles", required: false)
 </head>
 <body>
@@ -21,13 +21,11 @@
         <h1>GOVERNO DO ESTADO DE RONDÔNIA</h1>
         <hr />
     </div>
-
     <div class="container">
         <div class="text-center alert alert-info hidden-print">
             <i class="fa fa-print"></i> Para imprimir aperte <kbd>Ctrl + P</kbd> ou
             <button autofocus type="button" class="btn btn-group-lg btn-primary" onclick="window.print();">clique aqui</button>
         </div>
-
         @RenderBody()
     </div>
 </body>

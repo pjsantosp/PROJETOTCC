@@ -2,7 +2,8 @@
 <div class="row">
     <div style="display:none" id="btnCriaPessoa" class="alert alert-warning alert-dismissible" role="alert">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <strong>Ops!</strong> Não ha uma pessoa para esse CPF, Deseja Cadastra?
+        Ops! Não ha uma pessoa para esse CPF, Deseja Cadastra?
+        <a title="Cadastra Pessoa" class="btn btn-primary" href="@Url.Action("CreateFuncionario", "Pessoa")">Cadastra Funcionario</a>
     </div>
 
     @using (Html.BeginForm("Create", "User", FormMethod.Post))
@@ -19,8 +20,8 @@
                             @Html.LabelFor(model => model.login, htmlAttributes: new { @class = "control-label" })
                             @Html.ValidationMessageFor(model => model.login, "", new { @class = "text-danger" })
                             <div class="input-group">
-                                @Html.TextBox("login", Request.QueryString["CPF"], new { autofocus = "", @class = " buscarPessoaUser cpf col-md-2 form-control", placeholder = "Procure por CPF" })
-                                <span class="input-group-btn"><button type="button" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button></span>
+                                @Html.TextBox("login", Request.QueryString["CPF"], new { autofocus = "", @class = "  cpf col-md-2 form-control", placeholder = "Procure por CPF" })
+                                <span class="input-group-btn"><button type="button" id="btnBuscarPessoaUser" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button></span>
                             </div>
                         </div>
                     </div>
@@ -69,5 +70,10 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+<script>
+    var urlUsuario = '@Url.Action("Pesquisar","Pessoa")';
+   
+
+</script>
 
 

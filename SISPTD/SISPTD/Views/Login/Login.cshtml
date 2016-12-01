@@ -5,52 +5,53 @@
 
 @using (Html.BeginForm())
 {
+
     <div class="row">
-        <div class="col-xs-4 col-sm-4 col-md-4"></div>
-        <div class="col-xs-4 col-sm-4 col-md-4">
+        <div class="col-sm-4 col-md-4"></div>
+        <div class="col-sm-6 col-md-4">
             <p class="text-center">
                 <hr />
                 <h3 title="TFD" class="text-center"><img src="~/Imagens/logo.png" /> Tratamento Fora Domicílio</h3>
             </p>
             <div class="panel panel-default">
                 <div class="panel-body">
-                    @Html.AntiForgeryToken()
-                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                    <div class="row">
-                        <div class="col-xs-12 col-sm-12 col-md-12 ">
-                            <div class="form-group ">
-                                <div class="input-group input-lg">
-                                    <div class="input-group-addon"><i class="glyphicon  glyphicon-user"></i></div>
-                                    @Html.TextBoxFor(model => model.login, new { autofocus = "", placeholder = "Digite seu CPF", @class = "input-lg cpf form-control" })
+                    <div class="container-fluid">
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="row">
+                            <div class="col-sm-12 col-md-12 ">
+                                <div class="form-group ">
+                                    <div class="input-group input-lg">
+                                        <div class="input-group-addon"><i class="glyphicon  glyphicon-user"></i></div>
+                                        @Html.TextBoxFor(model => model.login, new { autofocus = "", placeholder = "Digite seu CPF", @class = "input-lg cpf form-control" })
+                                    </div>
+                                    @Html.ValidationMessageFor(model => model.login, "", new { @class = "text-danger" })
                                 </div>
-                                @Html.ValidationMessageFor(model => model.login, "", new { @class = "text-danger" })
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-xs-12 col-sm-12 col-md-12">
-                            <div class="form-group">
-                                <div class="input-group input-lg">
-                                    <div class="input-group-addon"><i class="glyphicon  glyphicon-log-in"></i></div>
-                                    @Html.PasswordFor(model => model.senha, new { placeholder = "Digite sua Senha", @class = "form-control input-lg" })
+                        <div class="row">
+                            <div class="col-sm-12 col-md-12">
+                                <div class="form-group">
+                                    <div class="input-group input-lg">
+                                        <div class="input-group-addon"><i class="glyphicon  glyphicon-log-in"></i></div>
+                                        @Html.PasswordFor(model => model.senha, new { placeholder = "Digite sua Senha", @class = "form-control input-lg" })
+                                    </div>
+                                    @Html.ValidationMessageFor(model => model.senha, "", new { @class = "text-danger" })
+
                                 </div>
-                                @Html.ValidationMessageFor(model => model.senha, "", new { @class = "text-danger" })
-
-
                             </div>
                         </div>
+                        <input type="submit" name="name" class="btn btn-primary btn-lg pull-right col-md-12" value="Entrar" />
                     </div>
-                    <input type="submit" name="name" class="btn btn-primary btn-lg pull-right col-md-12" value="Entrar" />
-
                 </div>
             </div>
 
-            <div>
-            </div>
         </div>
-        <div class="col-xs-4 col-sm-4 col-md-4 col-md-4"></div>
-        <div class="col-xs-4 col-sm-4 col-md-4"></div>
+        <div class="col-sm-4 col-md-4"></div>
     </div>
+
+
+    
     <div class="text-center text-muted"><small>&copy; <b>@DateTime.Now.Year</b> Tratamento Fora Domicílio </small></div>
 
 }

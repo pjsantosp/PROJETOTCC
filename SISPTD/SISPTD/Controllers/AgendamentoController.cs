@@ -73,36 +73,46 @@ namespace SISPTD.Controllers
         {
             try
             {
-                
-               
-                if (!agendamentoBO.VerificaAgendamento(agendamento))
+                if (processoId != null || agendamento.processoId != 0 )
                 {
-
-                    Processo objProcesso = agendamentoBO.ObterProcessoAgd(pacienteId.Value);
-                    if (objProcesso != null)
+                    if (agendamento.clinicaId == null)
                     {
-                        agendamento.processoId = objProcesso.processoId;
+                        ModelState.AddModelError("", "O Agendamento é Necessário uma Clinica!");
                     }
-                    processoBO.AlteraUsuarioDoProcesso(usuarioRecebeuId.Value, processoId.Value);
+                    else
+                    {
+                        if (!agendamentoBO.VerificaAgendamento(agendamento))
+                        {
 
-                    agendamento.usuarioId = usuarioRecebeuId;
+                            Processo objProcesso = agendamentoBO.ObterProcessoAgd(pacienteId.Value);
+                            if (objProcesso != null)
+                            {
+                                agendamento.processoId = objProcesso.processoId;
+                            }
+                            processoBO.AlteraUsuarioDoProcesso(usuarioRecebeuId.Value, processoId.Value);
 
-                    agendamento.dt_Marcacao = DateTime.Now;
-                    agendamentoBO.Inserir(agendamento);
+                            agendamento.usuarioId = usuarioRecebeuId;
 
+                            agendamento.dt_Marcacao = DateTime.Now;
+                            agendamentoBO.Inserir(agendamento);
 
+                            TempData["Sucesso"] = "Agendamento Realizado com Sucesso!";
+                            return RedirectToAction("Create", "Movimentacao", new { id = agendamento.processoId });
+                        }
+                        else
+                        {
+                            TempData["Erro"] = "Ops! Já existe um Agendamento para este Paciente nesta  Data";
 
-                    TempData["Sucesso"] = "Agendamento Realizado com Sucesso!";
-
-                    return RedirectToAction("Create", "Movimentacao", new { id = agendamento.processoId });
+                        }
+                        return RedirectToAction("Index");
+                    }
                 }
                 else
                 {
-                    TempData["Erro"] = "Ops! Já existe um Agendamento para este Paciente nesta  Data";
-
+                    TempData["Erro"] = "Esse Agendamento Não possui um Processo! ";
                 }
-               
-                return RedirectToAction("Index");
+
+                return View(agendamento);
             }
             catch (Exception ex)
             {

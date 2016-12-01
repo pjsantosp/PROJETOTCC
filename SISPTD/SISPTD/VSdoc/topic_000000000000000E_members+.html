@@ -1,0 +1,803 @@
+<?xml version="1.0" encoding="utf-8"?><html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+    <title>PessoaRequisicaoBO Membros</title>
+    <meta name="Microsoft.Help.TopicVersion" content="10" />
+    <meta name="Microsoft.Help.Id" content="AllMembers.T:SISPTD.BO.PessoaRequisicaoBO" />
+    <meta name="SelfBranded" content="false" />
+    <meta name="Title" content="PessoaRequisicaoBO Membros" />
+    <meta name="Microsoft.Help.ContentType" content="Reference" />
+    <meta name="Microsoft.Help.Category" content="TargetOS:Windows" />
+    <meta name="Microsoft.Help.Category" content="DevLang:VB" />
+    <meta name="Microsoft.Help.Category" content="DevLang:CSharp" />
+    <meta name="Microsoft.Help.Category" content="DevLang:FSharp" />
+    <meta name="Microsoft.Help.Keywords" content="PessoaRequisicaoBO Classe" />
+    <meta name="Microsoft.Help.Keywords" content="PessoaRequisicaoBO Classe, all members" />
+    <meta name="Microsoft.Help.Keywords" content="SISPTD.BO.PessoaRequisicaoBO Classe" />
+    <meta name="Description" content="PessoaRequisicaoBO Membros" />
+    <meta name="Microsoft.Help.TOCParentTopicVersion" content="10" />
+    <meta name="Microsoft.Help.TocParent" content="T:SISPTD.BO.PessoaRequisicaoBO" />
+    <meta name="Microsoft.Help.TocOrder" content="0" />
+    <meta name="Microsoft.Help.Product" content="SISPTD Reference" />
+    <style type="text/css">.class-diagram img {border: none;}</style>
+    <script src="mshv2.js"></script>
+  </head>
+    <body class="primary-mtps-offline-document" 
+	onload="try{onLoad(); var nod=document.getElementById('vsdocman_init_script');var newNod=document.createElement('script');newNod.type= 'text/javascript';nod.parentNode.replaceChild(newNod,nod);newNod.text=nod.innerHTML;vsdocman_topic_init();}catch(ex){}">
+  
+<div id="vsdocman_init_script" style="display:none;">
+// <!-- the script cannot contain the following text (without dots): -.-.> or -.-
+function vsdocman_topic_init() {
+	try {
+		extractCode();
+	} catch (ex) {
+	}
+	
+	try {
+		var divs = document.documentElement.getElementsByTagName("div");
+		var i;
+		var footerRemoved = false;
+		for (i=divs.length-1; i>=0; i=i-1) {
+			var div = divs[i];
+	
+			// remove VS branding footer
+			if (!footerRemoved) {
+				if (div.className == "OH_footer") {
+					div.style.display = "none";
+					footerRemoved = true;
+				}
+			}
+			
+			// remove VS branding feedback link
+			if (div.className == "OH_feedbacklink") {
+				div.style.display = "none";
+			}
+		}
+
+		var tds = document.documentElement.getElementsByTagName("td");
+		for (i=0; i<tds.length; i++) {
+			var td = tds[i];
+	
+			// remove VS branding logo
+			if (td.className == "OH_tdLogoColumn") {
+				td.style.display = "none";
+			}
+		}
+	} catch (ex) {
+	}
+	
+	hideImageMapAreaLinks();
+	fixLinks();
+	fixNewlinesInSyntax();
+}
+
+
+/**
+ * Fixes <br />\n sequences in syntax declarations. Only <br/> 
+ * is needed.
+ */  
+function fixNewlinesInSyntax() {
+	try {
+		var i;
+		var snippets = document.documentElement.getElementsByTagName("CodeSnippet");
+		for (i=0; i<snippets.length; i++) {
+			var containsMarkup = snippets[i].getAttribute("ContainsMarkup");
+			if (containsMarkup == "true") {
+				// it is syntax section
+				// surround fixed text with <pre> tag, otherwise IE normalizes all whitespaces during setting innerHTML
+				snippets[i].parentNode.innerHTML = "<pre>" + snippets[i].parentNode.innerHTML.replace(/<br>\r?\n/gi, "<br>") + "</pre>";
+			}
+		}
+	} catch (ex) {
+	}
+}
+
+
+/**
+ * MS Help Viewer (at least version 1) removes style="display:none;". 
+ * Set it back.
+ */  
+function hideImageMapAreaLinks() {
+	try {
+		var i;
+		var maps = document.documentElement.getElementsByTagName("map");
+		for (i=0; i<maps.length; i++) {
+			var mapId = maps[i].getAttribute("name");
+			var invisibleLinks = document.getElementById("invisible_imagemap_links_" + mapId);
+			invisibleLinks.style.display="none";
+		}
+	} catch (ex) {
+	}
+}
+
+
+// Escapes id query variables in internal links and corrects external links. 
+function fixLinks() {
+	try {
+		var i;
+		var links = document.documentElement.getElementsByTagName("a");
+		var urlParameters = getUrlParameters();
+		for (i=0; i<links.length; i++) {
+			var hrf = links[i].getAttribute("hr" + "ef");
+			var escaped = escapeIdQueryVariable(hrf);
+			
+			var idValue = escaped[1];
+			if (idValue != "") {
+				var isExternal = (idValue.toLowerCase().indexOf("http://", 0) >= 0);
+				isExternal = isExternal || (idValue.toLowerCase().indexOf("https://", 0) >= 0);
+				var isHttp = isExternal;
+				isExternal = isExternal || (idValue.toLowerCase().indexOf("mailto:", 0) >= 0);
+				if (isExternal) {
+					// external link
+					//  Help3 system converts each Id to uppercase, so convert it to lowercase.
+					//  It's bigger chance the URL will be correct.
+					hrf = idValue.toLowerCase();
+					if (isHttp) {
+						links[i].className = "mtps-external-link";
+					}
+				} else {
+					// help3 link
+					hrf = escaped[0];
+					// some links (e.g. in syntax section) don't have complete parameters generated by Help3 system
+					if (hrf.indexOf("method=page", 0) < 0) {
+						hrf = hrf + "&" + urlParameters;
+					}
+				}
+	
+				links[i].setAttribute("hr" + "ef", hrf);
+			}
+		}
+	} catch (ex) {
+	}
+}
+
+
+var idQueryVariablePattern = /(\&|\?|^)(id\=)(.*?)(\&|$)/i;
+
+// Returns array with 2 items. The first one is resulting complete queryString with
+// escaped id variable. The second one is original value of id variable. 
+function escapeIdQueryVariable(input) {
+	var match = input.match(idQueryVariablePattern);
+	var idValue = "";
+	if (match) {
+		idValue = input.match(idQueryVariablePattern)[3];
+		input = input.replace(idQueryVariablePattern, "$1$2" + escape(idValue) + "$4");
+	}
+	var res = new Array();
+	res[0] = input;
+	res[1] = idValue;
+	return res;
+} 
+
+
+function getUrlParameters() {
+	var res;
+	res = "product=" + getQueryVariable("product") + "&";
+	res = res + "productversion=" + getQueryVariable("productversion") + "&";
+	res = res + "method=page&";
+	return res;
+}
+
+
+function getQueryVariable(variable) {
+  var query = window.location.search.substring(1);
+  var vars = query.split("&");
+  for (var i=0; i<vars.length; i++) {
+    var pair = vars[i].split("=");
+    if (pair[0].toLowerCase() == variable.toLowerCase()) {
+      return pair[1];
+    }
+  }
+  return "";
+} 
+
+
+function extractCode(parentNode) {
+	var comments = getAllComments(parentNode);
+
+	var comment;
+  for(var i=0; i<comments.length; i++){
+    comment = comments[i];
+  	var matches = comment.nodeValue.match(/(?:^\s*VSDOCMAN SCRIPT)((.|\r\n)*)$/);
+		// Match returns array. Index 0 is complete match. Index 1 is the first captured group.
+		// The group is defined by (). The ?: means that the group is not captured. 
+  	if (matches != null) {
+	    //res.push(matches[1]);
+	    createElement("div", matches[1], comment);
+    }
+  }
+}
+
+
+function getAllComments(parentNode) {
+	if (parentNode == null) {
+		parentNode = document.documentElement;
+	}
+	var children = parentNode.childNodes;
+	var res = new Array();
+  if(parentNode.nodeType == 8){
+  	// 8 = comment
+    res.push(parentNode);
+  }
+	    
+  for(var i=0; i<children.length; i++){
+      res = res.concat(getAllComments(children[i]));
+  }
+  return (res);
+}
+
+
+// Create new element and replace existing one with it
+function createElement(name, innerHtml, oldElm) {
+	// setting innerHTML containing script tags doesn't work in IE
+	var scriptBodies = new Array();
+	var scriptMatch;
+	var i = 0;
+	var scriptPattern = /(<script.*?>)((.|\r\n)*?)(<\/script>)/i;
+	do {
+		scriptMatch = innerHtml.match(scriptPattern);
+		if (scriptMatch != null) {
+			// found the script tag
+			//  get its innerHtml
+			scriptBodies[i] = scriptMatch[2];
+			// replace this script tag with span tag
+			innerHtml = innerHtml.replace(scriptPattern, "<span script_index=\"" + i + "\"></span>");
+		}
+		i++;
+	} while(scriptMatch != null && i < 100);
+	
+	var elm = document.createElement(name);
+	elm.innerHTML = innerHtml;
+	oldElm.parentNode.replaceChild(elm,oldElm);
+	
+	// now create script tags and replace corresponding span tags
+	var allSpans = elm.getElementsByTagName('span');
+	var scriptSpans = new Array();
+	for (i=0; i<allSpans.length; i++) {
+		if (allSpans[i].getAttribute("script_index")) {
+			var index = allSpans[i].getAttribute("script_index");
+			scriptSpans[index] = allSpans[i];
+		}
+	}
+	for (i=0; i<scriptBodies.length; i++) {
+		insertScriptElement(scriptBodies[i], scriptSpans[i], getUniqueIndex());
+	}
+}
+
+var uniqueIndex = 0;
+function getUniqueIndex() {
+	return uniqueIndex++;
+}
+
+function insertScriptElement(innerHtml, oldNode, scriptIndex) {
+	var newNod=document.createElement('script');
+	newNod.type = 'text/javascript';
+	newNod.setAttribute("defer", "defer");
+	oldNode.parentNode.replaceChild(newNod, oldNode);
+	// add a test whether the script was evaluated
+	var newInnerHtml = "\nvar vsdocmanScript" + scriptIndex + "executed = true;\n" + innerHtml;
+	newNod.text=newInnerHtml;
+	//run the script if necessary
+	try {
+		eval("vsdocmanScript" + scriptIndex + "executed");
+	} catch (ex) {
+		// not evaluated yet
+		eval(innerHtml);
+	}
+}
+
+// *** CLASS DIAGRAM CLICKING ***
+// To navigate any kind of link, we need to call click() method on the element.
+// It's because of <MSHelp:link links in Help2 format (only used in IE). 
+// Default click event in FF doesn't trigger the link (in IE it does).
+// Fix it. 
+function performClick(element) {
+	if (document.createEventObject){
+		// IE
+		return element.click();
+	}
+	else{
+		// dispatch for firefox + others
+		var evt = element.ownerDocument.createEvent('MouseEvents');
+		evt.initMouseEvent('click', true, true, element.ownerDocument.defaultView, 1, 0, 0, 0, 0, false, false, false, false, 0, null);
+		element.dispatchEvent(evt);
+	}
+	
+	while (element) {
+		if (element.tagName == "A" && element.href != "") {
+			if (element.target != "") {
+				window.open(element.href, element.target);
+			} else {
+				document.location = element.href;
+			}
+			element = null;
+		}	else {
+			element = element.parentElement;
+		}
+	}
+}
+
+function clickElement(callerElement) {
+	try {
+		var elementHTML;
+		var tagName;
+		var innerCode;
+		var attributes;
+		var clickActionGuid;
+		
+		// get HTML source code of element to be clicked 
+		clickActionGuid = callerElement.getAttribute("click-cref-guid");
+		elementHTML = document.getElementById(clickActionGuid).innerHTML;
+		
+		// parse HTML element code
+		var elementPattern = /<(.+?)\s+(.*)>(.*)<.+?>/igm;
+		elementPattern.lastIndex = 0;
+		var match = elementPattern.exec(elementHTML);
+		tagName = match[1];
+		attributes = match[2];
+		innerCode = match[3];
+		
+		//get array of "attr=value" strings 	
+		attributes = unescapeHTML(attributes);
+		attributes = attributes.match(/\s*(.*?)\s*=\s*(["'])(.*?)\2/igm);
+		
+		// create element with attributes
+		var el = document.createElement(tagName);
+		//el.innerHTML = innerCode;
+		var i;
+		var attrPattern = /\s*(.*?)\s*=\s*(["'])(.*?)\2/igm;
+		for (i=0; i<attributes.length; i++) {
+			attrPattern.lastIndex = 0;
+			match = attrPattern.exec(attributes[i]);
+			el.setAttribute(match[1], match[3]);
+		}
+
+		document.body.appendChild(el);
+		performClick(el);
+	} catch (ex) {
+	}
+	return false;
+}
+
+function unescapeHTML (str) {
+	return str.replace(/&amp;/g,"&").
+		replace(/>/g,"&gt;").
+		replace(/</g,"&lt;");//. 
+		//the following doesn't work for some reason: replace(/"/g,"&quot;");                                         
+}
+
+// -->		
+</div>
+    <div class="topic">
+      <div class="majorTitle">SISPTD Reference
+      </div>
+      <div class="title">PessoaRequisicaoBO Membros
+      </div>
+      <div>
+        <MrefMemberlistFilter runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+          <div id="memberOptionsMenu" xmlns="http://www.w3.org/1999/xhtml">
+            <input id="ProtectedCheckbox" type="checkbox" data="Protected" value="on" onclick="SetMemberOptions(this, 'vis')" />
+            <label class="checkboxLabel" for="ProtectedCheckbox">Inclui membros protegidos</label>
+            <br />
+            <input id="InheritedCheckbox" type="checkbox" data="Inherited" value="on" onclick="SetMemberOptions(this, 'decl')" />
+            <label class="checkboxLabel" for="InheritedCheckbox">Inclui membros herdados</label>
+            <br />
+          </div>
+        </MrefMemberlistFilter>
+        <MrefMemberlistFilter runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+          <div id="memberFrameworksMenu" xmlns="http://www.w3.org/1999/xhtml">
+            <input id="netfwCheckbox" type="checkbox" data="netfw,'persist'" value="on" onclick="SetMemberFrameworks(this)" />
+            <label class="checkboxLabel" for="netfwCheckbox">Include .NET Framework Members</label>
+            <br />
+            <input id="xnafwCheckbox" type="checkbox" data="xnafw,'persist'" value="on" onclick="SetMemberFrameworks(this)" />
+            <label class="checkboxLabel" for="xnafwCheckbox">Include XNA Framework Members</label>
+            <br /> 
+          </div>
+        </MrefMemberlistFilter>
+      </div>
+      <div id="mainSection">
+        <div id="mainBody">
+          <p>
+          </p>
+          <div class="summary">
+            
+          </div>
+          <p>A lista seguinte tem os membros expostos por 
+              <a href="ms-xhelp:///?Id=T:SISPTD.BO.PessoaRequisicaoBO">PessoaRequisicaoBO</a>
+             tipo.
+          </p>
+
+
+
+
+
+
+
+
+	
+
+
+	
+
+
+	
+
+
+	
+
+
+	
+
+
+	
+
+
+	
+
+
+
+<CollapsibleArea runat="server" Expanded="1" Title="Métodos" xmlns="http://msdn2.microsoft.com/mtps">
+  <a id="methodTableToggle" xmlns="http://www.w3.org/1999/xhtml"><!---->
+  </a>
+  <table id="memberList1" class="members" xmlns="http://www.w3.org/1999/xhtml">
+    <tr>
+      <th class="iconColumn">
+     
+  </th>
+      <th class="nameColumn">Nome</th>
+      <th class="descriptionColumn">Descrição</th>
+    </tr>
+    
+
+   	     <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Public;static;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+          <img class="mtps-img-src" alt="Public method" src="msdn2/pubmethod.gif" />
+
+
+          <img class="mtps-img-src" alt="Static member" src="msdn2/static.gif" />
+
+        </td>
+        <td>
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=M:System.Object.Equals(System.Object,System.Object)">Equals(Object,Object)</a>
+	
+
+        </td>
+        <td>
+          <span>
+Determines whether the specified object instances are considered equal.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Object">Object</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+		     <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Public;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+          <img class="mtps-img-src" alt="Public method" src="msdn2/pubmethod.gif" />
+
+
+
+        </td>
+        <td>
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=Overload:System.Object.Equals">Equals(Object)</a>
+	
+
+        </td>
+        <td>
+          <span>
+Determines whether the specified object is equal to the current object.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Object">Object</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+		
+ 
+
+
+ 
+      <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Protected;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+           <img class="mtps-img-src" alt="Protected method" src="msdn2/protmethod.gif" />
+
+
+
+
+        </td>
+        <td>
+
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=M:System.Object.Finalize">Finalize</a>
+	
+
+        </td>
+        <td>
+          <span>
+Allows an object to try to free resources and perform other cleanup operations before it is reclaimed by garbage collection.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Object">Object</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+ 
+
+
+ 
+      <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Public;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+          <img class="mtps-img-src" alt="Public method" src="msdn2/pubmethod.gif" />
+
+
+
+        </td>
+        <td>
+
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=M:System.Object.GetHashCode">GetHashCode</a>
+	
+
+        </td>
+        <td>
+          <span>
+Serves as the default hash function.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Object">Object</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+ 
+
+
+   	     <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Public;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+          <img class="mtps-img-src" alt="Public method" src="msdn2/pubmethod.gif" />
+
+
+
+        </td>
+        <td>
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=Overload:System.Data.Entity.DbContext.GetType">GetType</a>
+	
+
+        </td>
+        <td>
+          <span>
+
+(herdado de <a href="ms-xhelp:///?Id=T:System.Data.Entity.DbContext">DbContext</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+		     <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Public;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+          <img class="mtps-img-src" alt="Public method" src="msdn2/pubmethod.gif" />
+
+
+
+        </td>
+        <td>
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=M:System.Object.GetType">GetType</a>
+	
+
+        </td>
+        <td>
+          <span>
+Gets the <a href="ms-xhelp:///?Id=T:System.Type">Type</a> of the current instance.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Object">Object</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+		
+ 
+
+
+ 
+      <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Protected;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+           <img class="mtps-img-src" alt="Protected method" src="msdn2/protmethod.gif" />
+
+
+
+
+        </td>
+        <td>
+
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=M:System.Object.MemberwiseClone">MemberwiseClone</a>
+	
+
+        </td>
+        <td>
+          <span>
+Creates a shallow copy of the current <a href="ms-xhelp:///?Id=T:System.Object">Object</a>.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Object">Object</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+ 
+
+
+ 
+      <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Public;static;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+          <img class="mtps-img-src" alt="Public method" src="msdn2/pubmethod.gif" />
+
+
+          <img class="mtps-img-src" alt="Static member" src="msdn2/static.gif" />
+
+        </td>
+        <td>
+
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=M:System.Object.ReferenceEquals(System.Object,System.Object)">ReferenceEquals</a>
+	
+
+        </td>
+        <td>
+          <span>
+Determines whether the specified <a href="ms-xhelp:///?Id=T:System.Object">Object</a> instances are the same instance.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Object">Object</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+ 
+
+
+ 
+      <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Public;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+          <img class="mtps-img-src" alt="Public method" src="msdn2/pubmethod.gif" />
+
+
+
+        </td>
+        <td>
+
+							<a class="mtps-internal-link" href="ms-xhelp:///?Id=M:System.Object.ToString">ToString</a>
+	
+
+        </td>
+        <td>
+          <span>
+Returns a string that represents the current object.
+(herdado de <a href="ms-xhelp:///?Id=T:System.Object">Object</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+ 
+
+    
+    
+  </table>
+  <a href="#mainBody" xmlns="http://www.w3.org/1999/xhtml">Topo</a>
+</CollapsibleArea>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+<!-- Classes -->
+    
+
+<!-- Standard Modules -->
+    
+
+
+
+
+
+
+
+<CollapsibleArea runat="server" Expanded="1" Title="Campos" xmlns="http://msdn2.microsoft.com/mtps">
+  <a id="fieldTableToggle" xmlns="http://www.w3.org/1999/xhtml"><!---->
+  </a>
+  <table id="memberList15" class="members" xmlns="http://www.w3.org/1999/xhtml">
+    <tr>
+      <th class="iconColumn">
+     
+  </th>
+      <th class="nameColumn">Nome</th>
+      <th class="descriptionColumn">Descrição</th>
+    </tr>
+    
+    <MrefMemberlistRow runat="server" xmlns="http://msdn2.microsoft.com/mtps">
+      <tr data="Protected;inherited;" xmlns="http://www.w3.org/1999/xhtml">
+        <td>
+           <img class="mtps-img-src" alt="Protected field" src="msdn2/protfield.gif" />
+
+
+
+
+        </td>
+        <td>
+
+					<a class="mtps-internal-link" href="ms-xhelp:///?Id=F:SISPTD.BO.CrudComumEntity`2._contexto">_contexto</a>
+
+        </td>
+        <td>
+          <span>
+
+(herdado de <a href="ms-xhelp:///?Id=T:SISPTD.BO.CrudComumEntity`2">CrudComumEntity&#60;TEntidade, TChave&#62;</a>).
+
+          </span>
+        </td>
+      </tr>
+    </MrefMemberlistRow>
+    
+    
+  </table>
+  <a href="#mainBody" xmlns="http://www.w3.org/1999/xhtml">Topo</a>
+</CollapsibleArea>
+
+
+<CollapsibleArea runat="server" Expanded="1" Title="Veja também" xmlns="http://msdn2.microsoft.com/mtps">
+  <a id="seeAlsoToggle" xmlns="http://www.w3.org/1999/xhtml"><!---->
+  </a>
+  <h4 class="subHeading" xmlns="http://www.w3.org/1999/xhtml">Referência</h4>
+	  <div class="seeAlsoStyle" xmlns="http://www.w3.org/1999/xhtml">
+	    <a class="mtps-internal-link" href="ms-xhelp:///?id=T:SISPTD.BO.PessoaRequisicaoBO">PessoaRequisicaoBO Classe</a>
+	  </div>
+	  <div class="seeAlsoStyle" xmlns="http://www.w3.org/1999/xhtml">
+	    <a class="mtps-internal-link" href="ms-xhelp:///?Id=N:SISPTD.BO">SISPTD.BO Namespace</a>
+	  </div>
+
+
+		
+
+</CollapsibleArea>
+        </div>
+      </div>
+      
+			<div class="OH_footer">
+				<p><span style="color:#FF0000;">Generated with unregistered version of <a href="ms-xhelp:///?Id=http://www.helixoft.com/vsdocman/overview.html">VSdocman</a></span>&#32;<br />
+Your own footer text will only be shown in registered version.
+				</p>
+			</div>
+      
+    </div>
+  </body>
+</html>
+
+
+
+
+
+

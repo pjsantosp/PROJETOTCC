@@ -2,12 +2,15 @@
 <div class="row">
     <div style="display:none" id="btnCriaPessoa" class="alert alert-warning alert-dismissible" role="alert">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <strong>Ops!</strong> Não ha uma pessoa para esse CPF, Deseja Cadastra?
+        Ops! Não ha uma pessoa para esse CPF, Deseja Cadastra?
+        <a title="Cadastra Pessoa" class="btn btn-primary" href="@Url.Action("CreateFuncionario", "Pessoa")">Cadastra Funcionario</a>
     </div>
 
     @using (Html.BeginForm("Create", "User", FormMethod.Post))
     {
         <div class="panel panel-default">
+            <div class="panel-heading"><h3 class="panel-title"><i class="fa fa-user" aria-hidden="true"></i> Cadastro de Usuário</h3>
+</div>
             <div class="panel-body">
 
                 @Html.AntiForgeryToken()
@@ -19,8 +22,8 @@
                             @Html.LabelFor(model => model.login, htmlAttributes: new { @class = "control-label" })
                             @Html.ValidationMessageFor(model => model.login, "", new { @class = "text-danger" })
                             <div class="input-group">
-                                @Html.TextBox("login", Request.QueryString["CPF"], new { autofocus = "", @class = " buscarPessoaUser cpf col-md-2 form-control", placeholder = "Procure por CPF" })
-                                <span class="input-group-btn"><button type="button" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button></span>
+                                @Html.TextBox("login", Request.QueryString["CPF"], new { autofocus = "", @class = "  cpf col-md-2 form-control", placeholder = "Procure por CPF" })
+                                <span class="input-group-btn"><button type="button" id="btnBuscarPessoaUser" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button></span>
                             </div>
                         </div>
                     </div>
@@ -52,8 +55,8 @@
 
                         </div>
                         <div class="well well-sm">
-                            <input type="submit" name="name" class="btn btn-primary btn-confirm pull-right" value="Gravar" />
-                            <br /><br />
+                            <button type="submit" name="name" class="btn btn-primary "> <i class="fa fa-floppy-o fa-lg"></i>  Gravar</button>
+                            <a class="btn btn-danger pull-right" href="@Url.Action("Index","User")"> <i class="fa fa-backward fa-lg"></i>  Voltar Para Lista  </a>
                         </div>
                     </div>
                 </div>
@@ -69,5 +72,10 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+<script>
+    var urlUsuario = '@Url.Action("Pesquisar","Pessoa")';
+   
+
+</script>
 
 
