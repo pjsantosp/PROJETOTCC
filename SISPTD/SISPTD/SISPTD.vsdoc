@@ -7,15 +7,15 @@
     <add key="VBdocman_generateJscriptSyntax"><![CDATA[0]]></add>
     <add key="VBdocman_comConstant"><![CDATA[-1]]></add>
     <add key="VBdocman_comStdModule"><![CDATA[0]]></add>
-    <add key="VBdocman_templatePath"><![CDATA[docx.vbdt]]></add>
-    <add key="VBdocman_supportedNetFrameworkClientProfile"><![CDATA[4, 3.5 SP1]]></add>
+    <add key="VBdocman_templatePath"><![CDATA[html_msdn2.vbdt]]></add>
+    <add key="VBdocman_supportedNetFrameworkClientProfile"><![CDATA[]]></add>
     <add key="VBdocman_generateCppSyntax"><![CDATA[0]]></add>
     <add key="VBdocman_comEnumeration"><![CDATA[-1]]></add>
-    <add key="VBdocman_supportedNetFramework"><![CDATA[4.6, 4.5, 4, 3.5, 3.0, 2.0, 1.1, 1.0]]></add>
+    <add key="VBdocman_supportedNetFramework"><![CDATA[]]></add>
     <add key="VBdocman_supportedNetCompactFramework"><![CDATA[]]></add>
     <add key="VBdocman_removeAttributes"><![CDATA[0]]></add>
     <add key="VBdocman_comProtected"><![CDATA[-1]]></add>
-    <add key="VBdocman_helpTitle"><![CDATA[SISPTD Reference]]></add>
+    <add key="VBdocman_helpTitle"><![CDATA[Manual do Desenvolvedor]]></add>
     <add key="VBdocman_allowMacrosInComments"><![CDATA[0]]></add>
     <add key="VBdocman_customVar2"><![CDATA[]]></add>
     <add key="VBdocman_comModulesSaveExcluded"><![CDATA[-1]]></add>
@@ -34,7 +34,7 @@
     <add key="VBdocman_comNonCommented"><![CDATA[-1]]></add>
     <add key="VBdocman_comDeclare"><![CDATA[-1]]></add>
     <add key="VBdocman_supportedXnaFramework"><![CDATA[]]></add>
-    <add key="VBdocman_enumSorting"><![CDATA[1]]></add>
+    <add key="VBdocman_enumSorting"><![CDATA[2]]></add>
     <add key="VBdocman_supportedPortableClassLibrary"><![CDATA[]]></add>
     <add key="VBdocman_useConditionalCompilation"><![CDATA[0]]></add>
     <add key="VBdocman_supportedNetForWindowsStoreApps"><![CDATA[]]></add>
@@ -44,9 +44,9 @@
     <add key="VBdocman_comWriteDescription"><![CDATA[-1]]></add>
     <add key="VBdocman_comFriend"><![CDATA[0]]></add>
     <add key="VBdocman_comVariable"><![CDATA[-1]]></add>
-    <add key="VBdocman_showFormsSeparate"><![CDATA[0]]></add>
+    <add key="VBdocman_showFormsSeparate"><![CDATA[-1]]></add>
     <add key="VBdocman_comObject"><![CDATA[-1]]></add>
-    <add key="VBdocman_emptyOutputFolder"><![CDATA[0]]></add>
+    <add key="VBdocman_emptyOutputFolder"><![CDATA[-1]]></add>
     <add key="VBdocman_customVar1"><![CDATA[]]></add>
     <add key="VBdocman_indentMode"><![CDATA[0]]></add>
     <add key="VBdocman_comEvent"><![CDATA[-1]]></add>
@@ -56,7 +56,7 @@
   <topic>
     <type>normal</type>
     <is-default>yes</is-default>
-    <name>SISPTD Reference</name>
+    <name>SISPTD Manual</name>
     <id>sisptd_reference</id>
     <comment><![CDATA[<summary></summary>vsdocman_escaped_]_]_></comment>
     <namespaces />
@@ -76,27 +76,248 @@
     <add key="VBdocman_comMethod"><![CDATA[0]]></add>
     <add key="VBdocman_externalFilesFolder"><![CDATA[]]></add>
     <add key="VBdocman_templateLocale"><![CDATA[pt-PT]]></add>
-    <add key="VBdocman_supportedPlatforms"><![CDATA[Windows Phone 8.1, Windows Phone 8, Windows 8.1, Windows Server 2012 R2, Windows 8, Windows Server 2012, Windows 7, Windows Vista SP2, Windows Server 2008 (Server Core Role not supported), Windows Server 2008 R2 (Server Core Role supported with SP1 or later; Itanium not supported)]]></add>
+    <add key="VBdocman_supportedPlatforms"><![CDATA[]]></add>
     <add key="VBdocman_comForm"><![CDATA[0]]></add>
     <add key="VBdocman_unbreakSourceLines"><![CDATA[0]]></add>
     <add key="VBdocman_comPublic"><![CDATA[-1]]></add>
     <add key="VBdocman_templateFolder"><![CDATA[$(VSdocmanDir)Templates]]></add>
     <add key="VBdocman_customVar3"><![CDATA[]]></add>
-    <add key="VBdocman_outputPath"><![CDATA[C:\Users\Paulo Jose\Desktop\Nova pasta]]></add>
+    <add key="VBdocman_outputPath"><![CDATA[C:\Users\Paulo Jose\Desktop\Manual Dev]]></add>
     <add key="VBdocman_insertSourceGlobal"><![CDATA[0]]></add>
     <add key="VBdocman_comProperty"><![CDATA[-1]]></add>
     <add key="VBdocman_supportedOthers"><![CDATA[]]></add>
     <add key="VBdocman_generateCsharpSyntax"><![CDATA[-1]]></add>
     <add key="VBdocman_comInterface"><![CDATA[-1]]></add>
-    <add key="VBdocman_comModules_Startup.cs"><![CDATA[Off]]></add>
-    <add key="VBdocman_comModules_Migrations...Configuration.cs"><![CDATA[Off]]></add>
-    <add key="VBdocman_comModules_Helper...Helper.cs"><![CDATA[Off]]></add>
-    <add key="VBdocman_comModules_Global.asax.cs"><![CDATA[Off]]></add>
-    <add key="VBdocman_comModules_Global.asax"><![CDATA[Off]]></add>
-    <add key="VBdocman_comModules_App_Start...Startup.Auth.cs"><![CDATA[Off]]></add>
-    <add key="VBdocman_comModules_App_Start...RouteConfig.cs"><![CDATA[Off]]></add>
-    <add key="VBdocman_comModules_App_Start...IdentityConfig.cs"><![CDATA[Off]]></add>
-    <add key="VBdocman_comModules_App_Start...FilterConfig.cs"><![CDATA[Off]]></add>
     <add key="VBdocman_comModules_App_Start...BundleConfig.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_App_Start...FilterConfig.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_App_Start...IdentityConfig.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_App_Start...RouteConfig.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_App_Start...Startup.Auth.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_BO...AgendamentoBO.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_BO...CidBO.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_BO...CidadeBO.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_BO...ClinicaBO.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_BO...CrudComumEntity.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_BO...EnderecoBO.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_BO...EspecialidadeBO.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_BO...EstadoBO.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_BO...ICRUDGenerico.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_BO...MovimentacaoBO.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_BO...PericiaBO.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_BO...PessoaRequisicaoBO.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_BO...ProcessoBO.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_BO...RequisicaoBO.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_BO...SetorBO.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_BO...UserBO.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_Controllers...AccountController.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_Controllers...AgendamentoController.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_Controllers...CidController.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_Controllers...CidadeController.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_Controllers...ClinicaController.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_Controllers...EspecialidadeController.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_Controllers...HomeController.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_Controllers...LoginController.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_Controllers...ManageController.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_Controllers...MovimentacaoController.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_Controllers...PericiaController.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_Controllers...PessoaController.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_Controllers...ProcessoController.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_Controllers...RequisicaoController.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_Controllers...SetorController.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_Controllers...UserController.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_Global.asax"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_Global.asax.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_Helper...Helper.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_Migrations...Configuration.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_Models...AccountViewModels.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_Models...Agendamento.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_Models...Cid.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_Models...Cidades.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_Models...Clinica.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_Models...Endereco.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_Models...Especialidade.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_Models...Estado.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_Models...IdentityModels.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_Models...ManageViewModels.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_Models...Movimentacao.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_Models...Perfil.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_Models...Pericia.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_Models...Pessoa.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_Models...PessoaRequisicao.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_Models...Processo.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_Models...Requisicao.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_Models...Setor.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_Models...Situacao.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_Models...Status.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_Models...TipoPericia.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_Models...TipoPessoa.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_Models...Trecho.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_Models...User.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_Models...Via.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_Models...dbSISPTD.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_Properties...AssemblyInfo.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_Startup.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_Utils...NavTabs.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_Utils...Util.cs"><![CDATA[Off]]></add>
+  </appSettings>
+  <appSettings profile="Nova">
+    <add key="VBdocman_generateVbSyntax"><![CDATA[0]]></add>
+    <add key="VBdocman_generateJscriptSyntax"><![CDATA[0]]></add>
+    <add key="VBdocman_comConstant"><![CDATA[-1]]></add>
+    <add key="VBdocman_comStdModule"><![CDATA[0]]></add>
+    <add key="VBdocman_templatePath"><![CDATA[html_msdn2.vbdt]]></add>
+    <add key="VBdocman_supportedNetFrameworkClientProfile"><![CDATA[]]></add>
+    <add key="VBdocman_generateCppSyntax"><![CDATA[0]]></add>
+    <add key="VBdocman_comEnumeration"><![CDATA[-1]]></add>
+    <add key="VBdocman_supportedNetFramework"><![CDATA[]]></add>
+    <add key="VBdocman_supportedNetCompactFramework"><![CDATA[]]></add>
+    <add key="VBdocman_removeAttributes"><![CDATA[0]]></add>
+    <add key="VBdocman_comProtected"><![CDATA[-1]]></add>
+    <add key="VBdocman_helpTitle"><![CDATA[Manual do Desenvolvedor]]></add>
+    <add key="VBdocman_allowMacrosInComments"><![CDATA[0]]></add>
+    <add key="VBdocman_customVar2"><![CDATA[]]></add>
+    <add key="VBdocman_comModulesSaveExcluded"><![CDATA[-1]]></add>
+    <add key="VBdocman_comModules_App_Start...BundleConfig.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_App_Start...FilterConfig.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_App_Start...IdentityConfig.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_App_Start...RouteConfig.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_App_Start...Startup.Auth.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_BO...AgendamentoBO.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_BO...CidBO.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_BO...CidadeBO.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_BO...ClinicaBO.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_BO...CrudComumEntity.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_BO...EnderecoBO.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_BO...EspecialidadeBO.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_BO...EstadoBO.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_BO...ICRUDGenerico.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_BO...MovimentacaoBO.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_BO...PericiaBO.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_BO...PessoaRequisicaoBO.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_BO...ProcessoBO.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_BO...RequisicaoBO.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_BO...SetorBO.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_BO...UserBO.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_Controllers...AccountController.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_Controllers...AgendamentoController.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_Controllers...CidController.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_Controllers...CidadeController.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_Controllers...ClinicaController.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_Controllers...EspecialidadeController.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_Controllers...HomeController.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_Controllers...LoginController.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_Controllers...ManageController.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_Controllers...MovimentacaoController.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_Controllers...PericiaController.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_Controllers...PessoaController.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_Controllers...ProcessoController.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_Controllers...RequisicaoController.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_Controllers...SetorController.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_Controllers...UserController.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_Global.asax"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_Global.asax.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_Helper...Helper.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_Migrations...Configuration.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_Models...AccountViewModels.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_Models...Agendamento.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_Models...Cid.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_Models...Cidades.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_Models...Clinica.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_Models...Endereco.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_Models...Especialidade.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_Models...Estado.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_Models...IdentityModels.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_Models...ManageViewModels.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_Models...Movimentacao.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_Models...Perfil.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_Models...Pericia.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_Models...Pessoa.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_Models...PessoaRequisicao.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_Models...Processo.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_Models...Requisicao.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_Models...Setor.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_Models...Situacao.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_Models...Status.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_Models...TipoPericia.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_Models...TipoPessoa.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_Models...Trecho.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_Models...User.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_Models...Via.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_Models...dbSISPTD.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_Properties...AssemblyInfo.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_Startup.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_Utils...NavTabs.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comModules_Utils...Util.cs"><![CDATA[Off]]></add>
+    <add key="VBdocman_comDelegate"><![CDATA[-1]]></add>
+    <add key="VBdocman_comStructure"><![CDATA[-1]]></add>
+    <add key="VBdocman_comEventDecl"><![CDATA[-1]]></add>
+    <add key="VBdocman_ListNamespacesWithShortNames"><![CDATA[0]]></add>
+    <add key="VBdocman_pageFooterText"><![CDATA[Generated with <see href="http://www.helixoft.com/vsdocman/overview.html">VSdocman</see>]]></add>
+    <add key="VBdocman_comProtectedFriend"><![CDATA[-1]]></add>
+    <add key="VBdocman_dontSortSeeAlsoList"><![CDATA[0]]></add>
+    <add key="VBdocman_regexFilters"><![CDATA[<?xml version="1.0" encoding="utf-8"?>
+<filters />]]></add>
+    <add key="VBdocman_linkForExternalNotInFramework"><![CDATA[0]]></add>
+    <add key="VBdocman_rootNamespaceText"><![CDATA[]]></add>
+    <add key="VBdocman_comPrivate"><![CDATA[0]]></add>
+    <add key="VBdocman_comNonCommented"><![CDATA[-1]]></add>
+    <add key="VBdocman_comDeclare"><![CDATA[-1]]></add>
+    <add key="VBdocman_supportedXnaFramework"><![CDATA[]]></add>
+    <add key="VBdocman_enumSorting"><![CDATA[2]]></add>
+    <add key="VBdocman_supportedPortableClassLibrary"><![CDATA[]]></add>
+    <add key="VBdocman_useConditionalCompilation"><![CDATA[0]]></add>
+    <add key="VBdocman_supportedNetForWindowsStoreApps"><![CDATA[]]></add>
+    <add key="VBdocman_showInherited"><![CDATA[-1]]></add>
+    <add key="VBdocman_fileNamingConvention"><![CDATA[1]]></add>
+    <add key="VBdocman_conditionalConstants"><![CDATA[]]></add>
+    <add key="VBdocman_comWriteDescription"><![CDATA[-1]]></add>
+    <add key="VBdocman_comFriend"><![CDATA[0]]></add>
+    <add key="VBdocman_comVariable"><![CDATA[-1]]></add>
+    <add key="VBdocman_showFormsSeparate"><![CDATA[-1]]></add>
+    <add key="VBdocman_comObject"><![CDATA[-1]]></add>
+    <add key="VBdocman_emptyOutputFolder"><![CDATA[-1]]></add>
+    <add key="VBdocman_customVar1"><![CDATA[]]></add>
+    <add key="VBdocman_indentMode"><![CDATA[0]]></add>
+    <add key="VBdocman_comEvent"><![CDATA[-1]]></add>
+    <add key="VBdocman_rootNamespaceCommentStyle"><![CDATA[2]]></add>
+    <add key="VBdocman_customTopics"><![CDATA[<?xml version="1.0" encoding="utf-8"?>
+<topics>
+  <topic>
+    <type>normal</type>
+    <is-default>yes</is-default>
+    <name>SISPTD Manual</name>
+    <id>sisptd_reference</id>
+    <comment><![CDATA[<summary>
+
+</summary>vsdocman_escaped_]_]_></comment>
+    <namespaces />
+    <topics>
+      <topic>
+        <type>placeholder</type>
+        <is-default>no</is-default>
+        <name />
+        <id>4d818a5cee3c46f8838d691408fd2829</id>
+        <comment><![CDATA[vsdocman_escaped_]_]_></comment>
+        <namespaces />
+        <topics />
+      </topic>
+    </topics>
+  </topic>
+</topics>]]></add>
+    <add key="VBdocman_comMethod"><![CDATA[0]]></add>
+    <add key="VBdocman_externalFilesFolder"><![CDATA[]]></add>
+    <add key="VBdocman_templateLocale"><![CDATA[pt-PT]]></add>
+    <add key="VBdocman_supportedPlatforms"><![CDATA[]]></add>
+    <add key="VBdocman_comForm"><![CDATA[0]]></add>
+    <add key="VBdocman_unbreakSourceLines"><![CDATA[0]]></add>
+    <add key="VBdocman_comPublic"><![CDATA[-1]]></add>
+    <add key="VBdocman_templateFolder"><![CDATA[$(VSdocmanDir)Templates]]></add>
+    <add key="VBdocman_customVar3"><![CDATA[]]></add>
+    <add key="VBdocman_outputPath"><![CDATA[C:\Users\Paulo Jose\Desktop\Manual Dev]]></add>
+    <add key="VBdocman_insertSourceGlobal"><![CDATA[0]]></add>
+    <add key="VBdocman_comProperty"><![CDATA[-1]]></add>
+    <add key="VBdocman_supportedOthers"><![CDATA[]]></add>
+    <add key="VBdocman_generateCsharpSyntax"><![CDATA[-1]]></add>
+    <add key="VBdocman_comInterface"><![CDATA[-1]]></add>
   </appSettings>
 </configuration>

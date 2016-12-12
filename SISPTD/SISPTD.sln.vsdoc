@@ -70,7 +70,7 @@
       <add key="VBdocman_comStructure"><![CDATA[-1]]></add>
       <add key="VBdocman_dontSortSeeAlsoList"><![CDATA[0]]></add>
       <add key="VBdocman_templateFolder"><![CDATA[$(VSdocmanDir)Templates]]></add>
-      <add key="VBdocman_helpTitle"><![CDATA[SOLUTION-WIDE PROPERTIES Reference]]></add>
+      <add key="VBdocman_helpTitle"><![CDATA[]]></add>
       <add key="VBdocman_insertSourceGlobal"><![CDATA[0]]></add>
       <add key="VBdocman_removeAttributes"><![CDATA[0]]></add>
       <add key="VBdocman_comFriend"><![CDATA[0]]></add>
@@ -86,8 +86,8 @@
   <topic>
     <type>normal</type>
     <is-default>yes</is-default>
-    <name>SOLUTION-WIDE PROPERTIES Reference</name>
-    <id>solutionwide_properties_reference</id>
+    <name />
+    <id>5bd8beb1bca1446db59338d0c20f486b</id>
     <comment><![CDATA[<summary></summary>vsdocman_escaped_]_]_></comment>
     <namespaces />
     <topics>
@@ -95,7 +95,7 @@
         <type>placeholder</type>
         <is-default>no</is-default>
         <name />
-        <id>972726510b7844a48ca064d4cbe2655a</id>
+        <id>c8d952281d22422f929621cbd34cee44</id>
         <comment><![CDATA[vsdocman_escaped_]_]_></comment>
         <namespaces />
         <topics />
@@ -110,6 +110,6 @@
       <add key="VBdocman_comModulesSaveExcluded"><![CDATA[-1]]></add>
       <add key="VBdocman_fileNamingConvention"><![CDATA[1]]></add>
     </SettingsGroup>
-    <add key="VBdocman_SISPTD"><![CDATA[default]]></add>
+    <add key="VBdocman_SISPTD"><![CDATA[Nova]]></add>
   </appSettings>
 </configuration>

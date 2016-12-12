@@ -32,6 +32,13 @@ namespace SISPTD.BO
 
 
         }
+        /// <summary>
+        /// Metodo Utilizado para Obter uma lista de Pessoas do Banco 
+        /// </summary>
+        /// <param name="busca"></param>
+        /// <param name="pagina"></param>
+        /// <param name="tamanhoPagina"></param>
+        /// <returns></returns>
         public IEnumerable<Pessoa> ObterPessoa(string busca, int? pagina, int tamanhoPagina)
         {
             try
@@ -47,6 +54,14 @@ namespace SISPTD.BO
             }
         }
 
+        /// <summary>
+        ///  Método Responsavel por listar os medicos cadastrado
+        /// </summary>
+        /// <param name="busca">onde é passado o cpf do Médico para Ser Realizado a
+        /// Busca</param>
+        /// <param name="pagina">Variável responsável por indicar o numero da pagina
+        /// atual</param>
+        /// <param name="tamanhoPagina">Numero de paginas por vez</param>
         public IEnumerable<Pessoa> ObterMedico(string busca, int? pagina, int tamanhoPagina)
         {
             try
@@ -77,6 +92,13 @@ namespace SISPTD.BO
                 throw new Exception("Erro na busca na lista de Funcionario", e);
             }
         }
+        /// <summary>
+        /// Verifica a existencia de pessoa no banco
+        /// </summary>
+        /// <param name="pessoa">é passado um obj do tipo pessoa</param>
+        /// <returns>
+        /// true ou false
+        /// </returns>
         public bool ExistPessoa(Pessoa pessoa)
         {
             try
@@ -92,6 +114,13 @@ namespace SISPTD.BO
                 throw new Exception(" Outra coisa Qualquer !");
             }
         }
+        /// <summary>
+        /// Metodo responsável por calcular a idade
+        /// </summary>
+        /// <param name="pessoa"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        [System.ComponentModel.Description("Metodo responsável por calcular a idade")]
         public bool CalculoIdade(Pessoa pessoa)
         {
             try
@@ -112,6 +141,12 @@ namespace SISPTD.BO
                 throw new Exception("Erro durante a Verificação da Idade de Pessoa", e);
             }
         }
+        /// <summary>
+        /// Método responsavel por obter pessoa logada
+        /// </summary>
+        /// <param name="login"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
         public string ObterPessoaLogin(User login)
         {
             try

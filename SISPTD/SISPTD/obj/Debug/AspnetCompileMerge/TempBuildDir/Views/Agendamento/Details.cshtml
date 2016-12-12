@@ -1,0 +1,58 @@
+﻿@model SISPTD.Models.Agendamento
+
+@{
+    Layout = "~/Views/Shared/_LayoutPrint.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    <div>
+        <h4>Agendamento</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Pessoa.cpf)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Pessoa.cpf)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.User.login)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.User.login)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.dt_Agendamento)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.dt_Agendamento)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.dt_Marcacao)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.dt_Marcacao)
+            </dd>
+    
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.agendamentoId }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</body>
+</html>

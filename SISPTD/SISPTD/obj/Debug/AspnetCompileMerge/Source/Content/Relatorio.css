@@ -1,0 +1,41 @@
+﻿.header {
+    text-align: center;
+}
+.header img {
+    width: 40px;
+}
+
+.header h1 {
+    margin-top: 0;
+    font-family: sans-serif;
+    font-size: 14px !important;
+    font-weight: bold;
+}
+
+.header h2 {
+    margin-top: -5px;
+    line-height: 10px;
+    font-family: sans-serif;
+    font-size: 14px !important;
+}
+
+.header h3 {
+    margin-top: -5px;
+    line-height: 10px;
+    font-family: sans-serif;
+    font-size: 13px !important;
+}
+
+.text-upper {
+    text-transform: uppercase
+}
+
+.destaque {
+    font-weight: bold;
+    text-transform: uppercase;
+    text-decoration: underline;
+}
+
+.pagebreak {
+    page-break-before: always;
+}

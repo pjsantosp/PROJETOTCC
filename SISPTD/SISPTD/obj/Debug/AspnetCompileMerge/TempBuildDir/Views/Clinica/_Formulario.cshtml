@@ -1,0 +1,46 @@
+﻿@model SISPTD.Models.Clinica
+
+@using (Html.BeginForm("Create", "Clinica", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <div class="panel panel-default">
+        <div class="panel-body">
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="row">
+                <div class="col-md-3">
+
+                    <div class="form-group">
+                        @Html.Label("Cidade")
+                        @Html.DropDownList("IdCidade", new List<SelectListItem>(), "", new { @class = "form-control", data_url = @Url.Action("PesquisaCidadeClinica", "Cidade") })
+                    </div>
+
+                </div>
+                <div class="col-md-6 ">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.nome_Clinica, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.EditorFor(model => model.nome_Clinica, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.nome_Clinica, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.tel_Clinica, htmlAttributes: new { @class = "control-label col-md-2 " })
+                        @Html.EditorFor(model => model.tel_Clinica, new { htmlAttributes = new { @class = "form-control telefone" } })
+                        @Html.ValidationMessageFor(model => model.tel_Clinica, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+          
+
+
+        </div>
+       
+    </div>
+
+        <div class="well well-sm">
+            <button type="submit" name="name" class="btn btn-primary "> <i class="fa fa-floppy-o fa-lg"></i>  Gravar</button>
+            <a class="btn btn-danger pull-right" href="@Url.Action("Index","Clinica")"> <i class="fa fa-arrow-left fa-lg"></i>  Voltar para lista</a>
+            @*@Html.ActionLink("", "Index", null, new { @class = "btn btn-link pull-right" })*@
+        </div>
+}

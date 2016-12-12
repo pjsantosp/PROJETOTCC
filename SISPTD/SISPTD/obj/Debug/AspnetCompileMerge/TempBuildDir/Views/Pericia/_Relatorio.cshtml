@@ -1,0 +1,34 @@
+﻿<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sistema de Saúde do Governo de Rondônia">
+    <meta name="author" content="DETIC - Diretoria de Tecnologia da Informação e Comunicação">
+    <link rel="shortcut icon" href="/Images/favicon.ico">
+    <link rel="icon" type="image/gif" href="/Images/favicon.gif">
+
+    <title>@ViewBag.Title</title>
+
+    @Styles.Render("~/Content/relatorio")
+    <link href="~/Content/RelatorioPrint.css" rel="stylesheet" media="print" />
+    @RenderSection("styles", required: false)
+</head>
+<body>
+    <div class="header">
+        <img src="~/Images/BrasaoRondoniaGrande.png" alt="Governo do Estado de Rondônia" />
+        <h1>GOVERNO DO ESTADO DE RONDÔNIA</h1>
+        <h2>@ViewBag.Secretaria</h2>
+        <hr />
+    </div>
+
+    <div class="container">
+        <div class="text-center alert alert-info hidden-print">
+            <i class="fa fa-print"></i> Para imprimir aperte <kbd>Ctrl + P</kbd> ou
+            <button autofocus type="button" class="btn btn-xs btn-primary" onclick="window.print();">clique aqui</button>
+        </div>
+
+        @RenderBody()
+    </div>
+</body>
+</html>

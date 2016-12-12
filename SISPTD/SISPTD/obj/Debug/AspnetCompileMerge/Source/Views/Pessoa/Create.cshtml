@@ -1,0 +1,19 @@
+﻿@model SISPTD.Models.Pessoa
+    @{ 
+        ViewBag.Title = "Cad Paciente";
+    }
+<h4><i class="fa fa-heartbeat" aria-hidden="true"></i> Cadastro de Paciente</h4>
+<span class="text-danger pull-right"><i class="fa fa-info-circle "></i> Os campos com o marcador (*)  são de preenchimento obrigatório.</span>
+<br />
+@Html.Partial("_Formulario", Model)
+<script src="~/Scripts/jquery-2.1.4.js"></script>
+<script src="~/scripts/bootstrap.js"></script>
+<script src="~/Scripts/bootstrap-datepicker.min.js"></script>
+<script src="~/Scripts/bootstrap-datepicker.pt-BR.min.js"></script>
+<script src="~/Scripts/jquery.maskedinput.min.js"></script>
+<script src="~/Scripts/chosen.jquery.min.js"></script>
+<script src="~/Scripts/chosen-ajax.jquery.js"></script>
+<script src="~/Scripts/Utils.js"></script>
+
+
+

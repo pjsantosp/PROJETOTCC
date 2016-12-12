@@ -71,7 +71,7 @@ namespace SISPTD.Controllers
 
             return View(pessoaBO.SelecionarPorId(id.Value));
         }
-        [Authorize(Roles = "Funcionario, Gerente")]
+        [Authorize(Roles = "Funcionario, Gerente, Administrador")]
         public ActionResult Create()
         {
             ViewBag.cidade = new SelectList(cidadeBO.Selecionar(), "IdCidade", "Cidade");

@@ -1,0 +1,9 @@
+﻿@model SISPTD.Models.Pessoa
+@{
+    ViewBag.Title = "Cad Medico";
+}
+<h4><i class="fa fa-user-md fa-lg" aria-hidden="true"></i> Cadastro de Médico</h4>
+<span class="text-danger pull-right"><i class="fa fa-info-circle "></i> Os campos com o marcador (*)  são de preenchimento obrigatório.</span>
+<br />
+
+@Html.Partial("_FormMedico", Model)

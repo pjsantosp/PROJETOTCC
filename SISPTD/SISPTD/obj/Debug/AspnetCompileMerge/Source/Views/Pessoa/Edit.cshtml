@@ -1,0 +1,18 @@
+﻿@model SISPTD.Models.Pessoa
+<span class="text-danger pull-right"><i class="glyphicon glyphicon-info-sign "></i> Os campos em vermelho são de preenchimento obrigatório.</span>
+<br />
+ <a title="Adicionar Acompanhante" class="btn btn-primary" href="@Url.Action("CreateAcompanhante","Pessoa", new {acompanhanteId= Model.pessoaId })"><i class="fa fa-user-plus fa-lg" aria-hidden="true"></i> Acompanhante <span class="badge"> @ViewBag.acompanhante</span> </a>
+
+@using (Html.BeginForm())
+{
+    @Html.HiddenFor(p=> p.pessoaId)
+    @Html.HiddenFor(p=> p.TipoPessoa)
+    @Html.HiddenFor(p => p.Endereco.enderecoId)
+
+  @Html.Partial("_Formulario", Model)
+
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

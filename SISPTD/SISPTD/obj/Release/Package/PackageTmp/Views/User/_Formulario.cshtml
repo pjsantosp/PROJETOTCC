@@ -9,6 +9,8 @@
     @using (Html.BeginForm("Create", "User", FormMethod.Post))
     {
         <div class="panel panel-default">
+            <div class="panel-heading"><h3 class="panel-title"><i class="fa fa-user" aria-hidden="true"></i> Cadastro de Usuário</h3>
+</div>
             <div class="panel-body">
 
                 @Html.AntiForgeryToken()
@@ -53,8 +55,8 @@
 
                         </div>
                         <div class="well well-sm">
-                            <input type="submit" name="name" class="btn btn-primary btn-confirm pull-right" value="Gravar" />
-                            <br /><br />
+                            <button type="submit" name="name" class="btn btn-primary "> <i class="fa fa-floppy-o fa-lg"></i>  Gravar</button>
+                            <a class="btn btn-danger pull-right" href="@Url.Action("Index","User")"> <i class="fa fa-backward fa-lg"></i>  Voltar Para Lista  </a>
                         </div>
                     </div>
                 </div>

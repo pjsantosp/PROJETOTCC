@@ -42,16 +42,18 @@
     <!-- Tab panes -->
     <div class="tab-content">
         <div role="tabpanel" class="tab-pane active" id="home">
-           @Html.Action("ProcessoEmAgendamento", "Processo")
-
+            <div class="table table-responsive">
+                @Html.Action("ProcessoEmAgendamento", "Processo")
+            </div>
         </div>
         <div role="tabpanel" class="tab-pane" id="profile">
-            <div class="panel panel-default">
-                <!-- Default panel contents -->
-                <div class="panel-heading "><h5> <i class="fa fa-calendar fa-lg"> </i> <strong>Lista de Agendamentos</strong>   </h5></div>
+            <div class="table-responsive">
 
-                <!-- Table -->
-                <div class="table-responsive">
+                <div class="panel panel-default">
+                    <!-- Default panel contents -->
+                    <div class="panel-heading "><h5> <i class="fa fa-calendar fa-lg"> </i> <strong>Lista de Agendamentos</strong>   </h5></div>
+
+                    <!-- Table -->
                     <table class="table table-hover table-condensed table-bordered">
                         <tr>
 
@@ -97,16 +99,16 @@
                                 </td>
                                 <td>
                                     <a class="btn-group btn-sm btn-primary" title="Editar" href="@Url.Action("Edit", "Agendamento",new { id= item.agendamentoId })" aria-label="Skip to main navigation">
-                                        <i class="fa fa-pencil fa-lg" aria-hidden="true"></i>
+                                        <i class="fa fa-pencil " aria-hidden="true"></i>
                                     </a>
-                                    <a class="btn-group btn-sm btn-danger"  href="@Url.Action("Delete", "Agendamento", new { id = item.agendamentoId })"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                                    <a class="btn-group btn-sm btn-danger" href="@Url.Action("Delete", "Agendamento", new { id = item.agendamentoId })"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
                                 </td>
                             </tr>
                         }
 
                     </table>
-                </div>
 
+                </div>
             </div>
 
 

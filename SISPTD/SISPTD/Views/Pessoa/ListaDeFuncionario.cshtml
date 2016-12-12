@@ -3,12 +3,18 @@
 @{
     ViewBag.Title = "Lista de Funcionarios";
 }
-<div>
-    
+<div class="row">
+    <div class="col-md-4">
+
+        
+    </div>
+
 
 </div>
 <div class="row">
-    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        
+    </div>
     <div class="col-md-4 col-md-offset-4">
         @using (Html.BeginForm(FormMethod.Get))
             {
@@ -30,7 +36,20 @@
 {
     <div class="panel panel-default">
         <!-- Default panel contents -->
-        <div class="panel-heading"><h5> <i class="fa fa-user fa-lg"> </i> <strong>Lista de Funcionários</strong>   </h5></div>
+        <div class="panel-heading">
+            <h5>
+                <i class="fa fa-user fa-lg"> </i> <strong>Lista de Funcionários</strong>
+                <div class="pull-right">
+                    <span class="label label-info">Manutenção:</span>
+                    <a class="label label-primary" title="Manutenção de Cadastro" href="@Url.Action("ManutencaoDeCadastro", "Pessoa")" aria-label="Skip to main navigation">
+                        <i class="fa fa-pencil fa-lg" aria-hidden="true"></i>
+                    </a> |
+                    <a class="label label-success" title="Criar Usuário" href="@Url.Action("Index", "User")" aria-label="Skip to main navigation">
+                        <i class="fa fa-user-plus fa-lg" aria-hidden="true"></i>
+                    </a>
+                </div>
+            </h5> 
+        </div>
 
         <!-- Table -->
         <div class="table-responsive">
@@ -95,9 +114,7 @@
                                         <a class="btn-group btn-sm btn-primary" title="Editar" href="@Url.Action("EditFuncionario", "Pessoa",new { id= item.pessoaId })" aria-label="Skip to main navigation">
                                             <i class="fa fa-pencil" aria-hidden="true"></i>
                                         </a>
-                                        <a class="btn-group btn-sm btn-primary" title="Criar Usuário" href="@Url.Action("Index", "User",new { id= item.pessoaId })" aria-label="Skip to main navigation">
-                                            <i class="fa fa-user-plus" aria-hidden="true"></i>
-                                        </a>
+
                                     </div>
                                 }
 
@@ -120,10 +137,10 @@ else
         </small>
     </h2>
 }
-    
 
-    <span class="pull-right">
-        <strong>  Pagina @Model.PageNumber de @Model.PageCount </strong>
-        @Html.PagedListPager(Model, pagina => Url.Action("Index", new { pagina }))
-    </span>
+
+<span class="pull-right">
+    <strong>  Pagina @Model.PageNumber de @Model.PageCount </strong>
+    @Html.PagedListPager(Model, pagina => Url.Action("Index", new { pagina }))
+</span>
 
