@@ -91,6 +91,7 @@ namespace SISPTD.Models
         public virtual ICollection<Pericia> PericiaMedico { get; set; }
         public virtual Pessoa Acompanhante { get; set; }
         public virtual ICollection<User> Usuarios { get; set; }
+        public virtual ICollection<AcompanhanteProcesso>ListaAcompProcesso { get; set; }
         public virtual ICollection<Especialidade> Especialidade { get; set; }
         public virtual ICollection<Requisicao> RequisicaoComoPaciente { get; set; }
         public virtual List<PessoaRequisicao>PessoaRequisicao { get; set; }

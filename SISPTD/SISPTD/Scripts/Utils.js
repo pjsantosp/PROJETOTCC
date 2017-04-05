@@ -156,28 +156,32 @@ $(document).ready(function () {
 
     //Localiza paciente no Processo
     $('.buscarPacienteDistrib').click(function () {
-        debugger;
         var cpf = $('#buscarPacienteDistrib').val();
         var data = {
-            cpf: cpf
+            cpfPaciente: cpf
         }
-
+        debugger
         $.get(urlPacienteProcesso, data)
             .success(function (data) {
                 $('#nomePacienteDistrib').val(data.Nome);
                 $('#idPacienteDistrib').val(data.Id)
-
+                //$('#divAcomp').val(data.Acomp)
+                var id = data.Id
             })
             .error(function (data) {
                 alert("Algo está errado, não foi possível pesquisar o paciente!");
             })
-
+        debugger
+        function ObterAcompanhantes(id) {
+            $.get(urlAcompProcesso, id)
+        }
 
     });
+    
+
 
     //Localiza Pessoa p/ Manutenção
     $('.buscarPessoaManutencao').click(function () {
-        debugger;
         var cpf = $('#buscarPessoaManutencao').val();
         var data = {
             cpf: cpf
@@ -351,13 +355,13 @@ function AddPessoaLista() {
 }
 
 
-function Limpar() {
-    debugger
-    $('#btnLimpar').click(function () {
-        $('#nome_pessoa').text("");
-        $('#procurarAcompanhentes').attr('value', '');
-    });
-}
+//function Limpar() {
+//    debugger
+//    $('#btnLimpar').click(function () {
+//        $('#nome_pessoa').text("");
+//        $('#procurarAcompanhentes').attr('value', '');
+//    });
+//}
 function RemoveAcompanhanteLista() {
     var url = $('#RemoveItens').data("url").trim();
     var id = $('#RemoveItens').data("id");

@@ -35,6 +35,7 @@ namespace SISPTD.Models
         public long ? medicoId { get; set; }
 
         public virtual ICollection<Agendamento> listaAgendamento { get; set; }
+        public virtual ICollection<AcompanhanteProcesso>ListaDeAcompantesProcesso { get; set; }
         public virtual ICollection<Pericia> listaPericia { get; set; }
         public virtual Pessoa Paciente { get; set; }
         public virtual Pessoa Medico { get; set; }

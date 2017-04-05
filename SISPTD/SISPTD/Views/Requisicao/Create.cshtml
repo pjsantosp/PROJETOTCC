@@ -126,15 +126,7 @@
                         </div>
                     </div>
                 </div>
-                @*<div class="row">
-                    <div class="col-sm-10 col-md-10">
-                        <div class="form-group">
-                            @Html.Label("Observações *", htmlAttributes: new { @class = "control-label " })
-                            @Html.TextAreaFor(model => model.observacoes, 5, 146, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.observacoes, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-                </div>*@
+           
 
             </div>
 
@@ -149,10 +141,8 @@
                         <div class="modal-body">
                             <input type="hidden" id="pessoa_id_pai" name="pessoaId" />
                             <input type="hidden" name="idPai" id="idPai" />
-                           @* <input type="hidden" class="cpf" name="cpfAcomp" id="cpfAcomp" value="" />*@
                             <span class="input-group">
                                 <input type="text" name="buscar" id="buscar" class="form-control cpf" value="" />
-                               @* @Html.TextBox("buscar", Request.QueryString["CPF"], new { value="", Styles="display:nome;", autofocus = "", @class = "procurarPessoa  col-md-2 form-control", placeholder = "Procure por CPF" })*@
                                 <span class="input-group-btn">
                                     <button type="button" id="procurarAcompanhentes" class="btn btn-default"><i class="fa fa-search"></i></button>
                                 </span>
@@ -164,9 +154,7 @@
                         </div>
                         <div class="modal-footer">
                             <a href="#" onclick="AddPessoaLista();" data-dismiss="modal" data-id="" data-url="@Url.Action("AddAcompanhante", "Requisicao") " id="AddItens" class="btn btn-success acompId "><i class="glyphicon glyphicon-plus"></i> </a>
-                            @*<a href="#" onclick="Limpar();" id="btnLimpar" class="btn btn-success ">
-                                    <i class="fa fa-eraser" aria-hidden="true"></i>
-                                </a>*@
+                          
                         </div>
                     </div>
                 </div>

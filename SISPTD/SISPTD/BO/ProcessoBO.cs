@@ -19,8 +19,7 @@ namespace SISPTD.BO
         {
             if (entidade.pacienteId == 0)
                 throw new Exception("É necessario um Paciente!");
-            //if (entidade. == entidade.SetorDestinoId)
-            //    throw new Exception("Setor de Origem e Destino, não pode ser iguais");
+            
             base.Inserir(entidade);
 
         }
@@ -66,6 +65,13 @@ namespace SISPTD.BO
                 .Include(p => p.Paciente)
                 .Where(m => m.Setor =="PERICIA");
             return listaDePericia.OrderByDescending(m => m.dtCadastro).ToPagedList(pagina.Value, tamanhoPagina);
+        }
+        public List<Processo> ObterAcompanhantes(int? pessoaId)
+        {
+            List<Processo> listaDeAcompanhantes = _contexto.Set<Processo>()
+                .Include(p => p.ListaDeAcompantesProcesso)
+                .Where(p => p.pacienteId == pessoaId).ToList();
+            return listaDeAcompanhantes;
         }
 
     }

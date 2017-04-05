@@ -106,6 +106,11 @@ namespace SISPTD.Models
               .HasForeignKey(e => e.pessoaId);
 
             modelBuilder.Entity<Pessoa>()
+             .HasMany(e => e.ListaAcompProcesso)
+             .WithRequired(e => e.Acompanhante)
+             .HasForeignKey(e => e.pessoaId);
+
+            modelBuilder.Entity<Pessoa>()
               .HasMany(e => e.RequisicaoComoPaciente)
               .WithRequired(e => e.Paciente)
               .HasForeignKey(e => e.pacienteId);
@@ -142,31 +147,6 @@ namespace SISPTD.Models
 
             #endregion
 
-            #region Cria relacionamento Pessoa - Requisicao sem Tipo
-            //aqui mexi
-
-
-            //modelBuilder.Entity<Requisicao>()
-            //   .HasMany(e => e.PessoaAcompanhante)
-            //   .WithMany(e => e.RequisicaoComoAcompanhante)
-            //   .Map(e =>
-            //   {
-            //       e.MapLeftKey("pessoaId");
-            //       e.MapRightKey("requisicaoId");
-            //       e.ToTable("PessoaRequisicao");
-            //   });
-
-            //modelBuilder.Entity<Pessoa>()
-            //   .HasMany(e => e.RequisicaoComoAcompanhante)
-            //   .WithMany(e => e.PessoaAcompanhante)
-            //   .Map(e =>
-            //   {
-            //       e.MapLeftKey("pessoaId");
-            //       e.MapRightKey("requisicaoId");
-            //       e.ToTable("PessoaRequisicao");
-            //   });
-
-            #endregion
 
             #region Cria Relacionamento Pessoa - Requisicao com Tipo
 
@@ -198,6 +178,11 @@ namespace SISPTD.Models
             #endregion
 
             #region Relacionamentoda Tb Processo
+
+            modelBuilder.Entity<Processo>()
+            .HasMany(e => e.ListaDeAcompantesProcesso)
+            .WithRequired(e => e.Processo)
+            .HasForeignKey(e => e.processoId);
 
             modelBuilder.Entity<Processo>()
                .HasMany(e => e.ListaDeMovimentacao)

@@ -206,6 +206,14 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helper\Helper.cs" />
+    <Compile Include="Migrations\201703251859015_MigracaoInicial.cs" />
+    <Compile Include="Migrations\201703251859015_MigracaoInicial.Designer.cs">
+      <DependentUpon>201703251859015_MigracaoInicial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703252005326_ProcessoAcomp.cs" />
+    <Compile Include="Migrations\201703252005326_ProcessoAcomp.Designer.cs">
+      <DependentUpon>201703252005326_ProcessoAcomp.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Agendamento.cs" />
@@ -230,6 +238,7 @@
     <Compile Include="Models\Status.cs" />
     <Compile Include="Models\TipoPericia.cs" />
     <Compile Include="Models\TipoPessoa.cs" />
+    <Compile Include="Models\AcompanhanteProcesso.cs" />
     <Compile Include="Models\Trecho.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\Via.cs" />
@@ -1709,6 +1718,14 @@
   <ItemGroup>
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201703251859015_MigracaoInicial.resx">
+      <DependentUpon>201703251859015_MigracaoInicial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703252005326_ProcessoAcomp.resx">
+      <DependentUpon>201703252005326_ProcessoAcomp.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

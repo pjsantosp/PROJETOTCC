@@ -15,7 +15,7 @@
                 <div class="col-md-4">
                     @Html.Label("CPF")
                     <div class="input-group">
-                        @Html.TextBox("buscarPacienteDistrib", Request.QueryString["CPF"], new { autofocus = "", @class = "   col-md-2 form-control", placeholder = "Procure por CPF ou CNS" })
+                        @Html.TextBox("buscarPacienteDistrib", Request.QueryString["cpfPaciente"], new { autofocus = "", @class = "   col-md-2 form-control", placeholder = "Procure por CPF ou CNS" })
                         <span class="input-group-btn"><button type="button" class="btn btn-success buscarPacienteDistrib"><i class="glyphicon glyphicon-search"></i></button></span>
                     </div>
                 </div>
@@ -58,6 +58,9 @@
                         @Html.EditorFor(model => model.CaraterInternacao, new { htmlAttributes = new { @class = "form-control" } })
                     </div>
                 </div>
+            </div>
+            <div id="divAcomp" >
+
             </div>
             <div class="row">
                
@@ -121,6 +124,9 @@
             </div>
         </div>
     </div> @*fim panel*@
+    <div id="divAcomp">
+
+    </div>
 
             <div class="well well-sm">
                 <button type="submit" name="name" class="btn btn-primary "> <i class="fa fa-floppy-o fa-lg"></i>  Gravar</button>
@@ -133,7 +139,8 @@
 
 }
 <script>
-    var urlPacienteProcesso = '@Url.Action("Pesquisar", "Pessoa")';
+    var urlPacienteProcesso = '@Url.Action("ObterPacienteProcesso", "Pessoa")';
+    var urlAcompProcesso = '@Url.Action("ObterAcompProcesso", "Pessoa")';
     var urlBuscarMedico = '@Url.Action("PesquisarMedico", "Pessoa")';
 </script>
 

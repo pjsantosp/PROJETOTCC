@@ -2,6 +2,7 @@
 using SISPTD.Models;
 using SISPTD.Ultis;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
@@ -42,7 +43,11 @@ namespace SISPTD.Controllers
                 }
                 else
                 {
-                    return Json(new { Nome = pessoa.nome, Id = pessoa.pessoaId, Cpf = pessoa.cpf }, JsonRequestBehavior.AllowGet);
+                    List<Pessoa> acompanhantes = pessoaBO.Selecionar().Where(p => p.acompanhanteId == pessoa.pessoaId).ToList();
+                     
+
+
+                    return Json(new { Nome = pessoa.nome, Id = pessoa.pessoaId, Cpf = pessoa.cpf}, JsonRequestBehavior.AllowGet);
                 }
             }
             else
@@ -50,6 +55,18 @@ namespace SISPTD.Controllers
                 return Json(null);
             }
            
+        }
+        public ActionResult ObterPacienteProcesso(string cpfPaciente)
+        {
+            cpfPaciente = Util.RemoverMascara(cpfPaciente);
+            var paciente = pessoaBO.Selecionar().Where(p => p.cpf == cpfPaciente && p.TipoPessoa == TipoPessoa.Paciente).FirstOrDefault();
+            return Json(new { Id = paciente.pessoaId, Nome = paciente.nome }, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult ObterAcompProcesso(int? id)
+        {
+            List<Pessoa> acompanhates = pessoaBO.Selecionar().Where(p => p.acompanhanteId == id).ToList();
+
+            return Json(acompanhates, JsonRequestBehavior.AllowGet);
         }
         public ActionResult PesquisarMedico(string cpf)
         {
