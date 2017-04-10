@@ -13,7 +13,21 @@ namespace SISPTD.Controllers
         private SetorBO setorBO = new SetorBO(new dbSISPTD());
         private UserBO userBO = new UserBO(new dbSISPTD());
         private PessoaBO pessoaBO = new PessoaBO(new dbSISPTD());
+        public ActionResult AddAcompProcesso(int? acompId, List<Pessoa> listaDeAcompanhantes)
+        {
+            listaDeAcompanhantes = listaDeAcompanhantes ?? new List<Pessoa>();
+            Pessoa acompanhante = pessoaBO.SelecionarPorId(acompId.Value);
+            listaDeAcompanhantes.Add(acompanhante);
+            return PartialView("_ListaPessoa", listaDeAcompanhantes);
+        }
 
+        public ActionResult RemoveAcompanhante(int id, List<Pessoa> Pessoa)
+        {
+            var acompanhante = Pessoa[id];
+            Pessoa = Pessoa ?? new List<Pessoa>();
+            Pessoa.Remove(acompanhante);
+            return PartialView("_ListaPessoa", Pessoa);
+        }
         public ActionResult BuscaProcesso(long nProcesso)
         {
             if (nProcesso > 0)

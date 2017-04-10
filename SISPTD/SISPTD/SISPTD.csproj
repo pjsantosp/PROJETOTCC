@@ -1709,6 +1709,7 @@
     <Content Include="Views\Pessoa\_FormManutencao.cshtml" />
     <Content Include="Views\Pessoa\EditarAcompanhante.cshtml" />
     <Content Include="Views\Pessoa\_FormAcompanhante.cshtml" />
+    <Content Include="Views\Processo\_ListaPessoa.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -30,31 +30,31 @@ namespace SISPTD.Controllers
         /// </summary>
         /// <param name="cpf">string cpf</param>
         /// <returns>Json</returns>
-       
+
         public ActionResult Pesquisar(string cpf)
         {
             cpf = Util.RemoverMascara(cpf);
             if (!string.IsNullOrEmpty(cpf))
             {
-                var pessoa = pessoaBO.Selecionar().Where(p => p.cpf.Contains(cpf) || p.cns.Contains(cpf) ).FirstOrDefault();
+                var pessoa = pessoaBO.Selecionar().Where(p => p.cpf.Contains(cpf) || p.cns.Contains(cpf)).FirstOrDefault();
                 if (pessoa == null || pessoa.TipoPessoa == TipoPessoa.Medico)
                 {
                     return Json(new { Nome = "", Id = 0 }, JsonRequestBehavior.AllowGet);
                 }
                 else
                 {
+
                     List<Pessoa> acompanhantes = pessoaBO.Selecionar().Where(p => p.acompanhanteId == pessoa.pessoaId).ToList();
-                     
 
 
-                    return Json(new { Nome = pessoa.nome, Id = pessoa.pessoaId, Cpf = pessoa.cpf}, JsonRequestBehavior.AllowGet);
+                    return Json(new { Nome = pessoa.nome, Id = pessoa.pessoaId, Cpf = pessoa.cpf }, JsonRequestBehavior.AllowGet);
                 }
             }
             else
             {
                 return Json(null);
             }
-           
+
         }
         public ActionResult ObterPacienteProcesso(string cpfPaciente)
         {
@@ -62,11 +62,30 @@ namespace SISPTD.Controllers
             var paciente = pessoaBO.Selecionar().Where(p => p.cpf == cpfPaciente && p.TipoPessoa == TipoPessoa.Paciente).FirstOrDefault();
             return Json(new { Id = paciente.pessoaId, Nome = paciente.nome }, JsonRequestBehavior.AllowGet);
         }
-        public ActionResult ObterAcompProcesso(int? id)
+        public ActionResult ObterAcompProcesso(string cpfAcomp)
         {
-            List<Pessoa> acompanhates = pessoaBO.Selecionar().Where(p => p.acompanhanteId == id).ToList();
+            cpfAcomp = Util.RemoverMascara(cpfAcomp);
+            if (!string.IsNullOrEmpty(cpfAcomp))
+            {
+                var pessoa = pessoaBO.Selecionar().Where(p => p.cpf.Contains(cpfAcomp) || p.cns.Contains(cpfAcomp)).FirstOrDefault();
+                if (pessoa == null)
+                {
+                    return Json(new { Nome = "", Id = 0 }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json(new
+                    {
+                        Nome = pessoa.nome,
+                        Id = pessoa.pessoaId,
+                    }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            else
+            {
+                return Json(null);
+            }
 
-            return Json(acompanhates, JsonRequestBehavior.AllowGet);
         }
         public ActionResult PesquisarMedico(string cpf)
         {
@@ -272,7 +291,7 @@ namespace SISPTD.Controllers
                     TempData["Sucesso"] = "Cadastro Realizado com Sucesso !";
                     return RedirectToAction("Index", "User");
                 }
-               
+
             }
             catch (Exception e)
             {
@@ -346,7 +365,7 @@ namespace SISPTD.Controllers
 
             return View(pessoaBO.ObterMedico(buscaMedico, numeroPagina, tamanhoPagina));
         }
-        [Authorize(Roles ="Gerente, Administrador")]
+        [Authorize(Roles = "Gerente, Administrador")]
         public ActionResult CreateMedico()
         {
 
@@ -358,7 +377,7 @@ namespace SISPTD.Controllers
         /// <param name="pessoa">pessoa</param>
         /// <returns>View tipo Medico</returns>
         [HttpPost, ValidateAntiForgeryToken]
-        [Authorize(Roles ="Gerente, Administrador")]
+        [Authorize(Roles = "Gerente, Administrador")]
         public ActionResult CreateMedico(Pessoa pessoa)
         {
             try
@@ -422,7 +441,7 @@ namespace SISPTD.Controllers
                     pessoa.TipoPessoa = TipoPessoa.Medico;
                     pessoaBO.Alterar(pessoa);
                     enderecoBO.Alterar(objEndereco);
-                  
+
                     TempData["Sucesso"] = "Alteração Realizada com Sucesso!";
                 }
                 return RedirectToAction("ListaDeMedico");
@@ -472,7 +491,7 @@ namespace SISPTD.Controllers
                     enderecoBO.Alterar(objEndereco);
                     TempData["Sucesso"] = "Alteração Realizada com Sucesso!";
                 }
-               
+
                 return RedirectToAction("Edit");
             }
             catch (Exception ex)

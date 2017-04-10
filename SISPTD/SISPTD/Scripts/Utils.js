@@ -75,11 +75,6 @@ null,
     allow_single_deselect: true,
 });
 
-
-
-
-
-
 $(document).ready(function () {
 
 
@@ -139,19 +134,7 @@ $(document).ready(function () {
         }).error(function (data) {
             alert("Ops! Não foi possível localizar Paciente Para a Requição Verifique os Dados!");
         })
-        //$.ajax({
-        //    method: 'GET',
-        //    url: "/Pessoa/Pesquisar/?cpf=" + cpf,
-        //    success: function (data) {
 
-        //        $('#nomeDoPaciente').val(data.Nome);
-        //        $('#idDoPaciente').val(data.Id)
-        //        top._pessoaId = data.Id;
-        //    },
-        //    error: function (data) {
-        //        alert("Algo está errado, não foi possível pesquisar o paciente!");
-        //    }
-        //});
     });
 
     //Localiza paciente no Processo
@@ -160,7 +143,7 @@ $(document).ready(function () {
         var data = {
             cpfPaciente: cpf
         }
-        debugger
+
         $.get(urlPacienteProcesso, data)
             .success(function (data) {
                 $('#nomePacienteDistrib').val(data.Nome);
@@ -171,14 +154,19 @@ $(document).ready(function () {
             .error(function (data) {
                 alert("Algo está errado, não foi possível pesquisar o paciente!");
             })
-        debugger
-        function ObterAcompanhantes(id) {
-            $.get(urlAcompProcesso, id)
-        }
 
     });
-    
+    $('#locAcomp').click(function () {
+        var cpfAcomp = $('#cpfAcomp').val();
+        var cpfAcomp = { cpfAcomp: cpfAcomp }
 
+        $.get(urlAcompProcesso, cpfAcomp)
+        .success(function (data) {
+            $('#resultAcomp').text(data.Nome)
+            $("#acompId").val(data.Id)
+        })
+    });
+   
 
     //Localiza Pessoa p/ Manutenção
     $('.buscarPessoaManutencao').click(function () {
@@ -238,7 +226,7 @@ $(document).ready(function () {
 
     //Localiza Medico na Solicitação de pericia
     $('.procurarMedico').change(function () {
-       
+
         var cpf = $('#buscarMedico').val();
         var data = {
             cpf: cpf
@@ -288,7 +276,7 @@ $(document).ready(function () {
 
     //Localiza Paciente no Agendamento
     $('#btnBuscaPacAgendamento').click(function () {
-        debugger
+
         var cpf = $('#buscarPacienteAgendamento').val();
         var data = {
             cpf: cpf
@@ -306,7 +294,7 @@ $(document).ready(function () {
 
     //Localiza processo na Movimentação
     $('#btnBuscaProc').click(function () {
-        debugger;
+
         var nProcesso = $('#nProcesso').val();
 
         var data = {
@@ -354,6 +342,12 @@ function AddPessoaLista() {
 
 }
 
+function AddAcompProc() {
+    debugger
+    var acompId = $('#acompId').val();
+    var acompId = { acompId: acompId }
+    var url = $('#resultAcomp').data('url');
+}
 
 //function Limpar() {
 //    debugger
